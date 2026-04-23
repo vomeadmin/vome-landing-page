@@ -1,0 +1,91 @@
+@import "tailwindcss";
+@import "./vome-tokens.css";
+@import "./prose.css";
+
+/* ==========================================================================
+   Vome Tailwind v4 theme.
+   Tokens mirror vome-tokens.css by name so utilities stay traceable (e.g.
+   bg-vome-orange → --vome-orange). vome-tokens.css is the source of truth
+   and is imported above so CSS variables remain available for BEM styles.
+   ========================================================================== */
+@theme {
+  /* Brand */
+  --color-vome-orange: #fa935b;
+  --color-vome-orange-600: #f99b67;
+  --color-vome-orange-700: #e8583e;
+  --color-vome-peach-50: #faeae3;
+  --color-vome-green: #00b050;
+  --color-vome-teal: #5c9987;
+  --color-vome-blue: #4472c4;
+
+  /* Foreground */
+  --color-fg-1: #000000;
+  --color-fg-2: #3b3939;
+  --color-fg-3: rgba(0, 0, 0, 0.8);
+  --color-fg-4: rgba(0, 0, 0, 0.62);
+  --color-fg-5: rgba(0, 0, 0, 0.5);
+  --color-fg-6: rgba(0, 0, 0, 0.3);
+
+  /* Surfaces */
+  --color-surface-0: #ffffff;
+  --color-surface-1: #f9f9fb;
+  --color-surface-2: #f0eff4;
+  --color-surface-3: #f1f1f1;
+  --color-surface-4: #f3f3f3;
+  --color-surface-ink: #3f3d56;
+
+  /* Borders */
+  --color-border-1: rgba(0, 0, 0, 0.25);
+  --color-border-2: rgba(0, 0, 0, 0.12);
+  --color-text-muted-ed: #616161;
+
+  /* Semantic */
+  --color-success: #00b050;
+  --color-danger: #e8583e;
+  --color-info: #4472c4;
+  --color-on-orange: #ffffff;
+
+  /* Type */
+  --font-display: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-accent: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Type scale */
+  --text-display: 58px;
+  --text-display--line-height: 1.1;
+  --text-h1: 40px;
+  --text-h1--line-height: 1.25;
+  --text-h2: 32px;
+  --text-h2--line-height: 1.3;
+  --text-h3: 24px;
+  --text-h3--line-height: 1.3;
+  --text-lead: 22px;
+  --text-lead--line-height: 1.5;
+  --text-body: 16px;
+  --text-body--line-height: 1.5;
+  --text-small: 14px;
+  --text-small--line-height: 1.5;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.4;
+
+  /* Radii */
+  --radius-sm: 5px;
+  --radius-md: 12px;
+  --radius-lg: 15px;
+  --radius-xl: 20px;
+  --radius-2xl: 25px;
+
+  /* Shadows */
+  --shadow-card: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  --shadow-card-lg: 0 3px 6px 0 rgba(0, 0, 0, 0.26);
+  --shadow-elev-1:
+    0px 1px 5px 0px rgba(0, 0, 0, 0.1),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.1),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.1);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --default-transition-duration: 220ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

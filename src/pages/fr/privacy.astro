@@ -1,0 +1,26 @@
+---
+/**
+ * Privacy Policy route at /fr/privacy.
+ *
+ * Renders the English policy body (see components/content/PrivacyBody.astro)
+ * because an authoritative French translation does not exist yet — the
+ * vome-react source file `PrivacyFR.js` is an empty 0-byte file and the
+ * React app also falls back to English for the FR locale. When a proper
+ * FR translation is produced, swap <PrivacyBody /> below for a
+ * <PrivacyBodyFr /> component rather than touching this route.
+ *
+ * Layout's `locale="fr"` still localizes the nav + footer chrome so the
+ * surrounding site chrome reads French even though the legal copy is
+ * English.
+ */
+import Layout from "../../layouts/Layout.astro";
+import PrivacyBody from "../../components/content/PrivacyBody.astro";
+---
+
+<Layout
+  locale="fr"
+  title="Privacy Policy | Vome Volunteer"
+  description="How Vome collects, uses, discloses, transfers and stores your personal information — including compliance with PIPEDA, HIPAA, GDPR, CCPA and Québec P-39.1."
+>
+  <PrivacyBody />
+</Layout>

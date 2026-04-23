@@ -1,0 +1,83 @@
+---
+import Button from "./Button.astro";
+import { strings, t, localeFromPath, switchLocaleHref, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const currentLabel = locale === "en" ? "English" : "Français";
+
+const langOptions: { code: Locale; label: string; href: string }[] = [
+  { code: "en", label: "English", href: switchLocaleHref(Astro.url.pathname, "en") },
+  { code: "fr", label: "Français", href: switchLocaleHref(Astro.url.pathname, "fr") },
+];
+
+// Convenience accessors. Strings come from src/i18n/strings.ts.
+const n = strings.nav;
+---
+
+<div class="topnav">
+  <details class="topnav__lang-dd">
+    <summary class="topnav__lang" aria-label="Change language">
+      <svg class="globe" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"></path>
+      </svg>
+      <span>{currentLabel}</span>
+      <svg class="caret" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </summary>
+    <ul class="topnav__lang-menu" role="list">
+      {langOptions.map((o) => (
+        <li>
+          <a
+            href={o.href}
+            hreflang={o.code}
+            lang={o.code}
+            aria-current={o.code === locale ? "true" : undefined}
+            class={o.code === locale ? "is-active" : undefined}
+          >
+            {o.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </details>
+  <div class="topnav__links">
+    <a href={locale === "fr" ? "/fr/features" : "/features"}>
+      {t(n.features, locale)}
+      <svg class="caret" viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </a>
+    <a href={locale === "fr" ? "/fr/plans" : "/plans"}>{t(n.plans, locale)}</a>
+    <a href={locale === "fr" ? "/fr/about-us" : "/about-us"}>{t(n.about, locale)}</a>
+    <a href={locale === "fr" ? "/fr/contact" : "/contact"}>{t(n.contact, locale)}</a>
+    <a href={locale === "fr" ? "/fr/login" : "/login"}>{t(n.login, locale)}</a>
+  </div>
+</div>
+
+<nav class="mainnav">
+  <a href={locale === "fr" ? "/fr/" : "/"} aria-label="Vome home">
+    <!-- Natural logo aspect is ~2.44:1 (844x346). Preserve it: 98x40. -->
+    <img class="mainnav__logo" src="/logos/full-logo-orange.png" alt="Vome" width="98" height="40" />
+  </a>
+
+  <!-- Invented mobile hamburger (the reference did not design mobile nav behavior).
+       Checkbox-hack approach: the hidden .nav__toggle drives .mainnav__cta
+       visibility on narrow screens via a :checked sibling selector in landing.css. -->
+  <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true" />
+  <label for="nav-toggle" class="nav__burger" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <div class="mainnav__cta">
+    <Button href={locale === "fr" ? "/fr/demo" : "/demo"} variant="ghost">{t(n.book_demo, locale)}</Button>
+    <Button href={locale === "fr" ? "/fr/register" : "/register"} variant="primary">{t(n.signup_free, locale)}</Button>
+  </div>
+</nav>

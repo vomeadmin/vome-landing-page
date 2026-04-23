@@ -1,0 +1,49 @@
+---
+type Variant = "primary" | "ghost" | "ghost-dark" | "nav";
+
+interface Props {
+  href?: string;
+  variant?: Variant;
+  size?: "md" | "sm";
+  external?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variant = "primary",
+  size = "md",
+  external = false,
+  class: className = "",
+} = Astro.props;
+
+const classes = [
+  "btn",
+  `btn--${variant}`,
+  size === "sm" ? "btn--sm" : "",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+
+const isExternal =
+  external || (href ? /^(https?:|mailto:|tel:)/.test(href) : false);
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={classes}
+      {...(isExternal
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button type="button" class={classes}>
+      <slot />
+    </button>
+  )
+}

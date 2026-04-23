@@ -1,0 +1,89 @@
+---
+import TestimonialCard from "../TestimonialCard.astro";
+
+/**
+ * Testimonial copy + organization logos ported from vome-react's
+ * Testimonials.js + translations/landingpage.js. Highlighted cards
+ * (Kate, Jessica, Deidre) match the React treatment.
+ */
+const testimonials = [
+  {
+    quote:
+      "Loving Vome. Definitely has been a huge help. It has been so much easier keeping track of hours and who we have on our team of volunteers using this technology. During our busiest time, Vome has helped our center streamline applications. So glad we made the change!",
+    name: "Gia",
+    title: "Director of Day Program Services, Long Island Alzheimer's & Dementia Center",
+    logo: "/customers/alz-dementia.webp",
+    logoAlt: "Long Island Alzheimer's & Dementia Center",
+  },
+  {
+    quote:
+      "Implementing Vome has revolutionized our volunteer management operations at the Ronald McDonald House Charities of Columbia, SC. The automated scheduling system is a standout feature, saving us significant time and reducing errors. Our volunteers appreciate the flexibility and ease of being able to schedule shifts, which has led to a notable 55% increase in participation and significant improvements in retention.",
+    name: "Kate",
+    title: "Marketing & Communications Manager, RMHC Columbia SC",
+    logo: "/customers/rmhc.webp",
+    logoAlt: "Ronald McDonald House Charities",
+    highlight: true,
+  },
+  {
+    quote:
+      "Vome has been saving me a lot of time managing volunteers across my programs. It offers a robust set of tools that make it simple to recruit and onboard new volunteers, while also providing the functionality needed to communicate with them. They made our transition straightforward, respond to my questions immediately, and incorporate feedback into the platform in record time.",
+    name: "Elizabeth",
+    title: "Manager, Volunteer & Guest Services",
+    logo: "/customers/rochester.webp",
+    logoAlt: "Rochester Regional Health",
+  },
+  {
+    quote:
+      "I like that I can search for particular volunteers and track their shifts. I love that we can get a quick total of all volunteers and their hours. Customer service is the best — I usually hear right back if not by the next day. And Vome is always trying to improve. Feedback is welcomed and improvements are always being rolled out.",
+    name: "Jessica",
+    title: "Community Engagement Manager",
+    logo: "/customers/centerstage.webp",
+    logoAlt: "CenterStage",
+    highlight: true,
+  },
+  {
+    quote:
+      "The ease of doing reports is faaaar better than our previous platform. I have zero issues creating volunteer reports for our team.",
+    name: "Wesley",
+    title: "Volunteer Engagement Manager",
+    logo: "/customers/molaa.webp",
+    logoAlt: "MOLAA",
+  },
+  {
+    quote:
+      "The database is easy to use. I can quickly get the monthly total hours of volunteering and it is incredibly easy to speak with their team. They are also constantly improving.",
+    name: "Deidre",
+    title: "Volunteer & Donations Coordinator",
+    logo: "/customers/mhwss.webp",
+    logoAlt: "Medicine Hat Women's Shelter Society",
+    highlight: true,
+  },
+];
+
+// Author-time duplication for seamless infinite CSS marquee.
+const looped = [...testimonials, ...testimonials];
+---
+
+<section class="tst">
+  <div class="tst__wrap">
+    <div class="tst__intro">
+      <h2 class="tst__h2">See what our customers <span class="tst__h2accent">are saying</span></h2>
+      <p class="tst__sub">From hospital systems to national nonprofits, thousands of coordinators trust Vome to manage their volunteers.</p>
+    </div>
+  </div>
+
+  <div class="tst__marquee">
+    <div class="tst__track">
+      {looped.map((t) => (
+        <TestimonialCard
+          quote={t.quote}
+          name={t.name}
+          title={t.title}
+          logo={t.logo}
+          logoAlt={t.logoAlt}
+          highlight={t.highlight}
+        />
+      ))}
+    </div>
+  </div>
+</section>

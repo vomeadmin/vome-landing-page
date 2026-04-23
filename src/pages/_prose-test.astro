@@ -1,0 +1,104 @@
+---
+/**
+ * Prose typography sandbox. Exercises every element .prose styles so visual
+ * drift shows up quickly.
+ *
+ * Astro excludes underscore-prefixed files from routing in both dev and
+ * production — there is no URL for this page. To preview it, temporarily
+ * rename to `prose-test.astro` (no underscore) and visit /prose-test, then
+ * rename back before committing.
+ */
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Prose typography test" description="Sandbox for .prose styles — not a real page.">
+  <article class="prose" style="margin: 80px auto; padding: 0 6%;">
+    <h1>Prose typography test</h1>
+
+    <p>
+      This page exercises every element the <code>.prose</code> class styles — headings, paragraphs, lists, links, blockquotes, code, horizontal rules, and inline emphasis. If one of these looks off, the fix belongs in <a href="#">src/styles/prose.css</a>, not in a downstream page.
+    </p>
+
+    <p>
+      Body copy should feel comfortable at reading length: around 17px with a 1.7 line-height, capped at a ~700px measure so lines don't run uncomfortably wide. Paragraphs should have enough breathing room between them that scanning feels easy, but not so much that the rhythm breaks.
+    </p>
+
+    <h2>Inline emphasis and links</h2>
+    <p>
+      This paragraph has <strong>strong text</strong> for weight emphasis, <em>emphasised text</em> for tone, and an <a href="https://vomevolunteer.co">inline link</a> that should be Vome orange with an underline. Hovering the link should deepen the color and thicken the underline. Inline code like <code>const orange = "#fa935b"</code> should sit in a soft peach pill.
+    </p>
+
+    <h3>A smaller sub-heading</h3>
+    <p>
+      H3 is for sub-sections within an H2. It should feel distinct from body text but noticeably lighter than H2.
+    </p>
+
+    <h4>A smallest heading for fine-grained outlines</h4>
+    <p>This rarely appears in legal copy, but is included for completeness.</p>
+
+    <h2>Lists</h2>
+
+    <p>Unordered list with nesting:</p>
+    <ul>
+      <li>First top-level item</li>
+      <li>
+        Second top-level item with a nested list
+        <ul>
+          <li>Nested item (circle marker)</li>
+          <li>
+            Nested item with its own nested list
+            <ul>
+              <li>Third-level item (square marker)</li>
+              <li>Another third-level item</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Third top-level item</li>
+    </ul>
+
+    <p>Ordered list with nesting:</p>
+    <ol>
+      <li>First numbered item</li>
+      <li>
+        Second numbered item with a sub-list
+        <ol>
+          <li>Nested item (lower-alpha marker)</li>
+          <li>
+            Another nested item
+            <ol>
+              <li>Third-level item (lower-roman marker)</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li>Third numbered item</li>
+    </ol>
+
+    <h2>Blockquote</h2>
+    <blockquote>
+      <p>
+        "Vome has transformed how we manage our volunteers. The platform is intuitive, and the support team is exceptional."
+      </p>
+      <p>— Gia Mannone, Long Island Alzheimer's &amp; Dementia Center</p>
+    </blockquote>
+
+    <h2>Code</h2>
+
+    <p>An inline <code>code</code> example, and a block:</p>
+
+    <pre><code>{`// Example: greet a volunteer
+function welcome(name) {
+  return \`Welcome to Vome, \${name}!\`;
+}
+
+welcome("Dylan");`}</code></pre>
+
+    <hr />
+
+    <h2>After the horizontal rule</h2>
+    <p>
+      A horizontal rule breaks major sections. Any content after it should resume the normal rhythm without feeling crowded against the line.
+    </p>
+  </article>
+</Layout>

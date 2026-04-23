@@ -1,0 +1,80 @@
+---
+/**
+ * Security section — three compliance pillars + hand-drawn compliance badges.
+ * Badges are inline HTML/SVG (not images); the compliance-badges.png asset
+ * in design-reference/ is intentionally unused.
+ */
+---
+
+<section class="sec">
+  <div class="sec__wrap">
+    <div class="sec__intro">
+      <h2 class="sec__h2">Security your organization can trust.</h2>
+      <p class="sec__sub">Enterprise-grade infrastructure built to meet the reliability, authentication, and compliance standards your organization requires.</p>
+    </div>
+
+    <div class="sec__pillars">
+      <div class="sec__pillar">
+        <div class="sec__pillaricon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
+        </div>
+        <div class="sec__pillarbody">
+          <h3 class="sec__pillartitle">Identity &amp; access</h3>
+          <p class="sec__pillartext">Connect to Microsoft Entra ID, ADFS, Jump Cloud, or any SAML-based single sign-on provider. Enforce two-factor authentication across your team with role-based access controls that keep every admin scoped to what they need.</p>
+        </div>
+      </div>
+
+      <div class="sec__pillar">
+        <div class="sec__pillaricon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7L12 3 4 7v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9z" /><path d="M9 12l2 2 4-4" /></svg>
+        </div>
+        <div class="sec__pillarbody">
+          <h3 class="sec__pillartitle">Infrastructure &amp; encryption</h3>
+          <p class="sec__pillartext">AES-256 encryption at rest, TLS 1.2+ in transit. Hosted on AWS with high availability, redundancy and continuous monitoring. Built to support the privacy and data protection standards expected by healthcare and enterprise clients.</p>
+        </div>
+      </div>
+
+      <div class="sec__pillar">
+        <div class="sec__pillaricon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><path d="M9 15l2 2 4-4" /></svg>
+        </div>
+        <div class="sec__pillarbody">
+          <h3 class="sec__pillartitle">Compliance</h3>
+          <p class="sec__pillartext">Vome follows industry-leading privacy and security frameworks to protect your organization's data at every layer: HIPAA, SOC 2, GDPR, PIPEDA, CCPA, and PCI DSS.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec__badges" aria-label="Compliance certifications">
+      <div class="sec__badge sec__badge--hipaa" title="HIPAA">
+        <div class="sec__badgeshield">
+          <span class="sec__badgename">HIPAA</span>
+          <span class="sec__badgesub">COMPLIANT</span>
+        </div>
+      </div>
+      <div class="sec__badge sec__badge--gdpr" title="GDPR">
+        <svg class="sec__badgestars" viewBox="0 0 80 80" aria-hidden="true">
+          <g fill="#FFD400">
+            <circle cx="40" cy="10" r="1.8" /><circle cx="55" cy="14" r="1.8" /><circle cx="66" cy="25" r="1.8" /><circle cx="70" cy="40" r="1.8" /><circle cx="66" cy="55" r="1.8" /><circle cx="55" cy="66" r="1.8" /><circle cx="40" cy="70" r="1.8" /><circle cx="25" cy="66" r="1.8" /><circle cx="14" cy="55" r="1.8" /><circle cx="10" cy="40" r="1.8" /><circle cx="14" cy="25" r="1.8" /><circle cx="25" cy="14" r="1.8" />
+          </g>
+        </svg>
+        <span class="sec__badgename">GDPR</span>
+      </div>
+      <div class="sec__badge sec__badge--pipeda" title="PIPEDA">
+        <svg class="sec__badgeleafsvg" viewBox="0 0 24 24" aria-hidden="true" fill="#fff"><path d="M12 2l1.5 4.5L18 5l-2 4 4 2-4 2 2 4-4.5-1.5L13 20h-2l.5-4.5L7 17l2-4-4-2 4-2-2-4 4.5 1.5L12 2z" /></svg>
+        <span class="sec__badgename">PIPEDA</span>
+      </div>
+      <div class="sec__badge sec__badge--ccpa" title="CCPA">
+        <span class="sec__badgename">CCPA</span>
+      </div>
+      <div class="sec__badge sec__badge--pci" title="PCI DSS">
+        <span class="sec__badgename">PCI</span>
+        <span class="sec__badgesub">DSS</span>
+      </div>
+    </div>
+
+    <div class="sec__ctas">
+      <a class="btn btn--ghost-dark" href="/privacy">Read our privacy policy →</a>
+    </div>
+  </div>
+</section>

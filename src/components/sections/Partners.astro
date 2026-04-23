@@ -1,0 +1,51 @@
+---
+/**
+ * Customer logos marquee — ported from vome-react's <CustomerLogos/>
+ * (src/views/landingPage/landingPage/CustomerLogos.js), which used
+ * react-fast-marquee. We use a pure CSS infinite scroll (same pattern as
+ * Testimonials.astro): duplicate the set once at author time and slide the
+ * track left by 50% in an infinite loop. Per-logo `fit` keys correspond to
+ * the sizing classes (logoImage / logoImageLarge / logoImageSmall / etc.)
+ * used by the React component so shape quirks stay faithful.
+ */
+
+const logos = [
+  { src: "/customers/molaa.webp", alt: "MOLAA", fit: "md" },
+  { src: "/customers/habitat.webp", alt: "Habitat for Humanity", fit: "md" },
+  { src: "/customers/golf-canada.webp", alt: "Golf Canada", fit: "lg" },
+  { src: "/customers/red-cross-malta.svg", alt: "Malta Red Cross", fit: "sm" },
+  { src: "/customers/rmhc.webp", alt: "Ronald McDonald House Charities", fit: "md" },
+  { src: "/customers/volleyball-canada.webp", alt: "Volleyball Canada", fit: "xs" },
+  { src: "/customers/mission-bay.webp", alt: "Mission Bay Association", fit: "lg" },
+  { src: "/customers/kwmc.webp", alt: "KWMC", fit: "xl" },
+  { src: "/customers/italian-festival.webp", alt: "Italian Festival", fit: "md" },
+  { src: "/customers/dsorc.webp", alt: "DSORC", fit: "md" },
+  { src: "/customers/centerstage.webp", alt: "CenterStage", fit: "lg" },
+  { src: "/customers/mhwss.webp", alt: "MHWSS", fit: "xl" },
+  { src: "/customers/alz-dementia.webp", alt: "Alzheimer's & Dementia Center", fit: "md" },
+];
+
+// Duplicate once for seamless infinite scroll (CSS translates -50%).
+const looped = [...logos, ...logos];
+---
+
+<section class="partners" aria-label="Trusted by">
+  <p class="partners__eyebrow">Trusted by 1000+ amazing organizations</p>
+  <div class="partners__marquee">
+    <div class="partners__track">
+      {looped.map((logo, i) => (
+        <div class="logo-chip" aria-hidden={i >= logos.length ? "true" : undefined}>
+          <img
+            src={logo.src}
+            alt={i >= logos.length ? "" : logo.alt}
+            class={`logo-chip__img logo-chip__img--${logo.fit}`}
+            width="56"
+            height="56"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

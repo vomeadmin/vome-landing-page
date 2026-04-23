@@ -1,0 +1,78 @@
+---
+import Button from "../Button.astro";
+---
+
+<section class="ent">
+  <div class="ent__intro">
+    <h2 class="ent__h2">Built for enterprise scale.</h2>
+    <p class="ent__sub">
+      Run multiple programs, locations, and teams under one account, with the integrations, compliance, and admin controls your organization requires.
+    </p>
+  </div>
+
+  <div class="ent__grid">
+    <article class="ent__card">
+      <div class="ent__visual ent__visual--struct">
+        <div class="ent__node ent__node--root"><span class="ent__nodedot"></span>Organization</div>
+        <div class="ent__branch">
+          <div class="ent__node"><span class="ent__nodedot ent__nodedot--blue"></span>Downtown site<span class="ent__nodetag">284 volunteers</span></div>
+          <div class="ent__node"><span class="ent__nodedot ent__nodedot--green"></span>East chapter<span class="ent__nodetag">156 volunteers</span></div>
+          <div class="ent__node ent__node--active"><span class="ent__nodedot ent__nodedot--orange"></span>Youth programs<span class="ent__nodetag">92 volunteers</span></div>
+        </div>
+      </div>
+      <h3 class="ent__cardtitle">Split your portal by site, department, or chapter</h3>
+      <p class="ent__cardbody">Organize your entire portal around how your organization is actually structured. Each location, department, or chapter can have its own content, admins, and branded experience. Volunteers only see what's relevant to them. Admins only manage what's theirs.</p>
+    </article>
+
+    <article class="ent__card">
+      <div class="ent__visual ent__visual--roles">
+        <div class="ent__role">
+          <div class="ent__roleav" style="background:#f7c7a8;color:#8a3f0f">KR</div>
+          <div class="ent__roleinfo"><div class="ent__rolename">Kendra Rivera</div><div class="ent__rolelabel">Org admin, full access</div></div>
+          <div class="ent__rolebadge ent__rolebadge--full">●●●●</div>
+        </div>
+        <div class="ent__role">
+          <div class="ent__roleav" style="background:#c6d9f2;color:#1a4580">JT</div>
+          <div class="ent__roleinfo"><div class="ent__rolename">Jordan Tan</div><div class="ent__rolelabel">Site manager, Downtown</div></div>
+          <div class="ent__rolebadge ent__rolebadge--mid">●●●○</div>
+        </div>
+        <div class="ent__role">
+          <div class="ent__roleav" style="background:#d3eddf;color:#0a5f32">MP</div>
+          <div class="ent__roleinfo"><div class="ent__rolename">Maya Patel</div><div class="ent__rolelabel">Scheduler, read &amp; edit shifts</div></div>
+          <div class="ent__rolebadge ent__rolebadge--low">●●○○</div>
+        </div>
+        <div class="ent__role ent__role--ghost">
+          <div class="ent__roleav" style="background:#efe2f9;color:#5a2d8f">+</div>
+          <div class="ent__roleinfo"><div class="ent__rolename">Invite teammate</div><div class="ent__rolelabel">Custom role</div></div>
+        </div>
+      </div>
+      <h3 class="ent__cardtitle">Admin roles and permissions, as granular as you need</h3>
+      <p class="ent__cardbody">Invite your whole team with scoped access. Department leads see their department. Site managers see their site. Configure granular read or edit permissions by folder, module, or content type, so every admin has exactly the access they need.</p>
+    </article>
+
+    <article class="ent__card">
+      <div class="ent__visual ent__visual--int">
+        <div class="ent__inthub" aria-label="Vome">
+          <img src="/logos/app-logo-white.png" alt="Vome" />
+        </div>
+        <div class="ent__intgrid">
+          <div class="ent__int" title="Salesforce"><img src="/integrations/salesforce.png" alt="Salesforce" /></div>
+          <div class="ent__int" title="Zapier"><img src="/integrations/zapier.png" alt="Zapier" class="ent__int--wide" /></div>
+          <div class="ent__int" title="Microsoft Power Automate"><img src="/integrations/microsoft.png" alt="Microsoft" /></div>
+          <div class="ent__int" title="Sterling Volunteers"><img src="/integrations/sterling.jpeg" alt="Sterling Volunteers" /></div>
+          <div class="ent__int" title="Outlook"><img src="/integrations/outlook.svg" alt="Outlook" /></div>
+          <div class="ent__int" title="Gmail"><img src="/integrations/gmail.webp" alt="Gmail" /></div>
+          <div class="ent__int" title="Double the Donation"><img src="/integrations/dtd.png" alt="Double the Donation" /></div>
+          <div class="ent__int ent__int--more" title="And more"><span>+ more</span></div>
+        </div>
+      </div>
+      <h3 class="ent__cardtitle">Integrations that fit your stack</h3>
+      <p class="ent__cardbody">Native Salesforce app with two-way sync, Zapier, Microsoft Power Automate, Sterling Volunteers, SCORM Cloud, Verified First, and Double the Donation. All built in. Or use our REST API and custom webhooks to achieve any workflow.</p>
+    </article>
+  </div>
+
+  <div class="ent__ctas">
+    <Button href="/demo" variant="primary">Book a demo</Button>
+    <Button href="/plans" variant="ghost">See pricing</Button>
+  </div>
+</section>

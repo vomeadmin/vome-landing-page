@@ -1,0 +1,39 @@
+---
+/**
+ * French homepage route at /fr/.
+ *
+ * Renders the same section components as the English homepage for now.
+ * The Nav + Footer localize themselves via strings.ts (src/i18n/), so
+ * their chrome is already in French. The rest of the homepage sections
+ * (Hero, FeatureTabs, MobileApp, Enterprise, Security, Testimonials,
+ * ClosingCta, Faq) still read hardcoded English strings — porting them
+ * to strings.ts is a follow-up task. French copy for many of those
+ * sections is already in vome-react/src/translations/landingpage.js.
+ */
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/sections/Hero.astro";
+import Partners from "../../components/sections/Partners.astro";
+import FeatureTabs from "../../components/sections/FeatureTabs.astro";
+import MobileApp from "../../components/sections/MobileApp.astro";
+import Enterprise from "../../components/sections/Enterprise.astro";
+import Security from "../../components/sections/Security.astro";
+import Testimonials from "../../components/sections/Testimonials.astro";
+import ClosingCta from "../../components/sections/ClosingCta.astro";
+import Faq from "../../components/sections/Faq.astro";
+---
+
+<Layout
+  locale="fr"
+  title="Vome — Logiciel de gestion des bénévoles que votre équipe utilisera vraiment"
+  description="Vome automatise le travail manuel derrière le recrutement, l'intégration, la planification, le suivi des heures, la production de rapports et la communication. Bénévoles illimités sur tous les forfaits."
+>
+  <Hero />
+  <Partners />
+  <FeatureTabs />
+  <MobileApp />
+  <Enterprise />
+  <Security />
+  <Testimonials />
+  <ClosingCta />
+  <Faq />
+</Layout>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  title: string;
+  logo: string;
+  logoAlt: string;
+  highlight?: boolean;
+}
+
+const { quote, name, title, logo, logoAlt, highlight = false } = Astro.props;
+---
+
+<figure class={`tst__card${highlight ? " tst__card--highlight" : ""}`}>
+  <div class="tst__cardhead">
+    <div class="tst__stars" aria-label="5 out of 5">★★★★★</div>
+    <img class="tst__logo" src={logo} alt={logoAlt} loading="lazy" decoding="async" />
+  </div>
+  <blockquote class="tst__quotetxt">{quote}</blockquote>
+  <figcaption class="tst__who">
+    <div>
+      <div class="tst__name">{name}</div>
+      <div class="tst__role">{title}</div>
+    </div>
+  </figcaption>
+</figure>

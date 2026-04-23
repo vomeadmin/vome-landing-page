@@ -1,0 +1,188 @@
+/* ==========================================================================
+   Vome prose — long-form content typography for legal and content pages.
+   Applied by adding `class="prose"` to the container of body content
+   (e.g. <article class="prose">...</article> or a remark/MDX render root).
+   Uses the same Montserrat stack and brand tokens as the homepage so
+   content pages feel like they belong to the same brand, with reading
+   ergonomics tuned for long-form: ~700px column, 17px body, 1.7 line-height,
+   orange link/marker accents.
+   ========================================================================== */
+.prose {
+  max-width: 700px;
+  color: var(--fg-3);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+/* Wide variant — article container aligns with nav's 1120px content column.
+   Use when legal/content pages should edge-align with the header logo and CTAs.
+   The `max-width: none` removes the narrow prose column; horizontal padding
+   uses the same max(5%, …) pattern as .mainnav so the left/right edges
+   visually track the nav. */
+.prose--wide {
+  max-width: none;
+  margin: 56px 0 96px;
+  padding-left: max(5%, calc((100% - 1120px) / 2));
+  padding-right: max(5%, calc((100% - 1120px) / 2));
+}
+
+/* Default rhythm: every direct child gets a comfortable top gap except the first. */
+.prose > * {
+  margin: 0;
+}
+.prose > * + * {
+  margin-top: 1.2em;
+}
+
+/* ---------- Headings ---------- */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-display);
+  color: var(--fg-2);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.prose h1 {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5em;
+}
+.prose h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+.prose h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 1.8em;
+  margin-bottom: 0.4em;
+}
+.prose h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 1.6em;
+  margin-bottom: 0.3em;
+}
+
+/* ---------- Inline emphasis ---------- */
+.prose strong {
+  color: var(--fg-2);
+  font-weight: 600;
+}
+.prose em {
+  font-style: italic;
+}
+
+/* ---------- Links ---------- */
+.prose a {
+  color: var(--vome-orange);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-thickness 120ms var(--ease-standard);
+}
+.prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Lists ---------- */
+.prose ul,
+.prose ol {
+  padding-left: 1.6em;
+}
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li {
+  padding-left: 0.25em;
+}
+.prose li + li,
+.prose li > ul,
+.prose li > ol {
+  margin-top: 0.4em;
+}
+.prose li::marker {
+  color: var(--vome-orange);
+}
+/* Nested list indent + distinct markers */
+.prose ul ul { list-style: circle; }
+.prose ul ul ul { list-style: square; }
+.prose ol ol { list-style: lower-alpha; }
+.prose ol ol ol { list-style: lower-roman; }
+/* Loose nested list spacing — nested lists hug the parent item */
+.prose li > ul,
+.prose li > ol {
+  margin-bottom: 0;
+}
+
+/* ---------- Blockquote ---------- */
+.prose blockquote {
+  padding: 0.4em 0 0.4em 1.25em;
+  border-left: 3px solid var(--vome-orange);
+  color: var(--fg-4);
+  font-style: italic;
+  font-size: 1em;
+}
+.prose blockquote > :first-child { margin-top: 0; }
+.prose blockquote > :last-child { margin-bottom: 0; }
+
+/* ---------- Code ---------- */
+/* Inline code: pill, orange on peach */
+.prose :not(pre) > code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.88em;
+  background: var(--vome-peach-50);
+  color: var(--vome-orange-700);
+  padding: 0.12em 0.45em;
+  border-radius: 4px;
+  border: 1px solid rgba(232, 88, 62, 0.15);
+  white-space: nowrap;
+}
+/* Code block: dark slab, matching the closing-CTA aesthetic */
+.prose pre {
+  background: #1a1b2e;
+  color: rgba(255, 255, 255, 0.88);
+  padding: 16px 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  tab-size: 2;
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font-size: inherit;
+  white-space: pre;
+}
+
+/* ---------- Horizontal rule ---------- */
+.prose hr {
+  border: 0;
+  height: 1px;
+  background: var(--border-2);
+  margin: 2.5em 0;
+}
+
+/* First and last children should not push/pull the container. */
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+  .prose { font-size: 16px; line-height: 1.65; }
+  .prose h1 { font-size: 30px; }
+  .prose h2 { font-size: 22px; }
+  .prose h3 { font-size: 18px; }
+}

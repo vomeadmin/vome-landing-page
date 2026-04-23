@@ -1,0 +1,4011 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vome — Volunteer management software your team will actually use</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/vome-tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:var(--fg-2);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ---------- Nav (two-tier, matching live site) ---------- */
+.topnav{
+  background:var(--vome-peach-50);
+  padding:14px 8%;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:14px;font-weight:500;color:var(--fg-3);
+  border-bottom:1px solid rgba(237,142,52,0.12);
+}
+.topnav__lang{display:inline-flex;align-items:center;gap:8px;color:var(--fg-3);cursor:pointer;font-weight:500}
+.topnav__lang svg.globe{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;opacity:.85}
+.topnav__lang svg.caret{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.2;margin-left:-2px;opacity:.75}
+.topnav__lang:hover{color:var(--fg-2)}
+.topnav__links{display:flex;gap:28px;align-items:center}
+.topnav__links a{cursor:pointer;color:var(--fg-3);display:inline-flex;align-items:center;gap:6px;font-weight:500}
+.topnav__links a .caret{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.2;opacity:.75}
+.topnav__links a:hover{color:var(--fg-2)}
+.mainnav{
+  display:flex;align-items:center;
+  padding:20px 8%;
+  background:#fff;
+  position:sticky;top:0;z-index:50;
+}
+.mainnav__logo{height:40px}
+.mainnav__cta{margin-left:auto;display:flex;gap:12px;align-items:center}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:72px 8% 64px;
+  background:var(--surface-1);
+  position:relative;
+  overflow:hidden;
+}
+.hero__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:64px;
+  align-items:center;
+  max-width:1400px;
+  margin:0 auto;
+}
+.hero__eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:13px;font-weight:600;letter-spacing:.4px;
+  text-transform:uppercase;
+  color:var(--vome-orange);
+  background:var(--vome-peach-50);
+  padding:8px 14px;border-radius:999px;
+  margin-bottom:24px;
+}
+.hero__eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--vome-orange)}
+
+.hero__h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(30px, 3.1vw, 42px);
+  line-height:1.12;
+  letter-spacing:-0.6px;
+  color:#000;
+  margin:0 0 22px;
+  text-wrap:balance;
+  max-width:680px;
+}
+.hero__h1 .accent{color:#fa935b;font-weight:800}
+.hero__h1 .underline{
+  background-image:linear-gradient(transparent 62%, rgba(250,147,91,.28) 62%);
+  padding:0 2px;
+}
+
+.hero__sub{
+  font-size:17px;
+  line-height:1.55;
+  color:var(--fg-4);
+  font-weight:500;
+  margin:0 0 32px;
+  max-width:640px;
+  text-wrap:pretty;
+}
+.hero__sub strong{color:var(--fg-2);font-weight:600}
+
+.hero__ctas{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:15px 26px;font-size:15px;font-weight:600;
+  border-radius:12px;border:1px solid transparent;cursor:pointer;
+  font-family:inherit;
+  transition:background var(--dur-fast) var(--ease-standard),color var(--dur-fast) var(--ease-standard),border-color var(--dur-fast) var(--ease-standard);
+  white-space:nowrap;
+}
+.btn--primary{background:var(--cta-bg, var(--vome-orange));color:#fff}
+.btn--primary:hover{background:var(--cta-hover, #ED8E34)}
+.btn--ghost{background:#fff;color:var(--fg-2);border-color:rgba(0,0,0,.15)}
+.btn--ghost:hover{border-color:var(--vome-orange);color:var(--vome-orange)}
+.btn--nav{background:var(--cta-bg, var(--vome-orange));color:#fff;padding:10px 18px;font-size:14px;border-radius:10px}
+.btn--nav:hover{background:var(--cta-hover, #ED8E34)}
+.btn--sm{padding:10px 18px;font-size:14px}
+
+.hero__meta{display:flex;gap:22px;font-size:13px;color:var(--fg-5);font-weight:500;flex-wrap:wrap;align-items:center}
+.hero__meta .check{width:16px;height:16px;border-radius:50%;background:var(--vome-green);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;margin-right:6px}
+.hero__meta span{display:inline-flex;align-items:center}
+
+/* ---------- Hero visual — real Vome UI ---------- */
+.hero__visual{
+  position:relative;
+  aspect-ratio: 5/4;
+}
+.app{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 24px 48px -16px rgba(17,17,40,.18), 0 3px 6px rgba(0,0,0,.06);
+  overflow:hidden;
+  height:100%;
+  display:grid;
+  grid-template-columns:168px 1fr;
+  border:1px solid rgba(0,0,0,.05);
+}
+/* --- Sidebar matches real Vome left nav --- */
+.app__side{
+  background:#fff;
+  border-right:1px solid rgba(0,0,0,.06);
+  padding:14px 10px;
+  font-size:11px;
+  overflow:hidden;
+}
+.org-pill{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 8px;border-bottom:1px solid rgba(0,0,0,.06);
+  margin:-14px -10px 10px;
+  padding:12px 12px;
+}
+.org-pill .org-logo{
+  width:28px;height:28px;border-radius:6px;
+  border:1px dashed rgba(0,0,0,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;color:var(--fg-5);font-weight:600;text-align:center;line-height:1;
+}
+.org-pill .org-name{font-weight:700;color:var(--fg-2);font-size:11px;line-height:1.2}
+.org-pill .org-view{color:var(--vome-orange);font-size:9px;font-weight:500}
+.org-pill .chev{margin-left:auto;color:var(--fg-5);font-size:10px}
+
+.app__group{
+  font-size:8.5px;font-weight:700;letter-spacing:.8px;
+  color:#1a1a1a;text-transform:uppercase;
+  padding:10px 8px 4px;
+}
+.app__item{
+  display:flex;align-items:center;gap:8px;
+  padding:4px 6px;border-radius:5px;color:var(--fg-3);
+  font-weight:500;font-size:10px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.app__item .i{
+  width:14px;height:14px;flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--fg-4);
+}
+.app__item .i svg{width:14px;height:14px;stroke-width:1.8;stroke:currentColor;fill:none}
+.app__item--active{color:var(--vome-orange);font-weight:600}
+.app__item--active .i{color:var(--vome-orange)}
+.app__item .new-badge{
+  margin-left:auto;font-size:8px;font-weight:600;
+  background:#e6f7ee;color:#00a04a;
+  padding:2px 6px;border-radius:4px;
+}
+
+/* --- Main content area: Sequences board --- */
+.app__main{background:var(--surface-1);padding:14px 16px;overflow:hidden;min-width:0}
+.app__crumb{font-size:10px;color:var(--fg-5);font-weight:500;margin-bottom:4px}
+.app__crumb strong{color:var(--fg-3);font-weight:600}
+.app__heading{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;gap:10px}
+.app__heading h3{
+  font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--fg-2);
+  margin:0;letter-spacing:-.2px;
+}
+.app__heading .add-btn{
+  background:var(--vome-orange);color:#fff;
+  border-radius:6px;padding:5px 10px;
+  font-size:10px;font-weight:600;
+  display:inline-flex;align-items:center;gap:4px;
+  box-shadow:0 2px 4px rgba(232,88,62,.25);
+}
+.app__heading .add-btn::before{content:"+";font-weight:700;font-size:12px}
+
+.board{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.col__header{
+  background:#fff;border-radius:8px;
+  padding:10px 11px;margin-bottom:8px;
+  border:1px solid rgba(0,0,0,.05);
+}
+.col__step{
+  display:inline-block;font-size:8.5px;font-weight:600;
+  background:var(--surface-2);color:var(--fg-4);
+  padding:2px 8px;border-radius:999px;
+  margin-bottom:6px;
+}
+.col__chip{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9px;font-weight:600;
+  padding:3px 7px;border-radius:4px;
+  margin-bottom:6px;
+}
+.chip--interview{background:#fdecec;color:#d63c3c}
+.chip--pdf{background:#efeaff;color:#6a4dd6}
+.chip--bg{background:#eef3ff;color:#3d6ad6}
+.chip .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.col__title{font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--fg-2);line-height:1.3;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.card{
+  background:#fff;border-radius:8px;
+  padding:9px 11px;margin-bottom:6px;
+  border:1px solid rgba(0,0,0,.05);
+  box-shadow:0 1px 2px rgba(0,0,0,.03);
+}
+.card__row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.card__name{font-weight:700;font-size:10.5px;color:var(--fg-2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card__menu{color:var(--fg-5);font-weight:700;font-size:11px;letter-spacing:.5px}
+.card__status{display:flex;align-items:center;gap:5px}
+.card__play{
+  width:16px;height:16px;border-radius:50%;
+  background:#eef3ff;color:#3d6ad6;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:7px;flex:0 0 auto;
+}
+.card__play::before{content:"▶"}
+.card__step-pill{
+  font-size:8.5px;font-weight:600;
+  background:var(--surface-2);color:var(--fg-4);
+  padding:2px 7px;border-radius:999px;
+}
+.card__ok{
+  width:14px;height:14px;border-radius:50%;
+  background:#d9f3e4;color:#00a04a;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;
+}
+.card__pending{
+  width:14px;height:14px;border-radius:50%;
+  background:#fff0db;color:#c9720d;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;
+}
+.card__pending::before{content:"◷"}
+.card__date{font-size:8.5px;color:var(--fg-5);margin-top:4px;font-weight:500}
+
+/* --- Floating cards around mock --- */
+.hero__fly{
+  position:absolute;background:#fff;border-radius:12px;
+  box-shadow:0 16px 32px -10px rgba(17,17,40,.22), 0 2px 4px rgba(0,0,0,.06);
+  padding:10px 14px;font-size:12px;font-weight:500;color:var(--fg-3);
+  display:flex;align-items:center;gap:10px;
+  z-index:3;border:1px solid rgba(0,0,0,.04);
+}
+.hero__fly--volunteer{
+  right:18%;bottom:-18px;
+  padding:10px 14px 10px 10px;gap:12px;
+}
+.hero__fly--msg{top:18%;right:-28px;max-width:200px}
+.hero__fly .avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--vome-teal);color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:12px;
+}
+.hero__fly strong{font-weight:700;color:var(--fg-2);font-size:13px;display:block}
+.hero__fly .hours{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#d9f3e4;color:#007b38;
+  padding:3px 8px;border-radius:999px;
+  font-size:10px;font-weight:600;margin-top:2px;
+}
+.hero__fly .hours::before{content:"◷";font-size:10px}
+.hero__fly .party{font-size:11px;color:var(--fg-4);margin-top:3px}
+.hero__fly .party a{color:var(--vome-orange);font-weight:600;text-decoration:underline}
+.hero__fly .msg-ic{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--vome-peach-50);color:var(--vome-orange);
+  display:inline-flex;align-items:center;justify-content:center;font-size:13px;
+  flex:0 0 auto;
+}
+.hero__fly .msg-ic::before{content:"\1F4AC"}
+.hero__fly small{display:block;font-size:10px;color:var(--fg-5);font-weight:500;margin-top:2px}
+
+/* ---------- Logo marquee ---------- */
+.partners{background:#fff;padding:40px 6% 56px;border-bottom:1px solid rgba(0,0,0,.05)}
+.partners__eyebrow{text-align:center;font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--fg-3);margin:0 0 28px;letter-spacing:.2px}
+.partners__track{
+  display:flex;gap:18px;align-items:center;justify-content:center;
+  flex-wrap:wrap;
+}
+.logo-chip{
+  width:84px;height:84px;border-radius:50%;
+  background:#fff;border:1px solid #ececec;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px;flex:0 0 auto;
+  font-family:var(--font-display);font-size:10px;font-weight:600;color:var(--fg-5);text-align:center;
+}
+.logo-chip img{max-width:100%;max-height:100%;object-fit:contain}
+
+/* ---------- Placeholder sections ---------- */
+.placeholder{
+  padding:72px 8%;
+  text-align:center;
+  border-top:1px solid rgba(0,0,0,.04);
+}
+.placeholder--alt{background:var(--surface-2)}
+.placeholder--grey{background:#fafafa}
+.placeholder__tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--vome-orange);margin-bottom:12px;
+  padding:4px 10px;background:var(--vome-peach-50);border-radius:999px;
+}
+.placeholder__title{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--fg-2);margin:0 0 10px}
+.placeholder__body{font-size:15px;color:var(--fg-5);margin:0 auto;max-width:540px}
+
+/* ============================================================
+   Feature Tabs Section
+   ============================================================ */
+.ftabs{
+  padding:96px 8% 80px;
+  background:#fff;
+  border-top:1px solid rgba(0,0,0,.05);
+}
+
+/* Intro header */
+.ftabs__intro{
+  text-align:center;
+  margin:0 auto 64px;
+}
+.ftabs__h2{
+  font-family:var(--font-display);
+  font-size:clamp(28px,3vw,42px);
+  font-weight:700;
+  color:var(--fg-2);
+  margin:0 auto 18px;
+  line-height:1.15;
+  letter-spacing:-.4px;
+  text-wrap:balance;
+  max-width:720px;
+}
+.ftabs__h2-accent{color:var(--vome-orange)}
+.ftabs__sub{
+  font-size:18px;
+  color:var(--fg-3);
+  line-height:1.6;
+  font-weight:500;
+  max-width:780px;
+  margin:0 auto;
+  text-wrap:balance;
+}
+.ftabs__videobtn{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:22px;
+  background:#fff;border:1px solid #e6e6ea;border-radius:999px;
+  padding:9px 18px 9px 10px;
+  font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--fg-2);
+  text-decoration:none;cursor:pointer;
+  transition:border-color 120ms, transform 120ms, box-shadow 120ms;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+.ftabs__videobtn:hover{
+  border-color:var(--vome-orange);
+  box-shadow:0 4px 14px rgba(250,147,91,.15);
+}
+.ftabs__videoplay{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--vome-orange);color:#fff;
+  padding-left:1px;
+}
+
+/* Tab bar */
+.ftabs__bar{
+  display:flex;
+  gap:0;
+  justify-content:center;
+  border-bottom:2px solid #eee;
+  margin-bottom:56px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.ftabs__bar::-webkit-scrollbar{display:none}
+.ftabs__tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 24px;
+  font-family:var(--font-display);
+  font-size:14px;font-weight:600;
+  color:var(--fg-5);
+  background:none;border:none;cursor:pointer;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  white-space:nowrap;
+  transition:color 120ms, border-color 120ms;
+}
+.ftabs__tab svg{
+  width:16px;height:16px;
+  stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  flex:0 0 auto;
+}
+.ftabs__tab:hover{color:var(--fg-2)}
+.ftabs__tab--active{
+  color:var(--vome-orange-700);
+  border-bottom-color:var(--vome-orange);
+}
+
+/* Panels */
+.ftabs__panel{display:none}
+.ftabs__panel--active{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+
+/* Left side */
+.ftabs__panel-sub{
+  font-size:16px;color:var(--fg-4);line-height:1.5;font-weight:500;
+  margin:-24px 0 28px;text-wrap:pretty;
+}
+.ftabs__headline{
+  font-family:var(--font-display);
+  font-size:clamp(22px,2.2vw,30px);
+  font-weight:700;
+  color:var(--fg-2);
+  margin:0 0 36px;
+  line-height:1.25;
+  letter-spacing:-.3px;
+}
+.ftabs__grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  grid-auto-rows:1fr;
+}
+.ftabs__feat{
+  display:flex;flex-direction:column;gap:0;
+  background:var(--surface-1);
+  border-radius:16px;
+  padding:20px;
+  align-self:stretch;
+}
+.ftabs__icon{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--vome-peach-50);
+  display:flex;align-items:center;justify-content:center;
+  flex:0 0 auto;
+  margin-bottom:14px;
+}
+.ftabs__icon svg{
+  width:16px;height:16px;
+  stroke:var(--vome-orange-700);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+.ftabs__grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  grid-auto-rows:1fr;
+}
+.ftabs__feat strong{
+  font-family:var(--font-display);
+  font-size:15px;font-weight:700;color:var(--fg-2);
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:block;
+  margin-bottom:10px;
+}
+.ftabs__feat p{
+  font-size:14px;color:var(--fg-3);line-height:1.6;margin:0;
+}
+
+/* Right side — mock wrapper */
+.ftabs__panel-right{display:flex;align-items:center;justify-content:center}
+.ftabs__mock{
+  width:100%;
+  background:#fff;
+  border-radius:16px;
+  border:1px solid #eee;
+  box-shadow:0 12px 40px -10px rgba(17,17,40,.12), 0 2px 6px rgba(0,0,0,.05);
+  overflow:hidden;
+  padding:0 0 24px;
+}
+.ftmock__bar{
+  background:#f5f5f7;
+  padding:9px 14px;
+  display:flex;gap:6px;align-items:center;
+  border-bottom:1px solid #eee;
+  margin-bottom:16px;
+}
+.ftmock__bar span{
+  width:10px;height:10px;border-radius:50%;background:#ddd;flex:0 0 auto;
+}
+.ftmock__bar span:nth-child(1){background:#ff5f57}
+.ftmock__bar span:nth-child(2){background:#febc2e}
+.ftmock__bar span:nth-child(3){background:#28c840}
+.ftmock__bartitle{
+  flex:1;text-align:center;
+  font-size:11px;font-weight:600;color:var(--fg-5);
+  letter-spacing:.2px;
+  margin-left:-36px;
+}
+
+/* Recruitment mock — public org page */
+.ftabs__mock--recruitment{padding-bottom:0}
+.ftmock__cover{
+  position:relative;
+  height:70px;
+  background:#f5f5f7;
+  margin:0;
+  overflow:hidden;
+}
+.ftmock__coverdot{
+  position:absolute;top:-10px;left:-30px;
+  width:80px;height:80px;border-radius:50%;
+  background:#eaeaee;
+}
+.ftmock__coverdot--r{left:auto;right:-30px;background:#eaeaee}
+.ftmock__covertext{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;
+  font-size:12px;color:var(--fg-5);letter-spacing:.2px;
+}
+.ftmock__orgblock{
+  position:relative;padding:0 18px 14px;
+  border-bottom:1px solid #f0f0f0;margin:0 0 14px;
+  display:flex;align-items:center;gap:12px;
+  min-height:44px;
+}
+.ftmock__orglogo{
+  margin-top:-27px;margin-bottom:-10px;
+  width:54px;height:54px;border-radius:50%;
+  background:#fff;border:1.5px solid #ececec;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:800;font-size:8px;
+  color:var(--fg-3);line-height:1.1;text-align:center;letter-spacing:.3px;
+  flex:0 0 auto;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.ftmock__orginfo{flex:1;min-width:0;padding-top:6px}
+.ftmock__orginfo{flex:1;min-width:0}
+.ftmock__orgname{
+  font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--fg-2);
+}
+.ftmock__orgtags{
+  display:flex;gap:6px;margin-top:6px;
+}
+.ftmock__orgtag{
+  font-size:10px;font-weight:500;color:var(--fg-4);
+  background:#f5f5f7;border-radius:999px;padding:3px 10px;
+}
+
+/* Section + featured opportunities */
+.ftmock__section{padding:0 18px;margin-bottom:14px}
+.ftmock__sectiontitle{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--font-display);font-weight:700;font-size:12px;color:var(--fg-2);
+  margin-bottom:8px;
+}
+.ftmock__count{
+  font-size:10px;font-weight:600;color:var(--fg-5);
+  background:#f0eff4;border-radius:4px;padding:1px 6px;
+}
+.ftmock__cards{display:flex;flex-direction:column;gap:8px}
+.ftmock__card{
+  display:flex;align-items:center;gap:10px;
+  background:#fff;border:1px solid #eee;border-radius:10px;
+  padding:10px;
+}
+.ftmock__card--featured{border-color:rgba(250,147,91,.35);box-shadow:0 2px 6px rgba(250,147,91,.1)}
+.ftmock__cardimg{
+  width:48px;height:48px;border-radius:8px;
+  background:linear-gradient(135deg,#fde6d5 0%,#fa935b 100%);
+  flex:0 0 auto;position:relative;overflow:hidden;
+}
+.ftmock__cardimg::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:40%;
+  background:#ffd84d;
+}
+.ftmock__cardimg--alt{background:linear-gradient(135deg,#d4e9dd 0%,#5c9987 100%)}
+.ftmock__cardimg--alt::after{background:#f5b7b7}
+.ftmock__cardbody{flex:1;min-width:0}
+.ftmock__title{
+  font-family:var(--font-display);font-weight:700;font-size:12px;color:var(--fg-2);
+  margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ftmock__meta{
+  display:flex;align-items:center;gap:4px;
+  font-size:10.5px;color:var(--fg-5);margin-bottom:5px;
+}
+.ftmock__metaico{font-size:9px}
+.ftmock__chips{display:flex;gap:4px;flex-wrap:wrap}
+.ftmock__chip{
+  font-size:9.5px;font-weight:500;color:var(--fg-4);
+  background:#f5f5f7;border-radius:999px;padding:2px 7px;
+}
+.ftmock__viewbtn{
+  background:var(--vome-orange);color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:10.5px;
+  border:none;border-radius:999px;padding:6px 14px;
+  cursor:pointer;flex:0 0 auto;
+}
+
+/* Share link bar */
+.ftmock__share{
+  display:flex;align-items:center;gap:8px;
+  margin:4px 18px 0;padding:12px 0 18px;
+  border-top:1px solid #f0f0f0;
+}
+.ftmock__shareinput{
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:#fafafa;border:1px solid #eee;border-radius:8px;
+  padding:8px 12px;
+  font-size:11px;color:var(--vome-orange);
+  font-family:ui-monospace,SFMono-Regular,monospace;
+  overflow:hidden;
+}
+.ftmock__shareinput svg{color:var(--fg-5);flex:0 0 auto}
+.ftmock__shareurl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ftmock__copybtn{
+  background:#fff;color:var(--vome-orange);
+  border:1px solid var(--vome-orange);
+  font-family:var(--font-display);font-weight:700;font-size:11px;
+  border-radius:8px;padding:8px 14px;cursor:pointer;
+  white-space:nowrap;
+}
+
+/* Onboarding mock — Sequences module */
+.ftabs__mock--seq{padding-bottom:0;overflow:hidden}
+.ftseq__head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  padding:14px 18px;border-bottom:1px solid #f0f0f0;margin-bottom:12px;
+}
+.ftseq__headleft{flex:1;min-width:0}
+.ftseq__seqname{
+  font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--fg-2);
+  margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ftseq__seqmeta{
+  display:flex;align-items:center;gap:5px;
+  font-size:11px;color:var(--fg-5);font-weight:500;
+}
+.ftseq__stats{display:flex;align-items:center;gap:14px;flex:0 0 auto}
+.ftseq__stat{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ftseq__statnum{
+  font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--fg-2);line-height:1;
+}
+.ftseq__statnum--orange{color:var(--vome-orange-700)}
+.ftseq__statpill{
+  font-size:9px;font-weight:600;color:var(--fg-5);
+  background:#f5f5f7;border-radius:999px;padding:2px 8px;white-space:nowrap;
+}
+.ftseq__statpill--active{background:#d6eef7;color:#0f6c8f}
+.ftseq__statpill--mytasks{background:var(--vome-peach-50);color:var(--vome-orange-700)}
+
+/* Board */
+.ftseq__board{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:8px;padding:0 14px;margin-bottom:14px;
+}
+.ftseq__col{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ftseq__colhead{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ftseq__steppill{
+  font-size:9px;font-weight:700;color:var(--fg-4);
+  background:#f0eff4;border-radius:999px;padding:2px 8px;
+}
+.ftseq__steptype{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9px;font-weight:600;
+  border-radius:4px;padding:2px 6px;white-space:nowrap;
+}
+.ftseq__steptype-dot{width:4px;height:4px;border-radius:50%;background:currentColor}
+.ftseq__steptype--interview{background:#ffe4e4;color:#c23b3b}
+.ftseq__steptype--pdf{background:#ecdcff;color:#6e3bb8}
+.ftseq__steptype--bg{background:#e4e4ea;color:#525566}
+.ftseq__coltitle{
+  font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--fg-2);
+  margin:2px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ftseq__vcard{
+  background:#fff;border:1px solid #eee;border-radius:8px;
+  padding:8px 9px;
+}
+.ftseq__vcard--overdue{border-color:rgba(220,80,80,.3)}
+.ftseq__vname{
+  font-family:var(--font-display);font-weight:700;font-size:11px;color:var(--fg-2);
+  display:flex;align-items:center;justify-content:space-between;gap:4px;
+  margin-bottom:5px;
+}
+.ftseq__vbell{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:14px;height:14px;border-radius:50%;
+  background:#ffe4e4;color:#c23b3b;
+  font-size:9px;font-weight:800;flex:0 0 auto;
+}
+.ftseq__vprogress{
+  display:flex;align-items:center;gap:4px;margin-bottom:4px;
+}
+.ftseq__vplay{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--vome-peach-50);color:var(--vome-orange-700);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:7px;padding-left:1px;flex:0 0 auto;
+}
+.ftseq__vstep{
+  font-size:9px;font-weight:600;color:var(--fg-4);
+  background:#f5f5f7;border-radius:999px;padding:2px 7px;
+}
+.ftseq__vdot{
+  width:14px;height:14px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:800;flex:0 0 auto;
+}
+.ftseq__vdot--done{background:#d9f3e4;color:#00a04a}
+.ftseq__vdot--waiting{background:#ffe5cc;color:#d57028}
+.ftseq__vmeta{font-size:9.5px;color:var(--fg-5);font-weight:500}
+.ftseq__vmeta--due{color:#c23b3b;font-weight:600}
+
+/* Automated toast */
+.ftseq__toast{
+  display:flex;align-items:flex-start;gap:10px;
+  background:#fff;border:1px solid #eee;border-radius:12px;
+  padding:11px 13px;margin:0 18px 18px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+.ftseq__toastavatar{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,#fa935b 0%,#e47044 100%);
+  color:#fff;font-family:var(--font-display);font-weight:700;font-size:10px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.ftseq__toastbody{flex:1;min-width:0}
+.ftseq__toasttext{
+  font-size:11px;color:var(--fg-3);line-height:1.45;margin-bottom:3px;
+}
+.ftseq__toasttext strong{color:var(--fg-2);font-weight:700}
+.ftseq__toasttime{
+  font-size:9.5px;color:var(--vome-orange-700);font-weight:600;
+}
+
+/* Scheduling mock — full Schedule module */
+.ftabs__mock--sched{padding-bottom:0;overflow:hidden}
+.ftsched__toolbar{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  padding:8px 12px;border-bottom:1px solid #f0f0f0;
+}
+.ftsched__createbtn{
+  background:var(--vome-orange);border:none;color:#fff;border-radius:6px;
+  font-family:var(--font-display);font-weight:700;font-size:10px;
+  padding:5px 9px;cursor:pointer;
+}
+.ftsched__navgroup{display:flex;align-items:center;gap:3px}
+.ftsched__navbtn{
+  background:#fff;border:1px solid #eee;border-radius:5px;
+  font-family:var(--font-display);font-weight:600;font-size:9px;color:var(--fg-3);
+  padding:4px 8px;cursor:pointer;
+}
+.ftsched__navarrow{
+  background:#fff;border:1px solid #eee;border-radius:5px;
+  width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--fg-3);cursor:pointer;padding:0;
+}
+.ftsched__daterange{
+  font-family:var(--font-display);font-weight:600;font-size:9.5px;color:var(--fg-3);
+  background:#fff;border:1px solid #eee;border-radius:5px;padding:4px 8px;
+}
+.ftsched__viewgroup{display:flex;align-items:center;gap:3px;margin-left:auto}
+.ftsched__view{
+  font-family:var(--font-display);font-weight:600;font-size:9.5px;color:var(--fg-3);
+  background:#fff;border:1px solid #eee;border-radius:5px;padding:4px 8px;
+}
+.ftsched__view--active{color:var(--vome-orange-700);border-color:rgba(250,147,91,.3);background:var(--vome-peach-50)}
+
+/* Calendar body */
+.ftsched__body{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:0;padding:8px 0 0}
+.ftsched__cal{
+  display:grid;grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:2px;padding:0 6px 12px 10px;min-width:0;
+}
+.ftsched__caldow{
+  font-family:var(--font-display);font-size:8px;font-weight:700;color:var(--fg-5);
+  text-align:left;padding:2px 0 3px 2px;letter-spacing:.3px;
+}
+.ftsched__day{
+  min-height:48px;background:#fafafa;border-radius:3px;
+  padding:2px;display:flex;flex-direction:column;gap:1px;
+  position:relative;min-width:0;overflow:hidden;
+}
+.ftsched__day--today{background:var(--vome-peach-50);outline:1px solid rgba(250,147,91,.3)}
+.ftsched__daynum{font-size:8px;font-weight:700;color:var(--fg-5);line-height:1}
+.ftsched__evt{
+  font-size:7px;font-weight:600;
+  border-radius:2px;padding:1.5px 2px;line-height:1.1;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
+}
+.ftsched__evt--peach{background:#fde0cc;color:#c95f1e}
+.ftsched__evt--yellow{background:#fff1b8;color:#8a6a00}
+.ftsched__evt--pink{background:#ffd6e0;color:#b8345a}
+.ftsched__evt--teal{background:#c8e8df;color:#1e7a64}
+.ftsched__evt--grey{background:#e0e0e5;color:#4a4d5c}
+.ftsched__evtmore{
+  font-size:6.5px;font-weight:600;color:var(--fg-5);
+  padding:0 2px;line-height:1.2;
+}
+
+/* Shift detail drawer */
+.ftsched__drawer{
+  border-left:1px solid #f0f0f0;
+  padding:8px 10px 12px;
+  display:flex;flex-direction:column;gap:6px;
+  background:#fff;min-width:0;
+}
+.ftsched__drawerhead{padding-bottom:5px;border-bottom:1px solid #f0f0f0}
+.ftsched__drawertitle{
+  font-family:var(--font-display);font-weight:700;font-size:10px;color:#1e7a64;
+  line-height:1.2;margin-bottom:2px;
+}
+.ftsched__drawersub{font-size:8.5px;color:var(--fg-4);font-weight:500}
+.ftsched__drawerrow{display:flex;flex-direction:column;gap:1px}
+.ftsched__drawerlabel{
+  font-family:var(--font-display);font-size:7.5px;font-weight:700;color:var(--fg-5);
+  text-transform:uppercase;letter-spacing:.4px;
+  display:flex;align-items:center;gap:4px;
+}
+.ftsched__drawerval{font-size:9px;color:var(--fg-3);font-weight:500;line-height:1.3}
+.ftsched__attcount{
+  font-size:7.5px;font-weight:700;color:var(--vome-orange-700);
+  background:var(--vome-peach-50);border-radius:999px;padding:1px 5px;
+  text-transform:none;letter-spacing:0;
+}
+.ftsched__attendee{
+  display:flex;align-items:center;gap:5px;
+  background:#fafafa;border-radius:5px;padding:4px 5px;
+}
+.ftsched__avatar{
+  width:18px;height:18px;border-radius:50%;
+  background:#6fc3a6;color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:7.5px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+}
+.ftsched__attname{font-size:9px;font-weight:600;color:var(--fg-2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ftsched__checkin{
+  background:#1e7a64;color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:7.5px;
+  border:none;border-radius:999px;padding:3px 8px;cursor:pointer;
+}
+
+/* Hour tracking mock — rebuilt */
+.ftabs__mock--hours{padding-bottom:0;overflow:hidden}
+.fthrs__methods{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+  padding:12px 14px 8px;
+}
+.fthrs__method{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  background:#fafafa;border:1px solid #eee;border-radius:8px;
+  padding:8px 4px;
+  font-family:var(--font-display);font-size:9px;font-weight:600;color:var(--fg-4);
+  text-align:center;line-height:1.1;
+}
+.fthrs__method--active{
+  background:var(--vome-peach-50);border-color:rgba(250,147,91,.35);color:var(--vome-orange-700);
+}
+.fthrs__methodicon{
+  width:22px;height:22px;border-radius:6px;
+  background:#fff;border:1px solid #eee;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--fg-4);
+}
+.fthrs__methodicon svg{width:13px;height:13px;stroke-linecap:round;stroke-linejoin:round}
+.fthrs__method--active .fthrs__methodicon{background:#fff;border-color:rgba(250,147,91,.3);color:var(--vome-orange-700)}
+
+/* Big stat block */
+.fthrs__stat{
+  text-align:center;padding:10px 14px 12px;
+  border-bottom:1px solid #f0f0f0;margin:0 14px 10px;
+}
+.fthrs__statnum{
+  font-family:var(--font-display);font-size:32px;font-weight:700;
+  color:var(--vome-orange);line-height:1;letter-spacing:-.5px;
+}
+.fthrs__statlabel{font-size:10px;color:var(--fg-5);font-weight:500;margin-top:3px}
+.fthrs__statdelta{
+  display:inline-block;margin-top:5px;
+  font-size:9px;font-weight:700;color:#0a8c4d;
+  background:#d9f3e4;border-radius:999px;padding:2px 8px;
+}
+
+/* Table */
+.fthrs__table{padding:0 14px;margin-bottom:10px}
+.fthrs__thead,.fthrs__trow{
+  display:grid;grid-template-columns:1.1fr 1.2fr .7fr .6fr;
+  gap:6px;align-items:center;
+  padding:7px 0;
+  font-size:10px;
+}
+.fthrs__thead{
+  font-family:var(--font-display);font-size:8.5px;font-weight:700;color:var(--fg-5);
+  text-transform:uppercase;letter-spacing:.4px;
+  border-bottom:1px solid #f0f0f0;padding:4px 0 6px;
+}
+.fthrs__trow{border-bottom:1px solid #f5f5f7}
+.fthrs__trow:last-child{border-bottom:none}
+.fthrs__tname{
+  display:flex;align-items:center;gap:6px;
+  font-weight:700;color:var(--fg-2);min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.fthrs__tavatar{
+  width:18px;height:18px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-weight:700;font-size:8px;color:#fff;flex:0 0 auto;
+}
+.fthrs__tshift{color:var(--fg-5);font-size:9.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fthrs__group{
+  font-size:8.5px;font-weight:700;color:var(--vome-orange-700);
+  background:var(--vome-peach-50);border-radius:999px;padding:1px 5px;
+}
+.fthrs__tright{text-align:right;font-weight:700;color:var(--fg-2);white-space:nowrap}
+.fthrs__pill{
+  display:inline-block;
+  font-family:var(--font-display);font-size:8.5px;font-weight:700;
+  border-radius:999px;padding:2px 7px;
+}
+.fthrs__pill--qr{background:#ffe2d1;color:#c95f1e}
+.fthrs__pill--tap{background:#d6eef7;color:#0f6c8f}
+.fthrs__pill--kiosk{background:#ecdcff;color:#6e3bb8}
+.fthrs__pill--claim{background:#fff1b8;color:#8a6a00}
+.fthrs__pill--auto{background:#d9f3e4;color:#0a8c4d}
+
+/* Export */
+.fthrs__export{
+  display:inline-flex;align-items:center;gap:5px;
+  margin:0 14px 14px;
+  background:#fff;border:1px solid #eee;border-radius:6px;
+  padding:6px 10px;
+  font-family:var(--font-display);font-weight:700;font-size:10px;color:var(--vome-orange-700);
+  cursor:pointer;
+}
+
+/* Data mock — richer analytics dashboard */
+.ftabs__mock--data{padding-bottom:0;overflow:hidden;background:#f7f7f9}
+.ftabs__mock--data .ftmock__bar{background:#fff}
+
+/* Top KPI row */
+.ftdata__kpis{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  padding:10px 10px 0;
+}
+.ftdata__kpi{
+  position:relative;background:#fff;border-radius:8px;
+  padding:8px 10px 10px;
+  border:1px solid #eee;
+  min-width:0;
+}
+.ftdata__kpilabel{
+  font-family:var(--font-display);font-size:7.5px;font-weight:700;
+  color:var(--fg-5);text-transform:uppercase;letter-spacing:.4px;
+  margin-bottom:3px;
+}
+.ftdata__kpival{
+  font-family:var(--font-display);font-size:17px;font-weight:700;
+  line-height:1;letter-spacing:-.3px;
+}
+.ftdata__kpidelta{
+  font-size:8.5px;font-weight:700;color:#0a8c4d;margin-left:2px;
+}
+.ftdata__kpisub{font-size:8.5px;color:var(--fg-5);font-weight:500;margin-top:3px}
+.ftdata__spark{
+  position:absolute;right:4px;bottom:4px;
+  width:46px;height:14px;opacity:.9;
+}
+
+/* Cards */
+.ftdata__card{
+  background:#fff;border:1px solid #eee;border-radius:8px;
+  padding:10px 12px;margin:8px 10px 0;
+}
+.ftdata__cardhead{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:6px;
+}
+.ftdata__cardtitle{
+  font-family:var(--font-display);font-size:10.5px;font-weight:700;color:var(--fg-2);
+}
+.ftdata__cardmenu{font-size:11px;color:var(--fg-5);line-height:1;letter-spacing:1px}
+
+/* Hours Over Time chart */
+.ftdata__chartwrap{
+  position:relative;display:flex;gap:4px;
+  height:80px;
+}
+.ftdata__chartgrid{
+  display:flex;flex-direction:column;justify-content:space-between;
+  font-size:7px;color:var(--fg-5);font-weight:500;
+  padding:1px 0 10px;flex:0 0 auto;
+}
+.ftdata__chart{
+  position:relative;flex:1;display:flex;align-items:flex-end;gap:3px;
+  padding-bottom:1px;border-left:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;
+  padding-left:3px;min-width:0;
+}
+.ftdata__bargroup{flex:1;display:flex;align-items:flex-end;min-width:0}
+.ftdata__bar{
+  width:100%;border-radius:1.5px 1.5px 0 0;
+  background:var(--vome-orange);
+}
+.ftdata__line{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;
+}
+.ftdata__xlabels{
+  display:flex;gap:3px;padding-left:13px;margin-top:3px;
+  font-size:7px;color:var(--fg-5);font-weight:500;
+}
+.ftdata__xlabels span{flex:1;text-align:center;min-width:0;overflow:hidden}
+.ftdata__legend{
+  display:flex;gap:10px;justify-content:center;margin-top:5px;
+  font-size:8px;color:var(--fg-4);font-weight:600;
+}
+.ftdata__legitem{display:inline-flex;align-items:center;gap:4px}
+.ftdata__legdot{width:6px;height:6px;border-radius:50%}
+
+/* Bottom row */
+.ftdata__bottomrow{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:8px;
+  padding:0 10px 10px;margin-top:8px;
+}
+.ftdata__bottomrow .ftdata__card{margin:0}
+.ftdata__card--sm{padding:8px 10px 10px}
+
+/* Top profiles list */
+.ftdata__toplist{display:flex;flex-direction:column;gap:0}
+.ftdata__toprow{
+  display:grid;grid-template-columns:14px 1fr auto;gap:6px;align-items:center;
+  padding:4px 0;border-bottom:1px solid #f5f5f7;
+  font-size:9.5px;
+}
+.ftdata__toprow:last-child{border-bottom:none}
+.ftdata__toprank{font-family:var(--font-display);font-weight:700;color:var(--fg-4);text-align:center}
+.ftdata__topname{font-weight:600;color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ftdata__tophrs{font-family:var(--font-display);font-weight:700;color:var(--fg-3);font-size:9.5px}
+
+/* Age distribution */
+.ftdata__agebars{display:flex;flex-direction:column;gap:5px}
+.ftdata__agerow{
+  display:grid;grid-template-columns:26px 1fr 22px;gap:6px;align-items:center;
+  font-size:9px;
+}
+.ftdata__agelabel{font-weight:600;color:var(--fg-4)}
+.ftdata__agebar{
+  height:6px;background:#f0f0f2;border-radius:3px;overflow:hidden;
+}
+.ftdata__agefill{height:100%;background:var(--vome-orange);border-radius:3px}
+.ftdata__ageval{font-family:var(--font-display);font-weight:700;color:var(--fg-3);text-align:right}
+
+/* Comms mock — rich multi-feature */
+.ftabs__mock--comms{padding-bottom:0;overflow:hidden;background:#fafafa}
+.ftabs__mock--comms .ftmock__bar{background:#fff}
+
+/* Channel tabs */
+.ftcomms__chans{
+  display:flex;gap:4px;
+  padding:8px 10px 0;
+  background:#fff;border-bottom:1px solid #f0f0f0;
+}
+.ftcomms__chan{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 10px;border-radius:6px 6px 0 0;
+  font-family:var(--font-display);font-size:10px;font-weight:600;color:var(--fg-5);
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+}
+.ftcomms__chan svg{width:11px;height:11px;stroke-linecap:round;stroke-linejoin:round}
+.ftcomms__chan--active{color:var(--vome-orange-700);border-bottom-color:var(--vome-orange)}
+
+/* Composer */
+.ftcomms__composer{
+  background:#fff;border:1px solid #eee;border-radius:8px;
+  margin:10px 10px 0;padding:8px 10px;
+}
+.ftcomms__crow{
+  display:flex;align-items:center;gap:8px;
+  padding:4px 0;border-bottom:1px solid #f5f5f7;font-size:10px;
+}
+.ftcomms__crow:last-of-type{border-bottom:none}
+.ftcomms__clabel{
+  font-family:var(--font-display);font-size:8.5px;font-weight:700;color:var(--fg-5);
+  text-transform:uppercase;letter-spacing:.4px;flex:0 0 40px;
+}
+.ftcomms__audience{display:flex;align-items:center;gap:5px;flex-wrap:wrap;flex:1;min-width:0}
+.ftcomms__chip{
+  background:var(--vome-peach-50);color:var(--vome-orange-700);
+  border-radius:999px;padding:2px 8px;
+  font-family:var(--font-display);font-size:9px;font-weight:700;
+  white-space:nowrap;
+}
+.ftcomms__count{font-size:9px;color:var(--fg-5);font-weight:600;margin-left:auto;white-space:nowrap}
+.ftcomms__fromval{font-size:10px;color:var(--fg-3);font-weight:500}
+.ftcomms__verified{color:#0a8c4d;font-weight:700;font-size:9px;margin-left:4px}
+.ftcomms__subject{font-weight:700;color:var(--fg-2);font-size:10.5px}
+.ftcomms__var{
+  background:#fff3e3;color:#c95f1e;
+  border-radius:3px;padding:0 4px;
+  font-family:var(--font-mono,ui-monospace,monospace);font-size:9px;font-weight:700;
+}
+
+.ftcomms__body{
+  padding:8px 0 4px;
+  display:flex;flex-direction:column;gap:5px;
+  font-size:10px;color:var(--fg-3);line-height:1.45;
+  border-top:1px solid #f5f5f7;margin-top:4px;
+}
+.ftcomms__bodyline{}
+.ftcomms__bodyline--muted{color:var(--fg-5)}
+
+.ftcomms__toolbar{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 0 0;border-top:1px solid #f5f5f7;margin-top:4px;
+}
+.ftcomms__tool{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:4px;
+  background:#fafafa;border:1px solid #eee;
+  font-family:var(--font-display);font-size:9px;font-weight:700;color:var(--fg-4);
+}
+.ftcomms__spacer{flex:1}
+.ftcomms__sendbtn{
+  background:var(--vome-orange);color:#fff;border:none;
+  font-family:var(--font-display);font-weight:700;font-size:10px;
+  padding:5px 12px;border-radius:6px;cursor:pointer;
+}
+
+/* Sections (automations + log) */
+.ftcomms__section{padding:10px 10px 0}
+.ftcomms__section--log{padding-bottom:10px}
+.ftcomms__sectitle{
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--font-display);font-size:8.5px;font-weight:700;color:var(--fg-5);
+  text-transform:uppercase;letter-spacing:.4px;
+  padding:0 2px 5px;
+}
+.ftcomms__seclink{color:var(--vome-orange-700);text-transform:none;letter-spacing:0;font-size:9px}
+
+/* Automations */
+.ftcomms__autos{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+}
+.ftcomms__auto{
+  background:#fff;border:1px solid #eee;border-radius:8px;
+  padding:7px 8px;
+  display:flex;align-items:center;gap:6px;min-width:0;
+}
+.ftcomms__autoicon{
+  width:22px;height:22px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;flex:0 0 auto;
+}
+.ftcomms__autoinfo{min-width:0;flex:1}
+.ftcomms__autoname{
+  font-family:var(--font-display);font-size:9.5px;font-weight:700;color:var(--fg-2);
+  line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ftcomms__autorule{font-size:8px;color:var(--fg-5);font-weight:500;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ftcomms__autostatus{
+  font-family:var(--font-display);font-size:8px;font-weight:700;color:#0a8c4d;
+  background:#d9f3e4;border-radius:999px;padding:1px 6px;flex:0 0 auto;
+}
+
+/* Automated tag in composer toolbar */
+.ftcomms__autotag{
+  font-family:var(--font-display);font-size:9px;font-weight:700;
+  color:var(--vome-orange-700);
+  background:var(--vome-peach-50);
+  border:1px solid #ffd7b8;
+  padding:3px 8px;border-radius:999px;
+  white-space:nowrap;
+}
+
+/* Floating chat notification card (hero-card style) */
+.ftabs__mock--comms{position:relative;overflow:hidden}
+.ftcomms__float{
+  position:absolute;
+  right:14px;bottom:14px;
+  z-index:3;
+  display:flex;align-items:flex-start;gap:10px;
+  background:#fff;border-radius:12px;
+  border:1px solid #eee;
+  padding:10px 14px 10px 12px;
+  box-shadow:0 12px 30px -8px rgba(0,0,0,.18), 0 2px 6px -2px rgba(0,0,0,.06);
+  max-width:260px;
+  animation:ftfloat 6s ease-in-out infinite;
+}
+@keyframes ftfloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
+}
+.ftcomms__floatic{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--vome-peach-50);color:var(--vome-orange-700);
+  display:flex;align-items:center;justify-content:center;
+  flex:0 0 auto;
+}
+.ftcomms__floatbody{min-width:0;flex:1;display:flex;flex-direction:column;gap:2px}
+.ftcomms__floathead{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+}
+.ftcomms__floathead strong{
+  font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--fg-2);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ftcomms__floattime{
+  font-size:9.5px;color:var(--fg-5);font-weight:600;flex:0 0 auto;
+}
+.ftcomms__floatmsg{
+  font-size:11px;color:var(--fg-3);line-height:1.35;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.ftcomms__floatmsg strong{color:var(--fg-2);font-weight:700}
+
+/* ============================================================
+   Section 3 : Enterprise
+   ============================================================ */
+/* ============================================================
+   Section 3 - Mobile app
+   ============================================================ */
+.mob{
+  background:#fff;
+  padding:100px 6% 80px;
+  position:relative;
+  overflow:hidden;
+}
+.mob::before{
+  content:"";position:absolute;inset:auto 0 0 0;height:380px;
+  background:radial-gradient(60% 80% at 50% 100%, var(--vome-peach-50), transparent 70%);
+  pointer-events:none;
+}
+.mob__wrap{max-width:1200px;margin:0 auto;position:relative}
+.mob__intro{text-align:center;max-width:820px;margin:0 auto 48px}
+.mob__h2{
+  font-family:var(--font-display);
+  font-size:clamp(32px,3.4vw,48px);
+  font-weight:700;color:#000;
+  line-height:1.12;letter-spacing:-0.8px;
+  margin:0 0 8px;
+  white-space:nowrap;
+}
+.mob__h2sub{
+  font-family:var(--font-display);
+  font-size:clamp(30px,3vw,45px);
+  font-weight:700;color:var(--vome-orange);
+  line-height:1.12;letter-spacing:-0.6px;
+  margin:0 0 24px;
+  white-space:nowrap;
+}
+.mob__sub{
+  font-size:19px;line-height:1.55;color:var(--fg-3);
+  max-width:780px;margin:0 auto 32px;text-wrap:pretty;
+  font-weight:500;
+}
+@media (max-width:900px){
+  .mob__h2,.mob__h2sub{white-space:normal}
+}
+.mob__badges{display:flex;gap:12px;justify-content:center;align-items:center}
+.mob__badge{display:inline-block;transition:transform .18s ease;line-height:0}
+.mob__badge:hover{transform:translateY(-2px)}
+
+/* Stage */
+.mob__stage{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:32px;
+  padding:40px 0 32px;
+}
+.mob__phones{
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  gap:18px;
+  position:relative;
+  flex-shrink:0;
+}
+
+/* Phone bezel */
+.mob__phone{
+  position:relative;
+  transition:transform .3s ease;
+}
+.mob__phone--front{z-index:2;transform:translateY(-10px)}
+.mob__phone--back{z-index:1;opacity:.98}
+.mob__phone--left{transform:translateY(24px) rotate(-4deg)}
+.mob__phone--right{transform:translateY(24px) rotate(4deg)}
+.mob__bezel{
+  width:220px;height:460px;
+  background:#0d0d14;
+  border-radius:38px;
+  padding:10px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.06) inset,
+    0 30px 60px -20px rgba(20,20,40,.35),
+    0 12px 24px -8px rgba(20,20,40,.25);
+  position:relative;
+}
+.mob__notch{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:90px;height:22px;background:#0d0d14;border-radius:20px;z-index:3;
+}
+.mob__screen{
+  width:100%;height:100%;
+  border-radius:30px;
+  overflow:hidden;
+  position:relative;
+  color:#1a1a2a;
+}
+.mob__screen--dark{background:linear-gradient(160deg,#0f1020,#1a1b2e);color:#fff}
+.mob__statusbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 18px 6px;font-size:11px;font-weight:600;
+  color:#1a1a2a;
+}
+.mob__statusbar--dark{color:#fff}
+.mob__statusicons{display:inline-flex;gap:4px;align-items:center}
+
+/* Phone 1 : Home */
+.mob__appbar{display:flex;align-items:center;gap:10px;padding:8px 14px 12px}
+.mob__appavatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--vome-orange),var(--vome-orange-700));
+  color:#fff;font-weight:700;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+}
+.mob__appgreet{font-size:10px;color:#6b6b7e;line-height:1}
+.mob__appname{font-size:15px;font-weight:700;color:#1a1a2a;margin-top:2px}
+.mob__appcard{
+  margin:0 12px 14px;padding:12px 14px;
+  background:linear-gradient(135deg,var(--vome-orange),#fa7b3a);
+  border-radius:14px;color:#fff;
+  box-shadow:0 8px 20px -6px rgba(232,88,62,.4);
+}
+.mob__appcardlbl{font-size:8px;font-weight:700;letter-spacing:.8px;opacity:.85}
+.mob__appcardtitle{font-size:13px;font-weight:700;margin-top:4px;line-height:1.2}
+.mob__appcardmeta{font-size:10px;opacity:.88;margin-top:4px}
+.mob__appcardtag{
+  display:inline-block;margin-top:8px;
+  background:rgba(255,255,255,.22);
+  padding:3px 8px;border-radius:10px;
+  font-size:9px;font-weight:600;
+}
+.mob__appsect{
+  padding:0 14px 6px;font-size:10px;font-weight:700;
+  color:#1a1a2a;letter-spacing:.2px;
+}
+.mob__applist{padding:0 10px;display:flex;flex-direction:column;gap:6px}
+.mob__applistitem{
+  display:flex;align-items:center;gap:10px;
+  padding:8px;background:#fff;border-radius:10px;
+  box-shadow:0 2px 6px rgba(20,20,40,.06);
+}
+.mob__applistimg{width:36px;height:36px;border-radius:8px;flex-shrink:0}
+.mob__applistname{font-size:11px;font-weight:700;color:#1a1a2a}
+.mob__applistmeta{font-size:9px;color:#6b6b7e;margin-top:1px}
+
+/* Phone 2 : Check-in */
+.mob__chktop{padding:16px 20px 10px;text-align:center}
+.mob__chklbl{font-size:9px;font-weight:700;letter-spacing:1px;opacity:.6;color:#fff}
+.mob__chkevent{font-size:15px;font-weight:700;color:#fff;margin-top:4px}
+.mob__chkwhen{font-size:10px;color:#fff;opacity:.7;margin-top:2px}
+.mob__qr{
+  margin:14px 26px;padding:12px;
+  background:#fff;border-radius:14px;
+  box-shadow:0 0 0 3px rgba(255,255,255,.06), 0 10px 24px -8px rgba(0,0,0,.4);
+  position:relative;
+}
+.mob__qrinner{position:relative;aspect-ratio:1/1}
+.mob__qrlogo{
+  position:absolute;inset:0;margin:auto;
+  width:38px;height:38px;border-radius:9px;
+  background:var(--vome-orange);
+  padding:7px;object-fit:contain;
+  box-shadow:0 0 0 4px #fff;
+}.mob__chkscan{text-align:center;font-size:10px;opacity:.7;color:#fff;margin:6px 0 0}
+.mob__chkbar{
+  margin:18px 14px 0;padding:10px 14px;
+  background:rgba(255,255,255,.08);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.mob__chkhours{display:flex;justify-content:space-between;align-items:center;color:#fff}
+.mob__chkhours span{font-size:10px;opacity:.7}
+.mob__chkhours strong{font-size:16px;font-weight:700}
+
+/* Phone 3 : Achievements */
+.mob__achhead{padding:8px 16px 10px;font-size:15px;font-weight:700;color:#1a1a2a}
+.mob__achnext{
+  display:flex;align-items:center;gap:10px;
+  margin:0 12px;padding:12px;
+  background:linear-gradient(135deg,#fff3e8,#ffe4cf);
+  border-radius:14px;
+}
+.mob__achbadge{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--vome-orange);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.mob__achlbl{font-size:8px;font-weight:700;letter-spacing:.8px;color:var(--vome-orange-700)}
+.mob__achname{font-size:13px;font-weight:700;color:#1a1a2a;margin-top:2px}
+.mob__achbar{
+  margin:12px 14px 4px;height:6px;background:#f0e6dc;border-radius:999px;overflow:hidden;
+}
+.mob__achbarfill{width:70%;height:100%;background:linear-gradient(90deg,var(--vome-orange),#fa7b3a);border-radius:999px}
+.mob__achprog{padding:0 14px;font-size:10px;color:#6b6b7e;font-weight:600}
+.mob__achlist{padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.mob__achitem{display:flex;align-items:center;gap:10px;opacity:.55}
+.mob__achitem--on{opacity:1}
+.mob__achmedal{
+  width:32px;height:32px;border-radius:50%;
+  box-shadow:inset 0 -2px 4px rgba(0,0,0,.2), 0 2px 4px rgba(0,0,0,.1);
+}
+.mob__achtxt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.mob__achtxt strong{font-size:12px;font-weight:700;color:#1a1a2a}
+.mob__achtxt span{font-size:10px;color:#6b6b7e;margin-top:1px;font-weight:500}
+
+/* Callouts : flanking stacks that curve around the phones */
+.mob__callcol{
+  display:flex;flex-direction:column;
+  gap:22px;
+  flex-shrink:0;
+  padding-top:30px;
+}
+.mob__callcol--l{align-items:flex-end}
+.mob__callcol--r{align-items:flex-start}
+/* Stagger each callout inward to form a gentle arc around the phones */
+.mob__callcol--l .mob__call:nth-child(1){transform:translateX(-24px)}
+.mob__callcol--l .mob__call:nth-child(2){transform:translateX(0)}
+.mob__callcol--l .mob__call:nth-child(3){transform:translateX(-24px)}
+.mob__callcol--r .mob__call:nth-child(1){transform:translateX(24px)}
+.mob__callcol--r .mob__call:nth-child(2){transform:translateX(0)}
+.mob__callcol--r .mob__call:nth-child(3){transform:translateX(24px)}
+.mob__call{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#fff;
+  border:1px solid var(--vome-sand-300);
+  border-radius:12px;
+  padding:10px 14px 10px 12px;
+  box-shadow:0 6px 18px -8px rgba(20,20,40,.12);
+  white-space:nowrap;
+}
+.mob__calldot{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--vome-peach-50);color:var(--vome-orange-700);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.mob__calltxt{
+  font-size:12px;font-weight:600;color:#1a1a2a;line-height:1.3;
+}
+
+
+
+@media (max-width:900px){
+  .mob__callcol{display:none}
+  .mob__phones{gap:10px}
+  .mob__bezel{width:180px;height:380px}
+  .mob__phone--left,.mob__phone--right{transform:none}
+  .mob__phone--front{transform:none}
+}
+
+.ent{
+  background:var(--vome-peach-50);
+  padding:96px 8% 88px;
+  position:relative;
+}
+.ent__intro{
+  text-align:center;
+  max-width:780px;
+  margin:0 auto 56px;
+}
+.ent__eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-display);
+  font-size:12px;font-weight:700;letter-spacing:.6px;
+  text-transform:uppercase;
+  color:var(--vome-orange-700);
+  background:#fff;
+  padding:8px 14px;border-radius:999px;
+  margin-bottom:20px;
+  border:1px solid rgba(232,88,62,.15);
+}
+.ent__eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--vome-orange)}
+.ent__h2{
+  font-family:var(--font-display);
+  font-size:clamp(30px,3.1vw,44px);
+  font-weight:700;
+  color:#000;
+  line-height:1.15;
+  letter-spacing:-0.5px;
+  margin:0 0 16px;
+  text-wrap:balance;
+}
+.ent__sub{
+  font-size:17px;line-height:1.55;
+  color:var(--fg-4);
+  font-weight:500;
+  margin:0 auto;
+  max-width:640px;
+  text-wrap:pretty;
+}
+
+.ent__grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+  max-width:1280px;
+  margin:0 auto 48px;
+}
+.ent__card{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:20px;
+  padding:24px;
+  display:flex;flex-direction:column;
+  box-shadow:0 12px 30px -16px rgba(17,17,40,.12);
+  transition:transform var(--dur-med) var(--ease-standard), box-shadow var(--dur-med) var(--ease-standard);
+}
+.ent__card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 20px 40px -16px rgba(17,17,40,.18);
+}
+.ent__visual{
+  background:linear-gradient(180deg,#fafafa,#f3f3f6);
+  border:1px solid rgba(0,0,0,.05);
+  border-radius:14px;
+  padding:18px;
+  height:260px;
+  margin-bottom:22px;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  gap:8px;
+  overflow:hidden;
+}
+.ent__cardtitle{
+  font-family:var(--font-display);
+  font-size:18px;font-weight:700;
+  color:var(--fg-2);
+  margin:0 0 10px;
+  line-height:1.3;
+  letter-spacing:-0.2px;
+}
+.ent__cardbody{
+  font-size:14px;line-height:1.55;
+  color:var(--fg-4);
+  margin:0;
+}
+
+/* Card 1 : Portal structure diagram */
+.ent__visual--struct{justify-content:flex-start}
+.ent__node{
+  display:flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid rgba(0,0,0,.08);
+  border-radius:8px;
+  padding:8px 10px;
+  font-size:12px;font-weight:600;color:var(--fg-2);
+  font-family:var(--font-display);
+}
+.ent__node--root{
+  background:#111;color:#fff;border-color:#111;
+  align-self:flex-start;
+}
+.ent__node--root .ent__nodedot{background:var(--vome-orange)}
+.ent__nodedot{
+  width:7px;height:7px;border-radius:50%;background:var(--fg-5);flex:0 0 auto;
+}
+.ent__nodedot--blue{background:#4472C4}
+.ent__nodedot--green{background:#00B050}
+.ent__nodedot--orange{background:var(--vome-orange)}
+.ent__nodetag{
+  margin-left:auto;
+  font-size:10px;font-weight:500;color:var(--fg-5);
+  font-family:var(--font-body);
+}
+.ent__branch{
+  margin-left:16px;
+  padding-left:12px;
+  border-left:1.5px dashed rgba(0,0,0,.18);
+  display:flex;flex-direction:column;gap:6px;
+}
+.ent__node--active{
+  background:var(--vome-peach-50);
+  border-color:rgba(232,88,62,.3);
+}
+
+/* Card 2 : Admin roles list */
+.ent__visual--roles{
+  justify-content:flex-start;
+  gap:7px;padding:16px;
+}
+.ent__role{
+  display:flex;align-items:center;gap:10px;
+  background:#fff;border:1px solid rgba(0,0,0,.08);
+  border-radius:10px;
+  padding:8px 10px;
+}
+.ent__roleav{
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:10px;font-weight:700;
+  flex:0 0 auto;
+}
+.ent__roleinfo{flex:1;min-width:0}
+.ent__rolename{
+  font-family:var(--font-display);font-size:11.5px;font-weight:700;color:var(--fg-2);
+  line-height:1.2;
+}
+.ent__rolelabel{
+  font-size:10px;color:var(--fg-5);margin-top:1px;line-height:1.2;
+}
+.ent__rolebadge{
+  font-size:8px;letter-spacing:2px;
+  padding:3px 7px;border-radius:999px;
+  flex:0 0 auto;
+}
+.ent__rolebadge--full{background:#d3eddf;color:#0a5f32}
+.ent__rolebadge--mid{background:#dbe5f6;color:#1a4580}
+.ent__rolebadge--low{background:#f5e4d1;color:#7a4a1f}
+.ent__role--ghost{
+  background:transparent;
+  border-style:dashed;
+  border-color:rgba(0,0,0,.18);
+}
+.ent__role--ghost .ent__roleav{border:1px dashed currentColor}
+.ent__role--ghost .ent__rolename{color:var(--vome-orange-700)}
+
+/* Card 3 : Integrations hub with real logos */
+.ent__visual--int{
+  justify-content:flex-start;
+  gap:16px;
+  padding:18px 14px 12px;
+  position:relative;
+}
+.ent__inthub{
+  align-self:center;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--vome-orange);
+  box-shadow:0 10px 22px -6px rgba(250,147,91,.55), 0 0 0 6px rgba(250,147,91,.12);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;
+  position:relative;
+  padding:9px;
+  z-index:2;
+}
+.ent__inthub img{width:100%;height:100%;object-fit:contain;display:block}
+.ent__inthub::after{
+  content:"";position:absolute;left:50%;bottom:-14px;width:2px;height:12px;
+  background:linear-gradient(180deg,rgba(250,147,91,.55),rgba(250,147,91,0));
+  transform:translateX(-50%);
+}
+.ent__intgrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  position:relative;
+}
+.ent__int{
+  background:#fff;border:1px solid rgba(0,0,0,.08);
+  border-radius:10px;
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  transition:border-color var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+.ent__int:hover{
+  border-color:rgba(250,147,91,.4);
+  transform:translateY(-1px);
+}
+/* All square marks sit at equal optical size (~60%) for uniform weight below the hub */
+.ent__int img{
+  width:60%;height:60%;
+  object-fit:contain;
+  display:block;
+}
+.ent__int img.ent__int--wide{
+  width:80%;height:auto;max-height:40%;
+}
+.ent__int{position:relative}
+.ent__int--more{
+  font-family:var(--font-display);
+  font-size:10.5px;font-weight:600;
+  color:var(--fg-5);
+  letter-spacing:.2px;
+  background:#fafafa;
+  border-style:dashed;
+  border-color:rgba(0,0,0,.15);
+}
+
+.ent__ctas{
+  display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
+}
+
+/* ============================================================
+   Section 4 : Security (editorial, no numbered cards)
+   ============================================================ */
+.sec{
+  background:#1a1a2a;
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(250,147,91,.10) 0, transparent 45%),
+    radial-gradient(circle at 88% 100%, rgba(71,114,196,.08) 0, transparent 45%);
+  color:rgba(255,255,255,.82);
+  padding:96px 8% 88px;
+  position:relative;
+}
+.sec::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(250,147,91,.35),transparent);
+}
+.sec__wrap{max-width:1200px;margin:0 auto}
+.sec__intro{
+  text-align:center;
+  max-width:860px;
+  margin:0 auto 40px;
+}
+.sec__eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-display);
+  font-size:12px;font-weight:700;letter-spacing:.6px;
+  text-transform:uppercase;
+  color:var(--vome-orange);
+  background:rgba(250,147,91,.1);
+  padding:8px 14px;border-radius:999px;
+  margin-bottom:20px;
+  border:1px solid rgba(250,147,91,.25);
+}
+.sec__eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--vome-orange)}
+.sec__h2{
+  font-family:var(--font-display);
+  font-size:clamp(28px,2.8vw,40px);
+  font-weight:700;
+  color:#fff;
+  line-height:1.15;
+  letter-spacing:-0.5px;
+  margin:0 0 16px;
+  white-space:nowrap;
+}
+.sec__sub{
+  font-size:17px;line-height:1.55;
+  color:rgba(255,255,255,.65);
+  font-weight:500;
+  margin:0 auto;
+  max-width:640px;
+  text-wrap:pretty;
+}
+
+/* Compliance strip : real seals */
+/* Compliance badges row : circular badges inspired by the reference seals */
+.sec__badges{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(16px, 2.4vw, 36px);
+  flex-wrap:wrap;
+  margin:8px auto 48px;
+  max-width:980px;
+  padding:20px 24px;
+  position:relative;
+}
+.sec__badges::before{
+  content:"";position:absolute;left:10%;right:10%;top:50%;height:1px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.15) 0 6px,transparent 6px 14px);
+  z-index:0;
+}
+.sec__badge{
+  position:relative;z-index:1;
+  width:84px;height:84px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex:0 0 auto;
+  font-family:var(--font-display);
+  color:#fff;
+  line-height:1;
+  text-align:center;
+  box-shadow:0 6px 20px -8px rgba(0,0,0,.45);
+  transition:transform var(--dur-fast) var(--ease-standard);
+}
+.sec__badge:hover{transform:translateY(-2px)}
+.sec__badgename{
+  font-size:13px;font-weight:800;letter-spacing:.3px;
+}
+.sec__badgesub{
+  font-size:8.5px;font-weight:700;letter-spacing:.8px;
+  margin-top:2px;opacity:.9;
+}
+/* HIPAA : shield-like pale blue */
+.sec__badge--hipaa{
+  background:radial-gradient(circle at 35% 30%, #e6eef5 0%, #c8d4e2 100%);
+  color:#1f3a5f;
+}
+.sec__badge--hipaa .sec__badgename{font-size:13px;color:#1f3a5f}
+.sec__badge--hipaa .sec__badgesub{color:#1f3a5f;font-size:8px}
+.sec__badgeshield{
+  width:60px;height:66px;
+  background:#2a7dd6;
+  clip-path:polygon(50% 0%, 100% 12%, 100% 62%, 50% 100%, 0% 62%, 0% 12%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#fff;
+  gap:2px;
+}
+.sec__badgeshield .sec__badgename{color:#fff;font-size:11.5px}
+.sec__badgeshield .sec__badgesub{color:#fff;font-size:7.5px}
+/* SOC 2 : dark slate with AICPA reference */
+.sec__badge--soc{
+  background:radial-gradient(circle at 35% 30%, #4a5568 0%, #1f2937 100%);
+  gap:3px;
+}
+.sec__badgesoctitle{
+  font-size:15px;font-weight:800;color:#fff;letter-spacing:0;
+}
+.sec__badgesocsub{
+  font-size:7.5px;font-weight:700;letter-spacing:1.2px;color:var(--vome-orange);
+}
+/* GDPR : deep blue with gold stars */
+.sec__badge--gdpr{
+  background:radial-gradient(circle at 35% 30%, #1a3a8f 0%, #0c1e5a 100%);
+  position:relative;
+}
+.sec__badge--gdpr .sec__badgename{
+  font-size:14px;font-weight:800;color:#FFD400;letter-spacing:.3px;
+  position:relative;z-index:2;
+}
+.sec__badgestars{
+  position:absolute;inset:0;width:100%;height:100%;
+}
+/* PIPEDA : Canadian red with leaf */
+.sec__badge--pipeda{
+  background:radial-gradient(circle at 35% 30%, #d82b2b 0%, #a81818 100%);
+  gap:4px;
+}
+.sec__badgeleafsvg{
+  width:22px;height:22px;
+  margin-bottom:2px;
+}
+.sec__badge--pipeda .sec__badgename{font-size:10.5px}
+/* CCPA : teal */
+.sec__badge--ccpa{
+  background:radial-gradient(circle at 35% 30%, #1d6e88 0%, #0d4558 100%);
+}
+.sec__badge--ccpa .sec__badgename{font-size:14px}
+/* PCI DSS : deep indigo */
+.sec__badge--pci{
+  background:radial-gradient(circle at 35% 30%, #3b1e6e 0%, #1d0f40 100%);
+  gap:3px;
+}
+.sec__badge--pci .sec__badgename{font-size:15px;color:#fff}
+.sec__badge--pci .sec__badgesub{font-size:9px;color:#c8b8ff}
+
+/* Three pillars : inline editorial layout */
+.sec__pillars{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:48px 40px;
+  margin-bottom:56px;
+  padding-top:8px;
+}
+.sec__pillar{
+  display:flex;flex-direction:column;gap:14px;
+  position:relative;
+  padding-top:24px;
+}
+.sec__pillar::before{
+  content:"";position:absolute;top:0;left:0;width:40px;height:2px;
+  background:var(--vome-orange);border-radius:2px;
+}
+.sec__pillaricon{
+  color:var(--vome-orange);
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(250,147,91,.08);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(250,147,91,.2);
+}
+.sec__pillartitle{
+  font-family:var(--font-display);
+  font-size:20px;font-weight:700;
+  color:#fff;
+  line-height:1.25;
+  letter-spacing:-0.2px;
+  margin:0 0 10px;
+}
+.sec__pillartext{
+  font-size:14.5px;line-height:1.65;
+  color:rgba(255,255,255,.7);
+  margin:0;
+}
+.sec__tags{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;
+}
+.sec__tag{
+  font-family:'Menlo','Consolas',monospace;
+  font-size:10.5px;font-weight:500;
+  color:rgba(255,255,255,.75);
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);
+  padding:3px 8px;border-radius:4px;
+}
+
+.sec__ctas{
+  display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.btn--dark{
+  background:var(--vome-orange);color:#fff;
+  box-shadow:0 8px 24px -8px rgba(250,147,91,.5);
+}
+.btn--dark:hover{background:var(--vome-orange-700)}
+.btn--ghost-dark{
+  background:transparent;color:rgba(255,255,255,.85);
+  border-color:rgba(255,255,255,.2);
+}
+.btn--ghost-dark:hover{
+  border-color:var(--vome-orange);
+  color:var(--vome-orange);
+}
+
+/* Responsive */
+@media (max-width: 1100px){
+  .sec__h2{white-space:normal;text-wrap:balance}
+}
+@media (max-width: 1000px){
+  .ent__grid{grid-template-columns:1fr;max-width:560px}
+  .sec__pillars{grid-template-columns:1fr;gap:32px}
+  .sec__strip{gap:16px}
+  .sec__striplabel{border-right:none;padding-right:0}
+  .sec__soc2{border-left:none;padding-left:0}
+}
+
+/* Signature navy divider */
+.divider{height:10px;background:var(--surface-ink)}
+
+/* ---------- Footer ---------- */
+.footer{background:#2a2940;color:rgba(255,255,255,.8);padding:48px 8% 32px;font-size:13px}
+.footer__row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer__logo{height:28px;filter:brightness(0) invert(1)}
+
+/* ---------- Tweaks panel ---------- */
+.tweaks{
+  position:fixed;bottom:20px;right:20px;z-index:100;
+  background:#fff;border-radius:14px;
+  box-shadow:0 20px 40px -10px rgba(0,0,0,.25);
+  padding:16px 18px;width:280px;
+  font-size:13px;
+  display:none;
+}
+.tweaks.on{display:block}
+.tweaks h4{margin:0 0 12px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--fg-2);display:flex;align-items:center;gap:8px}
+.tweaks h4::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--vome-orange)}
+.tweaks .grp{margin-bottom:14px}
+.tweaks .grp:last-child{margin-bottom:0}
+.tweaks label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--fg-5);margin-bottom:6px}
+.tweaks .opts{display:flex;gap:6px;flex-wrap:wrap}
+.tweaks .opt{
+  padding:6px 10px;border-radius:8px;font-size:12px;font-weight:600;
+  background:#f5f5f7;color:var(--fg-4);cursor:pointer;
+  border:1px solid transparent;
+}
+.tweaks .opt.sel{background:var(--vome-peach-50);color:var(--vome-orange-700);border-color:var(--vome-orange)}
+
+/* ---------- Hero variants ---------- */
+/* v1: default (accent word in orange) */
+/* v2: highlight underline */
+body[data-hero-style="underline"] .hero__h1 .accent{color:var(--fg-2)}
+body[data-hero-style="underline"] .hero__h1 .accent .underline{background-image:linear-gradient(transparent 62%, rgba(250,147,91,.35) 62%)}
+/* v3: serif-ish emphasis (keep sans, but italic + weight swap) */
+body[data-hero-style="italic"] .hero__h1 .accent{color:var(--vome-orange);font-style:italic;font-weight:600}
+body[data-hero-style="italic"] .hero__h1 .accent .underline{background:none;padding:0}
+/* v4: no accent */
+body[data-hero-style="mono"] .hero__h1 .accent{color:inherit}
+body[data-hero-style="mono"] .hero__h1 .accent .underline{background:none;padding:0}
+
+/* sub-size */
+body[data-sub-size="lg"] .hero__sub{font-size:18px;line-height:1.55}
+body[data-sub-size="md"] .hero__sub{font-size:16px;line-height:1.6}
+body[data-sub-size="sm"] .hero__sub{font-size:15px;line-height:1.6}
+
+/* eyebrow on/off */
+body[data-eyebrow="off"] .hero__eyebrow{display:none}
+
+@media (max-width:900px){
+  .hero__grid{grid-template-columns:1fr;gap:40px}
+  .nav__links{display:none}
+  .hero__visual{aspect-ratio:4/3}
+}
+
+/* ============================================================
+   Section 5 - Testimonials (horizontal auto-scroll)
+   ============================================================ */
+.tst{background:#fff;padding:100px 0 80px;overflow:hidden}
+.tst__wrap{max-width:1200px;margin:0 auto;padding:0 6%}
+.tst__intro{text-align:center;max-width:760px;margin:0 auto 56px}
+.tst__h2{
+  font-family:var(--font-display);
+  font-size:clamp(30px,3vw,44px);
+  font-weight:700;color:#000;line-height:1.15;letter-spacing:-0.6px;
+  margin:0 0 16px;text-wrap:balance;
+}
+.tst__h2accent{color:var(--vome-orange)}
+.tst__sub{font-size:17px;line-height:1.55;color:var(--fg-4);margin:0;text-wrap:pretty}
+
+.tst__marquee{
+  position:relative;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  padding:12px 0;
+}
+.tst__track{
+  display:flex;gap:24px;
+  width:max-content;
+  animation:tstScroll 60s linear infinite;
+}
+.tst__marquee:hover .tst__track{animation-play-state:paused}
+@keyframes tstScroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(calc(-50% - 12px))}
+}
+
+.tst__card{
+  flex:0 0 380px;
+  background:#fff;
+  border:1px solid var(--vome-sand-300);
+  border-radius:18px;
+  padding:28px;
+  display:flex;flex-direction:column;
+  box-shadow:0 4px 16px -8px rgba(20,20,40,.08);
+}
+.tst__stars{
+  color:var(--vome-orange);
+  font-size:15px;letter-spacing:2px;
+  margin-bottom:16px;
+}
+.tst__quotetxt{
+  font-family:var(--font-display);
+  font-size:16px;line-height:1.55;color:var(--fg-2);
+  font-weight:500;
+  margin:0 0 22px;text-wrap:pretty;flex:1;
+}
+.tst__who{display:flex;align-items:center;gap:12px;margin-top:auto}
+.tst__avatar{
+  width:42px;height:42px;border-radius:50%;
+  color:#fff;font-weight:700;font-size:16px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.tst__name{font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--fg-2);line-height:1.2}
+.tst__role{font-size:12px;color:var(--fg-4);margin-top:3px;line-height:1.3}
+
+@media (prefers-reduced-motion: reduce){
+  .tst__track{animation:none}
+}
+
+/* ============================================================
+   Section 6 - Closing CTA
+   ============================================================ */
+.cta{
+  background:linear-gradient(160deg,#1a1b2e 0%,#0f1020 100%);
+  padding:100px 6%;
+  position:relative;overflow:hidden;
+}
+.cta__wrap{
+  max-width:920px;margin:0 auto;
+  text-align:center;position:relative;z-index:1;
+}
+.cta__glow{
+  position:absolute;inset:-20% 20%;
+  background:radial-gradient(60% 60% at 50% 50%, rgba(250,147,91,.25), transparent 70%);
+  pointer-events:none;z-index:0;
+  filter:blur(40px);
+}
+.cta__h2{
+  font-family:var(--font-display);
+  font-size:clamp(36px,3.6vw,56px);
+  font-weight:700;color:#fff;
+  line-height:1.1;letter-spacing:-0.8px;
+  margin:0 0 20px;text-wrap:balance;
+}
+.cta__sub{
+  font-size:19px;line-height:1.55;
+  color:rgba(255,255,255,.75);
+  max-width:680px;margin:0 auto 36px;
+  font-weight:500;text-wrap:pretty;
+}
+.cta__actions{display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.cta__btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-display);font-weight:700;font-size:16px;
+  padding:14px 28px;border-radius:999px;
+  text-decoration:none;transition:transform .18s ease,box-shadow .18s ease;
+}
+.cta__btn--primary{
+  background:var(--vome-orange);color:#fff;
+  box-shadow:0 8px 20px -6px rgba(250,147,91,.6);
+}
+.cta__btn--primary:hover{transform:translateY(-1px);box-shadow:0 12px 28px -8px rgba(250,147,91,.7)}
+.cta__btn--ghost{
+  background:transparent;color:#fff;
+  border:1px solid rgba(255,255,255,.2);
+}
+.cta__btn--ghost:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.35)}
+.cta__meta{
+  display:flex;gap:28px;justify-content:center;flex-wrap:wrap;
+  margin-top:32px;
+}
+.cta__metaitem{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:14px;color:rgba(255,255,255,.6);font-weight:500;
+}
+.cta__metaitem svg{color:var(--vome-orange);flex-shrink:0}
+
+/* ============================================================
+   Section 7 - FAQ
+   ============================================================ */
+.faq{background:var(--vome-peach-50);padding:100px 6% 100px}
+.faq__wrap{max-width:920px;margin:0 auto}
+.faq__intro{text-align:center;margin:0 auto 48px;max-width:680px}
+.faq__h2{
+  font-family:var(--font-display);
+  font-size:clamp(30px,3vw,44px);
+  font-weight:700;color:#000;line-height:1.15;letter-spacing:-0.6px;
+  margin:0 0 14px;
+}
+.faq__sub{font-size:16px;line-height:1.6;color:var(--fg-4);margin:0}
+.faq__link{color:var(--vome-orange);text-decoration:none;font-weight:600}
+.faq__link:hover{text-decoration:underline}
+.faq__list{display:flex;flex-direction:column;gap:12px}
+.faq__item{
+  background:#fff;
+  border:1px solid var(--vome-sand-300);
+  border-radius:14px;
+  overflow:hidden;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.faq__item[open]{
+  border-color:var(--vome-orange);
+  box-shadow:0 6px 18px -8px rgba(250,147,91,.25);
+}
+.faq__q{
+  list-style:none;cursor:pointer;
+  padding:20px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:var(--font-display);font-weight:700;font-size:17px;
+  color:var(--fg-2);
+}
+.faq__q::-webkit-details-marker{display:none}
+.faq__q > span:first-child{flex:1;text-wrap:pretty}
+.faq__chev{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--vome-peach-50);color:var(--vome-orange);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:transform .25s ease, background .2s ease;
+}
+.faq__item[open] .faq__chev{transform:rotate(180deg);background:var(--vome-orange);color:#fff}
+.faq__a{
+  padding:0 24px 22px;
+  font-size:15px;line-height:1.6;color:var(--fg-4);
+  text-wrap:pretty;
+}
+
+@media (max-width:640px){
+  .faq__q{font-size:15px;padding:16px 18px}
+  .faq__a{padding:0 18px 18px}
+  .cta__h2{font-size:32px}
+  .tst__card{flex-basis:300px;padding:22px}
+}
+</style>
+</head>
+<body data-hero-style="accent" data-sub-size="md" data-eyebrow="on">
+<script>
+  // Accept ?cta=red|orange|green to override primary CTA color (used by comparison page)
+  (function(){
+    var p = new URLSearchParams(location.search).get('cta');
+    var map = {
+      red:    { bg:'#E8583E', hover:'#d64a31' },
+      orange: { bg:'#fa935b', hover:'#ED8E34' },
+      green:  { bg:'#00B050', hover:'#008F43' }
+    };
+    if (p && map[p]) {
+      document.documentElement.style.setProperty('--cta-bg', map[p].bg);
+      document.documentElement.style.setProperty('--cta-hover', map[p].hover);
+    }
+  })();
+</script>
+
+<div class="topnav">
+  <span class="topnav__lang"><svg class="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>English <svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  <div class="topnav__links">
+    <a>Features <svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a>Plans</a>
+    <a>About</a>
+    <a>Contact</a>
+    <a>Login</a>
+  </div>
+</div>
+
+<nav class="mainnav">
+  <img class="mainnav__logo" src="assets/logos/full_logo_orange.png" alt="Vome">
+  <div class="mainnav__cta">
+    <button class="btn btn--ghost">Book a demo</button>
+    <button class="btn btn--primary">Sign up for Free</button>
+  </div>
+</nav>
+
+<section class="hero" data-screen-label="Hero">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <div class="hero__eyebrow">4.6 ★ on Capterra, GetApp &amp; G2</div>
+
+      <h1 class="hero__h1">
+        The volunteer management software your <span class="accent">volunteers and staff</span> actually want to use
+      </h1>
+
+      <p class="hero__sub">
+        From a single coordinator to teams running programs across multiple sites, <strong>Vome automates the manual work</strong> behind onboarding, scheduling, and communication. All in one platform, with unlimited volunteers on every plan.
+      </p>
+
+      <div class="hero__ctas">
+        <button class="btn btn--primary">Start free</button>
+        <button class="btn btn--ghost">Book a demo</button>
+      </div>
+
+      <div class="hero__meta">
+        <span><span class="check">✓</span>Free plan + 30-day trials on paid</span>
+        <span><span class="check">✓</span>Set up in minutes</span>
+        <span><span class="check">✓</span>HIPAA, GDPR &amp; SOC 2</span>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <!-- Floating: Volunteer row (Dylan Randall style) -->
+      <div class="hero__fly hero__fly--volunteer">
+        <span class="avatar">DR</span>
+        <div>
+          <strong>Dylan Randall</strong>
+          <span class="hours">Hours Logged: 1h 00</span>
+          <div class="party">Party size: <a>3 people</a></div>
+        </div>
+      </div>
+
+      <!-- Floating: new message pulse -->
+      <div class="hero__fly hero__fly--msg">
+        <span class="msg-ic"></span>
+        <div><strong>New message</strong><small>Céline: See you Saturday!</small></div>
+      </div>
+
+      <!-- App — real Vome UI -->
+      <div class="app">
+        <aside class="app__side">
+          <div class="org-pill">
+            <div class="org-logo">YOUR<br>LOGO</div>
+            <div>
+              <div class="org-name">Your Organization</div>
+              <div class="org-view">View page</div>
+            </div>
+            <span class="chev">▾</span>
+          </div>
+
+          <div class="app__group">Manage</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><path d="M3 12l9-8 9 8v8a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-8z"/></svg></span>Dashboard</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>Forms</div>
+          <div class="app__item app__item--active"><span class="i"><svg viewBox="0 0 24 24"><path d="M6 4l12 8-12 8V4z"/></svg></span>Sequences</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M16 11h5M18 9v4"/></svg></span>Opportunities</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>Schedule</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><path d="M2 20c0-3 2-5 6-5s6 2 6 5M14 20c0-3 2-5 4-5s4 2 4 5"/></svg></span>Groups</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg></span>Resources</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><path d="M7 4h10v3a5 5 0 01-10 0V4zM5 5H3v2a3 3 0 003 3M19 5h2v2a3 3 0 01-3 3M10 14h4M9 20h6M12 14v6"/></svg></span>Recognition</div>
+
+          <div class="app__group">Data</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>Database</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="5" height="16" rx="1"/><rect x="11" y="9" width="5" height="11" rx="1"/><rect x="18" y="14" width="2" height="6" rx="1"/></svg></span>Reports &amp; Analytics</div>
+
+          <div class="app__group">Configure</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><circle cx="8" cy="10" r="3"/><circle cx="16" cy="10" r="3"/><path d="M2 20c0-3 2-5 6-5s6 2 6 5M14 20c0-3 2-5 4-5s4 2 4 5"/></svg></span>Users &amp; Access</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="12" r="2"/><path d="M8 6h4a2 2 0 012 2v2M8 18h4a2 2 0 002-2v-2"/></svg></span>Sites</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="10" y="3" width="5" height="5" rx="1"/><rect x="17" y="3" width="4" height="5" rx="1"/><rect x="3" y="10" width="5" height="5" rx="1"/><rect x="10" y="10" width="5" height="5" rx="1"/><rect x="17" y="10" width="4" height="5" rx="1"/><rect x="3" y="17" width="5" height="4" rx="1"/><rect x="10" y="17" width="5" height="4" rx="1"/></svg></span>Integrations</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.8"/><path d="M5 9h14M12 9v4M12 13l-3 7M12 13l3 7"/></svg></span>Accessibility</div>
+
+          <div class="app__group">Help</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 9l2 2 4-4M8 15l2 2 4-4"/></svg></span>Setup Checklist</div>
+          <div class="app__item"><span class="i"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 0c0 1.5-2.5 2-2.5 3.5M12 17h.01"/></svg></span>Support</div>
+        </aside>
+
+        <div class="app__main">
+          <div class="app__crumb">Sequences / <strong>Volunteer Onboarding</strong></div>
+          <div class="app__heading">
+            <h3>Volunteer Onboarding</h3>
+            <span class="add-btn">Add Volunteer</span>
+          </div>
+
+          <div class="board">
+            <!-- Step 1 -->
+            <div>
+              <div class="col__header">
+                <span class="col__step">Step 1</span>
+                <span class="col__chip chip--interview"><span class="dot"></span>Interview</span>
+                <div class="col__title">Zoom Interview</div>
+              </div>
+              <div class="card">
+                <div class="card__row"><span class="card__name">Céline Dion</span><span class="card__menu">···</span></div>
+                <div class="card__status"><span class="card__play"></span><span class="card__step-pill">Step 1</span><span class="card__ok">✓</span></div>
+                <div class="card__date">Started: Aug 28, 2025</div>
+              </div>
+              <div class="card">
+                <div class="card__row"><span class="card__name">Gary Jones</span><span class="card__menu">···</span></div>
+                <div class="card__status"><span class="card__play"></span><span class="card__step-pill">Step 1</span><span class="card__ok">✓</span></div>
+                <div class="card__date">Started: Mar 25, 2026</div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div>
+              <div class="col__header">
+                <span class="col__step">Step 2</span>
+                <span class="col__chip chip--pdf"><span class="dot"></span>Fillable PDF</span>
+                <div class="col__title">Liability Waiver</div>
+              </div>
+              <div class="card">
+                <div class="card__row"><span class="card__name">Alex Lays</span><span class="card__menu">···</span></div>
+                <div class="card__status"><span class="card__play"></span><span class="card__step-pill">Step 2</span><span class="card__pending"></span></div>
+                <div class="card__date">Assigned: Mar 25, 2026</div>
+              </div>
+              <div class="card">
+                <div class="card__row"><span class="card__name">Danielle Mulaney</span><span class="card__menu">···</span></div>
+                <div class="card__status"><span class="card__play"></span><span class="card__step-pill">Step 2</span><span class="card__pending"></span></div>
+                <div class="card__date">Assigned: Apr 08, 2026</div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div>
+              <div class="col__header">
+                <span class="col__step">Step 3</span>
+                <span class="col__chip chip--bg"><span class="dot"></span>Background Check</span>
+                <div class="col__title">Sterling Verify</div>
+              </div>
+              <div class="card">
+                <div class="card__row"><span class="card__name">Abbie Dawson</span><span class="card__menu">···</span></div>
+                <div class="card__status"><span class="card__play"></span><span class="card__step-pill">Step 3</span><span class="card__pending"></span></div>
+                <div class="card__date">Due: Apr 04, 2026</div>
+              </div>
+              <div class="card">
+                <div class="card__row"><span class="card__name">Aly Miller</span><span class="card__menu">···</span></div>
+                <div class="card__status"><span class="card__play"></span><span class="card__step-pill">Step 3</span><span class="card__pending"></span></div>
+                <div class="card__date">Assigned: Jan 29, 2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="partners">
+  <p class="partners__eyebrow">Trusted by 1000+ amazing organizations</p>
+  <div class="partners__track">
+    <div class="logo-chip">MOLAA</div>
+    <div class="logo-chip">Habitat</div>
+    <div class="logo-chip">Golf Canada</div>
+    <div class="logo-chip">Red Cross Malta</div>
+    <div class="logo-chip">RMHC</div>
+    <div class="logo-chip">Volleyball Canada</div>
+    <div class="logo-chip">Mission Bay</div>
+    <div class="logo-chip">KWMC</div>
+    <div class="logo-chip">Italian Festival</div>
+    <div class="logo-chip">DSORC</div>
+    <div class="logo-chip">Centerstage</div>
+    <div class="logo-chip">Alz &amp; Dementia</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 2 — Feature Tabs
+     ============================================================ -->
+<section class="ftabs" data-screen-label="02 Features">
+
+  <!-- Section header -->
+  <div class="ftabs__intro">
+    <h2 class="ftabs__h2">Everything volunteer managers need. <span class="ftabs__h2-accent">Built to work together.</span></h2>
+    <p class="ftabs__sub">Vome is the complete volunteer management platform. One easy-to-use system that eliminates manual work at every step, from the first application to the final report.</p>
+    <a class="ftabs__videobtn" href="#">
+      <span class="ftabs__videoplay"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg></span>
+      Watch a 2-minute video
+    </a>
+  </div>
+
+  <!-- Tab bar -->
+  <div class="ftabs__bar" role="tablist">
+    <button class="ftabs__tab ftabs__tab--active" data-tab="0" role="tab">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      Recruitment
+    </button>
+    <button class="ftabs__tab" data-tab="1" role="tab">
+      <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      Onboarding
+    </button>
+    <button class="ftabs__tab" data-tab="2" role="tab">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Scheduling
+    </button>
+    <button class="ftabs__tab" data-tab="3" role="tab">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Hour tracking
+    </button>
+    <button class="ftabs__tab" data-tab="4" role="tab">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Data &amp; reports
+    </button>
+    <button class="ftabs__tab" data-tab="5" role="tab">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Communications
+    </button>
+  </div>
+
+  <!-- Tab panels -->
+  <div class="ftabs__panels">
+
+    <!-- Tab 0: Recruitment -->
+    <div class="ftabs__panel ftabs__panel--active" data-panel="0">
+      <div class="ftabs__panel-left">
+        <h3 class="ftabs__headline">Build the recruitment process you need.</h3>
+        <div class="ftabs__grid">
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10h8M8 14h5"/></svg>
+            </div>
+            <div>
+              <strong>Custom application forms</strong>
+              <p>Add questions, request file uploads, collect e-signatures, embed shift calendars — all from one form builder.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div>
+              <strong>One-click apply links</strong>
+              <p>Share direct links to opportunities, forms, or your public page. Embed on your site, post on social, or share it anywhere.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div>
+              <strong>Recruitment automations</strong>
+              <p>Automations move applicants forward on their own and keep your system organized. Triggered by form responses, visibility rules, and eligibility requirements.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            </div>
+            <div>
+              <strong>Automated status updates</strong>
+              <p>Email and app notifications keep volunteers in the loop through every step of the application.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftabs__panel-right">
+        <div class="ftabs__mock ftabs__mock--recruitment">
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">share.vomevolunteer.com/your-org</div></div>
+
+          <!-- Public org page header (cover + logo) -->
+          <div class="ftmock__cover">
+            <div class="ftmock__coverdot"></div>
+            <div class="ftmock__coverdot ftmock__coverdot--r"></div>
+            <div class="ftmock__covertext">Your cover photo</div>
+          </div>
+          <div class="ftmock__orgblock">
+            <div class="ftmock__orglogo">YOUR<br>LOGO</div>
+            <div class="ftmock__orginfo">
+              <div class="ftmock__orgname">Your Organization</div>
+              <div class="ftmock__orgtags">
+                <span class="ftmock__orgtag">Community Support</span>
+                <span class="ftmock__orgtag">Education</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured opportunities -->
+          <div class="ftmock__section">
+            <div class="ftmock__sectiontitle">
+              <span>Featured opportunities</span>
+              <span class="ftmock__count">33</span>
+            </div>
+            <div class="ftmock__cards">
+              <div class="ftmock__card ftmock__card--featured">
+                <div class="ftmock__cardimg"></div>
+                <div class="ftmock__cardbody">
+                  <div class="ftmock__title">Weekend Food Bank Volunteer</div>
+                  <div class="ftmock__meta"><span class="ftmock__metaico">📍</span>On-site · Saturdays 9am–1pm</div>
+                  <div class="ftmock__chips">
+                    <span class="ftmock__chip">Adults</span>
+                    <span class="ftmock__chip">Groups</span>
+                    <span class="ftmock__chip">Social</span>
+                  </div>
+                </div>
+                <button class="ftmock__viewbtn">View</button>
+              </div>
+              <div class="ftmock__card">
+                <div class="ftmock__cardimg ftmock__cardimg--alt"></div>
+                <div class="ftmock__cardbody">
+                  <div class="ftmock__title">Hospital Visitor Program</div>
+                  <div class="ftmock__meta"><span class="ftmock__metaico">📍</span>Flexible · Weekly</div>
+                  <div class="ftmock__chips">
+                    <span class="ftmock__chip">Adults</span>
+                    <span class="ftmock__chip">Indoors</span>
+                  </div>
+                </div>
+                <button class="ftmock__viewbtn">View</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Share link bar -->
+          <div class="ftmock__share">
+            <div class="ftmock__shareinput">
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+              <span class="ftmock__shareurl">share.vomevolunteer.com/AAp8kxzat2b</span>
+            </div>
+            <button class="ftmock__copybtn">Copy link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 1: Onboarding -->
+    <div class="ftabs__panel" data-panel="1">
+      <div class="ftabs__panel-left">
+        <h3 class="ftabs__headline">Onboard volunteers through custom workflows. No manual follow-up.</h3>
+        <div class="ftabs__grid">
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+              <strong>Build any onboarding flow, your way</strong>
+              <p>Combine forms, fillable PDFs, e-signatures, training modules, checklists, and file uploads into a single guided sequence. Organize into folders by program, department, or season.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div>
+              <strong>Fillable PDFs, built in</strong>
+              <p>Waivers, releases, policies, and compliance forms. Signed and submitted inside the sequence, with no third-party tools, printing, scanning, or re-uploading needed.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <strong>Control every step</strong>
+              <p>Due dates, reminders, skip rules, auto-expiration, and visibility settings per step. Choose whether volunteers move themselves forward or admins advance them.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <strong>Credentialing and compliance, handled</strong>
+              <p>Background check integrations, auto-expiring renewals for certifications and waivers, and audit-ready tracking at every step.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftabs__panel-right">
+        <div class="ftabs__mock ftabs__mock--seq">
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Sequences</div></div>
+
+          <!-- Sequence header -->
+          <div class="ftseq__head">
+            <div class="ftseq__headleft">
+              <div class="ftseq__seqname">Volunteer Onboarding Sequence</div>
+              <div class="ftseq__seqmeta"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg> General Onboarding</div>
+            </div>
+            <div class="ftseq__stats">
+              <div class="ftseq__stat"><div class="ftseq__statnum">22</div><div class="ftseq__statpill ftseq__statpill--active">Active</div></div>
+              <div class="ftseq__stat"><div class="ftseq__statnum">8</div><div class="ftseq__statpill">Step 1</div></div>
+              <div class="ftseq__stat"><div class="ftseq__statnum ftseq__statnum--orange">14</div><div class="ftseq__statpill ftseq__statpill--mytasks">My Tasks</div></div>
+            </div>
+          </div>
+
+          <!-- Board view: step columns + volunteer cards -->
+          <div class="ftseq__board">
+            <!-- Column 1 -->
+            <div class="ftseq__col">
+              <div class="ftseq__colhead">
+                <span class="ftseq__steppill">Step 1</span>
+                <span class="ftseq__steptype ftseq__steptype--interview"><span class="ftseq__steptype-dot"></span>Interview</span>
+              </div>
+              <div class="ftseq__coltitle">Zoom Interview</div>
+              <div class="ftseq__vcard">
+                <div class="ftseq__vname">Céline Dion</div>
+                <div class="ftseq__vprogress">
+                  <span class="ftseq__vplay">▶</span>
+                  <span class="ftseq__vstep">Step 1</span>
+                  <span class="ftseq__vdot ftseq__vdot--done">✓</span>
+                </div>
+                <div class="ftseq__vmeta">Started: Aug 28, 2025</div>
+              </div>
+              <div class="ftseq__vcard">
+                <div class="ftseq__vname">Gary Jones</div>
+                <div class="ftseq__vprogress">
+                  <span class="ftseq__vplay">▶</span>
+                  <span class="ftseq__vstep">Step 1</span>
+                  <span class="ftseq__vdot ftseq__vdot--done">✓</span>
+                </div>
+                <div class="ftseq__vmeta">Started: Mar 25, 2026</div>
+              </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="ftseq__col">
+              <div class="ftseq__colhead">
+                <span class="ftseq__steppill">Step 2</span>
+                <span class="ftseq__steptype ftseq__steptype--pdf"><span class="ftseq__steptype-dot"></span>Fillable PDF</span>
+              </div>
+              <div class="ftseq__coltitle">Liability Waiver</div>
+              <div class="ftseq__vcard">
+                <div class="ftseq__vname">Alex Lays</div>
+                <div class="ftseq__vprogress">
+                  <span class="ftseq__vplay">▶</span>
+                  <span class="ftseq__vstep">Step 2</span>
+                  <span class="ftseq__vdot ftseq__vdot--waiting">◷</span>
+                </div>
+                <div class="ftseq__vmeta">Assigned: Mar 25, 2026</div>
+              </div>
+              <div class="ftseq__vcard">
+                <div class="ftseq__vname">Danielle Mulaney</div>
+                <div class="ftseq__vprogress">
+                  <span class="ftseq__vplay">▶</span>
+                  <span class="ftseq__vstep">Step 2</span>
+                  <span class="ftseq__vdot ftseq__vdot--waiting">◷</span>
+                </div>
+                <div class="ftseq__vmeta">Assigned: Apr 08, 2026</div>
+              </div>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="ftseq__col">
+              <div class="ftseq__colhead">
+                <span class="ftseq__steppill">Step 3</span>
+                <span class="ftseq__steptype ftseq__steptype--bg"><span class="ftseq__steptype-dot"></span>Background</span>
+              </div>
+              <div class="ftseq__coltitle">Background Check</div>
+              <div class="ftseq__vcard ftseq__vcard--overdue">
+                <div class="ftseq__vname">Abbie Dawson <span class="ftseq__vbell">!</span></div>
+                <div class="ftseq__vprogress">
+                  <span class="ftseq__vplay">▶</span>
+                  <span class="ftseq__vstep">Step 3</span>
+                  <span class="ftseq__vdot ftseq__vdot--waiting">◷</span>
+                </div>
+                <div class="ftseq__vmeta ftseq__vmeta--due">Due: Apr 04, 2026</div>
+              </div>
+              <div class="ftseq__vcard">
+                <div class="ftseq__vname">Aly Miller</div>
+                <div class="ftseq__vprogress">
+                  <span class="ftseq__vplay">▶</span>
+                  <span class="ftseq__vstep">Step 3</span>
+                  <span class="ftseq__vdot ftseq__vdot--waiting">◷</span>
+                </div>
+                <div class="ftseq__vmeta">Assigned: Jan 29, 2025</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Automated notification toast -->
+          <div class="ftseq__toast">
+            <div class="ftseq__toastavatar">BS</div>
+            <div class="ftseq__toastbody">
+              <div class="ftseq__toasttext"><strong>Barney Slottman</strong> completed the last step in a sequence: Group Leader Onboarding. Sequence status updated from Active to Finished.</div>
+              <div class="ftseq__toasttime">6m ago · Automated update</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Scheduling -->
+    <div class="ftabs__panel" data-panel="2">
+      <div class="ftabs__panel-left">
+        <h3 class="ftabs__headline">850,000+ shifts scheduled and counting.</h3>
+        <p class="ftabs__panel-sub">Single shifts. Recurring programs. Multi-site calendars. Vome handles them all.</p>
+        <div class="ftabs__grid">
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <strong>Shift management at every scale</strong>
+              <p>Create single shifts, recurring schedules, or import entire calendars from a spreadsheet. Save shift templates and reuse them across programs. Mass assign, edit, and cancel from one calendar view.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div>
+              <strong>Flexible booking, your rules</strong>
+              <p>Choose instant booking or admin approval. Open shifts to everyone, or make them private and visible only to tagged volunteers. Let volunteers propose their own times with flexible scheduling.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div>
+              <strong>Group reservations for corporate and team events</strong>
+              <p>Volunteers reserve multiple spots in a single action for a team, a family, or a corporate volunteer day. Hours and participation roll up at the group level, ready for reporting.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+            </div>
+            <div>
+              <strong>Reminders, confirmations, and calendar sync</strong>
+              <p>Configurable shift notifications send reminders before, during, and after each shift. Volunteers confirm, join waitlists, and sync shifts to Google, Outlook, or Apple Calendar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftabs__panel-right">
+        <div class="ftabs__mock ftabs__mock--sched">
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Schedule · April 2026</div></div>
+
+          <!-- Schedule toolbar -->
+          <div class="ftsched__toolbar">
+            <button class="ftsched__createbtn">+ Create shifts</button>
+            <div class="ftsched__navgroup">
+              <button class="ftsched__navbtn">Today</button>
+              <button class="ftsched__navarrow">‹</button>
+              <button class="ftsched__navarrow">›</button>
+              <span class="ftsched__daterange">Apr 2026 ▾</span>
+            </div>
+            <div class="ftsched__viewgroup">
+              <span class="ftsched__view">📅 Calendar</span>
+              <span class="ftsched__view ftsched__view--active">Month ▾</span>
+            </div>
+          </div>
+
+          <!-- Calendar body + drawer -->
+          <div class="ftsched__body">
+            <div class="ftsched__cal">
+              <div class="ftsched__caldow">Sun</div><div class="ftsched__caldow">Mon</div><div class="ftsched__caldow">Tue</div><div class="ftsched__caldow">Wed</div><div class="ftsched__caldow">Thu</div><div class="ftsched__caldow">Fri</div><div class="ftsched__caldow">Sat</div>
+
+              <!-- Week 1 (Apr 5-11) -->
+              <div class="ftsched__day"><span class="ftsched__daynum">5</span></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">6</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">7</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--pink">11a Job C</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">8</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">9</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--pink">11a Job C</div>
+              </div>
+              <div class="ftsched__day ftsched__day--today"><span class="ftsched__daynum">10</span>
+                <div class="ftsched__evt ftsched__evt--teal">5p Orientation</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">11</span>
+                <div class="ftsched__evt ftsched__evt--peach">3p Shift</div>
+                <div class="ftsched__evtmore">4/5</div>
+              </div>
+
+              <!-- Week 2 (Apr 12-18) -->
+              <div class="ftsched__day"><span class="ftsched__daynum">12</span></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">13</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">14</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--pink">11a Job C</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">15</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">16</span>
+                <div class="ftsched__evt ftsched__evt--grey">Full</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">17</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">18</span>
+                <div class="ftsched__evt ftsched__evt--peach">4p Mentor</div>
+              </div>
+
+              <!-- Week 3 (Apr 19-25) -->
+              <div class="ftsched__day"><span class="ftsched__daynum">19</span></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">20</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">21</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--pink">11a Job C</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">22</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--teal">6p Training</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">23</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--pink">11a Job C</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">24</span>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">25</span>
+                <div class="ftsched__evt ftsched__evt--grey">Full</div>
+              </div>
+
+              <!-- Week 4 (Apr 26–May 2) -->
+              <div class="ftsched__day"><span class="ftsched__daynum">26</span></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">27</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">28</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--pink">11a Job C</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">29</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+                <div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum">30</span>
+                <div class="ftsched__evt ftsched__evt--teal">2p Orient</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum muted">1</span>
+                <div class="ftsched__evt ftsched__evt--peach">9a Opp A</div>
+              </div>
+              <div class="ftsched__day"><span class="ftsched__daynum muted">2</span>
+                <div class="ftsched__evt ftsched__evt--peach">4p Mentor</div>
+              </div>
+            </div>
+
+            <!-- Shift detail drawer -->
+            <div class="ftsched__drawer">
+              <div class="ftsched__drawerhead">
+                <div class="ftsched__drawertitle">Sign Up For Orientation!</div>
+                <div class="ftsched__drawersub">Volunteer Orientation</div>
+              </div>
+              <div class="ftsched__drawerrow">
+                <div class="ftsched__drawerlabel">Date &amp; Time</div>
+                <div class="ftsched__drawerval">Apr 10, 5:00–7:00 PM</div>
+              </div>
+              <div class="ftsched__drawerrow">
+                <div class="ftsched__drawerlabel">Location</div>
+                <div class="ftsched__drawerval">3435 Drummond St, Montréal</div>
+              </div>
+              <div class="ftsched__drawerrow">
+                <div class="ftsched__drawerlabel">Attendees <span class="ftsched__attcount">1/20</span></div>
+              </div>
+              <div class="ftsched__attendee">
+                <div class="ftsched__avatar">BD</div>
+                <div class="ftsched__attname">Bob Dylan</div>
+                <button class="ftsched__checkin">Check-in</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Hour tracking -->
+    <div class="ftabs__panel" data-panel="3">
+      <div class="ftabs__panel-left">
+        <h3 class="ftabs__headline">So many ways to track volunteer hours. Pick what fits your program.</h3>
+        <div class="ftabs__grid">
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div>
+              <strong>Multiple ways to check in</strong>
+              <p>QR scan, tap-to-check-in, on-site kiosk, or fully automatic check-in and check-out. Pick one, or mix different methods across your different volunteer programs.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <strong>Proximity validation for attendance integrity</strong>
+              <p>Require volunteers to be physically within a defined radius to check in or out. Customizable by program. Prevents remote check-ins and protects program data.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div>
+              <strong>Walk-ins, group reservations, and off-site hours</strong>
+              <p>On-site kiosks handle check-in and check-out for everyone on a shift, with an optional "Join a shift" mode for walk-ins who want to sign up on the spot. Group reservations roll up at the group level for reporting. Volunteers can also submit hour claims for work they did off-platform.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+            </div>
+            <div>
+              <strong>Audit-ready hour reports</strong>
+              <p>Shifts and hours by volunteer, a full reservations and hours log, and custom database exports. Every hour traced to a person, a shift, and a check-in method.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftabs__panel-right">
+        <div class="ftabs__mock ftabs__mock--hours">
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Hours Report · April 2026</div></div>
+
+          <!-- Check-in method pills -->
+          <div class="fthrs__methods">
+            <div class="fthrs__method fthrs__method--active">
+              <div class="fthrs__methodicon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="16" y="16" width="2" height="2"/><rect x="19" y="19" width="2" height="2"/></svg>
+              </div>
+              <span>QR scan</span>
+            </div>
+            <div class="fthrs__method">
+              <div class="fthrs__methodicon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h11"/></svg>
+              </div>
+              <span>Tap to check in</span>
+            </div>
+            <div class="fthrs__method">
+              <div class="fthrs__methodicon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><circle cx="12" cy="14" r="3"/></svg>
+              </div>
+              <span>On-site kiosk</span>
+            </div>
+            <div class="fthrs__method">
+              <div class="fthrs__methodicon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-9-9"/><polyline points="21 3 21 9 15 9"/></svg>
+              </div>
+              <span>Automatic</span>
+            </div>
+          </div>
+
+          <!-- Big stat -->
+          <div class="fthrs__stat">
+            <div class="fthrs__statnum">3,847</div>
+            <div class="fthrs__statlabel">Total volunteer hours · April 2026</div>
+            <div class="fthrs__statdelta">▲ 12% vs March</div>
+          </div>
+
+          <!-- Report table -->
+          <div class="fthrs__table">
+            <div class="fthrs__thead">
+              <span>Volunteer</span>
+              <span>Shift</span>
+              <span>Method</span>
+              <span class="fthrs__tright">Hours</span>
+            </div>
+            <div class="fthrs__trow">
+              <span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#f4a9a9">SM</span>Sarah M.</span>
+              <span class="fthrs__tshift">Food Bank · Apr 14</span>
+              <span><span class="fthrs__pill fthrs__pill--qr">QR</span></span>
+              <span class="fthrs__tright">4.0 h</span>
+            </div>
+            <div class="fthrs__trow">
+              <span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#a9c9f4">JL</span>James L.</span>
+              <span class="fthrs__tshift">Hospital · Apr 14</span>
+              <span><span class="fthrs__pill fthrs__pill--kiosk">Kiosk</span></span>
+              <span class="fthrs__tright">3.5 h</span>
+            </div>
+            <div class="fthrs__trow">
+              <span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#c9b5f0">PK</span>Priya K.</span>
+              <span class="fthrs__tshift">Mentorship · Apr 10</span>
+              <span><span class="fthrs__pill fthrs__pill--claim">Claim</span></span>
+              <span class="fthrs__tright">2.0 h</span>
+            </div>
+            <div class="fthrs__trow">
+              <span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#f4c9a9">CR</span>Carlos R.</span>
+              <span class="fthrs__tshift">Food Bank · Apr 14</span>
+              <span><span class="fthrs__pill fthrs__pill--tap">Tap</span></span>
+              <span class="fthrs__tright">4.0 h</span>
+            </div>
+            <div class="fthrs__trow">
+              <span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#a9e0c9">AP</span>Ana P. <span class="fthrs__group">+5</span></span>
+              <span class="fthrs__tshift">Group · Community Day</span>
+              <span><span class="fthrs__pill fthrs__pill--auto">Auto</span></span>
+              <span class="fthrs__tright">18.0 h</span>
+            </div>
+          </div>
+
+          <!-- Export button -->
+          <div class="fthrs__export">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export audit report
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Data & reports -->
+    <div class="ftabs__panel" data-panel="4">
+      <div class="ftabs__panel-left">
+        <h3 class="ftabs__headline">Import your data. Organize it your way. Report in just a few clicks.</h3>
+        <div class="ftabs__grid">
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <div>
+              <strong>Turnkey data import and migration</strong>
+              <p>Move your volunteer records into Vome in minutes. Bulk import from any other system, map custom fields to match your existing structure, and invite volunteers to claim their profiles. Duplicate handling built in.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+            </div>
+            <div>
+              <strong>A database that flexes to your program</strong>
+              <p>Segment volunteers by tag, program, or location with unlimited custom fields. Build and save custom views that filter and organize data any way you need. Give each admin access only to the data that belongs to them. Headquarters sees everything. Site managers see their site.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+            </div>
+            <div>
+              <strong>Ready-made reports for every audience</strong>
+              <p>Hours by volunteer, attendance logs, sequence completion, form submissions, and check-in history. Every report you need for funders, boards, and audits, ready in seconds.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div>
+              <strong>Analytics dashboards at a glance</strong>
+              <p>Visualize hours, shifts, onboarding progress, form completion, and custom field trends. See the health of your program without running a single report.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftabs__panel-right">
+        <div class="ftabs__mock ftabs__mock--data">
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Analytics overview</div></div>
+
+          <!-- Top KPI row -->
+          <div class="ftdata__kpis">
+            <div class="ftdata__kpi">
+              <div class="ftdata__kpilabel">TOTAL HOURS</div>
+              <div class="ftdata__kpival" style="color:var(--vome-orange)">3,847</div>
+              <div class="ftdata__kpisub">YTD Hours: 24,180</div>
+              <svg class="ftdata__spark" viewBox="0 0 80 24" preserveAspectRatio="none">
+                <path d="M0,18 Q10,14 20,16 T40,12 T60,8 T80,10" fill="none" stroke="#fa935b" stroke-width="1.6"/>
+                <path d="M0,18 Q10,14 20,16 T40,12 T60,8 T80,10 L80,24 L0,24 Z" fill="#fa935b" fill-opacity=".12"/>
+              </svg>
+            </div>
+            <div class="ftdata__kpi">
+              <div class="ftdata__kpilabel">ACTIVE PROFILES</div>
+              <div class="ftdata__kpival" style="color:#3b82f6">1,284</div>
+              <div class="ftdata__kpisub">Avg hours per profile: 3.0</div>
+            </div>
+            <div class="ftdata__kpi">
+              <div class="ftdata__kpilabel">RETENTION RATE</div>
+              <div class="ftdata__kpival" style="color:#0a8c4d">94%</div>
+              <div class="ftdata__kpisub">180-day window</div>
+            </div>
+            <div class="ftdata__kpi">
+              <div class="ftdata__kpilabel">BOOKINGS (28D)</div>
+              <div class="ftdata__kpival" style="color:var(--vome-orange)">127 <span class="ftdata__kpidelta">▲ 4.3%</span></div>
+              <div class="ftdata__kpisub">vs. previous 28 days</div>
+            </div>
+          </div>
+
+          <!-- Hours Over Time chart -->
+          <div class="ftdata__card">
+            <div class="ftdata__cardhead">
+              <div class="ftdata__cardtitle">Hours Over Time</div>
+              <div class="ftdata__cardmenu">⋮</div>
+            </div>
+            <div class="ftdata__chartwrap">
+              <div class="ftdata__chartgrid">
+                <span>60</span><span>40</span><span>20</span><span>0</span>
+              </div>
+              <div class="ftdata__chart">
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:15%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:28%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:22%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:35%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:12%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:8%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:20%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:90%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:18%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:60%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:45%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:38%"></div></div>
+                <div class="ftdata__bargroup"><div class="ftdata__bar" style="height:32%"></div></div>
+                <!-- Overlay line (total shifts) -->
+                <svg class="ftdata__line" viewBox="0 0 260 100" preserveAspectRatio="none">
+                  <path d="M10,82 L30,70 L50,74 L70,60 L90,85 L110,88 L130,72 L150,28 L170,68 L190,50 L210,58 L230,66 L250,68" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <g fill="#3b82f6">
+                    <circle cx="10" cy="82" r="1.8"/><circle cx="30" cy="70" r="1.8"/><circle cx="50" cy="74" r="1.8"/><circle cx="70" cy="60" r="1.8"/><circle cx="90" cy="85" r="1.8"/><circle cx="110" cy="88" r="1.8"/><circle cx="130" cy="72" r="1.8"/><circle cx="150" cy="28" r="1.8"/><circle cx="170" cy="68" r="1.8"/><circle cx="190" cy="50" r="1.8"/><circle cx="210" cy="58" r="1.8"/><circle cx="230" cy="66" r="1.8"/><circle cx="250" cy="68" r="1.8"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div class="ftdata__xlabels">
+              <span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
+            </div>
+            <div class="ftdata__legend">
+              <span class="ftdata__legitem"><span class="ftdata__legdot" style="background:#fa935b"></span>Hours</span>
+              <span class="ftdata__legitem"><span class="ftdata__legdot" style="background:#3b82f6"></span>Total Shifts</span>
+            </div>
+          </div>
+
+          <!-- Bottom row: Top Profiles + Age Distribution mini cards -->
+          <div class="ftdata__bottomrow">
+            <div class="ftdata__card ftdata__card--sm">
+              <div class="ftdata__cardhead">
+                <div class="ftdata__cardtitle">Top Profiles</div>
+                <div class="ftdata__cardmenu">⋮</div>
+              </div>
+              <div class="ftdata__toplist">
+                <div class="ftdata__toprow"><span class="ftdata__toprank">1</span><span class="ftdata__topname">Danielle Mulaney</span><span class="ftdata__tophrs">86.4</span></div>
+                <div class="ftdata__toprow"><span class="ftdata__toprank" style="color:var(--vome-orange)">2</span><span class="ftdata__topname">Sylvie Tremblay</span><span class="ftdata__tophrs">40.0</span></div>
+                <div class="ftdata__toprow"><span class="ftdata__toprank" style="color:var(--vome-orange)">3</span><span class="ftdata__topname">June Doe</span><span class="ftdata__tophrs">14.2</span></div>
+              </div>
+            </div>
+            <div class="ftdata__card ftdata__card--sm">
+              <div class="ftdata__cardhead">
+                <div class="ftdata__cardtitle">Age Distribution</div>
+                <div class="ftdata__cardmenu">⋮</div>
+              </div>
+              <div class="ftdata__agebars">
+                <div class="ftdata__agerow"><span class="ftdata__agelabel">18–24</span><div class="ftdata__agebar"><div class="ftdata__agefill" style="width:35%"></div></div><span class="ftdata__ageval">142</span></div>
+                <div class="ftdata__agerow"><span class="ftdata__agelabel">25–34</span><div class="ftdata__agebar"><div class="ftdata__agefill" style="width:68%"></div></div><span class="ftdata__ageval">278</span></div>
+                <div class="ftdata__agerow"><span class="ftdata__agelabel">35–49</span><div class="ftdata__agebar"><div class="ftdata__agefill" style="width:85%"></div></div><span class="ftdata__ageval">348</span></div>
+                <div class="ftdata__agerow"><span class="ftdata__agelabel">50–64</span><div class="ftdata__agebar"><div class="ftdata__agefill" style="width:52%"></div></div><span class="ftdata__ageval">212</span></div>
+                <div class="ftdata__agerow"><span class="ftdata__agelabel">65+</span><div class="ftdata__agebar"><div class="ftdata__agefill" style="width:30%"></div></div><span class="ftdata__ageval">124</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Communications -->
+    <div class="ftabs__panel" data-panel="5">
+      <div class="ftabs__panel-left">
+        <h3 class="ftabs__headline">Every way you need to communicate, in one place.</h3>
+        <div class="ftabs__grid">
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </div>
+            <div>
+              <strong>Native instant messaging</strong>
+              <p>One-on-one messages, custom group chats, and auto-generated chatrooms for every shift and opportunity. No WhatsApp. No email chains. Volunteers talk to admins and each other right inside the platform.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <strong>Bulk email built for campaigns</strong>
+              <p>Send personalized emails to volunteers through Vome's server, or connect your own Google or Outlook account to send from your domain. Build reusable email templates with dynamic variables. Target by group, tag, program, or any custom field.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            </div>
+            <div>
+              <strong>Automate the messages you send every week</strong>
+              <p>Birthday wishes, shift reminders, onboarding follow-ups, survey invitations, award notifications, and confirmation requests. Set the rule once. Vome handles the sending forever.</p>
+            </div>
+          </div>
+          <div class="ftabs__feat">
+            <div class="ftabs__icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
+            </div>
+            <div>
+              <strong>Full visibility across your team's outgoing messages</strong>
+              <p>Every email and notification in one dashboard. See what was sent, to whom, when, and by which admin. Share email templates across the team so everyone's communication stays consistent.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ftabs__panel-right">
+        <div class="ftabs__mock ftabs__mock--comms">
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Communications</div></div>
+
+          <!-- Channel tabs -->
+          <div class="ftcomms__chans">
+            <div class="ftcomms__chan ftcomms__chan--active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email
+            </div>
+            <div class="ftcomms__chan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              Chat
+            </div>
+            <div class="ftcomms__chan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+              Automations
+            </div>
+          </div>
+
+          <!-- Email composer -->
+          <div class="ftcomms__composer">
+            <div class="ftcomms__crow">
+              <span class="ftcomms__clabel">To</span>
+              <span class="ftcomms__audience">
+                <span class="ftcomms__chip">Tag: Active</span>
+                <span class="ftcomms__chip">Program: Food Bank</span>
+                <span class="ftcomms__count">384 recipients</span>
+              </span>
+            </div>
+            <div class="ftcomms__crow">
+              <span class="ftcomms__clabel">From</span>
+              <span class="ftcomms__fromval">you@yourorg.com <span class="ftcomms__verified">✓ Verified</span></span>
+            </div>
+            <div class="ftcomms__crow">
+              <span class="ftcomms__clabel">Subject</span>
+              <span class="ftcomms__subject">Your <span class="ftcomms__var">{{shift_name}}</span> shift is this Saturday</span>
+            </div>
+            <div class="ftcomms__body">
+              <div class="ftcomms__bodyline">Hi <span class="ftcomms__var">{{first_name}}</span>,</div>
+              <div class="ftcomms__bodyline">Just a reminder that you're signed up for <span class="ftcomms__var">{{shift_name}}</span> on <span class="ftcomms__var">{{shift_date}}</span> at <span class="ftcomms__var">{{shift_time}}</span>.</div>
+              <div class="ftcomms__bodyline ftcomms__bodyline--muted">Thanks for everything you do —</div>
+            </div>
+            <div class="ftcomms__toolbar">
+              <span class="ftcomms__tool">Aa</span>
+              <span class="ftcomms__tool">B</span>
+              <span class="ftcomms__tool">𝑖</span>
+              <span class="ftcomms__tool">🔗</span>
+              <span class="ftcomms__spacer"></span>
+              <span class="ftcomms__autotag">⚡ Automated · sends 24h before shift</span>
+            </div>
+          </div>
+
+          <!-- Automations strip -->
+          <div class="ftcomms__section">
+            <div class="ftcomms__sectitle">
+              <span>Active automations</span>
+              <span class="ftcomms__seclink">View all</span>
+            </div>
+            <div class="ftcomms__autos">
+              <div class="ftcomms__auto">
+                <div class="ftcomms__autoicon" style="background:#ffe2d1;color:#c95f1e">🎂</div>
+                <div class="ftcomms__autoinfo">
+                  <div class="ftcomms__autoname">Birthday wishes</div>
+                  <div class="ftcomms__autorule">On volunteer birthday</div>
+                </div>
+                <span class="ftcomms__autostatus">On</span>
+              </div>
+              <div class="ftcomms__auto">
+                <div class="ftcomms__autoicon" style="background:#d6eef7;color:#0f6c8f">⏰</div>
+                <div class="ftcomms__autoinfo">
+                  <div class="ftcomms__autoname">Shift reminder (24h)</div>
+                  <div class="ftcomms__autorule">1 day before shift start</div>
+                </div>
+                <span class="ftcomms__autostatus">On</span>
+              </div>
+              <div class="ftcomms__auto">
+                <div class="ftcomms__autoicon" style="background:#ecdcff;color:#6e3bb8">📋</div>
+                <div class="ftcomms__autoinfo">
+                  <div class="ftcomms__autoname">Post-shift survey</div>
+                  <div class="ftcomms__autorule">2 hours after check-out</div>
+                </div>
+                <span class="ftcomms__autostatus">On</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating chat notification card (hero-card style) -->
+          <div class="ftcomms__float">
+            <div class="ftcomms__floatic">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            </div>
+            <div class="ftcomms__floatbody">
+              <div class="ftcomms__floathead">
+                <strong>Meal Prep · Food Bank</strong>
+                <span class="ftcomms__floattime">Now</span>
+              </div>
+              <div class="ftcomms__floatmsg"><strong>Danielle Mulaney:</strong> we need a spot — share.vomevolunteer.com/95xTp9IT7Eb</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panels -->
+</section>
+
+<!-- ============================================================
+     Section 3 - Mobile app
+     ============================================================ -->
+<section class="mob" data-screen-label="03 Mobile app">
+  <div class="mob__wrap">
+
+    <div class="mob__intro">
+      <h2 class="mob__h2">The app your volunteers love.</h2>
+      <div class="mob__h2sub">Designed for every age, skill, and shift.</div>
+      <p class="mob__sub">Volunteers register for opportunities, reserve shifts, check in, and message your team, all from their phone. Admins get the same app to run the whole program from anywhere.</p>
+      <div class="mob__badges">
+        <a href="#" class="mob__badge" aria-label="Download on the App Store">
+          <svg viewBox="0 0 160 54" width="160" height="54" aria-hidden="true">
+            <rect width="160" height="54" rx="9" fill="#000"/>
+            <path d="M29.5 27.2c0-2.7 2.2-4 2.3-4.1-1.3-1.8-3.2-2.1-3.9-2.1-1.6-.2-3.2 1-4.1 1-.9 0-2.2-.9-3.6-.9-1.8.1-3.6 1.1-4.5 2.7-1.9 3.4-.5 8.4 1.4 11.1.9 1.3 2 2.9 3.4 2.8 1.4 0 1.9-.9 3.6-.9 1.6 0 2.1.9 3.6.9 1.5 0 2.4-1.4 3.3-2.7 1.1-1.6 1.5-3.2 1.5-3.2-.1 0-2.9-1.1-3-4.6zm-2.7-7.6c.8-.9 1.3-2.2 1.1-3.5-1.1 0-2.4.7-3.2 1.6-.7.8-1.3 2.1-1.1 3.4 1.2.1 2.4-.6 3.2-1.5z" fill="#fff"/>
+            <text x="45" y="22" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="9" fill="#fff">Download on the</text>
+            <text x="45" y="40" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#fff" letter-spacing="-.3">App Store</text>
+          </svg>
+        </a>
+        <a href="#" class="mob__badge" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 180 54" width="180" height="54" aria-hidden="true">
+            <rect width="180" height="54" rx="9" fill="#000"/>
+            <g transform="translate(18 14)">
+              <path d="M.6.7C.2 1.1 0 1.8 0 2.7v22.6c0 .9.2 1.6.6 2l12-12.3L.6.7z" fill="#fff"/>
+              <path d="M17 17.9l-4-4L.6 26.7c.4.4 1 .5 1.8.1l14.6-8.9z" fill="#fff"/>
+              <path d="M17 10.1L2.4-.1C1.7-.5 1 -.4.6.1L13 12.4l4-2.3z" fill="#fff"/>
+              <path d="M17 10.1L13 12.4l4 4 4.4-2.6c1.3-.8 1.3-2.1 0-2.9L17 10.1z" fill="#fff"/>
+            </g>
+            <text x="50" y="22" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#fff" letter-spacing=".5">GET IT ON</text>
+            <text x="50" y="40" font-family="Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="500" fill="#fff" letter-spacing="-.1">Google Play</text>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Stage : phones + callouts arranged around them -->
+    <div class="mob__stage">
+
+      <!-- Left callouts column -->
+      <div class="mob__callcol mob__callcol--l">
+      <div class="mob__call">
+        <div class="mob__calldot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <div class="mob__calltxt">Browse and sign up<br>for opportunities</div>
+      </div>
+      <div class="mob__call">
+        <div class="mob__calldot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></div>
+        <div class="mob__calltxt">Reserve and manage<br>your shifts</div>
+      </div>
+      <div class="mob__call">
+        <div class="mob__calldot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 13l-2 9 6-4 6 4-2-9"/></svg></div>
+        <div class="mob__calltxt">Earn awards and<br>achievements</div>
+      </div>
+      </div>
+
+      <!-- Phones -->
+      <div class="mob__phones">
+        <!-- Phone 1 : Home -->
+        <div class="mob__phone mob__phone--back mob__phone--left">
+          <div class="mob__bezel">
+            <div class="mob__notch"></div>
+            <div class="mob__screen" style="background:#fff7ee">
+              <div class="mob__statusbar"><span>9:41</span><span class="mob__statusicons">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M2 10h3v6H2zM7 8h3v8H7zM12 6h3v10h-3zM17 4h3v12h-3z"/></svg>
+                <svg viewBox="0 0 24 12" width="16" height="10" fill="none" stroke="currentColor" stroke-width="1"><rect x=".5" y=".5" width="18" height="10" rx="2" fill="none"/><rect x="2" y="2" width="14" height="7" rx="1" fill="currentColor"/></svg>
+              </span></div>
+              <div class="mob__appbar">
+                <div class="mob__appavatar">D</div>
+                <div>
+                  <div class="mob__appgreet">Good morning,</div>
+                  <div class="mob__appname">Daisy</div>
+                </div>
+              </div>
+              <div class="mob__appcard">
+                <div class="mob__appcardlbl">UPCOMING SHIFT</div>
+                <div class="mob__appcardtitle">Meal prep &amp; distribution</div>
+                <div class="mob__appcardmeta">Fri, Jan 24 · 9:00 AM</div>
+                <div class="mob__appcardtag">In 2 days</div>
+              </div>
+              <div class="mob__appsect">Available near you</div>
+              <div class="mob__applist">
+                <div class="mob__applistitem">
+                  <div class="mob__applistimg" style="background:linear-gradient(135deg,#fdd9be,#fa935b)"></div>
+                  <div class="mob__applistinfo">
+                    <div class="mob__applistname">Food pantry sort</div>
+                    <div class="mob__applistmeta">Sat · 10 AM</div>
+                  </div>
+                </div>
+                <div class="mob__applistitem">
+                  <div class="mob__applistimg" style="background:linear-gradient(135deg,#c6e3d4,#6aad8a)"></div>
+                  <div class="mob__applistinfo">
+                    <div class="mob__applistname">Tutoring program</div>
+                    <div class="mob__applistmeta">Tue · 4 PM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone 2 (center) : Check-in -->
+        <div class="mob__phone mob__phone--front">
+          <div class="mob__bezel">
+            <div class="mob__notch"></div>
+            <div class="mob__screen mob__screen--dark">
+              <div class="mob__statusbar mob__statusbar--dark"><span>9:41</span><span class="mob__statusicons">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M2 10h3v6H2zM7 8h3v8H7zM12 6h3v10h-3zM17 4h3v12h-3z"/></svg>
+                <svg viewBox="0 0 24 12" width="16" height="10" fill="none" stroke="currentColor" stroke-width="1"><rect x=".5" y=".5" width="18" height="10" rx="2" fill="none"/><rect x="2" y="2" width="14" height="7" rx="1" fill="currentColor"/></svg>
+              </span></div>
+              <div class="mob__chktop">
+                <div class="mob__chklbl">CHECK-IN</div>
+                <div class="mob__chkevent">Meal prep shift</div>
+                <div class="mob__chkwhen">Fri, Jan 24 · 9:00 AM</div>
+              </div>
+              <div class="mob__qr">
+                <div class="mob__qrinner">
+                  <svg viewBox="0 0 40 40" width="100%" height="100%">
+                    <rect width="40" height="40" fill="#fff"/>
+                    <g fill="#1a1a2a">
+                      <rect x="2" y="2" width="10" height="10"/><rect x="4" y="4" width="6" height="6" fill="#fff"/><rect x="5" y="5" width="4" height="4"/>
+                      <rect x="28" y="2" width="10" height="10"/><rect x="30" y="4" width="6" height="6" fill="#fff"/><rect x="31" y="5" width="4" height="4"/>
+                      <rect x="2" y="28" width="10" height="10"/><rect x="4" y="30" width="6" height="6" fill="#fff"/><rect x="5" y="31" width="4" height="4"/>
+                      <rect x="14" y="3" width="2" height="2"/><rect x="18" y="4" width="2" height="2"/><rect x="22" y="3" width="2" height="2"/><rect x="16" y="8" width="2" height="2"/><rect x="20" y="8" width="2" height="2"/><rect x="24" y="8" width="2" height="2"/>
+                      <rect x="3" y="14" width="2" height="2"/><rect x="7" y="14" width="2" height="2"/><rect x="14" y="14" width="2" height="2"/><rect x="18" y="14" width="2" height="2"/><rect x="22" y="14" width="2" height="2"/><rect x="28" y="14" width="2" height="2"/><rect x="32" y="14" width="2" height="2"/><rect x="36" y="14" width="2" height="2"/>
+                      <rect x="5" y="18" width="2" height="2"/><rect x="9" y="18" width="2" height="2"/><rect x="13" y="18" width="2" height="2"/><rect x="17" y="18" width="2" height="2"/><rect x="21" y="18" width="2" height="2"/><rect x="25" y="18" width="2" height="2"/><rect x="29" y="18" width="2" height="2"/><rect x="33" y="18" width="2" height="2"/>
+                      <rect x="3" y="22" width="2" height="2"/><rect x="7" y="22" width="2" height="2"/><rect x="11" y="22" width="2" height="2"/><rect x="15" y="22" width="2" height="2"/><rect x="19" y="22" width="2" height="2"/><rect x="23" y="22" width="2" height="2"/><rect x="27" y="22" width="2" height="2"/><rect x="31" y="22" width="2" height="2"/><rect x="35" y="22" width="2" height="2"/>
+                      <rect x="5" y="26" width="2" height="2"/><rect x="9" y="26" width="2" height="2"/><rect x="14" y="26" width="2" height="2"/><rect x="18" y="26" width="2" height="2"/><rect x="22" y="26" width="2" height="2"/><rect x="26" y="26" width="2" height="2"/><rect x="32" y="26" width="2" height="2"/><rect x="36" y="26" width="2" height="2"/>
+                      <rect x="14" y="30" width="2" height="2"/><rect x="18" y="30" width="2" height="2"/><rect x="22" y="30" width="2" height="2"/><rect x="26" y="30" width="2" height="2"/><rect x="30" y="30" width="2" height="2"/><rect x="34" y="30" width="2" height="2"/>
+                      <rect x="16" y="34" width="2" height="2"/><rect x="20" y="34" width="2" height="2"/><rect x="24" y="34" width="2" height="2"/><rect x="28" y="34" width="2" height="2"/><rect x="32" y="34" width="2" height="2"/><rect x="36" y="34" width="2" height="2"/>
+                    </g>
+                  </svg>
+                  <img class="mob__qrlogo" src="assets/logos/app_logo_white.png" alt="Vome">
+                </div>
+              </div>
+              <div class="mob__chkscan">Scan to check in</div>
+              <div class="mob__chkbar">
+                <div class="mob__chkhours"><span>Total hours</span><strong>24.5</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone 3 : Achievements -->
+        <div class="mob__phone mob__phone--back mob__phone--right">
+          <div class="mob__bezel">
+            <div class="mob__notch"></div>
+            <div class="mob__screen" style="background:#fff">
+              <div class="mob__statusbar"><span>9:41</span><span class="mob__statusicons">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M2 10h3v6H2zM7 8h3v8H7zM12 6h3v10h-3zM17 4h3v12h-3z"/></svg>
+                <svg viewBox="0 0 24 12" width="16" height="10" fill="none" stroke="currentColor" stroke-width="1"><rect x=".5" y=".5" width="18" height="10" rx="2" fill="none"/><rect x="2" y="2" width="14" height="7" rx="1" fill="currentColor"/></svg>
+              </span></div>
+              <div class="mob__achhead">Achievements</div>
+              <div class="mob__achnext">
+                <div class="mob__achbadge">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 13l-2 9 6-4 6 4-2-9"/></svg>
+                </div>
+                <div>
+                  <div class="mob__achlbl">NEXT BADGE</div>
+                  <div class="mob__achname">Bronze volunteer</div>
+                </div>
+              </div>
+              <div class="mob__achbar"><div class="mob__achbarfill"></div></div>
+              <div class="mob__achprog">350 / 500 hours</div>
+              <div class="mob__achlist">
+                <div class="mob__achitem mob__achitem--on">
+                  <div class="mob__achmedal" style="background:linear-gradient(135deg,#e5a572,#b46a2f)"></div>
+                  <div class="mob__achtxt"><strong>Bronze</strong><span>500 hours</span></div>
+                </div>
+                <div class="mob__achitem">
+                  <div class="mob__achmedal" style="background:linear-gradient(135deg,#e6e6e6,#a8a8a8)"></div>
+                  <div class="mob__achtxt"><strong>Silver</strong><span>1,000 hours</span></div>
+                </div>
+                <div class="mob__achitem">
+                  <div class="mob__achmedal" style="background:linear-gradient(135deg,#f5d87a,#c7a03e)"></div>
+                  <div class="mob__achtxt"><strong>Gold</strong><span>2,500 hours</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right callouts column -->
+      <div class="mob__callcol mob__callcol--r">
+      <div class="mob__call">
+        <div class="mob__calldot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <div class="mob__calltxt">Check in and<br>track hours</div>
+      </div>
+      <div class="mob__call">
+        <div class="mob__calldot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 004 0"/></svg></div>
+        <div class="mob__calltxt">Push notifications<br>and shift reminders</div>
+      </div>
+      <div class="mob__call">
+        <div class="mob__calldot"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div class="mob__calltxt">Chat with admins<br>and volunteers</div>
+      </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 3 - Enterprise
+     ============================================================ -->
+<section class="ent" data-screen-label="03 Enterprise">
+  <div class="ent__intro">
+    <h2 class="ent__h2">Built for enterprise scale.</h2>
+    <p class="ent__sub">Run multiple programs, locations, and teams under one account, with the integrations, compliance, and admin controls your organization requires.</p>
+  </div>
+
+  <div class="ent__grid">
+
+    <!-- Card 1 : Portal structure -->
+    <article class="ent__card">
+      <div class="ent__visual ent__visual--struct">
+        <div class="ent__node ent__node--root">
+          <span class="ent__nodedot"></span>Organization
+        </div>
+        <div class="ent__branch">
+          <div class="ent__node">
+            <span class="ent__nodedot ent__nodedot--blue"></span>Downtown site
+            <span class="ent__nodetag">284 volunteers</span>
+          </div>
+          <div class="ent__node">
+            <span class="ent__nodedot ent__nodedot--green"></span>East chapter
+            <span class="ent__nodetag">156 volunteers</span>
+          </div>
+          <div class="ent__node ent__node--active">
+            <span class="ent__nodedot ent__nodedot--orange"></span>Youth programs
+            <span class="ent__nodetag">92 volunteers</span>
+          </div>
+        </div>
+      </div>
+      <h3 class="ent__cardtitle">Split your portal by site, department, or chapter</h3>
+      <p class="ent__cardbody">Organize your entire portal around how your organization is actually structured. Each location, department, or chapter can have its own content, admins, and branded experience. Volunteers only see what's relevant to them. Admins only manage what's theirs.</p>
+    </article>
+
+    <!-- Card 2 : Admin roles -->
+    <article class="ent__card">
+      <div class="ent__visual ent__visual--roles">
+        <div class="ent__role">
+          <div class="ent__roleav" style="background:#f7c7a8;color:#8a3f0f">KR</div>
+          <div class="ent__roleinfo">
+            <div class="ent__rolename">Kendra Rivera</div>
+            <div class="ent__rolelabel">Org admin, full access</div>
+          </div>
+          <div class="ent__rolebadge ent__rolebadge--full">●●●●</div>
+        </div>
+        <div class="ent__role">
+          <div class="ent__roleav" style="background:#c6d9f2;color:#1a4580">JT</div>
+          <div class="ent__roleinfo">
+            <div class="ent__rolename">Jordan Tan</div>
+            <div class="ent__rolelabel">Site manager, Downtown</div>
+          </div>
+          <div class="ent__rolebadge ent__rolebadge--mid">●●●○</div>
+        </div>
+        <div class="ent__role">
+          <div class="ent__roleav" style="background:#d3eddf;color:#0a5f32">MP</div>
+          <div class="ent__roleinfo">
+            <div class="ent__rolename">Maya Patel</div>
+            <div class="ent__rolelabel">Scheduler, read &amp; edit shifts</div>
+          </div>
+          <div class="ent__rolebadge ent__rolebadge--low">●●○○</div>
+        </div>
+        <div class="ent__role ent__role--ghost">
+          <div class="ent__roleav" style="background:#efe2f9;color:#5a2d8f">+</div>
+          <div class="ent__roleinfo">
+            <div class="ent__rolename">Invite teammate</div>
+            <div class="ent__rolelabel">Custom role</div>
+          </div>
+        </div>
+      </div>
+      <h3 class="ent__cardtitle">Admin roles and permissions, as granular as you need</h3>
+      <p class="ent__cardbody">Invite your whole team with scoped access. Department leads see their department. Site managers see their site. Configure granular read or edit permissions by folder, module, or content type, so every admin has exactly the access they need.</p>
+    </article>
+
+    <!-- Card 3 : Integrations hub (real logos, no clipping) -->
+    <article class="ent__card">
+      <div class="ent__visual ent__visual--int">
+        <div class="ent__inthub" aria-label="Vome">
+          <img src="assets/logos/app_logo_white.png" alt="Vome">
+        </div>
+        <div class="ent__intgrid">
+          <div class="ent__int" title="Salesforce"><img src="assets/integrations/salesforce-v2.png" alt="Salesforce"></div>
+          <div class="ent__int" title="Zapier"><img src="assets/integrations/zapier.png" alt="Zapier" class="ent__int--wide"></div>
+          <div class="ent__int" title="Microsoft Power Automate"><img src="assets/integrations/microsoft-square.png" alt="Microsoft"></div>
+          <div class="ent__int" title="Sterling Volunteers"><img src="assets/integrations/sterling.jpeg" alt="Sterling Volunteers"></div>
+          <div class="ent__int" title="Outlook"><img src="assets/integrations/outlook.svg" alt="Outlook"></div>
+          <div class="ent__int" title="Gmail"><img src="assets/integrations/gmail.webp" alt="Gmail"></div>
+          <div class="ent__int" title="Double the Donation"><img src="assets/integrations/dtd.png" alt="Double the Donation"></div>
+          <div class="ent__int ent__int--more" title="And more"><span>+ more</span></div>
+        </div>
+      </div>
+      <h3 class="ent__cardtitle">Integrations that fit your stack</h3>
+      <p class="ent__cardbody">Native Salesforce app with two-way sync, Zapier, Microsoft Power Automate, Sterling Volunteers, SCORM Cloud, Verified First, and Double the Donation. All built in. Or use our REST API and custom webhooks to achieve any workflow.</p>
+    </article>
+
+  </div>
+
+  <div class="ent__ctas">
+    <a class="btn btn--primary" href="#">Book a demo</a>
+    <a class="btn btn--ghost" href="#">See pricing</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 4 - Security
+     ============================================================ -->
+<section class="sec" data-screen-label="04 Security">
+  <div class="sec__wrap">
+
+    <div class="sec__intro">
+      <h2 class="sec__h2">Security your organization can trust.</h2>
+      <p class="sec__sub">Enterprise-grade infrastructure built to meet the reliability, authentication, and compliance standards your organization requires.</p>
+    </div>
+
+    <!-- Three pillars : editorial, no numbered cards -->
+    <div class="sec__pillars">
+
+      <div class="sec__pillar">
+        <div class="sec__pillaricon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <div class="sec__pillarbody">
+          <h3 class="sec__pillartitle">Identity &amp; access</h3>
+          <p class="sec__pillartext">Connect to Microsoft Entra ID, ADFS, Jump Cloud, or any SAML-based single sign-on provider. Enforce two-factor authentication across your team with role-based access controls that keep every admin scoped to what they need.</p>
+        </div>
+      </div>
+
+      <div class="sec__pillar">
+        <div class="sec__pillaricon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7L12 3 4 7v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div class="sec__pillarbody">
+          <h3 class="sec__pillartitle">Infrastructure &amp; encryption</h3>
+          <p class="sec__pillartext">AES-256 encryption at rest, TLS 1.2+ in transit. Hosted on AWS with high availability, redundancy and continuous monitoring. Built to support the privacy and data protection standards expected by healthcare and enterprise clients.</p>
+        </div>
+      </div>
+
+      <div class="sec__pillar">
+        <div class="sec__pillaricon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+        </div>
+        <div class="sec__pillarbody">
+          <h3 class="sec__pillartitle">Compliance</h3>
+          <p class="sec__pillartext">Vome follows industry-leading privacy and security frameworks to protect your organization's data at every layer: HIPAA, SOC 2, GDPR, PIPEDA, CCPA, and PCI DSS.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Compliance badges row -->
+    <div class="sec__badges" aria-label="Compliance certifications">
+      <div class="sec__badge sec__badge--hipaa" title="HIPAA">
+        <div class="sec__badgeshield">
+          <span class="sec__badgename">HIPAA</span>
+          <span class="sec__badgesub">COMPLIANT</span>
+        </div>
+      </div>
+      <div class="sec__badge sec__badge--gdpr" title="GDPR">
+        <svg class="sec__badgestars" viewBox="0 0 80 80" aria-hidden="true">
+          <g fill="#FFD400">
+            <circle cx="40" cy="10" r="1.8"/>
+            <circle cx="55" cy="14" r="1.8"/>
+            <circle cx="66" cy="25" r="1.8"/>
+            <circle cx="70" cy="40" r="1.8"/>
+            <circle cx="66" cy="55" r="1.8"/>
+            <circle cx="55" cy="66" r="1.8"/>
+            <circle cx="40" cy="70" r="1.8"/>
+            <circle cx="25" cy="66" r="1.8"/>
+            <circle cx="14" cy="55" r="1.8"/>
+            <circle cx="10" cy="40" r="1.8"/>
+            <circle cx="14" cy="25" r="1.8"/>
+            <circle cx="25" cy="14" r="1.8"/>
+          </g>
+        </svg>
+        <span class="sec__badgename">GDPR</span>
+      </div>
+      <div class="sec__badge sec__badge--pipeda" title="PIPEDA">
+        <svg class="sec__badgeleafsvg" viewBox="0 0 24 24" aria-hidden="true" fill="#fff"><path d="M12 2l1.5 4.5L18 5l-2 4 4 2-4 2 2 4-4.5-1.5L13 20h-2l.5-4.5L7 17l2-4-4-2 4-2-2-4 4.5 1.5L12 2z"/></svg>
+        <span class="sec__badgename">PIPEDA</span>
+      </div>
+      <div class="sec__badge sec__badge--ccpa" title="CCPA">
+        <span class="sec__badgename">CCPA</span>
+      </div>
+      <div class="sec__badge sec__badge--pci" title="PCI DSS">
+        <span class="sec__badgename">PCI</span>
+        <span class="sec__badgesub">DSS</span>
+      </div>
+    </div>
+
+    <div class="sec__ctas">
+      <a class="btn btn--ghost-dark" href="#">Read our privacy policy →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 5 - Testimonials
+     ============================================================ -->
+<section class="tst" data-screen-label="05 Testimonials">
+  <div class="tst__wrap">
+    <div class="tst__intro">
+      <h2 class="tst__h2">See what our customers <span class="tst__h2accent">are saying</span></h2>
+      <p class="tst__sub">From hospital systems to national nonprofits, thousands of coordinators trust Vome to manage their volunteers.</p>
+    </div>
+
+    <div class="tst__marquee">
+      <div class="tst__track">
+
+        <figure class="tst__card">
+          <div class="tst__stars" aria-label="5 out of 5">★★★★★</div>
+          <blockquote class="tst__quotetxt">Vome has transformed how we manage our volunteers. The platform is intuitive, and the support team is exceptional. Our volunteer engagement has increased significantly since we switched.</blockquote>
+          <figcaption class="tst__who">
+            <div class="tst__avatar" style="background:linear-gradient(135deg,#fdd9be,#fa935b)">G</div>
+            <div>
+              <div class="tst__name">Gia</div>
+              <div class="tst__role">Long Island Alzheimer's &amp; Dementia Center</div>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="tst__card">
+          <div class="tst__stars">★★★★★</div>
+          <blockquote class="tst__quotetxt">The scheduling features alone have saved us countless hours. Our volunteers love being able to sign up for shifts right from their phones.</blockquote>
+          <figcaption class="tst__who">
+            <div class="tst__avatar" style="background:linear-gradient(135deg,#c6e3d4,#6aad8a)">K</div>
+            <div>
+              <div class="tst__name">Kate</div>
+              <div class="tst__role">Ronald McDonald House Charities of Columbia, SC</div>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="tst__card">
+          <div class="tst__stars">★★★★★</div>
+          <blockquote class="tst__quotetxt">The reporting and analytics have been game-changing for us. We can now track impact, hours, and volunteer retention in ways we never could before.</blockquote>
+          <figcaption class="tst__who">
+            <div class="tst__avatar" style="background:linear-gradient(135deg,#d4e1f5,#7a9cd6)">E</div>
+            <div>
+              <div class="tst__name">Elizabeth</div>
+              <div class="tst__role">Rochester Regional Health</div>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="tst__card">
+          <div class="tst__stars">★★★★★</div>
+          <blockquote class="tst__quotetxt">Vome understands what community engagement managers actually need. It's built by people who get the work, not just the software.</blockquote>
+          <figcaption class="tst__who">
+            <div class="tst__avatar" style="background:linear-gradient(135deg,#f5d8e8,#d67aa6)">J</div>
+            <div>
+              <div class="tst__name">Jessica</div>
+              <div class="tst__role">Community Engagement Manager, CenterStage</div>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="tst__card">
+          <div class="tst__stars">★★★★★</div>
+          <blockquote class="tst__quotetxt">Onboarding was painless and the team walked us through every step. Our volunteers picked up the app immediately, even the ones who said they wouldn't.</blockquote>
+          <figcaption class="tst__who">
+            <div class="tst__avatar" style="background:linear-gradient(135deg,#ffe4cf,#e89858)">W</div>
+            <div>
+              <div class="tst__name">Wesley</div>
+              <div class="tst__role">Volunteer Engagement Manager, MOLAA</div>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="tst__card">
+          <div class="tst__stars">★★★★★</div>
+          <blockquote class="tst__quotetxt">Donation tracking alongside volunteer hours means I finally have one source of truth for everything that keeps our programs running.</blockquote>
+          <figcaption class="tst__who">
+            <div class="tst__avatar" style="background:linear-gradient(135deg,#e0d4f0,#8f6fbd)">D</div>
+            <div>
+              <div class="tst__name">Deirdre</div>
+              <div class="tst__role">Volunteer &amp; Donations Coordinator, Medicine Hat</div>
+            </div>
+          </figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    // Duplicate testimonial cards for seamless infinite scroll
+    (function(){
+      var track = document.querySelector('.tst__track');
+      if (!track) return;
+      var cards = Array.from(track.children);
+      cards.forEach(function(c){ track.appendChild(c.cloneNode(true)); });
+    })();
+  </script>
+</section>
+
+<!-- ============================================================
+     Section 6 - Closing CTA
+     ============================================================ -->
+<section class="cta" data-screen-label="06 Closing CTA">
+  <div class="cta__wrap">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <h2 class="cta__h2">Ready to see it in action, or want a walk-through with our team?</h2>
+    <p class="cta__sub">Sign up for free or schedule a demo to see why thousands of volunteer managers and coordinators are choosing Vome.</p>
+    <div class="cta__actions">
+      <a href="#" class="cta__btn cta__btn--primary">Start for free</a>
+      <a href="#" class="cta__btn cta__btn--ghost">Schedule a demo</a>
+    </div>
+    <div class="cta__meta">
+      <span class="cta__metaitem"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Start with free plan</span>
+      <span class="cta__metaitem"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Migration assistance included</span>
+      <span class="cta__metaitem"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Live onboarding support</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     Section 7 - FAQ
+     ============================================================ -->
+<section class="faq" data-screen-label="07 FAQ">
+  <div class="faq__wrap">
+    <div class="faq__intro">
+      <h2 class="faq__h2">Frequently asked questions</h2>
+      <p class="faq__sub">Everything coordinators ask before switching to Vome. Still have questions? <a href="#" class="faq__link">Talk to our team →</a></p>
+    </div>
+
+    <div class="faq__list">
+      <details class="faq__item" open>
+        <summary class="faq__q">
+          <span>How long does it take to get set up?</span>
+          <span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="faq__a">Most organizations are fully onboarded within two weeks. Our migration team handles importing your existing volunteer database, shifts, and history, and trains your coordinators before you go live. Larger enterprises with multi-site deployments typically complete rollout in 30–45 days.</div>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span>Do you offer a free trial?</span>
+          <span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="faq__a">We offer a free, personalized demo where we walk through Vome with your specific program in mind. If you'd like to try it with real data, we can set up a sandboxed trial account after the demo so you can test workflows with your team before committing.</div>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span>Can I import data from my current system?</span>
+          <span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="faq__a">Yes. We migrate volunteer records, hours history, program structures, and custom fields from tools like VolunteerHub, Better Impact, SignUpGenius, Galaxy Digital, and spreadsheets. Our onboarding team handles the whole migration so nothing is lost.</div>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span>Is my volunteer data secure?</span>
+          <span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="faq__a">Vome is HIPAA, GDPR, PIPEDA, CCPA, and PCI DSS compliant, with SOC 2 Type II underway. Data is encrypted at rest and in transit, hosted on SOC 2–certified infrastructure, and backed by role-based access controls, audit logs, and SSO for enterprise plans.</div>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span>How does pricing work?</span>
+          <span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="faq__a">Pricing is based on your number of active volunteers and the modules you need. We offer tiered plans for single-site nonprofits, multi-site organizations, and enterprise health systems. Reach out for a quote tailored to your program.</div>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span>Do volunteers need to download an app?</span>
+          <span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="faq__a">The Vome app is available on iOS and Android and is the best experience for volunteers, but every feature also works on the web. Volunteers can browse opportunities, sign up, and check in directly from a browser if they prefer.</div>
+      </details>
+
+      <details class="faq__item">
+        <summary class="faq__q">
+          <span>Can Vome support multiple locations and programs?</span>
+          <span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="faq__a">Yes. Vome is built for multi-site and multi-program organizations. Each location can have its own coordinators, programs, and shifts while rolling up into a unified dashboard for regional or organization-wide reporting.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<footer class="footer">
+  <div class="footer__row">
+    <img class="footer__logo" src="assets/logos/full_logo_white.png" alt="Vome">
+    <span>© 2026 Vome · Volunteer management, simplified.</span>
+  </div>
+</footer>
+
+<!-- Feature tabs JS -->
+<script>
+(function(){
+  const tabs = document.querySelectorAll('.ftabs__tab');
+  const panels = document.querySelectorAll('.ftabs__panel');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove('ftabs__tab--active'));
+      panels.forEach(p => p.classList.remove('ftabs__panel--active'));
+      tab.classList.add('ftabs__tab--active');
+      document.querySelector(`.ftabs__panel[data-panel="${idx}"]`).classList.add('ftabs__panel--active');
+    });
+  });
+})();
+</script>
+
+<!-- Tweaks panel -->
+<div class="tweaks" id="tweaks">
+  <h4>Tweaks</h4>
+  <div class="grp">
+    <label>Headline emphasis</label>
+    <div class="opts" data-key="hero-style">
+      <div class="opt" data-val="accent">Orange accent</div>
+      <div class="opt" data-val="underline">Underline</div>
+      <div class="opt" data-val="italic">Italic</div>
+      <div class="opt" data-val="mono">No accent</div>
+    </div>
+  </div>
+  <div class="grp">
+    <label>Subheader size</label>
+    <div class="opts" data-key="sub-size">
+      <div class="opt" data-val="sm">Small</div>
+      <div class="opt" data-val="md">Medium</div>
+      <div class="opt" data-val="lg">Large</div>
+    </div>
+  </div>
+  <div class="grp">
+    <label>Eyebrow pill</label>
+    <div class="opts" data-key="eyebrow">
+      <div class="opt" data-val="on">Show</div>
+      <div class="opt" data-val="off">Hide</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEFAULTS = /*EDITMODE-BEGIN*/{
+  "hero-style": "accent",
+  "sub-size": "md",
+  "eyebrow": "on"
+}/*EDITMODE-END*/;
+
+const state = {...DEFAULTS};
+
+function apply(){
+  document.body.setAttribute('data-hero-style', state['hero-style']);
+  document.body.setAttribute('data-sub-size', state['sub-size']);
+  document.body.setAttribute('data-eyebrow', state['eyebrow']);
+  document.querySelectorAll('.tweaks .opts').forEach(group=>{
+    const key = group.dataset.key;
+    group.querySelectorAll('.opt').forEach(o=>{
+      o.classList.toggle('sel', o.dataset.val === state[key]);
+    });
+  });
+}
+
+document.querySelectorAll('.tweaks .opt').forEach(opt=>{
+  opt.addEventListener('click', ()=>{
+    const key = opt.parentElement.dataset.key;
+    state[key] = opt.dataset.val;
+    apply();
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]: opt.dataset.val}}, '*');
+  });
+});
+
+// Edit-mode host protocol — listener FIRST, then announce.
+window.addEventListener('message', (e)=>{
+  const d = e.data || {};
+  if (d.type === '__activate_edit_mode') document.getElementById('tweaks').classList.add('on');
+  if (d.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+apply();
+</script>
+</body>
+</html>

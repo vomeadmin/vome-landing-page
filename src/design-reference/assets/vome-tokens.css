@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Vome Design System — Colors & Type
+   Extracted from vome-react: Common.style.js & LandingPage.style.js
+   ========================================================================== */
+
+:root {
+  /* ---------------- Brand / Primary ---------------- */
+  --vome-orange:          #fa935b;   /* Primary brand — Vome Volunteering */
+  --vome-orange-600:      #f99b67;   /* hover / emphasis */
+  --vome-orange-700:      #E8583E;   /* start-button, press */
+  --vome-peach-50:        #faeae3;   /* tint background */
+
+  --vome-green:           #00B050;   /* Vome Ed — success, submit */
+  --vome-teal:            #5c9987;   /* Vome Ed — secondary sections */
+  --vome-blue:            #4472C4;   /* Vome Biz — primary */
+
+  /* ---------------- Neutrals / Surface ---------------- */
+  --fg-1:                 #000000;
+  --fg-2:                 #3B3939;          /* headers */
+  --fg-3:                 rgba(0,0,0,0.8);  /* body strong */
+  --fg-4:                 rgba(0,0,0,0.62); /* body */
+  --fg-5:                 rgba(0,0,0,0.5);  /* subdued / labels */
+  --fg-6:                 rgba(0,0,0,0.3);  /* placeholder */
+
+  --surface-0:            #FFFFFF;
+  --surface-1:            #f9f9fb;          /* page bg */
+  --surface-2:            #f0eff4;          /* subtle */
+  --surface-3:            #f1f1f1;          /* chips, fields */
+  --surface-4:            #F3F3F3;          /* tab unselected */
+  --surface-ink:          #3f3d56;          /* dark divider bar */
+
+  --border-1:             rgba(0,0,0,0.25);
+  --border-2:             rgba(0,0,0,0.12);
+  --text-muted-ed:        #616161;
+
+  /* ---------------- Semantic ---------------- */
+  --success:              #00B050;
+  --danger:               #E8583E;
+  --info:                 #4472C4;
+  --on-orange:            #FFFFFF;
+
+  /* ---------------- Type ---------------- */
+  --font-display:         'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body:            'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-accent:          'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Scale — extracted from landing + admin views */
+  --fs-display:    58px;   --lh-display:    1.1;   --fw-display:    600;
+  --fs-h1:         40px;   --lh-h1:         1.25;  --fw-h1:         600;
+  --fs-h2:         32px;   --lh-h2:         1.3;   --fw-h2:         600;
+  --fs-h3:         24px;   --lh-h3:         1.3;   --fw-h3:         600;
+  --fs-lead:       22px;   --lh-lead:       1.5;   --fw-lead:       500;
+  --fs-body:       16px;   --lh-body:       1.5;   --fw-body:       500;
+  --fs-small:      14px;   --lh-small:      1.5;   --fw-small:      400;
+  --fs-caption:    12px;   --lh-caption:    1.4;   --fw-caption:    500;
+
+  /* ---------------- Spacing / Radii / Shadows ---------------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-14: 56px;
+
+  --radius-sm:    5px;    /* fields */
+  --radius-md:    12px;   /* buttons */
+  --radius-lg:    15px;   /* chips / pills */
+  --radius-xl:    20px;   /* cards */
+  --radius-2xl:   25px;   /* section cards */
+
+  --shadow-card:    0 3px 6px 0 rgba(0,0,0,0.16);
+  --shadow-card-lg: 0 3px 6px 0 rgba(0,0,0,0.26);
+  --shadow-elev-1:  0px 1px 5px 0px rgba(0,0,0,0.10),
+                    0px 2px 2px 0px rgba(0,0,0,0.10),
+                    0px 3px 1px -2px rgba(0,0,0,0.10);
+
+  /* ---------------- Motion ---------------- */
+  --ease-standard:  cubic-bezier(.4,0,.2,1);
+  --dur-fast:       120ms;
+  --dur-med:        220ms;
+}
+
+/* --- Utility type classes mapping to semantic roles --- */
+.ds-display  { font-family: var(--font-display); font-size: var(--fs-display); font-weight: var(--fw-display); line-height: var(--lh-display); color: var(--vome-orange); }
+.ds-h1       { font-family: var(--font-display); font-size: var(--fs-h1);      font-weight: var(--fw-h1);      line-height: var(--lh-h1); }
+.ds-h2       { font-family: var(--font-display); font-size: var(--fs-h2);      font-weight: var(--fw-h2);      line-height: var(--lh-h2); }
+.ds-h3       { font-family: var(--font-display); font-size: var(--fs-h3);      font-weight: var(--fw-h3);      line-height: var(--lh-h3); }
+.ds-lead     { font-family: var(--font-body);    font-size: var(--fs-lead);    font-weight: var(--fw-lead);    line-height: var(--lh-lead);   color: var(--text-muted-ed); }
+.ds-body     { font-family: var(--font-body);    font-size: var(--fs-body);    font-weight: var(--fw-body);    line-height: var(--lh-body);   color: var(--fg-3); }
+.ds-small    { font-family: var(--font-body);    font-size: var(--fs-small);   font-weight: var(--fw-small);   line-height: var(--lh-small);  color: var(--fg-5); }
+.ds-caption  { font-family: var(--font-body);    font-size: var(--fs-caption); font-weight: var(--fw-caption); line-height: var(--lh-caption);color: var(--fg-5); }
+.ds-accent   { font-family: var(--font-accent);  font-size: 22px; font-weight: 500; font-style: italic; color: var(--vome-teal); letter-spacing: 0.2px; }
+
+/* Buttons — matches contactTextClass + submitButton + sectionThreeFiveButton */
+.ds-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 10px 24px; border-radius: var(--radius-md);
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  border: 1px solid transparent; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+.ds-btn--primary   { background: var(--vome-orange); color: #fff; }
+.ds-btn--primary:hover { background: var(--vome-orange-700); }
+.ds-btn--success   { background: var(--vome-green); color: #fff; }
+.ds-btn--ghost-green { background: #fff; color: var(--vome-green); border-color: var(--vome-green); }
+.ds-btn--ghost-green:hover { background: var(--vome-green); color: #fff; }
+.ds-btn--ghost-blue  { background: #fff; color: var(--vome-blue); border-color: var(--vome-blue); }
+.ds-btn--pill        { border-radius: var(--radius-lg); padding: 6px 16px; font-size: 12px; }
