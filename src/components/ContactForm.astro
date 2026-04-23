@@ -1,0 +1,155 @@
+---
+/**
+ * Contact form — zero client JS, static HTML.
+ *
+ * SUBMISSION NOTE: This is a plain HTML form. Before launch you must wire up
+ * `action` to a real endpoint:
+ *   • Netlify Forms  → add data-netlify="true" to <form> and set action="/success"
+ *   • Formspree      → action="https://formspree.io/f/<YOUR_ID>"
+ *   • Custom API     → action="/api/contact" (with a server function)
+ * The current `action="#"` placeholder silently does nothing on submit.
+ */
+interface Props {
+  heading?: string;
+  action?: string;
+}
+const {
+  heading = "Contact Us",
+  action = "#",
+} = Astro.props;
+---
+
+<form class="cform" method="post" action={action}>
+  <h2 class="cform__head">{heading}</h2>
+
+  <div class="cform__row">
+    <label class="cform__label">
+      <span>First Name <abbr title="required">*</abbr></span>
+      <input class="cform__input" type="text" name="firstName" required autocomplete="given-name" />
+    </label>
+    <label class="cform__label">
+      <span>Last Name</span>
+      <input class="cform__input" type="text" name="lastName" autocomplete="family-name" />
+    </label>
+  </div>
+
+  <label class="cform__label">
+    <span>Email <abbr title="required">*</abbr></span>
+    <input class="cform__input" type="email" name="email" required autocomplete="email" />
+  </label>
+
+  <label class="cform__label">
+    <span>Organization <abbr title="required">*</abbr></span>
+    <input class="cform__input" type="text" name="organizationName" required autocomplete="organization" />
+  </label>
+
+  <div class="cform__row">
+    <label class="cform__label">
+      <span>Phone</span>
+      <input class="cform__input" type="tel" name="phoneNumber" autocomplete="tel" />
+    </label>
+    <label class="cform__label">
+      <span>Website</span>
+      <input class="cform__input" type="url" name="website" placeholder="https://example.com" autocomplete="url" />
+    </label>
+  </div>
+
+  <label class="cform__label">
+    <span>Message</span>
+    <textarea class="cform__input cform__textarea" name="questions" rows="4"></textarea>
+  </label>
+
+  <button class="cform__submit" type="submit">Send Message</button>
+</form>
+
+<style>
+  .cform {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cform__head {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0 0 24px;
+  }
+
+  .cform__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cform__label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-3);
+    margin-bottom: 16px;
+  }
+
+  .cform__label span {
+    letter-spacing: 0.02em;
+  }
+
+  abbr[title] {
+    text-decoration: none;
+    color: var(--vome-orange);
+  }
+
+  .cform__input {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--fg-2);
+    background: var(--surface-1);
+    transition: border-color 120ms ease, background 120ms ease;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cform__input:focus {
+    border-color: var(--vome-orange);
+    background: #fff;
+  }
+
+  .cform__textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .cform__submit {
+    margin-top: 8px;
+    padding: 13px 24px;
+    background: var(--vome-orange);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 120ms ease;
+    align-self: flex-start;
+    min-width: 160px;
+  }
+
+  .cform__submit:hover {
+    background: var(--vome-orange-600);
+  }
+
+  @media (max-width: 560px) {
+    .cform__row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+</style>

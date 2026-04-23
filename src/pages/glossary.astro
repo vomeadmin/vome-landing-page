@@ -1,0 +1,421 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GlossaryTerm from "../components/GlossaryTerm.astro";
+import { glossaryData } from "../data/glossary.js";
+
+const letters = glossaryData.map((g) => g.letter);
+---
+
+<Layout
+  title="Volunteer Management Glossary | Vome Volunteer"
+  description="A glossary of volunteer management terms — from accountability and accessibility to volunteer scheduling software and zero-tolerance policy."
+>
+  <!-- ─── PAGE HEADER ─── -->
+  <section class="gl-header">
+    <div class="gl-header__inner">
+      <span class="gl-eyebrow">Glossary</span>
+      <h1 class="gl-header__h1">Volunteer Management Glossary</h1>
+    </div>
+  </section>
+
+  <!-- ─── MOBILE-ONLY collapsible nav (hidden ≥768px via CSS) ─── -->
+  <details class="gl-mobile-nav">
+    <summary class="gl-mobile-nav__summary">Browse by letter</summary>
+    <nav class="gl-mobile-nav__list" aria-label="Jump to letter (mobile)">
+      <ul>
+        {letters.map((l) => (
+          <li><a href={`#letter-${l.toLowerCase()}`}>{l}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </details>
+
+  <!-- ─── BODY: sidebar + main ─── -->
+  <div class="gl-body">
+    <!-- Desktop sticky sidebar (hidden <768px via CSS) -->
+    <aside class="gl-sidebar" aria-label="Glossary navigation">
+      <p class="gl-sidebar__head">Terms</p>
+      <ul class="gl-sidebar__list">
+        {letters.map((l) => (
+          <li>
+            <a href={`#letter-${l.toLowerCase()}`}>{l}</a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+
+    <!-- Main content -->
+    <main class="gl-main">
+      <!-- Alphabet pill row -->
+      <nav class="gl-alpha-row" aria-label="Jump to letter">
+        {letters.map((l) => (
+          <a class="gl-alpha-pill" href={`#letter-${l.toLowerCase()}`}>{l}</a>
+        ))}
+      </nav>
+
+      <!-- Search -->
+      <div class="gl-search-wrap">
+        <label class="gl-search-label" for="gl-search">
+          <svg class="gl-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="gl-sr-only">Search terms and definitions</span>
+        </label>
+        <input
+          id="gl-search"
+          class="gl-search"
+          type="search"
+          placeholder="Search terms and definitions…"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+      <p id="gl-empty" class="gl-empty" hidden>No terms match your search.</p>
+
+      <!-- Terms grouped by letter -->
+      {glossaryData.map((group) => (
+        <section class="gl-group" id={`letter-${group.letter.toLowerCase()}`}>
+          <h2 class="gl-letter">{group.letter}</h2>
+          {group.terms.map((term) => (
+            <GlossaryTerm
+              title={term.title}
+              definition={term.definition}
+              linkTitle={term.linkTitle}
+              linkURL={term.linkURL}
+            />
+          ))}
+        </section>
+      ))}
+    </main>
+  </div>
+</Layout>
+
+<!-- Search island — vanilla JS, ≤20 lines -->
+<script is:inline>
+(function () {
+  var input = document.getElementById('gl-search');
+  var terms = document.querySelectorAll('.gl-term');
+  var groups = document.querySelectorAll('.gl-group');
+  var empty = document.getElementById('gl-empty');
+  if (!input) return;
+  input.addEventListener('input', function () {
+    var q = this.value.toLowerCase();
+    var any = false;
+    terms.forEach(function (t) {
+      var show = !q || t.dataset.term.includes(q) || t.dataset.def.includes(q);
+      t.hidden = !show;
+      if (show) any = true;
+    });
+    groups.forEach(function (g) {
+      g.hidden = Boolean(q) && !g.querySelector('.gl-term:not([hidden])');
+    });
+    empty.hidden = any || !q;
+  });
+}());
+</script>
+
+<style>
+  /* ── shared horizontal gutter matching nav ── */
+  .gl-header,
+  .gl-mobile-nav,
+  .gl-body {
+    padding-left: max(5%, calc((100% - 1120px) / 2));
+    padding-right: max(5%, calc((100% - 1120px) / 2));
+  }
+
+  /* ─── PAGE HEADER ─── */
+  .gl-header {
+    background: var(--vome-peach-50);
+    padding-top: 48px;
+    padding-bottom: 40px;
+  }
+
+  .gl-eyebrow {
+    display: inline-block;
+    background: var(--vome-orange);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .gl-header__h1 {
+    font-size: clamp(26px, 2.8vw, 40px);
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  /* ─── MOBILE NAV (details/summary, hidden on desktop) ─── */
+  .gl-mobile-nav {
+    display: none;
+    background: var(--surface-2);
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: 1px solid var(--border-2);
+  }
+
+  .gl-mobile-nav__summary {
+    padding: 14px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-2);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+  }
+
+  .gl-mobile-nav__summary::after {
+    content: '▾';
+    font-size: 12px;
+    color: var(--vome-orange);
+    transition: transform 120ms ease;
+  }
+
+  .gl-mobile-nav[open] .gl-mobile-nav__summary::after {
+    transform: rotate(180deg);
+  }
+
+  .gl-mobile-nav__list ul {
+    list-style: none;
+    padding: 0 0 16px;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .gl-mobile-nav__list a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--fg-3);
+    background: var(--surface-0);
+    text-decoration: none;
+    transition: background 100ms, color 100ms;
+  }
+
+  .gl-mobile-nav__list a:hover {
+    background: var(--vome-orange);
+    color: #fff;
+  }
+
+  /* ─── BODY LAYOUT ─── */
+  .gl-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* ─── DESKTOP SIDEBAR ─── */
+  .gl-sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 72px;
+    height: calc(100vh - 72px);
+    overflow-y: auto;
+    padding: 32px 20px 32px 0;
+    border-right: 1px solid var(--border-2);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-2) transparent;
+  }
+
+  .gl-sidebar__head {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-5);
+    margin: 0 0 10px;
+  }
+
+  .gl-sidebar__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .gl-sidebar__list li a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-3);
+    text-decoration: none;
+    transition: background 100ms, color 100ms;
+  }
+
+  .gl-sidebar__list li a:hover {
+    background: var(--vome-peach-50);
+    color: var(--vome-orange);
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .gl-main {
+    flex: 1;
+    min-width: 0;
+    padding: 32px 0 80px 40px;
+  }
+
+  /* ─── ALPHABET PILLS ─── */
+  .gl-alpha-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 28px;
+  }
+
+  .gl-alpha-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--fg-3);
+    background: var(--surface-2);
+    text-decoration: none;
+    transition: background 100ms ease, color 100ms ease;
+  }
+
+  .gl-alpha-pill:hover {
+    background: var(--vome-orange);
+    color: #fff;
+  }
+
+  /* ─── SEARCH ─── */
+  .gl-search-wrap {
+    position: relative;
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+
+  .gl-search-label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--fg-5);
+    pointer-events: none;
+    display: flex;
+  }
+
+  .gl-search {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 24px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--fg-2);
+    background: var(--surface-0);
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 120ms ease;
+    /* remove browser default search field decorations */
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .gl-search:focus {
+    border-color: var(--vome-orange);
+  }
+
+  .gl-search::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .gl-empty {
+    font-size: 15px;
+    color: var(--fg-4);
+    padding: 16px 0 32px;
+    margin: 0;
+  }
+
+  .gl-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* ─── LETTER SECTIONS ─── */
+  .gl-group {
+    margin-bottom: 48px;
+    scroll-margin-top: 88px;
+  }
+
+  .gl-letter {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--vome-orange);
+    margin: 0 0 4px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--vome-peach-50);
+    line-height: 1;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 767px) {
+    .gl-mobile-nav {
+      display: block;
+    }
+
+    .gl-sidebar {
+      display: none;
+    }
+
+    .gl-body {
+      padding-top: 0;
+    }
+
+    .gl-main {
+      padding: 24px 0 56px;
+    }
+
+    .gl-alpha-row {
+      margin-bottom: 20px;
+    }
+
+    .gl-letter {
+      font-size: 26px;
+    }
+
+    .gl-group {
+      margin-bottom: 36px;
+      scroll-margin-top: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gl-search-wrap {
+      max-width: none;
+    }
+  }
+</style>

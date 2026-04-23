@@ -1,0 +1,74 @@
+---
+interface Props {
+  title: string;
+  definition: string;
+  linkTitle?: string;
+  linkURL?: string;
+}
+
+const { title, definition, linkTitle, linkURL } = Astro.props;
+const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+<div
+  class="gl-term"
+  id={id}
+  data-term={title.toLowerCase()}
+  data-def={definition.toLowerCase()}
+>
+  <h3 class="gl-term__name">{title}</h3>
+  <p class="gl-term__def">{definition}</p>
+  {linkTitle && linkURL && (
+    <p class="gl-term__link">
+      <strong>Link: </strong>
+      <a href={linkURL} target="_blank" rel="noopener noreferrer">{linkTitle}</a>
+    </p>
+  )}
+</div>
+
+<style>
+  .gl-term {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border-2);
+  }
+
+  .gl-term:last-child {
+    border-bottom: none;
+  }
+
+  .gl-term__name {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--fg-2);
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  .gl-term__def {
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.75);
+    margin: 0 0 6px;
+  }
+
+  .gl-term__link {
+    font-size: 13px;
+    margin: 0;
+    color: var(--fg-4);
+  }
+
+  .gl-term__link strong {
+    font-weight: 600;
+  }
+
+  .gl-term__link a {
+    color: var(--vome-orange);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .gl-term__link a:hover {
+    text-decoration: underline;
+  }
+</style>
