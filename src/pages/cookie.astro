@@ -1,0 +1,17 @@
+---
+/**
+ * Cookie Policy (EN) — route at /cookie.
+ * Body lives in components/content/CookieBody.astro so the FR route can
+ * reuse the same copy without duplication while an authoritative French
+ * translation is pending.
+ */
+import Layout from "../layouts/Layout.astro";
+import CookieBody from "../components/content/CookieBody.astro";
+---
+
+<Layout
+  title="Cookie Policy | Vome Volunteer"
+  description="How Vome uses cookies on vomevolunteer.com — functionality, analytical and social media cookies, and your options for managing them."
+>
+  <CookieBody />
+</Layout>
