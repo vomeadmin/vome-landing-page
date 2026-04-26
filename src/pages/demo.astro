@@ -1,0 +1,195 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Partners from "../components/sections/Partners.astro";
+import FaqItem from "../components/FaqItem.astro";
+
+const CALENDLY_URL =
+  "https://calendly.com/vomevolunteer/demo-meeting-1?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=fa935b";
+
+const demoFaqs = [
+  {
+    question: "Do I need to prepare anything?",
+    answer:
+      "We recommend two things before the call: sign up for the free Vome Recruit plan and spend a few minutes exploring the platform, and watch our brief explainer video. You'll come to the meeting with better questions and a much clearer sense of what you want to see. Neither is required, but both make the call significantly more useful.",
+    open: true,
+  },
+  {
+    question: "Can I include other team members on the call?",
+    answer:
+      "Absolutely. Forward the calendar invite to anyone who should be there — volunteer coordinator, program manager, IT lead, whoever. Just add them before the meeting.",
+  },
+  {
+    question: "What if I can't find a time that works?",
+    answer:
+      "Visit our contact page and we'll find something that works. We have availability across multiple time zones.",
+  },
+];
+---
+
+<Layout
+  title="Book a Demo | Vome Volunteer"
+  description="See Vome in action. Book a personalized 30-minute demo with our team and learn how we can help your organization manage volunteers more effectively."
+>
+  <!-- ── HEADER + CALENDLY ── -->
+  <section class="demo-cal">
+    <div class="demo-cal__inner">
+      <div class="demo-cal__header">
+        <div class="demo-cal__eyebrow">See Vome in action</div>
+        <h1 class="demo-cal__h1">Schedule a demo</h1>
+        <p class="demo-cal__sub">Pick a time and we'll walk you through Vome and answer your questions.</p>
+      </div>
+      <div class="calendly-inline-widget" data-url={CALENDLY_URL}></div>
+    </div>
+  </section>
+  <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <!-- Redirect to /demo-confirmed after Calendly booking completes -->
+  <script is:inline>
+    window.addEventListener('message', function (e) {
+      if (e.data && e.data.event === 'calendly.event_scheduled') {
+        window.location.href = '/demo-confirmed';
+      }
+    });
+  </script>
+
+  <!-- ── TRUST SIGNALS — logo marquee ── -->
+  <Partners />
+
+  <!-- ── FAQ ── -->
+  <section class="faq">
+    <div class="faq__wrap">
+      <div class="faq__intro">
+        <h2 class="faq__h2">Questions about the demo</h2>
+        <p class="faq__sub">Everything people ask before booking a call with us.</p>
+        <p class="faq__sub faq__sub--cta">
+          Something else? <a href="/contact" class="faq__link">Contact our team →</a>
+        </p>
+      </div>
+      <div class="faq__list">
+        {demoFaqs.map((item) => (
+          <FaqItem question={item.question} open={item.open}>
+            {item.answer}
+          </FaqItem>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FALLBACK CONTACT ── -->
+  <section class="demo-fallback">
+    <div class="demo-fallback__inner">
+      <p class="demo-fallback__text">
+        Can't find a time that works?
+        <a href="/contact" class="demo-fallback__link">Visit our contact page</a>
+        and we'll sort something out.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ── Shared container padding — matches nav/hero column ── */
+  .demo-cal,
+  .demo-fallback {
+    padding-left: max(5%, calc((100% - 1120px) / 2));
+    padding-right: max(5%, calc((100% - 1120px) / 2));
+  }
+
+  /* ── Header + Calendly embed ── */
+  .demo-cal {
+    background: var(--surface-1);
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+
+  .demo-cal__inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .demo-cal__header {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .demo-cal__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: var(--vome-orange);
+    background: var(--vome-peach-50);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  .demo-cal__h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(26px, 2.4vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.4px;
+    color: #000;
+    margin: 0 0 12px;
+  }
+
+  .demo-cal__sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--fg-4);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .calendly-inline-widget {
+    min-width: 320px;
+    height: 700px;
+    width: 100%;
+  }
+
+  /* ── Fallback contact ── */
+  .demo-fallback {
+    background: var(--surface-1);
+    border-top: 1px solid var(--border-2);
+    padding-top: 28px;
+    padding-bottom: 28px;
+    text-align: center;
+  }
+
+  .demo-fallback__inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .demo-fallback__text {
+    font-size: 14px;
+    color: var(--fg-5);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .demo-fallback__link {
+    color: var(--vome-orange);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .demo-fallback__link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .demo-cal {
+      padding-top: 32px;
+      padding-bottom: 40px;
+    }
+
+    /* Calendly's calendar UI stacks vertically on narrow viewports */
+    .calendly-inline-widget {
+      height: 900px;
+    }
+  }
+</style>

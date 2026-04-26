@@ -1,0 +1,746 @@
+---
+import Layout from "../layouts/Layout.astro";
+import FaqItem from "../components/FaqItem.astro";
+
+const contactFaqs = [
+  {
+    question: "How quickly will I hear back?",
+    answer:
+      "We typically reply within one business day. If your need is urgent, the fastest path to an answer is our support portal — it usually gets you there faster.",
+  },
+  {
+    question: "Can I schedule a call instead of sending a message?",
+    answer:
+      "Absolutely. Head to our demo page to pick a time that works. You'll book a 30-minute call directly with our team.",
+  },
+  {
+    question: "Where can I find documentation and guides?",
+    answer:
+      "Our support portal has step-by-step articles, tutorials, and guides for every Vome feature — available at support.vomevolunteer.com.",
+  },
+];
+---
+
+<Layout
+  title="Contact Us | Vome Volunteer"
+  description="Get in touch with the Vome team. Ask about the platform, get account support, or explore a partnership — we'd love to hear from you."
+>
+  <!-- ── HERO ── -->
+  <section class="ch">
+    <div class="ch__inner">
+      <div class="ch__eyebrow">We're here to help</div>
+      <h1 class="ch__h1">How can we help?</h1>
+      <p class="ch__sub">
+        Whether you have questions about Vome, need support, or want to explore a partnership, we'd love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── ROUTE-FIRST OPTIONS ── -->
+  <section class="croute" aria-label="Quick links">
+    <div class="croute__inner">
+      <div class="croute__grid">
+
+        <a class="croute__card" href="/demo">
+          <div class="croute__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+              <polyline points="9 16 11 18 15 14"></polyline>
+            </svg>
+          </div>
+          <h2 class="croute__title">Looking for a demo?</h2>
+          <p class="croute__body">See Vome in action with one of our team members. We'll walk you through the platform and answer your questions live.</p>
+          <span class="croute__cta" aria-hidden="true">Book a demo →</span>
+        </a>
+
+        <a class="croute__card" href="https://support.vomevolunteer.com/portal/en/home" target="_blank" rel="noopener noreferrer">
+          <div class="croute__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <h2 class="croute__title">Need help with your account?</h2>
+          <p class="croute__body">Our support portal has step-by-step guides and direct access to our support team for billing, bugs, and account questions.</p>
+          <span class="croute__cta" aria-hidden="true">Visit support portal →</span>
+        </a>
+
+        <a class="croute__card" href="/#faq">
+          <div class="croute__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h2 class="croute__title">Have a quick question?</h2>
+          <p class="croute__body">We've answered the most common questions about Vome, pricing, integrations, and getting started on our FAQ page.</p>
+          <span class="croute__cta" aria-hidden="true">Browse the FAQ →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT FORM ── -->
+  <!--
+    FORM SUBMISSION NOTE
+    ────────────────────────────────────────────────────────────────────────────
+    The React app posts to: POST https://vomeorg.com/api/vome-admin/contact-us/
+    Payload shape: { first_name, last_name, email, message, organization_name, user_type }
+
+    Before going to production, confirm three things:
+      1. CONTACT_API_URL in the <script> below points to the correct production URL
+      2. CORS is configured on the backend to allow requests from the landing page domain
+      3. The endpoint accepts unauthenticated POST requests from the public web
+
+    If the Vome backend is not accessible without auth from the static landing page,
+    replace CONTACT_API_URL with a Formspree / Basin / similar endpoint instead.
+    ────────────────────────────────────────────────────────────────────────────
+  -->
+  <section class="cform-sec">
+    <div class="cform-sec__inner">
+      <div class="cform-sec__header">
+        <h2 class="cform-sec__h2">Send us a message</h2>
+        <p class="cform-sec__sub">Fill in the form and we'll get back to you within one business day.</p>
+      </div>
+
+      <form id="contact-form" class="cform" novalidate>
+
+        <!-- Honeypot — hidden from humans, filled by bots -->
+        <div style="display:none" aria-hidden="true">
+          <label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <div class="cform__row">
+          <label class="cform__label">
+            <span>First name <abbr title="required">*</abbr></span>
+            <input class="cform__input" type="text" name="firstName" required autocomplete="given-name" />
+          </label>
+          <label class="cform__label">
+            <span>Last name</span>
+            <input class="cform__input" type="text" name="lastName" autocomplete="family-name" />
+          </label>
+        </div>
+
+        <label class="cform__label">
+          <span>Email <abbr title="required">*</abbr></span>
+          <input class="cform__input" type="email" name="email" required autocomplete="email" />
+        </label>
+
+        <label class="cform__label">
+          <span>Organization</span>
+          <input class="cform__input" type="text" name="organizationName" autocomplete="organization" />
+        </label>
+
+        <label class="cform__label">
+          <span>Topic <abbr title="required">*</abbr></span>
+          <select class="cform__input cform__select" name="subject" required>
+            <option value="">Select a topic…</option>
+            <option value="General inquiry">General inquiry</option>
+            <option value="Sales">Sales</option>
+            <option value="Support">Support</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Press">Press</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+
+        <label class="cform__label">
+          <span>Message <abbr title="required">*</abbr></span>
+          <textarea class="cform__input cform__textarea" name="questions" required rows="5" placeholder="Tell us what's on your mind…"></textarea>
+        </label>
+
+        <div role="alert" class="cform__error" id="cform-error" hidden></div>
+
+        <div class="cform__footer">
+          <button type="submit" class="cform__submit" id="cform-submit">Send message</button>
+          <p class="cform__note">We typically reply within one business day.</p>
+        </div>
+
+      </form>
+
+      <!-- Success state — swapped in after submission, hidden by default -->
+      <div id="contact-success" class="cform-success" hidden aria-live="polite">
+        <div class="cform-success__check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3 class="cform-success__h3">Message sent</h3>
+        <p class="cform-success__body" id="contact-success-body">
+          We typically reply within one business day.
+        </p>
+        <a href="/" class="cform-success__back">Back to homepage</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── DIRECT CONTACT INFO ── -->
+  <section class="cinfo">
+    <div class="cinfo__inner">
+      <h2 class="cinfo__h2">Other ways to reach us</h2>
+      <div class="cinfo__grid">
+
+        <div class="cinfo__col">
+          <h3 class="cinfo__colhead">Support</h3>
+          <p class="cinfo__colbody">For account help, billing questions, or bugs, our support portal connects you directly to our support team and is usually the fastest path to a resolution.</p>
+          <a class="cinfo__link" href="https://support.vomevolunteer.com/portal/en/home" target="_blank" rel="noopener noreferrer">support.vomevolunteer.com →</a>
+        </div>
+
+        <div class="cinfo__col">
+          <h3 class="cinfo__colhead">Mailing address</h3>
+          <address class="cinfo__address">
+            2900 Loyalist St<br />
+            Cornwall, ON K6H 6C8<br />
+            Canada
+          </address>
+        </div>
+
+        <div class="cinfo__col">
+          <h3 class="cinfo__colhead">Response time</h3>
+          <p class="cinfo__colbody">We monitor messages during business hours (EST) and aim to reply within one business day. Urgent account issues are typically resolved faster through the support portal.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MINI FAQ ── -->
+  <section class="cfaq">
+    <div class="faq__wrap">
+      <div class="cfaq__intro">
+        <h2 class="cfaq__h2">Common questions</h2>
+      </div>
+      <div class="faq__list">
+        {contactFaqs.map((item) => (
+          <FaqItem question={item.question}>{item.answer}</FaqItem>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      // TODO: confirm this is the correct production endpoint and that CORS is configured
+      var CONTACT_API_URL = 'https://vomeorg.com/api/vome-admin/contact-us/';
+
+      var form = document.getElementById('contact-form');
+      var successEl = document.getElementById('contact-success');
+      var successBody = document.getElementById('contact-success-body');
+      var submitBtn = document.getElementById('cform-submit');
+      var errorEl = document.getElementById('cform-error');
+
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errorEl.hidden = true;
+
+        // Honeypot guard
+        var honeypot = form.querySelector('[name="_gotcha"]');
+        if (honeypot && honeypot.value) return;
+
+        // HTML5 constraint validation
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        var data = new FormData(form);
+        var firstName = (data.get('firstName') || '').trim();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        fetch(CONTACT_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: (data.get('lastName') || '').trim(),
+            email: (data.get('email') || '').trim(),
+            message: (data.get('questions') || '').trim(),
+            organization_name: (data.get('organizationName') || '').trim(),
+            user_type: data.get('subject') || '',
+          }),
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            form.hidden = true;
+            successEl.hidden = false;
+            if (firstName) {
+              successBody.textContent =
+                'Thanks, ' + firstName + '. We typically reply within one business day.';
+            }
+          })
+          .catch(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send message';
+            errorEl.textContent =
+              'Something went wrong — please try again, or visit our support portal if the issue continues.';
+            errorEl.hidden = false;
+          });
+      });
+    })();
+  </script>
+
+</Layout>
+
+<style>
+  /* ── Shared horizontal padding ── */
+  .ch,
+  .croute,
+  .cform-sec,
+  .cinfo,
+  .cfaq {
+    padding-left: max(5%, calc((100% - 1120px) / 2));
+    padding-right: max(5%, calc((100% - 1120px) / 2));
+  }
+
+  /* ── Hero ── */
+  .ch {
+    background: var(--surface-1);
+    padding-top: 64px;
+    padding-bottom: 52px;
+    text-align: center;
+  }
+
+  .ch__inner {
+    max-width: 660px;
+    margin: 0 auto;
+  }
+
+  .ch__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: var(--vome-orange);
+    background: var(--vome-peach-50);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  .ch__h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -0.4px;
+    color: #000;
+    margin: 0 0 14px;
+  }
+
+  .ch__sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--fg-4);
+    font-weight: 500;
+    margin: 0 auto;
+    max-width: 540px;
+  }
+
+  /* ── Route-first option cards ── */
+  .croute {
+    background: var(--surface-0);
+    padding-top: 52px;
+    padding-bottom: 52px;
+    border-bottom: 1px solid var(--border-2);
+  }
+
+  .croute__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .croute__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .croute__card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--surface-1);
+    border: 1.5px solid var(--border-2);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      transform 150ms ease;
+  }
+
+  .croute__card:hover {
+    border-color: var(--vome-orange);
+    box-shadow: 0 6px 24px -6px rgba(250, 147, 91, 0.22);
+    transform: translateY(-2px);
+  }
+
+  .croute__card:focus-visible {
+    outline: 2px solid var(--vome-orange);
+    outline-offset: 3px;
+  }
+
+  .croute__icon {
+    width: 44px;
+    height: 44px;
+    background: var(--vome-peach-50);
+    color: var(--vome-orange);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+
+  .croute__title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .croute__body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--fg-4);
+    margin: 0;
+    flex: 1;
+  }
+
+  .croute__cta {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--vome-orange);
+    margin-top: 6px;
+  }
+
+  /* ── Contact form ── */
+  .cform-sec {
+    background: var(--surface-0);
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .cform-sec__inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cform-sec__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .cform-sec__h2 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2vw, 30px);
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0 0 10px;
+  }
+
+  .cform-sec__sub {
+    font-size: 15px;
+    color: var(--fg-4);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .cform {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cform__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cform__label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-3);
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+  }
+
+  abbr[title] {
+    text-decoration: none;
+    color: var(--vome-orange);
+  }
+
+  .cform__input {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--fg-2);
+    background: var(--surface-1);
+    transition: border-color 120ms ease, background 120ms ease;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .cform__input:focus {
+    border-color: var(--vome-orange);
+    background: #fff;
+  }
+
+  .cform__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .cform__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .cform__error {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 14px;
+    color: #b91c1c;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .cform__footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .cform__submit {
+    padding: 13px 28px;
+    background: var(--vome-orange);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 120ms ease, opacity 120ms ease;
+    white-space: nowrap;
+  }
+
+  .cform__submit:hover {
+    background: var(--vome-orange-700);
+  }
+
+  .cform__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .cform__note {
+    font-size: 13px;
+    color: var(--fg-5);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Success state */
+  .cform-success {
+    text-align: center;
+    padding: 64px 24px;
+  }
+
+  .cform-success__check {
+    width: 68px;
+    height: 68px;
+    background: var(--vome-peach-50);
+    color: var(--vome-orange);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .cform-success__h3 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0 0 10px;
+  }
+
+  .cform-success__body {
+    font-size: 16px;
+    color: var(--fg-4);
+    margin: 0 0 28px;
+    line-height: 1.6;
+  }
+
+  .cform-success__back {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--vome-orange);
+    text-decoration: none;
+  }
+
+  .cform-success__back:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Direct contact info ── */
+  .cinfo {
+    background: var(--surface-1);
+    padding-top: 64px;
+    padding-bottom: 64px;
+    border-top: 1px solid var(--border-2);
+  }
+
+  .cinfo__inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .cinfo__h2 {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 1.6vw, 24px);
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0 0 36px;
+  }
+
+  .cinfo__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .cinfo__colhead {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fg-5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+
+  .cinfo__colbody {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--fg-4);
+    margin: 0 0 12px;
+  }
+
+  .cinfo__link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--vome-orange);
+    text-decoration: none;
+  }
+
+  .cinfo__link:hover {
+    text-decoration: underline;
+  }
+
+  .cinfo__address {
+    font-size: 14px;
+    font-style: normal;
+    line-height: 1.85;
+    color: var(--fg-4);
+    margin: 0;
+  }
+
+  /* ── Mini FAQ ── */
+  .cfaq {
+    background: var(--vome-peach-50);
+    padding-top: 64px;
+    padding-bottom: 72px;
+  }
+
+  .cfaq__intro {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .cfaq__h2 {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 1.8vw, 26px);
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 820px) {
+    .croute__grid {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .cinfo__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .ch {
+      padding-top: 44px;
+      padding-bottom: 36px;
+    }
+
+    .cform__row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .cform-sec {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .cinfo {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .cinfo__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cfaq {
+      padding-top: 48px;
+      padding-bottom: 56px;
+    }
+  }
+</style>

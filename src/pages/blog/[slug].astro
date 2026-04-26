@@ -1,0 +1,215 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const SPACE = "kjo9e8dexn06";
+const TOKEN = "1ceqPW8PlC_h8taFl4hCM_fsmv7w9tf8MsYg3JjmivI";
+
+export async function getStaticPaths() {
+  const SPACE = "kjo9e8dexn06";
+  const TOKEN = "1ceqPW8PlC_h8taFl4hCM_fsmv7w9tf8MsYg3JjmivI";
+
+  const res = await fetch(
+    `https://cdn.contentful.com/spaces/${SPACE}/entries?access_token=${TOKEN}&include=2`
+  );
+  const data = await res.json();
+
+  const assetMap: Record<string, string> = {};
+  (data.includes?.Asset ?? []).forEach((a: any) => {
+    const url: string = a.fields.file.url;
+    assetMap[a.sys.id] = url.startsWith("//") ? "https:" + url : url;
+  });
+
+  return (data.items ?? []).map((post: any) => ({
+    params: {
+      slug: post.fields.blogTitle.replace(/\s+/g, "-").toLowerCase().replace(/[^a-z0-9-]/g, ""),
+    },
+    props: {
+      title: post.fields.blogTitle,
+      author: post.fields.blogAuthor ?? "Vome Team",
+      date: post.fields.createdDate,
+      imageUrl: post.fields.topImage?.sys?.id
+        ? (assetMap[post.fields.topImage.sys.id] ?? null)
+        : null,
+      content: post.fields.blogPost ?? "",
+    },
+  }));
+}
+
+const { title, author, date, imageUrl, content } = Astro.props;
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+  });
+}
+
+const description = content
+  ? content.replace(/<[^>]+>/g, "").substring(0, 160)
+  : `${title} — Vome Volunteer Blog`;
+---
+
+<Layout title={`${title} | Vome Blog`} description={description} ogImage={imageUrl ?? undefined}>
+  <div class="bp-wrap">
+    <div class="bp-inner">
+      <!-- Header -->
+      <div class="bp-header">
+        <h1 class="bp-title">{title}</h1>
+        <div class="bp-meta">
+          <span class="bp-author">{author}</span>
+          <span class="bp-date">{formatDate(date)}</span>
+        </div>
+        {
+          imageUrl && (
+            <img
+              src={imageUrl}
+              alt={title}
+              class="bp-hero-img"
+              loading="eager"
+              decoding="async"
+            />
+          )
+        }
+      </div>
+
+      <!-- Content -->
+      <div class="bp-content" set:html={content} />
+    </div>
+  </div>
+
+  <div class="bp-back-wrap">
+    <a href="/blog" class="bp-back">← Back to Blog</a>
+  </div>
+</Layout>
+
+<style>
+  .bp-wrap {
+    padding: 20px max(3%, calc((100% - 800px) / 2));
+    min-height: 60vh;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  .bp-inner {
+    background: #fff;
+    overflow: auto;
+    padding: 10px 20px;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .bp-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .bp-title {
+    font-size: 35px;
+    font-weight: 600;
+    margin: 0 0 5px;
+    color: var(--color-fg-2);
+    line-height: 1.25;
+  }
+
+  .bp-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 15px;
+  }
+
+  .bp-author {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-fg-2);
+    padding-right: 15px;
+    border-right: 1px solid #f1f1f1;
+    margin-right: 15px;
+  }
+
+  .bp-date {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .bp-hero-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+
+  /* ── Body content ── */
+  .bp-content {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.8;
+    color: var(--color-fg-3);
+  }
+
+  .bp-content :global(a) {
+    color: #fa935b;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .bp-content :global(a:hover) {
+    font-weight: 600;
+  }
+
+  .bp-content :global(h1),
+  .bp-content :global(h2),
+  .bp-content :global(h3) {
+    font-family: "Montserrat", sans-serif;
+    color: var(--color-fg-2);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .bp-content :global(ul),
+  .bp-content :global(ol) {
+    padding-left: 15px;
+  }
+
+  .bp-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  /* ── Back link ── */
+  .bp-back-wrap {
+    padding: 24px max(3%, calc((100% - 800px) / 2));
+    background: var(--color-surface-1);
+  }
+
+  .bp-back {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fa935b;
+    text-decoration: none;
+  }
+
+  .bp-back:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .bp-wrap {
+      padding: 15px 3%;
+    }
+
+    .bp-inner {
+      padding: 10px 0;
+    }
+
+    .bp-title {
+      font-size: 22px;
+    }
+  }
+</style>

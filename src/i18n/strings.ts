@@ -137,7 +137,7 @@ export const strings = {
     col_software: { en: "Software", fr: "Logiciel" },
     col_about: { en: "About Vome", fr: "À propos de Vome" },
     col_resources: { en: "Resources", fr: "Ressources" },
-    address: { en: "9145 Rue Boivin Suite, Montreal, Quebec H8R 2E5, Canada", fr: "9145 Rue Boivin Suite, Montréal, Québec H8R 2E5, Canada" },
+    address: { en: "2900 Loyalist St, Cornwall, ON K6H 6C8, Canada", fr: "2900 Loyalist St, Cornwall, ON K6H 6C8, Canada" },
   },
 } as const;
 

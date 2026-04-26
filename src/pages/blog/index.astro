@@ -1,0 +1,246 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const SPACE = "kjo9e8dexn06";
+const TOKEN = "1ceqPW8PlC_h8taFl4hCM_fsmv7w9tf8MsYg3JjmivI";
+
+let posts: Array<{
+  id: string;
+  title: string;
+  slug: string;
+  imageUrl: string | null;
+  date: string;
+}> = [];
+
+try {
+  const res = await fetch(
+    `https://cdn.contentful.com/spaces/${SPACE}/entries?access_token=${TOKEN}&include=2`
+  );
+  const data = await res.json();
+
+  const assetMap: Record<string, string> = {};
+  (data.includes?.Asset ?? []).forEach((a: any) => {
+    const url: string = a.fields.file.url;
+    assetMap[a.sys.id] = url.startsWith("//") ? "https:" + url : url;
+  });
+
+  posts = (data.items ?? [])
+    .map((post: any) => ({
+      id: post.sys.id,
+      title: post.fields.blogTitle,
+      slug: post.fields.blogTitle.replace(/\s+/g, "-").toLowerCase().replace(/[^a-z0-9-]/g, ""),
+      imageUrl: post.fields.topImage?.sys?.id
+        ? (assetMap[post.fields.topImage.sys.id] ?? null)
+        : null,
+      date: post.fields.createdDate,
+    }))
+    .sort(
+      (a: any, b: any) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+} catch (err) {
+  console.error("Failed to fetch blog posts from Contentful:", err);
+}
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("en-US", {
+    month: "long",
+    day: "2-digit",
+    year: "numeric",
+  });
+}
+
+const newsList = [
+  {
+    imageUrl: "/blog/pressReleaseOne.png",
+    url: "https://www.newswire.ca/news-releases/canadian-entrepreneurs-launch-software-to-digitalize-volunteer-space-843731790.html",
+    title: "Canadian Entrepreneurs Launch Software to Digitalize Volunteer Space",
+    date: "September 21, 2021",
+  },
+];
+---
+
+<Layout
+  title="Blog | Vome Volunteer"
+  description="Insights, tips, and news from the Vome team on volunteer management, technology, and community impact."
+>
+  <div class="bl-wrap">
+    <!-- Latest Blog Posts -->
+    <section class="bl-section">
+      <h2 class="bl-section__label">Latest Blog Posts</h2>
+
+      {
+        posts.length === 0 ? (
+          <p class="bl-empty">No blog posts found.</p>
+        ) : (
+          posts.map((post) => (
+            <a href={`/blog/${post.slug}`} class="bl-card">
+              <div class="bl-card__img-wrap">
+                {post.imageUrl && (
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    class="bl-card__img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
+              </div>
+              <div class="bl-card__body">
+                <p class="bl-card__title">{post.title}</p>
+                <p class="bl-card__date">{formatDate(post.date)}</p>
+              </div>
+            </a>
+          ))
+        )
+      }
+    </section>
+
+    <!-- News -->
+    <section class="bl-section">
+      <h2 class="bl-section__label">News</h2>
+
+      {
+        newsList.map((item) => (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bl-card"
+          >
+            <div class="bl-card__img-wrap">
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                class="bl-card__img"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="bl-card__body">
+              <p class="bl-card__title">{item.title}</p>
+              <p class="bl-card__date">{item.date}</p>
+            </div>
+          </a>
+        ))
+      }
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .bl-wrap {
+    background: var(--color-surface-1);
+    min-height: 60vh;
+  }
+
+  .bl-section {
+    padding: 35px max(3%, calc((100% - 1120px) / 2));
+    padding-bottom: 20px;
+  }
+
+  .bl-section__label {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-fg-2);
+    margin: 0 0 30px;
+  }
+
+  .bl-empty {
+    font-size: 16px;
+    color: var(--color-fg-4);
+  }
+
+  /* ── Card ── */
+  .bl-card {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #e2e0e0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16);
+    margin-bottom: 15px;
+    padding: 15px 5% 15px 2%;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+
+  .bl-card:hover {
+    background: #fafafa;
+  }
+
+  .bl-card__img-wrap {
+    width: 45%;
+    flex-shrink: 0;
+  }
+
+  .bl-card__img {
+    display: block;
+    width: 90%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .bl-card__body {
+    height: 150px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .bl-card__title {
+    font-size: 29px;
+    font-weight: 500;
+    color: var(--color-fg-2);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .bl-card__date {
+    font-size: 16px;
+    font-weight: 500;
+    color: #111111;
+    margin: 0;
+    padding-top: 10px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .bl-section {
+      padding-left: 3%;
+      padding-right: 3%;
+    }
+
+    .bl-card {
+      display: block;
+      padding: 15px 5%;
+    }
+
+    .bl-card__img-wrap {
+      width: 100%;
+    }
+
+    .bl-card__img {
+      width: 100%;
+    }
+
+    .bl-card__body {
+      width: 100%;
+      height: auto;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+
+    .bl-card__title {
+      font-size: 17px;
+    }
+
+    .bl-card__date {
+      font-size: 13px;
+    }
+  }
+</style>

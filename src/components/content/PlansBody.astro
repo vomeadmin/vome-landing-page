@@ -1,0 +1,1327 @@
+---
+import FaqItem from "../FaqItem.astro";
+
+type PlanVal = true | false | string;
+interface Row { name: string; desc: string; recruit: PlanVal; pro: PlanVal; ent: PlanVal; ult: PlanVal; }
+interface Section { title: string; rows: Row[]; }
+
+const C = true;
+const X = false;
+
+const sections: Section[] = [
+  {
+    title: "Fundamentals",
+    rows: [
+      { name: "Max number of manageable users & profiles", desc: "You can grow your volunteer base without worrying about paying more — we don't charge for volunteer records.", recruit: "Unlimited", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
+      { name: "Max number of admin seats", desc: "You can invite an unlimited number of admins to the portal. On paid plans you're charged per seat you activate.", recruit: "Unlimited", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
+      { name: "Access on any device (iOS & Android apps, web & mobile browser)", desc: "Our platform is accessible from any device. The Vome Volunteer mobile app on the App Store and Google Play is free to download for all users.", recruit: C, pro: C, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Recruitment",
+    rows: [
+      { name: "Custom-branded recruitment page", desc: "Build a volunteer recruitment page featuring volunteer opportunities and application forms.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Feature volunteer opportunities", desc: "Build volunteer opportunities structured by activity, role, or anything you want.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Group opportunities by category", desc: "Group your opportunities by location, program, event, department, or whatever works best for you.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Access to opportunity dashboards", desc: "View everything about your opportunity from a single page — applicants, shift requests, hour claims, analytics and more.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Opportunity-specific application forms", desc: "Customize application forms for your opportunities and events, including templates to reuse across opportunities.", recruit: "Unlimited", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
+      { name: "Customize forms for recruitment, data collection & surveys", desc: "Get access to a dynamic form-builder that allows you to collect any information you need from volunteers.", recruit: "1 form", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
+      { name: "Custom recruitment process", desc: "Choose the volunteer recruitment workflow that works best for your organization.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Generate direct landing page links to your page, forms, opportunities, programs, events, locations, etc.", desc: "Dynamic shareable links open the mobile app if the person is already logged into the Vome Volunteer app.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "App & email notifications for new applicants", desc: "Choose which admin users will receive app and/or email notifications when you receive new applicants.", recruit: C, pro: C, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Onboarding",
+    rows: [
+      { name: "Build onboarding sequences to manage your entire screening process", desc: "Build step-by-step onboarding processes for volunteers to complete, with optional visibility for the volunteer.", recruit: "1 sequence", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
+      { name: "Manage interviews, orientation & training sessions for opportunities", desc: "Build a screening checklist to use across your opportunities to stay on track about who completed what.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Sterling Volunteers background check integration", desc: "Integrate background checks directly into volunteer sequences with automatic status updates and ongoing monitoring.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "SCORM Cloud E-Learning integration", desc: "Add SCORM-compliant e-learning courses directly into volunteer sequences with automatic progress tracking.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Manage submitted waivers", desc: "Allow volunteers to submit signed forms and waivers as part of your screening process.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Create and manage notes", desc: "Create notes on volunteer profiles and specific components of their onboarding process.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Onboarding status tracking", desc: "Easily keep track of whether volunteers completed their screening requirements and if there are any expiration dates.", recruit: C, pro: C, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Scheduling",
+    rows: [
+      { name: "Generate one-time and recurring shifts", desc: "Easily add available shifts on your calendar in a few clicks, with bulk creation for recurring time slots.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Allow volunteers to self-schedule pre-determined shifts", desc: "Volunteers who are eligible for your opportunities can directly reserve their spots to available shifts.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Double the Donation corporate matching gifts integration", desc: "Unlock corporate matching gifts during volunteer registration and shift reservations.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Allow instant bookings for approved volunteers", desc: "Choose to allow approved volunteers to instantly reserve spots to shifts or require them to submit a request first.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Allow volunteers to create their own schedule", desc: "Allow approved volunteers to create shifts based on their availabilities, which automatically populate your calendar.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Create custom scheduling policies to manage check-ins, cancellations and more", desc: "Control how many reservations volunteers can create, when they can check-in, and much more.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Recurring schedule assignments", desc: "Bulk-assign volunteers to shifts, log hours, and manage cancellations directly from your schedule view.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Auto-generated shift chatrooms", desc: "Streamline communication among attendees with auto-generated shift chatrooms for each shift.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Export & print your schedule in PDF, Excel or .CSV format", desc: "Export your calendar in various formats with customizable field visibility.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Mobile app & email scheduling reminders", desc: "Automate all sorts of scheduling notifications to keep volunteers and administrators in the loop.", recruit: X, pro: C, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Hour tracking",
+    rows: [
+      { name: "Receive hour claims", desc: "Allow volunteers to submit hour claims for shifts they completed. Once approved, their hours are added to their profiles.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "QR-code attendance tracking", desc: "Print and display a QR code to allow volunteers to scan via the mobile app to check-in/out of shifts and automate hour tracking.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "On-site Attendance Kiosk", desc: "Customize unlimited on-site attendance kiosks to let volunteers self check-in/out from any device (tablet, computer, smartphone).", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Mass hour loggings", desc: "Bulk log hours for volunteers in a few clicks, keeping accurate date/time records without manual work.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Hours reports", desc: "Easily generate reservation and hours reports with integrated analytics.", recruit: X, pro: C, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Data & reports",
+    rows: [
+      { name: "Access volunteer profiles", desc: "View everything you need about a volunteer from a single view — contacts, opportunities, shifts, notes and more.", recruit: "Basic", pro: C, ent: C, ult: C },
+      { name: "Import volunteer profiles", desc: "Add up to 10,000 volunteer contacts from Excel per import with batch assignment of tags, opportunities, and shifts.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Import custom field data", desc: "Import and map data into any custom field in your database via Excel or .CSV.", recruit: X, pro: X, ent: C, ult: C },
+      { name: "Offline profile management", desc: "Create offline profiles for volunteers who will not claim their profile on Vome — ideal for seniors or non-digital participants.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Unlimited custom & dynamic database fields", desc: "Choose from various field types (lists, dates, attachments, links, etc.) when creating custom database fields.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Profile tags", desc: "Group volunteers in your database by anything you want — great for bulk actions like emails or shift assignments.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Advanced group management", desc: "Unlock the Groups module to associate group reservations to dedicated groups for cleaner workflows and analytics.", recruit: X, pro: X, ent: C, ult: C },
+      { name: "Filtering, sorting & exporting", desc: "Use filters and sorting to get the data you need quickly, plus export everything to Excel at any time.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Google Sheets ↔ Vome Database integration", desc: "Sync your Vome database with a Google Sheet to automatically keep a backup or perform additional operations on your data.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Access instant reports", desc: "Instantly generate different types of reports about attendees, hours, volunteers, shifts and more.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Access instant analytics dashboards", desc: "Integrated analytics dashboards show you key metrics about your volunteers and activity to detail performance.", recruit: X, pro: C, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Communications",
+    rows: [
+      { name: "Individual & bulk emailing", desc: "Send targeted emails to specific contact lists or one-off emails to individuals directly from Vome.", recruit: "Basic", pro: C, ent: C, ult: C },
+      { name: "Integrate your email domain using Google or Microsoft", desc: "Send more personalized emails on Vome from your own mailbox using our integrations with Google and Microsoft.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Private chats", desc: "Use Vome's integrated instant messaging feature to message volunteers directly from the platform.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Custom group chats", desc: "Build custom group chats with volunteers and other administrators to simplify coordination.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Auto-generated chatrooms", desc: "Choose to use auto-generated chatrooms for your opportunities or shifts with automatic participant management.", recruit: X, pro: C, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Recognition",
+    rows: [
+      { name: "Achievements", desc: "Give volunteers automatic achievements based on their progress — hours logged, shifts completed, and more.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Custom awards", desc: "Create custom awards and badges to recognize volunteers for milestones, contributions, or special moments.", recruit: X, pro: X, ent: C, ult: C },
+    ],
+  },
+  {
+    title: "Advanced",
+    rows: [
+      { name: "Custom admin roles & permissions", desc: "Restrict administrative access by assigning admin roles with custom permission sets.", recruit: X, pro: X, ent: C, ult: C },
+      { name: "Two-Factor Authentication (2FA)", desc: "Protect your account with Two-Factor Authentication. Add a secure phone number and enter a code upon each login attempt.", recruit: X, pro: X, ent: C, ult: C },
+      { name: "Built-in KPI & metric dashboards", desc: "Access integrated analytics dashboards and reports to gain a deeper understanding of your operation.", recruit: X, pro: "Basic", ent: "Advanced", ult: "Advanced" },
+      { name: "Multi-site segmentation", desc: "Setup your portal to better manage multiple sites under a single account.", recruit: X, pro: X, ent: C, ult: C },
+      { name: "Map form fields to database fields", desc: "Map any question or attachment field on a form to a database field to centralize your data.", recruit: X, pro: X, ent: C, ult: C },
+      { name: "API integration & custom webhooks", desc: "Access a developer dashboard to create integrations with Vome using APIs or custom webhooks.", recruit: X, pro: X, ent: X, ult: C },
+      { name: "Automations with Zapier & Power Automate", desc: "Choose from thousands of custom automations using our integrations with Zapier and Microsoft Power Automate.", recruit: X, pro: X, ent: X, ult: C },
+      { name: "Native integration with Salesforce", desc: "Access an installable Vome package on Salesforce to achieve a native integration.", recruit: X, pro: X, ent: X, ult: C },
+      { name: "SAML & Azure SSO for admins", desc: "Ensure you're compliant by provisioning admin users and enforcing SSO for their accounts.", recruit: X, pro: X, ent: X, ult: C },
+    ],
+  },
+  {
+    title: "Customer success",
+    rows: [
+      { name: "FAQ & Knowledge base", desc: "Access many articles for quick answers to frequently asked questions.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Email support", desc: "Personalized customer support with guaranteed quick response times.", recruit: "Basic", pro: "Standard", ent: "Priority", ult: "Priority" },
+      { name: "Technical support", desc: "We offer base tech support when you come across a technical issue that needs to be resolved by a developer.", recruit: C, pro: C, ent: C, ult: C },
+      { name: "Onboarding sessions", desc: "One-hour calls with a platform specialist to get you fully set up on Vome. Unlocked as a one-time benefit upon upgrading.", recruit: "1", pro: "1", ent: "5", ult: "Unlimited *" },
+      { name: "Account review sessions", desc: "30-minute check-ins with a Vome specialist to go through new features, improvements, or any questions your team has. Unlocked as a one-time benefit upon upgrading.", recruit: X, pro: "1", ent: "4", ult: "Unlimited *" },
+      { name: "Dedicated account management", desc: "Gain access to a dedicated Vome expert to help you optimize your portal and share best practices for managing volunteers at scale.", recruit: X, pro: X, ent: C, ult: C },
+      { name: "New Admin & Transition Onboarding", desc: "When your team brings on a new admin or transitions coordinators, we provide a complimentary onboarding session for a smooth handoff.", recruit: X, pro: C, ent: C, ult: C },
+      { name: "Tech & operational consulting", desc: "Get access to Vome's software engineers and onboarding experts to help you strategize your tech setup.", recruit: X, pro: X, ent: X, ult: C },
+    ],
+  },
+];
+
+const faqItems = [
+  {
+    question: "Do you offer a free trial for any of the premium plans?",
+    answer: "Yes, we offer a 30-day free trial for all premium plans — Pro, Enterprise, and Ultimate. The free trial begins automatically as soon as you upgrade from your admin portal.",
+  },
+  {
+    question: "Which organizations are eligible to use Vome?",
+    answer: "Any organization looking to streamline community engagement for volunteers, staff, members, clients, or event attendees. We serve hospitals and healthcare networks, membership associations, grassroots organizations, multi-national NGOs, community centres, food banks and shelters, municipalities and government agencies, festivals, school districts and universities, and businesses. Vome's Enterprise plan is well-suited for multi-site entities.",
+  },
+  {
+    question: "How many volunteers am I allowed to manage?",
+    answer: "As many as you have. There is no limit to the number of volunteers you can recruit or import. Our pricing depends on the number of administrative seats you wish to use on any paid plan.",
+  },
+  {
+    question: "Why do you charge per administrator?",
+    answer: "We charge per administrative seat to help you with budgetary planning. Most organizations know how many administrators will need access to Vome, but the number of active volunteers may vary throughout the year.",
+  },
+  {
+    question: "Can I use monthly and annual pricing at the same time for different administrators?",
+    answer: "Yes. We allow organizations to purchase a combination of monthly and annual seats for maximum flexibility. For example, you can purchase annual seats for your full-time employees and monthly seats for part-time employees who do not require year-round access.",
+  },
+  {
+    question: "What happens if we decide to cancel our plan?",
+    answer: "If you no longer wish to use a premium plan, you may cancel at any time. You will be able to use your premium plan until your current billing cycle is over, and will then be downgraded to the free base plan.",
+  },
+  {
+    question: "Do you offer any discounts?",
+    answer: "Yes. When you choose the annual billing option on Vome Pro, you receive a 33% discount compared to 12 monthly payments. We also offer additional savings for organizations that require a sizeable number of admin seats, have unique organizational structures, or are looking to partner for longer terms. We do not offer general nonprofit discounts because all of our clients are nonprofits.",
+  },
+  {
+    question: "What languages do you support?",
+    answer: "Vome is a bilingual platform, available in both English and French.",
+  },
+  {
+    question: "What if I have more questions?",
+    answer: "That's what we're here for! You can contact us to share your questions, or book a demo to see the platform in action.",
+  },
+];
+---
+
+<!-- ─── HERO ─── -->
+<section class="pp-hero">
+  <div class="pp-hero__inner">
+    <span class="pp-eyebrow">Plans &amp; Pricing</span>
+    <h1 class="pp-hero__h1">Choosing the right plan is simple.</h1>
+    <p class="pp-hero__sub">
+      Get started with the free plan — no credit card required. Upgrade any time and get a
+      30-day free trial on any premium plan.
+    </p>
+    <ul class="pp-hero__pills">
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        Flexible pricing
+      </li>
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        Unlimited volunteers
+      </li>
+      <li>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+        30-day free trial on premium plans
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─── BILLING TOGGLE ─── -->
+<section class="pp-controls">
+  <div class="pp-controls__inner">
+    <div class="pp-toggle" role="group" aria-label="Currency">
+      <button class="pp-toggle__btn pp-toggle__btn--active" data-currency="cad">CAD</button>
+      <button class="pp-toggle__btn" data-currency="usd">USD</button>
+    </div>
+    <div class="pp-toggle" role="group" aria-label="Billing cycle">
+      <button class="pp-toggle__btn" data-billing="monthly">Monthly</button>
+      <button class="pp-toggle__btn pp-toggle__btn--active" data-billing="annual">
+        Annual
+        <span class="pp-save-chip">Save 33%</span>
+      </button>
+    </div>
+  </div>
+  <p class="pp-controls__note">For customized pricing on multi-year plans, <a href="/contact" class="pp-link">contact us</a> for a personalized quote.</p>
+</section>
+
+<!-- ─── PLAN CARDS ─── -->
+<section class="pp-plans">
+  <div class="pp-plans__grid">
+
+    <!-- Recruit -->
+    <div class="pp-card pp-card--recruit">
+      <div class="pp-card__head">
+        <p class="pp-card__name">Recruit</p>
+        <p class="pp-card__sub">For recruiters that need to collect application forms and manage an onboarding process.</p>
+      </div>
+      <div class="pp-card__price-block">
+        <div class="pp-card__price">
+          <span class="pp-card__currency" data-show="cad">C$</span>
+          <span class="pp-card__currency" data-show="usd" hidden>$</span>
+          <span class="pp-card__amount">0</span>
+        </div>
+        <p class="pp-card__billing-note">Forever free</p>
+      </div>
+      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--outline">Get started</a>
+      <div class="pp-card__features">
+        <p class="pp-card__feat-head">Features include:</p>
+        <ul>
+          <li>Recruitment page with featured opportunities &amp; access to forms</li>
+          <li>Custom application form, onboarding sequence &amp; recruitment automation workflows</li>
+          <li>Manage opportunities &amp; assignments</li>
+          <li>Hour tracking via user-generated hour claims</li>
+          <li>35 default database fields, profile management with notes &amp; document storage (no export)</li>
+          <li>Integrated communication tools (email &amp; instant messaging)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pro -->
+    <div class="pp-card pp-card--pro">
+      <div class="pp-card__head">
+        <p class="pp-card__name">Pro</p>
+        <p class="pp-card__sub">For coordinators that need to manage scheduling, hour tracking and generate reports.</p>
+      </div>
+      <div class="pp-card__price-block">
+        <div class="pp-card__price">
+          <span class="pp-card__currency" data-show="cad">C$</span>
+          <span class="pp-card__currency" data-show="usd" hidden>$</span>
+          <span class="pp-card__amount" data-cad-annual="30" data-cad-monthly="45" data-usd-annual="25" data-usd-monthly="35">30</span>
+        </div>
+        <p class="pp-card__seat-note">Per admin seat, per month</p>
+        <p class="pp-card__billing-note" data-billing-label="annual">Billed annually</p>
+        <p class="pp-card__billing-note" data-billing-label="monthly" hidden>Billed monthly</p>
+      </div>
+      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled">Get started</a>
+      <div class="pp-card__features">
+        <p class="pp-card__feat-head">Everything in Recruit, plus:</p>
+        <ul>
+          <li>Unlimited forms &amp; sequences</li>
+          <li>Shift management &amp; user reservations</li>
+          <li>Streamline group reservations</li>
+          <li>Advanced hour tracking via Attendance QR Code &amp; Kiosk</li>
+          <li>Unlimited profile tags &amp; database export</li>
+          <li>Advanced mass communication tools (email lists, group chats &amp; auto-generated shift chatrooms)</li>
+          <li>Mobile app, custom &amp; automated notifications, reminders &amp; updates</li>
+          <li>Canned reports &amp; analytics with advanced filtering and sorting</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Enterprise — Most Popular -->
+    <div class="pp-card pp-card--ent pp-card--featured">
+      <div class="pp-card__badge">Most Popular</div>
+      <div class="pp-card__head">
+        <p class="pp-card__name">Enterprise</p>
+        <p class="pp-card__sub">For management teams that need custom database fields and admin role provisioning.</p>
+      </div>
+      <div class="pp-card__price-block">
+        <div class="pp-card__price">
+          <span class="pp-card__currency" data-show="cad">C$</span>
+          <span class="pp-card__currency" data-show="usd" hidden>$</span>
+          <span class="pp-card__amount" data-cad-annual="55" data-usd-annual="40">55</span>
+        </div>
+        <p class="pp-card__seat-note">Per admin seat, per month</p>
+        <p class="pp-card__billing-note">Billed annually | Minimum 3 seats</p>
+      </div>
+      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ent">Get started</a>
+      <div class="pp-card__features">
+        <p class="pp-card__feat-head">Everything in Pro, plus:</p>
+        <ul>
+          <li>Unlimited custom &amp; dynamic database fields</li>
+          <li>Import custom field data</li>
+          <li>Advanced group management</li>
+          <li>Custom admin roles &amp; permissions</li>
+          <li>Multi-site segmentation</li>
+          <li>Two-Factor Authentication (2FA)</li>
+          <li>Map form fields to database fields</li>
+          <li>Advanced email customizations</li>
+          <li>Recognition module with custom awards</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Ultimate -->
+    <div class="pp-card pp-card--ult">
+      <div class="pp-card__head">
+        <p class="pp-card__name">Ultimate</p>
+        <p class="pp-card__sub">For any team that needs more security features &amp; the ability to integrate Vome with other apps.</p>
+      </div>
+      <div class="pp-card__price-block">
+        <div class="pp-card__price">
+          <span class="pp-card__currency" data-show="cad">C$</span>
+          <span class="pp-card__currency" data-show="usd" hidden>$</span>
+          <span class="pp-card__amount" data-cad-annual="80" data-usd-annual="60">80</span>
+        </div>
+        <p class="pp-card__seat-note">Per admin seat, per month</p>
+        <p class="pp-card__billing-note">Billed annually | Minimum 5 seats</p>
+      </div>
+      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ult">Get started</a>
+      <div class="pp-card__features">
+        <p class="pp-card__feat-head">Everything in Enterprise, plus:</p>
+        <ul>
+          <li>API integration &amp; custom webhooks</li>
+          <li>Automations with Zapier &amp; Power Automate</li>
+          <li>Native integration with Salesforce</li>
+          <li>SAML &amp; Azure SSO for admins</li>
+          <li>Tech &amp; operational consulting</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <p class="pp-disclaimer">*Additional sales tax may apply.</p>
+</section>
+
+<!-- ─── FEATURE COMPARISON TABLE ─── -->
+<section class="pp-comp">
+  <div class="pp-comp__inner">
+    <h2 class="pp-section-h2">Feature comparison by plan</h2>
+
+    <div class="pp-table-wrap">
+      <table class="pp-table">
+        <thead>
+          <tr>
+            <th class="pp-table__col-feat">Plans</th>
+            <th class="pp-table__col-plan pp-table__col-plan--rec">Recruit</th>
+            <th class="pp-table__col-plan pp-table__col-plan--pro">Pro</th>
+            <th class="pp-table__col-plan pp-table__col-plan--ent">Enterprise</th>
+            <th class="pp-table__col-plan pp-table__col-plan--ult">Ultimate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sections.map((sec) => (
+            <>
+              <tr class="pp-table__divider">
+                <td colspan="5">{sec.title}</td>
+              </tr>
+              {sec.rows.map((row) => (
+                <tr class="pp-table__row">
+                  <td class="pp-table__feat-cell">
+                    <span class="pp-table__feat-name">
+                      {row.name}
+                      {row.desc && (
+                        <span class="pp-tip" tabindex="0">
+                          <svg class="pp-tip__icon" viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                          <span class="pp-tip__bubble" role="tooltip">{row.desc}</span>
+                        </span>
+                      )}
+                    </span>
+                  </td>
+                  <td class="pp-table__val" align="center">
+                    {row.recruit === true ? (
+                      <svg class="pp-icon pp-icon--rec" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                    ) : row.recruit === false ? (
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                    ) : (
+                      <span class="pp-val-text">{row.recruit}</span>
+                    )}
+                  </td>
+                  <td class="pp-table__val" align="center">
+                    {row.pro === true ? (
+                      <svg class="pp-icon pp-icon--pro" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                    ) : row.pro === false ? (
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                    ) : (
+                      <span class="pp-val-text">{row.pro}</span>
+                    )}
+                  </td>
+                  <td class="pp-table__val" align="center">
+                    {row.ent === true ? (
+                      <svg class="pp-icon pp-icon--ent" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                    ) : row.ent === false ? (
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                    ) : (
+                      <span class="pp-val-text">{row.ent}</span>
+                    )}
+                  </td>
+                  <td class="pp-table__val" align="center">
+                    {row.ult === true ? (
+                      <svg class="pp-icon pp-icon--ult" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                    ) : row.ult === false ? (
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                    ) : (
+                      <span class="pp-val-text">{row.ult}</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="pp-comp__footnote">* Onboarding sessions &amp; account review sessions: maximum of 2 hours per week</p>
+  </div>
+</section>
+
+<!-- ─── SUPPORT SECTION ─── -->
+<section class="pp-support">
+  <div class="pp-support__inner">
+    <div class="pp-support__text">
+      <h2 class="pp-support__h2">Personalized customer service</h2>
+      <p class="pp-support__body">
+        Our team is passionate about helping organizations effectively manage volunteer programs &amp;
+        events. We'll help you migrate your data, build the foundation of the admin portal, and show you
+        best practices when it comes to volunteer management &amp; engagement. We also offer extensive
+        customer support resources: email tickets, FAQ knowledge base, and a dedicated account manager
+        to make sure you're taken care of.
+      </p>
+      <p class="pp-support__cta-label">Want to see the difference for yourself?</p>
+      <a href="/demo" class="pp-support__btn">Book a demo</a>
+    </div>
+    <div class="pp-support__graphic" aria-hidden="true">
+      <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="70" r="50" fill="var(--vome-peach-50)"/>
+        <rect x="60" y="50" width="80" height="55" rx="8" fill="white" stroke="#e2e0e0" stroke-width="1.5"/>
+        <rect x="72" y="65" width="35" height="4" rx="2" fill="var(--vome-orange)" opacity="0.7"/>
+        <rect x="72" y="74" width="56" height="3" rx="1.5" fill="#ddd"/>
+        <rect x="72" y="81" width="46" height="3" rx="1.5" fill="#ddd"/>
+        <rect x="72" y="88" width="52" height="3" rx="1.5" fill="#ddd"/>
+        <circle cx="100" cy="57" r="10" fill="var(--vome-orange)" opacity="0.15"/>
+        <path d="M95 57l3.5 3.5 6.5-6.5" stroke="var(--vome-orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="pp-faq">
+  <div class="pp-faq__inner">
+    <div class="pp-faq__intro">
+      <h2 class="pp-section-h2">Frequently asked questions</h2>
+      <p class="pp-faq__sub">
+        Still have questions? <a href="/contact" class="pp-link">Talk to our team →</a>
+      </p>
+    </div>
+    <div class="pp-faq__list">
+      {faqItems.map((item, i) => (
+        <FaqItem question={item.question} open={i === 0}>
+          {item.answer}
+        </FaqItem>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ─── CLOSING CTA ─── -->
+<section class="pp-cta">
+  <div class="pp-cta__inner">
+    <h2 class="pp-cta__h2">Ready to get started?</h2>
+    <p class="pp-cta__sub">Sign up for free or schedule a demo to see why thousands of volunteer managers choose Vome.</p>
+    <div class="pp-cta__btns">
+      <a href="https://app.vomevolunteer.com/register" class="pp-btn-primary">Start for free</a>
+      <a href="/demo" class="pp-btn-ghost">Schedule a demo</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── shared horizontal padding ── */
+  .pp-hero, .pp-controls, .pp-plans, .pp-comp, .pp-support, .pp-faq, .pp-cta {
+    padding-left: max(5%, calc((100% - 1200px) / 2));
+    padding-right: max(5%, calc((100% - 1200px) / 2));
+  }
+
+  /* ─── HERO ─── */
+  .pp-hero {
+    background: var(--vome-peach-50);
+    padding-top: 72px;
+    padding-bottom: 64px;
+    text-align: center;
+  }
+
+  .pp-hero__inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .pp-eyebrow {
+    display: inline-block;
+    background: var(--vome-orange);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .pp-hero__h1 {
+    font-size: clamp(26px, 3vw, 42px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--fg-2);
+    margin: 0 0 16px;
+  }
+
+  .pp-hero__sub {
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(0,0,0,0.6);
+    font-weight: 500;
+    margin: 0 0 28px;
+  }
+
+  .pp-hero__pills {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    justify-content: center;
+  }
+
+  .pp-hero__pills li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--vome-orange);
+  }
+
+  /* ─── CONTROLS ─── */
+  .pp-controls {
+    background: var(--surface-0);
+    padding-top: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0eff4;
+  }
+
+  .pp-controls__inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .pp-toggle {
+    display: inline-flex;
+    background: #f0eff4;
+    border-radius: 10px;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .pp-toggle__btn {
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 18px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .pp-toggle__btn--active {
+    background: #fff;
+    color: var(--fg-2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .pp-save-chip {
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  .pp-controls__note {
+    font-size: 13px;
+    color: rgba(0,0,0,0.5);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .pp-link {
+    color: var(--vome-orange);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .pp-link:hover { text-decoration: underline; }
+
+  /* ─── PLAN CARDS ─── */
+  .pp-plans {
+    background: #f8f7fb;
+    padding-top: 56px;
+    padding-bottom: 48px;
+  }
+
+  .pp-plans__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    /* stretch so all cards are equal height */
+    align-items: stretch;
+  }
+
+  .pp-card {
+    background: var(--surface-0);
+    border-radius: 16px;
+    border: 1.5px solid #e8e6ee;
+    /* top accent via border-top on tier classes — follows rounded corners */
+    border-top-width: 4px;
+    padding: 24px 24px 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: box-shadow 0.2s;
+  }
+
+  .pp-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  /* Tier accent colors via border-top */
+  .pp-card--recruit { border-top-color: var(--vome-orange); }
+  .pp-card--pro     { border-top-color: #4bb181; }
+  .pp-card--ent     { border-top-color: #4b95e9; }
+  .pp-card--ult     { border-top-color: #7c3aed; }
+
+  /* Featured card (Enterprise) */
+  .pp-card--featured {
+    border-color: #4b95e9;
+    border-top-color: #4b95e9;
+    box-shadow: 0 4px 24px rgba(75,149,233,0.18);
+  }
+
+  .pp-card__badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #4b95e9;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* Card head: min-height equalises the name/sub section across all cards */
+  .pp-card__head {
+    min-height: 88px;
+  }
+
+  .pp-card--featured .pp-card__head {
+    padding-top: 8px; /* clear badge */
+  }
+
+  .pp-card__name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0 0 6px;
+  }
+
+  .pp-card__sub {
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(0,0,0,0.55);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /* Price block: min-height aligns the CTA button across all cards */
+  .pp-card__price-block {
+    border-top: 1px solid #f0eff4;
+    padding-top: 20px;
+    min-height: 110px;
+  }
+
+  .pp-card__price {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+
+  .pp-card__currency {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fg-2);
+    line-height: 1;
+    padding-bottom: 6px;
+  }
+
+  .pp-card__amount {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--fg-2);
+    line-height: 1;
+  }
+
+  .pp-card__seat-note {
+    font-size: 12px;
+    color: rgba(0,0,0,0.5);
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+
+  .pp-card__billing-note {
+    font-size: 12px;
+    color: rgba(0,0,0,0.5);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .pp-card__cta {
+    display: block;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+
+  .pp-card__cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .pp-card__cta--outline {
+    border: 2px solid var(--vome-orange);
+    color: var(--vome-orange);
+  }
+
+  .pp-card__cta--filled {
+    background: #4bb181;
+    color: #fff;
+    border: 2px solid #4bb181;
+  }
+
+  .pp-card__cta--filled-ent {
+    background: #4b95e9;
+    color: #fff;
+    border: 2px solid #4b95e9;
+  }
+
+  .pp-card__cta--filled-ult {
+    background: #7c3aed;
+    color: #fff;
+    border: 2px solid #7c3aed;
+  }
+
+  .pp-card__features {
+    flex: 1;
+    border-top: 1px solid #f0eff4;
+    padding-top: 20px;
+  }
+
+  .pp-card__feat-head {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(0,0,0,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 12px;
+  }
+
+  .pp-card__features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .pp-card__features li {
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(0,0,0,0.7);
+    font-weight: 500;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .pp-card__features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .pp-card--recruit .pp-card__features li::before { color: var(--vome-orange); }
+  .pp-card--pro    .pp-card__features li::before { color: #4bb181; }
+  .pp-card--ent    .pp-card__features li::before { color: #4b95e9; }
+  .pp-card--ult    .pp-card__features li::before { color: #7c3aed; }
+
+  .pp-disclaimer {
+    font-size: 12px;
+    color: rgba(0,0,0,0.4);
+    margin: 20px 0 0;
+    font-weight: 500;
+  }
+
+  /* ─── FEATURE COMPARISON TABLE ─── */
+  .pp-comp {
+    background: var(--surface-0);
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .pp-comp__inner {
+    max-width: 1200px;
+  }
+
+  .pp-section-h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0 0 32px;
+  }
+
+  .pp-table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #e2e0e0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+
+  .pp-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+    font-size: 14px;
+  }
+
+  .pp-table thead tr {
+    height: 72px;
+    background: var(--surface-0);
+  }
+
+  .pp-table th {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--fg-2);
+    padding: 0 16px;
+    text-align: center;
+    border-bottom: 2px solid #f0eff4;
+  }
+
+  .pp-table__col-feat {
+    text-align: left !important;
+    width: 38%;
+    min-width: 260px;
+  }
+
+  .pp-table__col-plan {
+    width: 15.5%;
+    font-size: 15px;
+  }
+
+  .pp-table__col-plan--rec { color: var(--vome-orange); }
+  .pp-table__col-plan--pro { color: #4bb181; }
+  .pp-table__col-plan--ent { color: #4b95e9; }
+  .pp-table__col-plan--ult { color: #7c3aed; }
+
+  .pp-table__divider td {
+    background: #fef4ea;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(0,0,0,0.7);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-top: 1px solid #e8e6ee;
+    border-bottom: 1px solid #e8e6ee;
+  }
+
+  .pp-table__row:hover td { background: #fafafa; }
+
+  .pp-table__row td {
+    border-bottom: 1px solid #f0eff4;
+    padding: 14px 16px;
+    vertical-align: middle;
+  }
+
+  .pp-table__feat-cell {
+    vertical-align: middle;
+  }
+
+  .pp-table__feat-name {
+    font-weight: 600;
+    color: rgba(0,0,0,0.8);
+    font-size: 13.5px;
+    line-height: 1.4;
+    display: inline;
+  }
+
+  .pp-table__val {
+    text-align: center !important;
+    vertical-align: middle !important;
+  }
+
+  .pp-icon { display: inline-block; vertical-align: middle; }
+
+  .pp-icon--rec { color: var(--vome-orange); }
+  .pp-icon--pro { color: #4bb181; }
+  .pp-icon--ent { color: #4b95e9; }
+  .pp-icon--ult { color: #7c3aed; }
+  .pp-icon--x   { color: rgba(0,0,0,0.2); }
+
+  .pp-val-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.6);
+  }
+
+  .pp-comp__footnote {
+    font-size: 12px;
+    color: rgba(0,0,0,0.4);
+    margin: 10px 0 0;
+    font-weight: 500;
+  }
+
+  /* ─── INFO TOOLTIP ─── */
+  .pp-tip {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5px;
+    cursor: help;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  .pp-tip__icon {
+    color: rgba(0,0,0,0.3);
+    flex-shrink: 0;
+    transition: color 0.15s;
+  }
+
+  .pp-tip:hover .pp-tip__icon,
+  .pp-tip:focus .pp-tip__icon {
+    color: var(--vome-orange);
+    outline: none;
+  }
+
+  .pp-tip__bubble {
+    display: none;
+    position: fixed;
+    background: #1c1c2e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.55;
+    padding: 10px 14px;
+    border-radius: 8px;
+    width: 260px;
+    z-index: 9999;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    pointer-events: none;
+    white-space: normal;
+    /* positioned by JS */
+  }
+
+  .pp-tip__bubble.is-visible {
+    display: block;
+  }
+
+  /* ─── SUPPORT ─── */
+  .pp-support {
+    background: var(--surface-1, #f8f7fb);
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .pp-support__inner {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .pp-support__h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--vome-orange);
+    display: inline-block;
+  }
+
+  .pp-support__body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.65);
+    font-weight: 500;
+    margin: 0 0 24px;
+  }
+
+  .pp-support__cta-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg-2);
+    margin: 0 0 16px;
+  }
+
+  .pp-support__btn {
+    display: inline-block;
+    background: var(--vome-orange);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .pp-support__btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .pp-support__graphic svg {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* ─── FAQ ─── */
+  .pp-faq {
+    background: var(--surface-0);
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .pp-faq__inner {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .pp-faq__sub {
+    font-size: 15px;
+    color: rgba(0,0,0,0.55);
+    font-weight: 500;
+    margin: 8px 0 0;
+    line-height: 1.6;
+  }
+
+  /* Gap between each accordion item, matching homepage FAQ */
+  .pp-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* ─── CLOSING CTA ─── */
+  .pp-cta {
+    background: var(--vome-orange);
+    padding-top: 72px;
+    padding-bottom: 72px;
+    text-align: center;
+  }
+
+  .pp-cta__inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .pp-cta__h2 {
+    font-size: clamp(24px, 2.5vw, 36px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 14px;
+  }
+
+  .pp-cta__sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+    margin: 0 0 32px;
+    line-height: 1.6;
+  }
+
+  .pp-cta__btns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .pp-btn-primary {
+    background: #fff;
+    color: var(--vome-orange);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .pp-btn-primary:hover { opacity: 0.9; }
+
+  .pp-btn-ghost {
+    background: transparent;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 32px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .pp-btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .pp-plans__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .pp-faq__inner {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .pp-support__inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .pp-support__graphic {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .pp-plans__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pp-hero {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .pp-hero__h1 {
+      font-size: 26px;
+    }
+
+    .pp-controls__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .pp-comp {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .pp-support {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .pp-faq {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .pp-cta {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+  }
+</style>
+
+<script>
+  /* ── Currency / billing toggles ── */
+  let currency: 'cad' | 'usd' = 'cad';
+  let billing: 'annual' | 'monthly' = 'annual';
+
+  function updatePrices() {
+    document.querySelectorAll<HTMLElement>('[data-show]').forEach((el) => {
+      el.hidden = el.dataset.show !== currency;
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-cad-annual]').forEach((el) => {
+      const key = `${currency}${billing === 'annual' ? 'Annual' : 'Monthly'}` as
+        'cadAnnual' | 'cadMonthly' | 'usdAnnual' | 'usdMonthly';
+      const map: Record<string, string> = {
+        cadAnnual: el.dataset.cadAnnual ?? '',
+        cadMonthly: el.dataset.cadMonthly ?? el.dataset.cadAnnual ?? '',
+        usdAnnual: el.dataset.usdAnnual ?? '',
+        usdMonthly: el.dataset.usdMonthly ?? el.dataset.usdAnnual ?? '',
+      };
+      if (map[key]) el.textContent = map[key];
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-billing-label]').forEach((el) => {
+      el.hidden = el.dataset.billingLabel !== billing;
+    });
+  }
+
+  function setActiveToggle(group: 'currency' | 'billing', value: string) {
+    const attr = group === 'currency' ? 'data-currency' : 'data-billing';
+    document.querySelectorAll<HTMLElement>(`[${attr}]`).forEach((btn) => {
+      btn.classList.toggle('pp-toggle__btn--active', btn.getAttribute(attr) === value);
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-currency]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currency = btn.dataset.currency as 'cad' | 'usd';
+      setActiveToggle('currency', currency);
+      updatePrices();
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-billing]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      billing = btn.dataset.billing as 'annual' | 'monthly';
+      setActiveToggle('billing', billing);
+      updatePrices();
+    });
+  });
+
+  updatePrices();
+
+  /* ── Equalize card head + price-block heights so all CTA buttons align ── */
+  function equalizeCardSections() {
+    const heads  = Array.from(document.querySelectorAll<HTMLElement>('.pp-card__head'));
+    const prices = Array.from(document.querySelectorAll<HTMLElement>('.pp-card__price-block'));
+
+    // Reset to natural heights first
+    [...heads, ...prices].forEach((el) => (el.style.minHeight = ''));
+
+    // Only equalise when cards are in a multi-column layout
+    const grid = document.querySelector<HTMLElement>('.pp-plans__grid');
+    if (!grid) return;
+    const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+    if (cols < 2) return;
+
+    const maxHead  = Math.max(...heads.map((el) => el.offsetHeight));
+    const maxPrice = Math.max(...prices.map((el) => el.offsetHeight));
+    heads.forEach((el)  => (el.style.minHeight  = `${maxHead}px`));
+    prices.forEach((el) => (el.style.minHeight = `${maxPrice}px`));
+  }
+
+  equalizeCardSections();
+
+  let resizeTimer: ReturnType<typeof setTimeout>;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(equalizeCardSections, 60);
+  });
+
+  /* ── Info tooltips (fixed-position to escape overflow:auto containers) ── */
+  document.querySelectorAll<HTMLElement>('.pp-tip').forEach((tip) => {
+    const bubble = tip.querySelector<HTMLElement>('.pp-tip__bubble');
+    if (!bubble) return;
+
+    const show = () => {
+      const rect = tip.getBoundingClientRect();
+      bubble.classList.add('is-visible');
+      // Position above the icon, centred horizontally
+      const bw = 260;
+      let left = rect.left + rect.width / 2 - bw / 2;
+      // Keep within viewport
+      left = Math.max(8, Math.min(left, window.innerWidth - bw - 8));
+      bubble.style.left = `${left}px`;
+      bubble.style.top = `${rect.top - bubble.offsetHeight - 10 + window.scrollY}px`;
+      // Switch to below if clipped at top
+      if (rect.top - bubble.offsetHeight - 10 < 0) {
+        bubble.style.top = `${rect.bottom + 8 + window.scrollY}px`;
+      }
+    };
+
+    const hide = () => bubble.classList.remove('is-visible');
+
+    tip.addEventListener('mouseenter', show);
+    tip.addEventListener('mouseleave', hide);
+    tip.addEventListener('focus', show);
+    tip.addEventListener('blur', hide);
+  });
+</script>

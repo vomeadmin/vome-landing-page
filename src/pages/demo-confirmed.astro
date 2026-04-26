@@ -1,0 +1,263 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="You're booked! | Vome Volunteer"
+  description="Your discovery call is confirmed. Here's how to make the most of it before we meet."
+>
+  <!-- ── CONFIRMATION HERO ── -->
+  <section class="dc-hero">
+    <div class="dc-hero__inner">
+      <div class="dc-check" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
+      </div>
+      <h1 class="dc-hero__h1">You're booked — see you soon!</h1>
+      <p class="dc-hero__sub">
+        A calendar invite is on its way to your inbox. We're looking forward to learning about your organization and how we can help.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── BEFORE THE CALL ── -->
+  <section class="dc-prep">
+    <div class="dc-prep__inner">
+      <h2 class="dc-prep__h2">Make the most of your call</h2>
+      <p class="dc-prep__sub">
+        Two things we recommend before we meet — they take less than 10 minutes and make the conversation significantly more useful.
+      </p>
+
+      <div class="dc-prep__steps">
+
+        <div class="dc-step">
+          <div class="dc-step__num" aria-hidden="true">1</div>
+          <div class="dc-step__body">
+            <h3 class="dc-step__title">Sign up for the free plan and have a look around</h3>
+            <p class="dc-step__text">
+              Vome Recruit is free with no time limit. Creating an account takes two minutes, and exploring the platform before we meet means you'll come with much more specific questions — and you'll get a lot more out of the call.
+            </p>
+            <a href="/register" class="dc-step__cta btn btn--primary">
+              Sign up for free →
+            </a>
+          </div>
+        </div>
+
+        <div class="dc-step">
+          <div class="dc-step__num" aria-hidden="true">2</div>
+          <div class="dc-step__body">
+            <h3 class="dc-step__title">Watch our brief explainer video</h3>
+            <p class="dc-step__text">
+              Get a quick overview of what Vome does and how it fits into a volunteer program. Two minutes that give you a solid foundation before we go deeper on your specific needs.
+            </p>
+            <a href="https://youtu.be/wEGJ49XhOQg" target="_blank" rel="noopener noreferrer" class="dc-step__cta btn btn--ghost">
+              Watch on YouTube →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER NOTE ── -->
+  <section class="dc-foot">
+    <div class="dc-foot__inner">
+      <p class="dc-foot__text">
+        Need to reschedule or have a question before we meet?
+        <a href="/contact" class="dc-foot__link">Contact our team →</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* ── Shared container padding ── */
+  .dc-hero,
+  .dc-prep,
+  .dc-foot {
+    padding-left: max(5%, calc((100% - 1120px) / 2));
+    padding-right: max(5%, calc((100% - 1120px) / 2));
+  }
+
+  /* ── Confirmation hero ── */
+  .dc-hero {
+    background: var(--vome-peach-50);
+    padding-top: 64px;
+    padding-bottom: 64px;
+    text-align: center;
+  }
+
+  .dc-hero__inner {
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .dc-check {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--vome-orange);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+  }
+
+  .dc-hero__h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(24px, 2.4vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+    color: var(--fg-2);
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+
+  .dc-hero__sub {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--fg-4);
+    font-weight: 500;
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* ── Prep steps ── */
+  .dc-prep {
+    background: var(--surface-0);
+    padding-top: 72px;
+    padding-bottom: 80px;
+  }
+
+  .dc-prep__inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .dc-prep__h2 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2vw, 30px);
+    font-weight: 700;
+    color: var(--fg-2);
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    margin: 0 0 12px;
+  }
+
+  .dc-prep__sub {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--fg-4);
+    margin: 0 0 48px;
+    text-wrap: pretty;
+  }
+
+  .dc-prep__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .dc-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .dc-step__num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--vome-orange);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .dc-step__title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--fg-2);
+    line-height: 1.3;
+    margin: 0 0 10px;
+  }
+
+  .dc-step__text {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--fg-4);
+    margin: 0 0 18px;
+    text-wrap: pretty;
+  }
+
+  .dc-step__cta {
+    display: inline-flex;
+  }
+
+  /* ── Footer note ── */
+  .dc-foot {
+    background: var(--surface-1);
+    border-top: 1px solid var(--border-2);
+    padding-top: 28px;
+    padding-bottom: 28px;
+    text-align: center;
+  }
+
+  .dc-foot__inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .dc-foot__text {
+    font-size: 14px;
+    color: var(--fg-5);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .dc-foot__link {
+    color: var(--vome-orange);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .dc-foot__link:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .dc-hero {
+      padding-top: 48px;
+      padding-bottom: 48px;
+    }
+
+    .dc-prep {
+      padding-top: 48px;
+      padding-bottom: 56px;
+    }
+
+    .dc-step {
+      grid-template-columns: 40px 1fr;
+      gap: 16px;
+    }
+
+    .dc-step__num {
+      width: 40px;
+      height: 40px;
+      font-size: 17px;
+    }
+  }
+</style>
