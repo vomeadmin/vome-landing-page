@@ -1,16 +1,23 @@
 ---
 /**
  * Security section — three compliance pillars + hand-drawn compliance badges.
- * Badges are inline HTML/SVG (not images); the compliance-badges.png asset
- * in design-reference/ is intentionally unused.
+ * Badges are inline HTML/SVG (not images).
  */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const privacyHref = locale === "fr" ? "/fr/privacy" : "/privacy";
 ---
 
 <section class="sec">
   <div class="sec__wrap">
     <div class="sec__intro">
-      <h2 class="sec__h2">Security your organization can trust.</h2>
-      <p class="sec__sub">Enterprise-grade infrastructure built to meet the reliability, authentication, and compliance standards your organization requires.</p>
+      <h2 class="sec__h2">{t(strings.security.h2, locale)}</h2>
+      <p class="sec__sub">{t(strings.security.sub, locale)}</p>
     </div>
 
     <div class="sec__pillars">
@@ -19,8 +26,8 @@
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
         </div>
         <div class="sec__pillarbody">
-          <h3 class="sec__pillartitle">Identity &amp; access</h3>
-          <p class="sec__pillartext">Connect to Microsoft Entra ID, ADFS, Jump Cloud, or any SAML-based single sign-on provider. Enforce two-factor authentication across your team with role-based access controls that keep every admin scoped to what they need.</p>
+          <h3 class="sec__pillartitle">{t(strings.security.pillar_id_title, locale)}</h3>
+          <p class="sec__pillartext">{t(strings.security.pillar_id_body, locale)}</p>
         </div>
       </div>
 
@@ -29,8 +36,8 @@
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7L12 3 4 7v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9z" /><path d="M9 12l2 2 4-4" /></svg>
         </div>
         <div class="sec__pillarbody">
-          <h3 class="sec__pillartitle">Infrastructure &amp; encryption</h3>
-          <p class="sec__pillartext">AES-256 encryption at rest, TLS 1.2+ in transit. Hosted on AWS with high availability, redundancy and continuous monitoring. Built to support the privacy and data protection standards expected by healthcare and enterprise clients.</p>
+          <h3 class="sec__pillartitle">{t(strings.security.pillar_infra_title, locale)}</h3>
+          <p class="sec__pillartext">{t(strings.security.pillar_infra_body, locale)}</p>
         </div>
       </div>
 
@@ -39,17 +46,17 @@
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /><path d="M9 15l2 2 4-4" /></svg>
         </div>
         <div class="sec__pillarbody">
-          <h3 class="sec__pillartitle">Compliance</h3>
-          <p class="sec__pillartext">Vome follows industry-leading privacy and security frameworks to protect your organization's data at every layer: HIPAA, SOC 2, GDPR, PIPEDA, CCPA, and PCI DSS.</p>
+          <h3 class="sec__pillartitle">{t(strings.security.pillar_compliance_title, locale)}</h3>
+          <p class="sec__pillartext">{t(strings.security.pillar_compliance_body, locale)}</p>
         </div>
       </div>
     </div>
 
-    <div class="sec__badges" aria-label="Compliance certifications">
+    <div class="sec__badges" aria-label={t(strings.security.badges_aria, locale)}>
       <div class="sec__badge sec__badge--hipaa" title="HIPAA">
         <div class="sec__badgeshield">
           <span class="sec__badgename">HIPAA</span>
-          <span class="sec__badgesub">COMPLIANT</span>
+          <span class="sec__badgesub">{t(strings.security.badge_compliant, locale)}</span>
         </div>
       </div>
       <div class="sec__badge sec__badge--gdpr" title="GDPR">
@@ -74,7 +81,7 @@
     </div>
 
     <div class="sec__ctas">
-      <a class="btn btn--ghost-dark" href="/privacy">Read our privacy policy →</a>
+      <a class="btn btn--ghost-dark" href={privacyHref}>{t(strings.security.cta_privacy, locale)}</a>
     </div>
   </div>
 </section>

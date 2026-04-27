@@ -1,66 +1,145 @@
 ---
-/**
- * Contact form — zero client JS, static HTML.
- *
- * SUBMISSION NOTE: This is a plain HTML form. Before launch you must wire up
- * `action` to a real endpoint:
- *   • Netlify Forms  → add data-netlify="true" to <form> and set action="/success"
- *   • Formspree      → action="https://formspree.io/f/<YOUR_ID>"
- *   • Custom API     → action="/api/contact" (with a server function)
- * The current `action="#"` placeholder silently does nothing on submit.
- */
+import { strings, t, type Locale } from "../i18n";
+
 interface Props {
   heading?: string;
-  action?: string;
+  locale?: Locale;
 }
-const {
-  heading = "Contact Us",
-  action = "#",
-} = Astro.props;
+const { heading, locale = "en" } = Astro.props;
+const cf = strings.contact_form;
+const headingResolved = heading ?? t(cf.heading_default, locale);
 ---
 
-<form class="cform" method="post" action={action}>
-  <h2 class="cform__head">{heading}</h2>
+<div class="cform-wrap">
+  <form class="cform" id="cf-form" novalidate>
+    <h2 class="cform__head">{headingResolved}</h2>
 
-  <div class="cform__row">
+    <p class="cform__fr-note">{t(cf.fr_docs_note, locale)}</p>
+
+    <!-- Honeypot — bots fill this, humans don't -->
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+    <div class="cform__row">
+      <label class="cform__label">
+        <span>{t(cf.first_name, locale)} <abbr title={t(cf.required, locale)}>*</abbr></span>
+        <input class="cform__input" type="text" name="firstName" required autocomplete="given-name" />
+      </label>
+      <label class="cform__label">
+        <span>{t(cf.last_name, locale)}</span>
+        <input class="cform__input" type="text" name="lastName" autocomplete="family-name" />
+      </label>
+    </div>
+
     <label class="cform__label">
-      <span>First Name <abbr title="required">*</abbr></span>
-      <input class="cform__input" type="text" name="firstName" required autocomplete="given-name" />
+      <span>{t(cf.email, locale)} <abbr title={t(cf.required, locale)}>*</abbr></span>
+      <input class="cform__input" type="email" name="email" required autocomplete="email" />
     </label>
+
     <label class="cform__label">
-      <span>Last Name</span>
-      <input class="cform__input" type="text" name="lastName" autocomplete="family-name" />
+      <span>{t(cf.organization, locale)} <abbr title={t(cf.required, locale)}>*</abbr></span>
+      <input class="cform__input" type="text" name="organizationName" required autocomplete="organization" />
     </label>
+
+    <div class="cform__row">
+      <label class="cform__label">
+        <span>{t(cf.phone, locale)}</span>
+        <input class="cform__input" type="tel" name="phoneNumber" autocomplete="tel" />
+      </label>
+      <label class="cform__label">
+        <span>{t(cf.website, locale)}</span>
+        <input class="cform__input" type="url" name="website" placeholder="https://example.com" autocomplete="url" />
+      </label>
+    </div>
+
+    <label class="cform__label">
+      <span>{t(cf.message, locale)}</span>
+      <textarea class="cform__input cform__textarea" name="questions" rows="4"></textarea>
+    </label>
+
+    <div role="alert" class="cform__error" id="cf-error" hidden></div>
+
+    <div class="cform__footer">
+      <button class="cform__submit" type="submit" id="cf-submit" data-label-default={t(cf.submit, locale)} data-label-sending={t(cf.sending, locale)}>{t(cf.submit, locale)}</button>
+      <p class="cform__note">{t(cf.note, locale)}</p>
+    </div>
+  </form>
+
+  <!-- Success state -->
+  <div id="cf-success" class="cform-success" hidden aria-live="polite">
+    <div class="cform-success__check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h3 class="cform-success__h3">{t(cf.success_heading, locale)}</h3>
+    <p class="cform-success__body" id="cf-success-body" data-template={t(cf.success_body_named, locale)}>{t(cf.success_body, locale)}</p>
   </div>
+</div>
 
-  <label class="cform__label">
-    <span>Email <abbr title="required">*</abbr></span>
-    <input class="cform__input" type="email" name="email" required autocomplete="email" />
-  </label>
+<script is:inline define:vars={{ errorText: t(cf.error, locale) }}>
+  (function () {
+    var CONTACT_API_URL = 'https://vomeorg.com/api/vome-admin/contact-us/';
 
-  <label class="cform__label">
-    <span>Organization <abbr title="required">*</abbr></span>
-    <input class="cform__input" type="text" name="organizationName" required autocomplete="organization" />
-  </label>
+    var form      = document.getElementById('cf-form');
+    var successEl = document.getElementById('cf-success');
+    var successBody = document.getElementById('cf-success-body');
+    var submitBtn = document.getElementById('cf-submit');
+    var errorEl   = document.getElementById('cf-error');
 
-  <div class="cform__row">
-    <label class="cform__label">
-      <span>Phone</span>
-      <input class="cform__input" type="tel" name="phoneNumber" autocomplete="tel" />
-    </label>
-    <label class="cform__label">
-      <span>Website</span>
-      <input class="cform__input" type="url" name="website" placeholder="https://example.com" autocomplete="url" />
-    </label>
-  </div>
+    if (!form) return;
 
-  <label class="cform__label">
-    <span>Message</span>
-    <textarea class="cform__input cform__textarea" name="questions" rows="4"></textarea>
-  </label>
+    var labelDefault = submitBtn.getAttribute('data-label-default') || 'Send Message';
+    var labelSending = submitBtn.getAttribute('data-label-sending') || 'Sending…';
+    var successTemplate = successBody.getAttribute('data-template') || '';
 
-  <button class="cform__submit" type="submit">Send Message</button>
-</form>
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      errorEl.hidden = true;
+
+      var honeypot = form.querySelector('[name="_gotcha"]');
+      if (honeypot && honeypot.value) return;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      var data = new FormData(form);
+      var firstName = (data.get('firstName') || '').trim();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = labelSending;
+
+      fetch(CONTACT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name:        firstName,
+          last_name:         (data.get('lastName') || '').trim(),
+          email:             (data.get('email') || '').trim(),
+          organization_name: (data.get('organizationName') || '').trim(),
+          phone_number:      (data.get('phoneNumber') || '').trim(),
+          website:           (data.get('website') || '').trim(),
+          message:           (data.get('questions') || '').trim(),
+        }),
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          form.hidden = true;
+          successEl.hidden = false;
+          if (firstName && successTemplate) {
+            successBody.textContent = successTemplate.replace('{name}', firstName);
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = labelDefault;
+          errorEl.textContent = errorText;
+          errorEl.hidden = false;
+        });
+    });
+  })();
+</script>
 
 <style>
   .cform {
@@ -73,7 +152,18 @@ const {
     font-size: 22px;
     font-weight: 700;
     color: var(--fg-2);
+    margin: 0 0 12px;
+  }
+
+  .cform__fr-note {
+    font-size: 13px;
+    color: var(--fg-4);
+    background: var(--vome-peach-50);
+    border-left: 3px solid var(--vome-orange);
+    padding: 10px 14px;
+    border-radius: 4px;
     margin: 0 0 24px;
+    line-height: 1.5;
   }
 
   .cform__row {
@@ -126,8 +216,31 @@ const {
     min-height: 100px;
   }
 
-  .cform__submit {
+  .cform__error {
+    font-size: 13px;
+    color: #c0392b;
+    background: #fdf0ef;
+    border: 1px solid #f5c6c2;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+  }
+
+  .cform__footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
     margin-top: 8px;
+  }
+
+  .cform__note {
+    font-size: 13px;
+    color: var(--fg-4);
+    margin: 0;
+  }
+
+  .cform__submit {
     padding: 13px 24px;
     background: var(--vome-orange);
     color: #fff;
@@ -138,12 +251,49 @@ const {
     font-weight: 600;
     cursor: pointer;
     transition: background 120ms ease;
-    align-self: flex-start;
     min-width: 160px;
   }
 
   .cform__submit:hover {
     background: var(--vome-orange-600);
+  }
+
+  .cform__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .cform-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 24px;
+    gap: 12px;
+  }
+
+  .cform-success__check {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #edfaf3;
+    color: #27ae60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cform-success__h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--fg-2);
+    margin: 0;
+  }
+
+  .cform-success__body {
+    font-size: 15px;
+    color: var(--fg-3);
+    margin: 0;
   }
 
   @media (max-width: 560px) {

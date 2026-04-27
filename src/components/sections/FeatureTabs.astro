@@ -3,12 +3,22 @@
  * Feature tabs — 6 tabs with bespoke HTML/CSS mocks per tab.
  * CSS-only switching: hidden <input type="radio"> drives visibility
  * via :checked sibling selectors (see landing.css #ft-N:checked rules).
- * No JS replaces the reference's click-handler.
+ *
+ * Sample data inside the mockup panels (volunteer names, dates, sample URLs)
+ * is decorative and stays as-is. Marketing copy (headlines, feature
+ * descriptions, tab labels, panel sub) reads from strings.ts.
  */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const videoHref = locale === "fr" ? "/fr/video" : "/video";
 ---
 
 <section class="ftabs">
-  <!-- CSS-only tab state: radios are siblings of .ftabs__bar and .ftabs__panels -->
   <input type="radio" name="ftabs" id="ft-0" class="ftabs__radio" checked />
   <input type="radio" name="ftabs" id="ft-1" class="ftabs__radio" />
   <input type="radio" name="ftabs" id="ft-2" class="ftabs__radio" />
@@ -18,41 +28,39 @@
 
   <div class="ftabs__intro">
     <h2 class="ftabs__h2">
-      Everything volunteer managers need. <span class="ftabs__h2-accent">Built to work together.</span>
+      {t(strings.feature_tabs.intro_h2_part1, locale)} <span class="ftabs__h2-accent">{t(strings.feature_tabs.intro_h2_accent, locale)}</span>
     </h2>
-    <p class="ftabs__sub">
-      Vome is the complete volunteer management platform. One easy-to-use system that eliminates manual work at every step, from the first application to the final report.
-    </p>
-    <a class="ftabs__videobtn" href="/video">
+    <p class="ftabs__sub">{t(strings.feature_tabs.intro_sub, locale)}</p>
+    <a class="ftabs__videobtn" href={videoHref}>
       <span class="ftabs__videoplay"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><polygon points="6,4 20,12 6,20" /></svg></span>
-      Watch a 2-minute video
+      {t(strings.feature_tabs.intro_video_btn, locale)}
     </a>
   </div>
 
   <div class="ftabs__bar" role="tablist">
     <label for="ft-0" class="ftabs__tab">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-      Recruitment
+      {t(strings.feature_tabs.tab_recruitment, locale)}
     </label>
     <label for="ft-1" class="ftabs__tab">
       <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-      Onboarding
+      {t(strings.feature_tabs.tab_onboarding, locale)}
     </label>
     <label for="ft-2" class="ftabs__tab">
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Scheduling
+      {t(strings.feature_tabs.tab_scheduling, locale)}
     </label>
     <label for="ft-3" class="ftabs__tab">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Hour tracking
+      {t(strings.feature_tabs.tab_hours, locale)}
     </label>
     <label for="ft-4" class="ftabs__tab">
       <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      Data &amp; reports
+      {t(strings.feature_tabs.tab_data, locale)}
     </label>
     <label for="ft-5" class="ftabs__tab">
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-      Communications
+      {t(strings.feature_tabs.tab_comms, locale)}
     </label>
   </div>
 
@@ -60,80 +68,80 @@
     <!-- Panel 0: Recruitment -->
     <div class="ftabs__panel" data-panel="0">
       <div class="ftabs__panel-left">
-        <h3 class="ftabs__headline">Build the recruitment process you need.</h3>
+        <h3 class="ftabs__headline">{t(strings.feature_tabs.rec_headline, locale)}</h3>
         <div class="ftabs__grid">
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10h8M8 14h5"/></svg></div>
             <div>
-              <strong>Custom application forms</strong>
-              <p>Add questions, request file uploads, collect e-signatures, embed shift calendars — all from one form builder.</p>
+              <strong>{t(strings.feature_tabs.rec_f1_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.rec_f1_body, locale)}</p>
             </div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></div>
             <div>
-              <strong>One-click apply links</strong>
-              <p>Share direct links to opportunities, forms, or your public page. Embed on your site, post on social, or share it anywhere.</p>
+              <strong>{t(strings.feature_tabs.rec_f2_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.rec_f2_body, locale)}</p>
             </div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
             <div>
-              <strong>Recruitment automations</strong>
-              <p>Automations move applicants forward on their own and keep your system organized. Triggered by form responses, visibility rules, and eligibility requirements.</p>
+              <strong>{t(strings.feature_tabs.rec_f3_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.rec_f3_body, locale)}</p>
             </div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
             <div>
-              <strong>Automated status updates</strong>
-              <p>Email and app notifications keep volunteers in the loop through every step of the application.</p>
+              <strong>{t(strings.feature_tabs.rec_f4_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.rec_f4_body, locale)}</p>
             </div>
           </div>
         </div>
       </div>
       <div class="ftabs__panel-right">
         <div class="ftabs__mock ftabs__mock--recruitment">
-          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">share.vomevolunteer.com/your-org</div></div>
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">{t(strings.mockup.bartitle_share_url, locale)}</div></div>
           <div class="ftmock__cover">
             <div class="ftmock__coverdot"></div>
             <div class="ftmock__coverdot ftmock__coverdot--r"></div>
-            <div class="ftmock__covertext">Your cover photo</div>
+            <div class="ftmock__covertext">{t(strings.mockup.cover_photo, locale)}</div>
           </div>
           <div class="ftmock__orgblock">
-            <div class="ftmock__orglogo">YOUR<br />LOGO</div>
+            <div class="ftmock__orglogo">{t(strings.mockup.side_logo_l1, locale)}<br />{t(strings.mockup.side_logo_l2, locale)}</div>
             <div class="ftmock__orginfo">
-              <div class="ftmock__orgname">Your Organization</div>
+              <div class="ftmock__orgname">{t(strings.mockup.side_org, locale)}</div>
               <div class="ftmock__orgtags">
-                <span class="ftmock__orgtag">Community Support</span>
-                <span class="ftmock__orgtag">Education</span>
+                <span class="ftmock__orgtag">{t(strings.mockup.org_tag_community, locale)}</span>
+                <span class="ftmock__orgtag">{t(strings.mockup.org_tag_education, locale)}</span>
               </div>
             </div>
           </div>
           <div class="ftmock__section">
-            <div class="ftmock__sectiontitle"><span>Featured opportunities</span><span class="ftmock__count">33</span></div>
+            <div class="ftmock__sectiontitle"><span>{t(strings.mockup.featured_opps, locale)}</span><span class="ftmock__count">33</span></div>
             <div class="ftmock__cards">
               <div class="ftmock__card ftmock__card--featured">
                 <div class="ftmock__cardimg"></div>
                 <div class="ftmock__cardbody">
-                  <div class="ftmock__title">Weekend Food Bank Volunteer</div>
-                  <div class="ftmock__meta"><span class="ftmock__metaico">📍</span>On-site · Saturdays 9am–1pm</div>
+                  <div class="ftmock__title">{t(strings.mockup.opp_food_bank, locale)}</div>
+                  <div class="ftmock__meta"><span class="ftmock__metaico">📍</span>{t(strings.mockup.opp_food_bank_meta, locale)}</div>
                   <div class="ftmock__chips">
-                    <span class="ftmock__chip">Adults</span><span class="ftmock__chip">Groups</span><span class="ftmock__chip">Social</span>
+                    <span class="ftmock__chip">{t(strings.mockup.chip_adults, locale)}</span><span class="ftmock__chip">{t(strings.mockup.chip_groups, locale)}</span><span class="ftmock__chip">{t(strings.mockup.chip_social, locale)}</span>
                   </div>
                 </div>
-                <button class="ftmock__viewbtn">View</button>
+                <button class="ftmock__viewbtn">{t(strings.mockup.view_btn, locale)}</button>
               </div>
               <div class="ftmock__card">
                 <div class="ftmock__cardimg ftmock__cardimg--alt"></div>
                 <div class="ftmock__cardbody">
-                  <div class="ftmock__title">Hospital Visitor Program</div>
-                  <div class="ftmock__meta"><span class="ftmock__metaico">📍</span>Flexible · Weekly</div>
+                  <div class="ftmock__title">{t(strings.mockup.opp_hospital, locale)}</div>
+                  <div class="ftmock__meta"><span class="ftmock__metaico">📍</span>{t(strings.mockup.opp_hospital_meta, locale)}</div>
                   <div class="ftmock__chips">
-                    <span class="ftmock__chip">Adults</span><span class="ftmock__chip">Indoors</span>
+                    <span class="ftmock__chip">{t(strings.mockup.chip_adults, locale)}</span><span class="ftmock__chip">{t(strings.mockup.chip_indoors, locale)}</span>
                   </div>
                 </div>
-                <button class="ftmock__viewbtn">View</button>
+                <button class="ftmock__viewbtn">{t(strings.mockup.view_btn, locale)}</button>
               </div>
             </div>
           </div>
@@ -142,7 +150,7 @@
               <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
               <span class="ftmock__shareurl">share.vomevolunteer.com/AAp8kxzat2b</span>
             </div>
-            <button class="ftmock__copybtn">Copy link</button>
+            <button class="ftmock__copybtn">{t(strings.mockup.copy_link_btn, locale)}</button>
           </div>
         </div>
       </div>
@@ -151,101 +159,101 @@
     <!-- Panel 1: Onboarding -->
     <div class="ftabs__panel" data-panel="1">
       <div class="ftabs__panel-left">
-        <h3 class="ftabs__headline">Onboard volunteers through custom workflows.<br />No manual follow-up.</h3>
+        <h3 class="ftabs__headline">{t(strings.feature_tabs.onb_headline_l1, locale)}<br />{t(strings.feature_tabs.onb_headline_l2, locale)}</h3>
         <div class="ftabs__grid">
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
             <div>
-              <strong>Build any onboarding flow, your way</strong>
-              <p>Combine forms, fillable PDFs, e-signatures, training modules, checklists, and file uploads into a single guided sequence. Organize into folders by program, department, or season.</p>
+              <strong>{t(strings.feature_tabs.onb_f1_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.onb_f1_body, locale)}</p>
             </div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
             <div>
-              <strong>Fillable PDFs, built in</strong>
-              <p>Waivers, releases, policies, and compliance forms. Signed and submitted inside the sequence, with no third-party tools, printing, scanning, or re-uploading needed.</p>
+              <strong>{t(strings.feature_tabs.onb_f2_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.onb_f2_body, locale)}</p>
             </div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             <div>
-              <strong>Control every step</strong>
-              <p>Due dates, reminders, skip rules, auto-expiration, and visibility settings per step. Choose whether volunteers move themselves forward or admins advance them.</p>
+              <strong>{t(strings.feature_tabs.onb_f3_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.onb_f3_body, locale)}</p>
             </div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
             <div>
-              <strong>Credentialing and compliance, handled</strong>
-              <p>Background check integrations, auto-expiring renewals for certifications and waivers, and audit-ready tracking at every step.</p>
+              <strong>{t(strings.feature_tabs.onb_f4_title, locale)}</strong>
+              <p>{t(strings.feature_tabs.onb_f4_body, locale)}</p>
             </div>
           </div>
         </div>
       </div>
       <div class="ftabs__panel-right">
         <div class="ftabs__mock ftabs__mock--seq">
-          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Sequences</div></div>
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">{t(strings.mockup.bartitle_sequences, locale)}</div></div>
           <div class="ftseq__head">
             <div class="ftseq__headleft">
-              <div class="ftseq__seqname">Volunteer Onboarding Sequence</div>
-              <div class="ftseq__seqmeta"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg> General Onboarding</div>
+              <div class="ftseq__seqname">{t(strings.mockup.seq_name, locale)}</div>
+              <div class="ftseq__seqmeta"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg> {t(strings.mockup.seq_general, locale)}</div>
             </div>
             <div class="ftseq__stats">
-              <div class="ftseq__stat"><div class="ftseq__statnum">22</div><div class="ftseq__statpill ftseq__statpill--active">Active</div></div>
-              <div class="ftseq__stat"><div class="ftseq__statnum">8</div><div class="ftseq__statpill">Step 1</div></div>
-              <div class="ftseq__stat"><div class="ftseq__statnum ftseq__statnum--orange">14</div><div class="ftseq__statpill ftseq__statpill--mytasks">My Tasks</div></div>
+              <div class="ftseq__stat"><div class="ftseq__statnum">22</div><div class="ftseq__statpill ftseq__statpill--active">{t(strings.mockup.pill_active, locale)}</div></div>
+              <div class="ftseq__stat"><div class="ftseq__statnum">8</div><div class="ftseq__statpill">{t(strings.mockup.step_1, locale)}</div></div>
+              <div class="ftseq__stat"><div class="ftseq__statnum ftseq__statnum--orange">14</div><div class="ftseq__statpill ftseq__statpill--mytasks">{t(strings.mockup.pill_my_tasks, locale)}</div></div>
             </div>
           </div>
           <div class="ftseq__board">
             <div class="ftseq__col">
-              <div class="ftseq__colhead"><span class="ftseq__steppill">Step 1</span><span class="ftseq__steptype ftseq__steptype--interview"><span class="ftseq__steptype-dot"></span>Interview</span></div>
-              <div class="ftseq__coltitle">Zoom Interview</div>
+              <div class="ftseq__colhead"><span class="ftseq__steppill">{t(strings.mockup.step_1, locale)}</span><span class="ftseq__steptype ftseq__steptype--interview"><span class="ftseq__steptype-dot"></span>{t(strings.mockup.chip_interview, locale)}</span></div>
+              <div class="ftseq__coltitle">{t(strings.mockup.col_zoom_interview, locale)}</div>
               <div class="ftseq__vcard">
                 <div class="ftseq__vname">Céline Dion</div>
-                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">Step 1</span><span class="ftseq__vdot ftseq__vdot--done">✓</span></div>
-                <div class="ftseq__vmeta">Started: Aug 28, 2025</div>
+                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">{t(strings.mockup.step_1, locale)}</span><span class="ftseq__vdot ftseq__vdot--done">✓</span></div>
+                <div class="ftseq__vmeta">{t(strings.mockup.started_label, locale)} Aug 28, 2025</div>
               </div>
               <div class="ftseq__vcard">
                 <div class="ftseq__vname">Gary Jones</div>
-                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">Step 1</span><span class="ftseq__vdot ftseq__vdot--done">✓</span></div>
-                <div class="ftseq__vmeta">Started: Mar 25, 2026</div>
+                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">{t(strings.mockup.step_1, locale)}</span><span class="ftseq__vdot ftseq__vdot--done">✓</span></div>
+                <div class="ftseq__vmeta">{t(strings.mockup.started_label, locale)} Mar 25, 2026</div>
               </div>
             </div>
             <div class="ftseq__col">
-              <div class="ftseq__colhead"><span class="ftseq__steppill">Step 2</span><span class="ftseq__steptype ftseq__steptype--pdf"><span class="ftseq__steptype-dot"></span>Fillable PDF</span></div>
-              <div class="ftseq__coltitle">Liability Waiver</div>
+              <div class="ftseq__colhead"><span class="ftseq__steppill">{t(strings.mockup.step_2, locale)}</span><span class="ftseq__steptype ftseq__steptype--pdf"><span class="ftseq__steptype-dot"></span>{t(strings.mockup.chip_fillable_pdf, locale)}</span></div>
+              <div class="ftseq__coltitle">{t(strings.mockup.col_liability_waiver, locale)}</div>
               <div class="ftseq__vcard">
                 <div class="ftseq__vname">Alex Lays</div>
-                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">Step 2</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
-                <div class="ftseq__vmeta">Assigned: Mar 25, 2026</div>
+                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">{t(strings.mockup.step_2, locale)}</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
+                <div class="ftseq__vmeta">{t(strings.mockup.assigned_label, locale)} Mar 25, 2026</div>
               </div>
               <div class="ftseq__vcard">
                 <div class="ftseq__vname">Danielle Mulaney</div>
-                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">Step 2</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
-                <div class="ftseq__vmeta">Assigned: Apr 08, 2026</div>
+                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">{t(strings.mockup.step_2, locale)}</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
+                <div class="ftseq__vmeta">{t(strings.mockup.assigned_label, locale)} Apr 08, 2026</div>
               </div>
             </div>
             <div class="ftseq__col">
-              <div class="ftseq__colhead"><span class="ftseq__steppill">Step 3</span><span class="ftseq__steptype ftseq__steptype--bg"><span class="ftseq__steptype-dot"></span>Background</span></div>
-              <div class="ftseq__coltitle">Background Check</div>
+              <div class="ftseq__colhead"><span class="ftseq__steppill">{t(strings.mockup.step_3, locale)}</span><span class="ftseq__steptype ftseq__steptype--bg"><span class="ftseq__steptype-dot"></span>{t(strings.mockup.chip_background, locale)}</span></div>
+              <div class="ftseq__coltitle">{t(strings.mockup.col_background_check, locale)}</div>
               <div class="ftseq__vcard ftseq__vcard--overdue">
                 <div class="ftseq__vname">Abbie Dawson <span class="ftseq__vbell">!</span></div>
-                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">Step 3</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
-                <div class="ftseq__vmeta ftseq__vmeta--due">Due: Apr 04, 2026</div>
+                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">{t(strings.mockup.step_3, locale)}</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
+                <div class="ftseq__vmeta ftseq__vmeta--due">{t(strings.mockup.due_label, locale)} Apr 04, 2026</div>
               </div>
               <div class="ftseq__vcard">
                 <div class="ftseq__vname">Aly Miller</div>
-                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">Step 3</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
-                <div class="ftseq__vmeta">Assigned: Jan 29, 2025</div>
+                <div class="ftseq__vprogress"><span class="ftseq__vplay">▶</span><span class="ftseq__vstep">{t(strings.mockup.step_3, locale)}</span><span class="ftseq__vdot ftseq__vdot--waiting">◷</span></div>
+                <div class="ftseq__vmeta">{t(strings.mockup.assigned_label, locale)} Jan 29, 2025</div>
               </div>
             </div>
           </div>
           <div class="ftseq__toast">
             <div class="ftseq__toastavatar">BS</div>
             <div class="ftseq__toastbody">
-              <div class="ftseq__toasttext"><strong>Barney Slottman</strong> completed the last step in a sequence: Group Leader Onboarding. Sequence status updated from Active to Finished.</div>
-              <div class="ftseq__toasttime">6m ago · Automated update</div>
+              <div class="ftseq__toasttext"><strong>Barney Slottman</strong> {t(strings.mockup.toast_completed_part, locale)} {t(strings.mockup.toast_seq_name, locale)}. {t(strings.mockup.toast_status_change, locale)}</div>
+              <div class="ftseq__toasttime">{t(strings.mockup.toast_time, locale)}</div>
             </div>
           </div>
         </div>
@@ -255,81 +263,81 @@
     <!-- Panel 2: Scheduling -->
     <div class="ftabs__panel" data-panel="2">
       <div class="ftabs__panel-left">
-        <h3 class="ftabs__headline">850,000+ shifts scheduled and counting.</h3>
-        <p class="ftabs__panel-sub">Single shifts. Recurring programs. Multi-site calendars. Vome handles them all.</p>
+        <h3 class="ftabs__headline">{t(strings.feature_tabs.sch_headline, locale)}</h3>
+        <p class="ftabs__panel-sub">{t(strings.feature_tabs.sch_panel_sub, locale)}</p>
         <div class="ftabs__grid">
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-            <div><strong>Shift management at every scale</strong><p>Create single shifts, recurring schedules, or import entire calendars from a spreadsheet. Save shift templates and reuse them across programs. Mass assign, edit, and cancel from one calendar view.</p></div>
+            <div><strong>{t(strings.feature_tabs.sch_f1_title, locale)}</strong><p>{t(strings.feature_tabs.sch_f1_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-            <div><strong>Flexible booking, your rules</strong><p>Choose instant booking or admin approval. Open shifts to everyone, or make them private and visible only to tagged volunteers. Let volunteers propose their own times with flexible scheduling.</p></div>
+            <div><strong>{t(strings.feature_tabs.sch_f2_title, locale)}</strong><p>{t(strings.feature_tabs.sch_f2_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-            <div><strong>Group reservations for corporate and team events</strong><p>Volunteers reserve multiple spots in a single action for a team, a family, or a corporate volunteer day. Hours and participation roll up at the group level, ready for reporting.</p></div>
+            <div><strong>{t(strings.feature_tabs.sch_f3_title, locale)}</strong><p>{t(strings.feature_tabs.sch_f3_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg></div>
-            <div><strong>Reminders, confirmations, and calendar sync</strong><p>Configurable shift notifications send reminders before, during, and after each shift. Volunteers confirm, join waitlists, and sync shifts to Google, Outlook, or Apple Calendar.</p></div>
+            <div><strong>{t(strings.feature_tabs.sch_f4_title, locale)}</strong><p>{t(strings.feature_tabs.sch_f4_body, locale)}</p></div>
           </div>
         </div>
       </div>
       <div class="ftabs__panel-right">
         <div class="ftabs__mock ftabs__mock--sched">
-          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Schedule · April 2026</div></div>
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">{t(strings.mockup.bartitle_schedule, locale)}</div></div>
           <div class="ftsched__toolbar">
-            <button class="ftsched__createbtn">+ Create shifts</button>
+            <button class="ftsched__createbtn">{t(strings.mockup.create_shifts, locale)}</button>
             <div class="ftsched__navgroup">
-              <button class="ftsched__navbtn">Today</button>
+              <button class="ftsched__navbtn">{t(strings.mockup.today, locale)}</button>
               <button class="ftsched__navarrow">‹</button>
               <button class="ftsched__navarrow">›</button>
-              <span class="ftsched__daterange">Apr 2026 ▾</span>
+              <span class="ftsched__daterange">{t(strings.mockup.daterange, locale)}</span>
             </div>
             <div class="ftsched__viewgroup">
-              <span class="ftsched__view">📅 Calendar</span>
-              <span class="ftsched__view ftsched__view--active">Month ▾</span>
+              <span class="ftsched__view">{t(strings.mockup.view_calendar, locale)}</span>
+              <span class="ftsched__view ftsched__view--active">{t(strings.mockup.view_month, locale)}</span>
             </div>
           </div>
           <div class="ftsched__body">
             <div class="ftsched__cal">
-              <div class="ftsched__caldow">Sun</div><div class="ftsched__caldow">Mon</div><div class="ftsched__caldow">Tue</div><div class="ftsched__caldow">Wed</div><div class="ftsched__caldow">Thu</div><div class="ftsched__caldow">Fri</div><div class="ftsched__caldow">Sat</div>
+              <div class="ftsched__caldow">{t(strings.mockup.dow_sun, locale)}</div><div class="ftsched__caldow">{t(strings.mockup.dow_mon, locale)}</div><div class="ftsched__caldow">{t(strings.mockup.dow_tue, locale)}</div><div class="ftsched__caldow">{t(strings.mockup.dow_wed, locale)}</div><div class="ftsched__caldow">{t(strings.mockup.dow_thu, locale)}</div><div class="ftsched__caldow">{t(strings.mockup.dow_fri, locale)}</div><div class="ftsched__caldow">{t(strings.mockup.dow_sat, locale)}</div>
               <div class="ftsched__day"><span class="ftsched__daynum">5</span></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">6</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">7</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--pink">11a Job C</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">8</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">9</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--pink">11a Job C</div></div>
-              <div class="ftsched__day ftsched__day--today"><span class="ftsched__daynum">10</span><div class="ftsched__evt ftsched__evt--teal">5p Orientation</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">11</span><div class="ftsched__evt ftsched__evt--peach">3p Shift</div><div class="ftsched__evtmore">4/5</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">6</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">7</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--pink">{t(strings.mockup.evt_job_c, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">8</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">9</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--pink">{t(strings.mockup.evt_job_c, locale)}</div></div>
+              <div class="ftsched__day ftsched__day--today"><span class="ftsched__daynum">10</span><div class="ftsched__evt ftsched__evt--teal">{t(strings.mockup.evt_orientation, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">11</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_shift, locale)}</div><div class="ftsched__evtmore">4/5</div></div>
               <div class="ftsched__day"><span class="ftsched__daynum">12</span></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">13</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">14</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--pink">11a Job C</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">15</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">16</span><div class="ftsched__evt ftsched__evt--grey">Full</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">17</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">18</span><div class="ftsched__evt ftsched__evt--peach">4p Mentor</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">13</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">14</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--pink">{t(strings.mockup.evt_job_c, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">15</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">16</span><div class="ftsched__evt ftsched__evt--grey">{t(strings.mockup.evt_full, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">17</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">18</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_mentor, locale)}</div></div>
               <div class="ftsched__day"><span class="ftsched__daynum">19</span></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">20</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">21</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--pink">11a Job C</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">22</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--teal">6p Training</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">23</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--pink">11a Job C</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">24</span><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">25</span><div class="ftsched__evt ftsched__evt--grey">Full</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">20</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">21</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--pink">{t(strings.mockup.evt_job_c, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">22</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--teal">{t(strings.mockup.evt_training, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">23</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--pink">{t(strings.mockup.evt_job_c, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">24</span><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">25</span><div class="ftsched__evt ftsched__evt--grey">{t(strings.mockup.evt_full, locale)}</div></div>
               <div class="ftsched__day"><span class="ftsched__daynum">26</span></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">27</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">28</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--pink">11a Job C</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">29</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div><div class="ftsched__evt ftsched__evt--yellow">10a Pos B</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum">30</span><div class="ftsched__evt ftsched__evt--teal">2p Orient</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum muted">1</span><div class="ftsched__evt ftsched__evt--peach">9a Opp A</div></div>
-              <div class="ftsched__day"><span class="ftsched__daynum muted">2</span><div class="ftsched__evt ftsched__evt--peach">4p Mentor</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">27</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">28</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--pink">{t(strings.mockup.evt_job_c, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">29</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div><div class="ftsched__evt ftsched__evt--yellow">{t(strings.mockup.evt_pos_b, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum">30</span><div class="ftsched__evt ftsched__evt--teal">{t(strings.mockup.evt_orient_short, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum muted">1</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_opp_a, locale)}</div></div>
+              <div class="ftsched__day"><span class="ftsched__daynum muted">2</span><div class="ftsched__evt ftsched__evt--peach">{t(strings.mockup.evt_mentor, locale)}</div></div>
             </div>
             <div class="ftsched__drawer">
-              <div class="ftsched__drawerhead"><div class="ftsched__drawertitle">Sign Up For Orientation!</div><div class="ftsched__drawersub">Volunteer Orientation</div></div>
-              <div class="ftsched__drawerrow"><div class="ftsched__drawerlabel">Date &amp; Time</div><div class="ftsched__drawerval">Apr 10, 5:00–7:00 PM</div></div>
-              <div class="ftsched__drawerrow"><div class="ftsched__drawerlabel">Location</div><div class="ftsched__drawerval">3435 Drummond St, Montréal</div></div>
-              <div class="ftsched__drawerrow"><div class="ftsched__drawerlabel">Attendees <span class="ftsched__attcount">1/20</span></div></div>
-              <div class="ftsched__attendee"><div class="ftsched__avatar">BD</div><div class="ftsched__attname">Bob Dylan</div><button class="ftsched__checkin">Check-in</button></div>
+              <div class="ftsched__drawerhead"><div class="ftsched__drawertitle">{t(strings.mockup.drawer_signup_orient, locale)}</div><div class="ftsched__drawersub">{t(strings.mockup.drawer_vol_orient, locale)}</div></div>
+              <div class="ftsched__drawerrow"><div class="ftsched__drawerlabel">{t(strings.mockup.drawer_date_time, locale)}</div><div class="ftsched__drawerval">{t(strings.mockup.drawer_date_val, locale)}</div></div>
+              <div class="ftsched__drawerrow"><div class="ftsched__drawerlabel">{t(strings.mockup.drawer_location, locale)}</div><div class="ftsched__drawerval">{t(strings.mockup.drawer_location_val, locale)}</div></div>
+              <div class="ftsched__drawerrow"><div class="ftsched__drawerlabel">{t(strings.mockup.drawer_attendees, locale)} <span class="ftsched__attcount">1/20</span></div></div>
+              <div class="ftsched__attendee"><div class="ftsched__avatar">BD</div><div class="ftsched__attname">Bob Dylan</div><button class="ftsched__checkin">{t(strings.mockup.checkin_btn, locale)}</button></div>
             </div>
           </div>
         </div>
@@ -339,49 +347,49 @@
     <!-- Panel 3: Hour tracking -->
     <div class="ftabs__panel" data-panel="3">
       <div class="ftabs__panel-left">
-        <h3 class="ftabs__headline">So many ways to track volunteer hours. Pick what fits your program.</h3>
+        <h3 class="ftabs__headline">{t(strings.feature_tabs.hrs_headline, locale)}</h3>
         <div class="ftabs__grid">
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-            <div><strong>Multiple ways to check in</strong><p>QR scan, tap-to-check-in, on-site kiosk, or fully automatic check-in and check-out. Pick one, or mix different methods across your different volunteer programs.</p></div>
+            <div><strong>{t(strings.feature_tabs.hrs_f1_title, locale)}</strong><p>{t(strings.feature_tabs.hrs_f1_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div><strong>Proximity validation for attendance integrity</strong><p>Require volunteers to be physically within a defined radius to check in or out. Customizable by program. Prevents remote check-ins and protects program data.</p></div>
+            <div><strong>{t(strings.feature_tabs.hrs_f2_title, locale)}</strong><p>{t(strings.feature_tabs.hrs_f2_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-            <div><strong>Walk-ins, group reservations, and off-site hours</strong><p>On-site kiosks handle check-in and check-out for everyone on a shift, with an optional "Join a shift" mode for walk-ins who want to sign up on the spot. Group reservations roll up at the group level for reporting. Volunteers can also submit hour claims for work they did off-platform.</p></div>
+            <div><strong>{t(strings.feature_tabs.hrs_f3_title, locale)}</strong><p>{t(strings.feature_tabs.hrs_f3_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
-            <div><strong>Audit-ready hour reports</strong><p>Shifts and hours by volunteer, a full reservations and hours log, and custom database exports. Every hour traced to a person, a shift, and a check-in method.</p></div>
+            <div><strong>{t(strings.feature_tabs.hrs_f4_title, locale)}</strong><p>{t(strings.feature_tabs.hrs_f4_body, locale)}</p></div>
           </div>
         </div>
       </div>
       <div class="ftabs__panel-right">
         <div class="ftabs__mock ftabs__mock--hours">
-          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Hours Report · April 2026</div></div>
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">{t(strings.mockup.bartitle_hours_report, locale)}</div></div>
           <div class="fthrs__methods">
-            <div class="fthrs__method fthrs__method--active"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="16" y="16" width="2" height="2"/><rect x="19" y="19" width="2" height="2"/></svg></div><span>QR scan</span></div>
-            <div class="fthrs__method"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h11"/></svg></div><span>Tap to check in</span></div>
-            <div class="fthrs__method"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><circle cx="12" cy="14" r="3"/></svg></div><span>On-site kiosk</span></div>
-            <div class="fthrs__method"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-9-9"/><polyline points="21 3 21 9 15 9"/></svg></div><span>Automatic</span></div>
+            <div class="fthrs__method fthrs__method--active"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="16" y="16" width="2" height="2"/><rect x="19" y="19" width="2" height="2"/></svg></div><span>{t(strings.mockup.method_qr, locale)}</span></div>
+            <div class="fthrs__method"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h11"/></svg></div><span>{t(strings.mockup.method_tap, locale)}</span></div>
+            <div class="fthrs__method"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><circle cx="12" cy="14" r="3"/></svg></div><span>{t(strings.mockup.method_kiosk, locale)}</span></div>
+            <div class="fthrs__method"><div class="fthrs__methodicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-9-9"/><polyline points="21 3 21 9 15 9"/></svg></div><span>{t(strings.mockup.method_auto, locale)}</span></div>
           </div>
           <div class="fthrs__stat">
             <div class="fthrs__statnum">3,847</div>
-            <div class="fthrs__statlabel">Total volunteer hours · April 2026</div>
-            <div class="fthrs__statdelta">▲ 12% vs March</div>
+            <div class="fthrs__statlabel">{t(strings.mockup.total_vol_hours_label, locale)}</div>
+            <div class="fthrs__statdelta">{t(strings.mockup.delta_vs_march, locale)}</div>
           </div>
           <div class="fthrs__table">
-            <div class="fthrs__thead"><span>Volunteer</span><span>Shift</span><span>Method</span><span class="fthrs__tright">Hours</span></div>
-            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#f4a9a9">SM</span>Sarah M.</span><span class="fthrs__tshift">Food Bank · Apr 14</span><span><span class="fthrs__pill fthrs__pill--qr">QR</span></span><span class="fthrs__tright">4.0 h</span></div>
-            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#a9c9f4">JL</span>James L.</span><span class="fthrs__tshift">Hospital · Apr 14</span><span><span class="fthrs__pill fthrs__pill--kiosk">Kiosk</span></span><span class="fthrs__tright">3.5 h</span></div>
-            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#c9b5f0">PK</span>Priya K.</span><span class="fthrs__tshift">Mentorship · Apr 10</span><span><span class="fthrs__pill fthrs__pill--claim">Claim</span></span><span class="fthrs__tright">2.0 h</span></div>
-            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#f4c9a9">CR</span>Carlos R.</span><span class="fthrs__tshift">Food Bank · Apr 14</span><span><span class="fthrs__pill fthrs__pill--tap">Tap</span></span><span class="fthrs__tright">4.0 h</span></div>
-            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#a9e0c9">AP</span>Ana P. <span class="fthrs__group">+5</span></span><span class="fthrs__tshift">Group · Community Day</span><span><span class="fthrs__pill fthrs__pill--auto">Auto</span></span><span class="fthrs__tright">18.0 h</span></div>
+            <div class="fthrs__thead"><span>{t(strings.mockup.th_volunteer, locale)}</span><span>{t(strings.mockup.th_shift, locale)}</span><span>{t(strings.mockup.th_method, locale)}</span><span class="fthrs__tright">{t(strings.mockup.th_hours, locale)}</span></div>
+            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#f4a9a9">SM</span>Sarah M.</span><span class="fthrs__tshift">{t(strings.mockup.shift_food_bank, locale)}</span><span><span class="fthrs__pill fthrs__pill--qr">{t(strings.mockup.pill_qr, locale)}</span></span><span class="fthrs__tright">4.0 {t(strings.mockup.hour_unit, locale)}</span></div>
+            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#a9c9f4">JL</span>James L.</span><span class="fthrs__tshift">{t(strings.mockup.shift_hospital, locale)}</span><span><span class="fthrs__pill fthrs__pill--kiosk">{t(strings.mockup.pill_kiosk, locale)}</span></span><span class="fthrs__tright">3.5 {t(strings.mockup.hour_unit, locale)}</span></div>
+            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#c9b5f0">PK</span>Priya K.</span><span class="fthrs__tshift">{t(strings.mockup.shift_mentorship, locale)}</span><span><span class="fthrs__pill fthrs__pill--claim">{t(strings.mockup.pill_claim, locale)}</span></span><span class="fthrs__tright">2.0 {t(strings.mockup.hour_unit, locale)}</span></div>
+            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#f4c9a9">CR</span>Carlos R.</span><span class="fthrs__tshift">{t(strings.mockup.shift_food_bank, locale)}</span><span><span class="fthrs__pill fthrs__pill--tap">{t(strings.mockup.pill_tap, locale)}</span></span><span class="fthrs__tright">4.0 {t(strings.mockup.hour_unit, locale)}</span></div>
+            <div class="fthrs__trow"><span class="fthrs__tname"><span class="fthrs__tavatar" style="background:#a9e0c9">AP</span>Ana P. <span class="fthrs__group">+5</span></span><span class="fthrs__tshift">{t(strings.mockup.shift_community_day, locale)}</span><span><span class="fthrs__pill fthrs__pill--auto">{t(strings.mockup.pill_auto, locale)}</span></span><span class="fthrs__tright">18.0 {t(strings.mockup.hour_unit, locale)}</span></div>
           </div>
-          <div class="fthrs__export"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export audit report</div>
+          <div class="fthrs__export"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>{t(strings.mockup.export_audit, locale)}</div>
         </div>
       </div>
     </div>
@@ -389,37 +397,37 @@
     <!-- Panel 4: Data & reports -->
     <div class="ftabs__panel" data-panel="4">
       <div class="ftabs__panel-left">
-        <h3 class="ftabs__headline">Import your data. Organize it your way. Report in just a few clicks.</h3>
+        <h3 class="ftabs__headline">{t(strings.feature_tabs.data_headline, locale)}</h3>
         <div class="ftabs__grid">
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-            <div><strong>Turnkey data import and migration</strong><p>Move your volunteer records into Vome in minutes. Bulk import from any other system, map custom fields to match your existing structure, and invite volunteers to claim their profiles. Duplicate handling built in.</p></div>
+            <div><strong>{t(strings.feature_tabs.data_f1_title, locale)}</strong><p>{t(strings.feature_tabs.data_f1_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg></div>
-            <div><strong>A database that flexes to your program</strong><p>Segment volunteers by tag, program, or location with unlimited custom fields. Build and save custom views that filter and organize data any way you need. Give each admin access only to the data that belongs to them. Headquarters sees everything. Site managers see their site.</p></div>
+            <div><strong>{t(strings.feature_tabs.data_f2_title, locale)}</strong><p>{t(strings.feature_tabs.data_f2_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
-            <div><strong>Ready-made reports for every audience</strong><p>Hours by volunteer, attendance logs, sequence completion, form submissions, and check-in history. Every report you need for funders, boards, and audits, ready in seconds.</p></div>
+            <div><strong>{t(strings.feature_tabs.data_f3_title, locale)}</strong><p>{t(strings.feature_tabs.data_f3_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-            <div><strong>Analytics dashboards at a glance</strong><p>Visualize hours, shifts, onboarding progress, form completion, and custom field trends. See the health of your program without running a single report.</p></div>
+            <div><strong>{t(strings.feature_tabs.data_f4_title, locale)}</strong><p>{t(strings.feature_tabs.data_f4_body, locale)}</p></div>
           </div>
         </div>
       </div>
       <div class="ftabs__panel-right">
         <div class="ftabs__mock ftabs__mock--data">
-          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Analytics overview</div></div>
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">{t(strings.mockup.bartitle_analytics, locale)}</div></div>
           <div class="ftdata__kpis">
-            <div class="ftdata__kpi"><div class="ftdata__kpilabel">TOTAL HOURS</div><div class="ftdata__kpival" style="color:var(--vome-orange)">3,847</div><div class="ftdata__kpisub">YTD Hours: 24,180</div><svg class="ftdata__spark" viewBox="0 0 80 24" preserveAspectRatio="none"><path d="M0,18 Q10,14 20,16 T40,12 T60,8 T80,10" fill="none" stroke="#fa935b" stroke-width="1.6"/><path d="M0,18 Q10,14 20,16 T40,12 T60,8 T80,10 L80,24 L0,24 Z" fill="#fa935b" fill-opacity=".12"/></svg></div>
-            <div class="ftdata__kpi"><div class="ftdata__kpilabel">ACTIVE PROFILES</div><div class="ftdata__kpival" style="color:#3b82f6">1,284</div><div class="ftdata__kpisub">Avg hours per profile: 3.0</div></div>
-            <div class="ftdata__kpi"><div class="ftdata__kpilabel">RETENTION RATE</div><div class="ftdata__kpival" style="color:#0a8c4d">94%</div><div class="ftdata__kpisub">180-day window</div></div>
-            <div class="ftdata__kpi"><div class="ftdata__kpilabel">BOOKINGS (28D)</div><div class="ftdata__kpival" style="color:var(--vome-orange)">127 <span class="ftdata__kpidelta">▲ 4.3%</span></div><div class="ftdata__kpisub">vs. previous 28 days</div></div>
+            <div class="ftdata__kpi"><div class="ftdata__kpilabel">{t(strings.mockup.kpi_total_hours, locale)}</div><div class="ftdata__kpival" style="color:var(--vome-orange)">3,847</div><div class="ftdata__kpisub">{t(strings.mockup.ytd_hours, locale)}</div><svg class="ftdata__spark" viewBox="0 0 80 24" preserveAspectRatio="none"><path d="M0,18 Q10,14 20,16 T40,12 T60,8 T80,10" fill="none" stroke="#fa935b" stroke-width="1.6"/><path d="M0,18 Q10,14 20,16 T40,12 T60,8 T80,10 L80,24 L0,24 Z" fill="#fa935b" fill-opacity=".12"/></svg></div>
+            <div class="ftdata__kpi"><div class="ftdata__kpilabel">{t(strings.mockup.kpi_active_profiles, locale)}</div><div class="ftdata__kpival" style="color:#3b82f6">1,284</div><div class="ftdata__kpisub">{t(strings.mockup.avg_hours_profile, locale)}</div></div>
+            <div class="ftdata__kpi"><div class="ftdata__kpilabel">{t(strings.mockup.kpi_retention, locale)}</div><div class="ftdata__kpival" style="color:#0a8c4d">94%</div><div class="ftdata__kpisub">{t(strings.mockup.window_180, locale)}</div></div>
+            <div class="ftdata__kpi"><div class="ftdata__kpilabel">{t(strings.mockup.kpi_bookings, locale)}</div><div class="ftdata__kpival" style="color:var(--vome-orange)">127 <span class="ftdata__kpidelta">▲ 4.3%</span></div><div class="ftdata__kpisub">{t(strings.mockup.vs_prev_28, locale)}</div></div>
           </div>
           <div class="ftdata__card">
-            <div class="ftdata__cardhead"><div class="ftdata__cardtitle">Hours Over Time</div><div class="ftdata__cardmenu">⋮</div></div>
+            <div class="ftdata__cardhead"><div class="ftdata__cardtitle">{t(strings.mockup.card_hours_over_time, locale)}</div><div class="ftdata__cardmenu">⋮</div></div>
             <div class="ftdata__chartwrap">
               <div class="ftdata__chartgrid"><span>60</span><span>40</span><span>20</span><span>0</span></div>
               <div class="ftdata__chart">
@@ -443,11 +451,11 @@
               </div>
             </div>
             <div class="ftdata__xlabels"><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span></div>
-            <div class="ftdata__legend"><span class="ftdata__legitem"><span class="ftdata__legdot" style="background:#fa935b"></span>Hours</span><span class="ftdata__legitem"><span class="ftdata__legdot" style="background:#3b82f6"></span>Total Shifts</span></div>
+            <div class="ftdata__legend"><span class="ftdata__legitem"><span class="ftdata__legdot" style="background:#fa935b"></span>{t(strings.mockup.legend_hours, locale)}</span><span class="ftdata__legitem"><span class="ftdata__legdot" style="background:#3b82f6"></span>{t(strings.mockup.legend_total_shifts, locale)}</span></div>
           </div>
           <div class="ftdata__bottomrow">
             <div class="ftdata__card ftdata__card--sm">
-              <div class="ftdata__cardhead"><div class="ftdata__cardtitle">Top Profiles</div><div class="ftdata__cardmenu">⋮</div></div>
+              <div class="ftdata__cardhead"><div class="ftdata__cardtitle">{t(strings.mockup.card_top_profiles, locale)}</div><div class="ftdata__cardmenu">⋮</div></div>
               <div class="ftdata__toplist">
                 <div class="ftdata__toprow"><span class="ftdata__toprank">1</span><span class="ftdata__topname">Danielle Mulaney</span><span class="ftdata__tophrs">86.4</span></div>
                 <div class="ftdata__toprow"><span class="ftdata__toprank" style="color:var(--vome-orange)">2</span><span class="ftdata__topname">Sylvie Tremblay</span><span class="ftdata__tophrs">40.0</span></div>
@@ -455,7 +463,7 @@
               </div>
             </div>
             <div class="ftdata__card ftdata__card--sm">
-              <div class="ftdata__cardhead"><div class="ftdata__cardtitle">Age Distribution</div><div class="ftdata__cardmenu">⋮</div></div>
+              <div class="ftdata__cardhead"><div class="ftdata__cardtitle">{t(strings.mockup.card_age_dist, locale)}</div><div class="ftdata__cardmenu">⋮</div></div>
               <div class="ftdata__agebars">
                 <div class="ftdata__agerow"><span class="ftdata__agelabel">18–24</span><div class="ftdata__agebar"><div class="ftdata__agefill" style="width:35%"></div></div><span class="ftdata__ageval">142</span></div>
                 <div class="ftdata__agerow"><span class="ftdata__agelabel">25–34</span><div class="ftdata__agebar"><div class="ftdata__agefill" style="width:68%"></div></div><span class="ftdata__ageval">278</span></div>
@@ -472,62 +480,62 @@
     <!-- Panel 5: Communications -->
     <div class="ftabs__panel" data-panel="5">
       <div class="ftabs__panel-left">
-        <h3 class="ftabs__headline">Every way you need to communicate, in one place.</h3>
+        <h3 class="ftabs__headline">{t(strings.feature_tabs.com_headline, locale)}</h3>
         <div class="ftabs__grid">
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-            <div><strong>Native instant messaging</strong><p>One-on-one messages, custom group chats, and auto-generated chatrooms for every shift and opportunity. No WhatsApp. No email chains. Volunteers talk to admins and each other right inside the platform.</p></div>
+            <div><strong>{t(strings.feature_tabs.com_f1_title, locale)}</strong><p>{t(strings.feature_tabs.com_f1_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div><strong>Bulk email built for campaigns</strong><p>Send personalized emails to volunteers through Vome's server, or connect your own Google or Outlook account to send from your domain. Build reusable email templates with dynamic variables. Target by group, tag, program, or any custom field.</p></div>
+            <div><strong>{t(strings.feature_tabs.com_f2_title, locale)}</strong><p>{t(strings.feature_tabs.com_f2_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
-            <div><strong>Automate the messages you send every week</strong><p>Birthday wishes, shift reminders, onboarding follow-ups, survey invitations, award notifications, and confirmation requests. Set the rule once. Vome handles the sending forever.</p></div>
+            <div><strong>{t(strings.feature_tabs.com_f3_title, locale)}</strong><p>{t(strings.feature_tabs.com_f3_body, locale)}</p></div>
           </div>
           <div class="ftabs__feat">
             <div class="ftabs__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg></div>
-            <div><strong>Full visibility across your team's outgoing messages</strong><p>Every email and notification in one dashboard. See what was sent, to whom, when, and by which admin. Share email templates across the team so everyone's communication stays consistent.</p></div>
+            <div><strong>{t(strings.feature_tabs.com_f4_title, locale)}</strong><p>{t(strings.feature_tabs.com_f4_body, locale)}</p></div>
           </div>
         </div>
       </div>
       <div class="ftabs__panel-right">
         <div class="ftabs__mock ftabs__mock--comms">
-          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">Communications</div></div>
+          <div class="ftmock__bar"><span></span><span></span><span></span><div class="ftmock__bartitle">{t(strings.mockup.bartitle_comms, locale)}</div></div>
           <div class="ftcomms__chans">
-            <div class="ftcomms__chan ftcomms__chan--active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</div>
-            <div class="ftcomms__chan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Chat</div>
-            <div class="ftcomms__chan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>Automations</div>
+            <div class="ftcomms__chan ftcomms__chan--active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>{t(strings.mockup.chan_email, locale)}</div>
+            <div class="ftcomms__chan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>{t(strings.mockup.chan_chat, locale)}</div>
+            <div class="ftcomms__chan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>{t(strings.mockup.chan_automations, locale)}</div>
           </div>
           <div class="ftcomms__composer">
-            <div class="ftcomms__crow"><span class="ftcomms__clabel">To</span><span class="ftcomms__audience"><span class="ftcomms__chip">Tag: Active</span><span class="ftcomms__chip">Program: Food Bank</span><span class="ftcomms__count">384 recipients</span></span></div>
-            <div class="ftcomms__crow"><span class="ftcomms__clabel">From</span><span class="ftcomms__fromval">you@yourorg.com <span class="ftcomms__verified">✓ Verified</span></span></div>
-            <div class="ftcomms__crow"><span class="ftcomms__clabel">Subject</span><span class="ftcomms__subject">Your <span class="ftcomms__var">{'{{shift_name}}'}</span> shift is this Saturday</span></div>
+            <div class="ftcomms__crow"><span class="ftcomms__clabel">{t(strings.mockup.comp_to, locale)}</span><span class="ftcomms__audience"><span class="ftcomms__chip">{t(strings.mockup.tag_active, locale)}</span><span class="ftcomms__chip">{t(strings.mockup.prog_food_bank, locale)}</span><span class="ftcomms__count">{t(strings.mockup.recipients_count, locale)}</span></span></div>
+            <div class="ftcomms__crow"><span class="ftcomms__clabel">{t(strings.mockup.comp_from, locale)}</span><span class="ftcomms__fromval">you@yourorg.com <span class="ftcomms__verified">{t(strings.mockup.verified_label, locale)}</span></span></div>
+            <div class="ftcomms__crow"><span class="ftcomms__clabel">{t(strings.mockup.comp_subject, locale)}</span><span class="ftcomms__subject">{t(strings.mockup.subj_your, locale)} <span class="ftcomms__var">{'{{shift_name}}'}</span> {t(strings.mockup.subj_shift_saturday, locale)}</span></div>
             <div class="ftcomms__body">
-              <div class="ftcomms__bodyline">Hi <span class="ftcomms__var">{'{{first_name}}'}</span>,</div>
-              <div class="ftcomms__bodyline">Just a reminder that you're signed up for <span class="ftcomms__var">{'{{shift_name}}'}</span> on <span class="ftcomms__var">{'{{shift_date}}'}</span> at <span class="ftcomms__var">{'{{shift_time}}'}</span>.</div>
-              <div class="ftcomms__bodyline ftcomms__bodyline--muted">Thanks for everything you do —</div>
+              <div class="ftcomms__bodyline">{t(strings.mockup.body_hi, locale)} <span class="ftcomms__var">{'{{first_name}}'}</span>,</div>
+              <div class="ftcomms__bodyline">{t(strings.mockup.body_reminder_pre, locale)} <span class="ftcomms__var">{'{{shift_name}}'}</span> {t(strings.mockup.body_on, locale)} <span class="ftcomms__var">{'{{shift_date}}'}</span> {t(strings.mockup.body_at, locale)} <span class="ftcomms__var">{'{{shift_time}}'}</span>.</div>
+              <div class="ftcomms__bodyline ftcomms__bodyline--muted">{t(strings.mockup.body_thanks, locale)}</div>
             </div>
             <div class="ftcomms__toolbar">
               <span class="ftcomms__tool">Aa</span><span class="ftcomms__tool">B</span><span class="ftcomms__tool">𝑖</span><span class="ftcomms__tool">🔗</span>
               <span class="ftcomms__spacer"></span>
-              <span class="ftcomms__autotag">⚡ Automated · sends 24h before shift</span>
+              <span class="ftcomms__autotag">{t(strings.mockup.auto_tag, locale)}</span>
             </div>
           </div>
           <div class="ftcomms__section">
-            <div class="ftcomms__sectitle"><span>Active automations</span><span class="ftcomms__seclink">View all</span></div>
+            <div class="ftcomms__sectitle"><span>{t(strings.mockup.active_automations, locale)}</span><span class="ftcomms__seclink">{t(strings.mockup.view_all, locale)}</span></div>
             <div class="ftcomms__autos">
-              <div class="ftcomms__auto"><div class="ftcomms__autoicon" style="background:#ffe2d1;color:#c95f1e">🎂</div><div class="ftcomms__autoinfo"><div class="ftcomms__autoname">Birthday wishes</div><div class="ftcomms__autorule">On volunteer birthday</div></div><span class="ftcomms__autostatus">On</span></div>
-              <div class="ftcomms__auto"><div class="ftcomms__autoicon" style="background:#d6eef7;color:#0f6c8f">⏰</div><div class="ftcomms__autoinfo"><div class="ftcomms__autoname">Shift reminder (24h)</div><div class="ftcomms__autorule">1 day before shift start</div></div><span class="ftcomms__autostatus">On</span></div>
-              <div class="ftcomms__auto"><div class="ftcomms__autoicon" style="background:#ecdcff;color:#6e3bb8">📋</div><div class="ftcomms__autoinfo"><div class="ftcomms__autoname">Post-shift survey</div><div class="ftcomms__autorule">2 hours after check-out</div></div><span class="ftcomms__autostatus">On</span></div>
+              <div class="ftcomms__auto"><div class="ftcomms__autoicon" style="background:#ffe2d1;color:#c95f1e">🎂</div><div class="ftcomms__autoinfo"><div class="ftcomms__autoname">{t(strings.mockup.auto_birthday, locale)}</div><div class="ftcomms__autorule">{t(strings.mockup.auto_birthday_rule, locale)}</div></div><span class="ftcomms__autostatus">{t(strings.mockup.status_on, locale)}</span></div>
+              <div class="ftcomms__auto"><div class="ftcomms__autoicon" style="background:#d6eef7;color:#0f6c8f">⏰</div><div class="ftcomms__autoinfo"><div class="ftcomms__autoname">{t(strings.mockup.auto_reminder, locale)}</div><div class="ftcomms__autorule">{t(strings.mockup.auto_reminder_rule, locale)}</div></div><span class="ftcomms__autostatus">{t(strings.mockup.status_on, locale)}</span></div>
+              <div class="ftcomms__auto"><div class="ftcomms__autoicon" style="background:#ecdcff;color:#6e3bb8">📋</div><div class="ftcomms__autoinfo"><div class="ftcomms__autoname">{t(strings.mockup.auto_survey, locale)}</div><div class="ftcomms__autorule">{t(strings.mockup.auto_survey_rule, locale)}</div></div><span class="ftcomms__autostatus">{t(strings.mockup.status_on, locale)}</span></div>
             </div>
           </div>
           <div class="ftcomms__float">
             <div class="ftcomms__floatic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
             <div class="ftcomms__floatbody">
-              <div class="ftcomms__floathead"><strong>Meal Prep · Food Bank</strong><span class="ftcomms__floattime">Now</span></div>
-              <div class="ftcomms__floatmsg"><strong>Danielle Mulaney:</strong> we need a spot — share.vomevolunteer.com/95xTp9IT7Eb</div>
+              <div class="ftcomms__floathead"><strong>{t(strings.mockup.float_meal_prep, locale)}</strong><span class="ftcomms__floattime">{t(strings.mockup.float_now, locale)}</span></div>
+              <div class="ftcomms__floatmsg"><strong>Danielle Mulaney:</strong> {t(strings.mockup.float_msg_pre, locale)} share.vomevolunteer.com/95xTp9IT7Eb</div>
             </div>
           </div>
         </div>

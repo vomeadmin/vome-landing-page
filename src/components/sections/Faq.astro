@@ -1,95 +1,45 @@
 ---
 import FaqItem from "../FaqItem.astro";
+import { strings, t, type Locale } from "../../i18n";
 
-/**
- * FAQ content ported verbatim from vome-react's translations (landingpage.js).
- * Question keys: lp_quest_one, does_vome_offer_int, why_mes_so_impt,
- * do_all_vols_signup, automatic_updates, question_pricing_one … nine.
- * If copy changes in the React project, update both places.
- */
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
+
 const items = [
-  {
-    question: "What is Vome?",
-    answer:
-      "Vome is a volunteer management software that helps administrators streamline their workflows and the volunteer journey. It offers a complete end-to-end volunteer app that helps organizations with volunteer recruitment, onboarding, scheduling, hour tracking, database management, reporting and integrations.",
-    open: true,
-  },
-  {
-    question: "Does Vome offer integrations?",
-    answer:
-      "Vome offers API integrations, custom webhooks, and automations via Zapier and Microsoft Power Automate. That means that Vome can integrate with other systems such as Salesforce, Blackbaud products (i.e. Raiser's Edge), CRM systems, HRIS, donor management platforms, etc. Integration features are only accessible via the Ultimate plan.",
-  },
-  {
-    question: "Why is instant messaging important for a volunteer management platform?",
-    answer:
-      "Instant messaging facilitates real-time communication between administrators and volunteers, eliminating the need for email chains, text messaging, or phone calls. Combined with the Vome mobile app, it keeps admins and volunteers connected wherever they are. Vome's proprietary chats feature generates auto-chatrooms for every opportunity and shift, alleviating the administrative burden of coordinating group chats manually.",
-  },
-  {
-    question: "Do all my volunteers need to create a Vome account?",
-    answer:
-      "No. As an administrator, you can manage offline profiles for volunteers directly in Vome, scheduling and tracking their activity without requiring them to create an account. Inviting volunteers to claim their own profile unlocks the full experience — form submissions, shift reservations, automated reminders, QR check-in, and chats — but it is never required.",
-  },
-  {
-    question: "Are automatic updates included in my subscription?",
-    answer:
-      "Yes. As part of your subscription, you can expect automatic software updates. Vome is continuously evolving to meet the changing needs of volunteer managers, with regular releases that include improvements to existing features, new tools and functionalities, and performance and stability enhancements.",
-  },
-  {
-    question: "Do you offer a free trial for any of the premium plans?",
-    answer:
-      "Yes, we offer a 30-day free trial for all premium plans — Pro, Enterprise, and Ultimate. The free trial begins automatically as soon as you upgrade from your admin portal.",
-  },
-  {
-    question: "Which organizations are eligible to use Vome?",
-    answer:
-      "Any organization looking to streamline community engagement for volunteers, staff, members, clients, or event attendees. We serve hospitals and healthcare networks, membership associations, grassroots organizations, multi-national NGOs, community centres, food banks and shelters, municipalities and government agencies, festivals, school districts and universities, and businesses. Vome's Enterprise plan is well-suited for multi-site entities.",
-  },
-  {
-    question: "How many volunteers am I allowed to manage?",
-    answer:
-      "As many as you have. There is no limit to the number of volunteers you can recruit or import. Our pricing depends on the number of administrative seats you wish to use on any paid plan.",
-  },
-  {
-    question: "Why do you charge per administrator?",
-    answer:
-      "We charge per administrative seat to help you with budgetary planning. Most organizations know how many administrators will need access to Vome, but the number of active volunteers may vary throughout the year.",
-  },
-  {
-    question: "Can I use monthly and annual pricing at the same time for different administrators?",
-    answer:
-      "Yes. We allow organizations to purchase a combination of monthly and annual seats for maximum flexibility. For example, you can purchase annual seats for your full-time employees and monthly seats for part-time employees who do not require year-round access.",
-  },
-  {
-    question: "What happens if we decide to cancel our plan?",
-    answer:
-      "If you no longer wish to use a premium plan, you may cancel at any time. You will be able to use your premium plan until your current billing cycle is over, and will then be downgraded to the free base plan.",
-  },
-  {
-    question: "Do you offer any discounts?",
-    answer:
-      "Yes. When you choose the annual billing option on Vome Pro, you receive a 33% discount compared to 12 monthly payments. We also offer additional savings for organizations that require a sizeable number of admin seats, have unique organizational structures, or are looking to partner for longer terms. We do not offer general nonprofit discounts because all of our clients are nonprofits.",
-  },
-  {
-    question: "What languages do you support?",
-    answer: "Vome is a bilingual platform, available in both English and French.",
-  },
+  { q: strings.faq.q_what_is, a: strings.faq.a_what_is, open: true },
+  { q: strings.faq.q_integrations, a: strings.faq.a_integrations },
+  { q: strings.faq.q_messaging, a: strings.faq.a_messaging },
+  { q: strings.faq.q_account_required, a: strings.faq.a_account_required },
+  { q: strings.faq.q_auto_updates, a: strings.faq.a_auto_updates },
+  { q: strings.faq.q_free_trial, a: strings.faq.a_free_trial },
+  { q: strings.faq.q_eligible, a: strings.faq.a_eligible },
+  { q: strings.faq.q_max_volunteers, a: strings.faq.a_max_volunteers },
+  { q: strings.faq.q_per_admin, a: strings.faq.a_per_admin },
+  { q: strings.faq.q_mix_billing, a: strings.faq.a_mix_billing },
+  { q: strings.faq.q_cancel, a: strings.faq.a_cancel },
+  { q: strings.faq.q_discounts, a: strings.faq.a_discounts },
+  { q: strings.faq.q_languages, a: strings.faq.a_languages },
 ];
 ---
 
 <section class="faq" id="faq">
   <div class="faq__wrap">
     <div class="faq__intro">
-      <h2 class="faq__h2">Frequently asked questions</h2>
-      <p class="faq__sub">Everything coordinators ask before switching to Vome.</p>
+      <h2 class="faq__h2">{t(strings.faq.header, locale)}</h2>
+      <p class="faq__sub">{t(strings.faq.sub, locale)}</p>
       <p class="faq__sub faq__sub--cta">
-        Still have questions? <a href="/contact" class="faq__link">Talk to our team →</a>
+        {t(strings.faq.cta_text, locale)} <a href={contactHref} class="faq__link">{t(strings.faq.cta_link, locale)}</a>
       </p>
     </div>
 
     <div class="faq__list">
       {items.map((item) => (
-        <FaqItem question={item.question} open={item.open}>
-          {item.answer}
+        <FaqItem question={t(item.q, locale)} open={item.open}>
+          {t(item.a, locale)}
         </FaqItem>
       ))}
     </div>

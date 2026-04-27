@@ -2,66 +2,61 @@
 import Layout from "../layouts/Layout.astro";
 import Partners from "../components/sections/Partners.astro";
 import FaqItem from "../components/FaqItem.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const d = strings.demo_page;
 
 const CALENDLY_URL =
   "https://calendly.com/vomevolunteer/demo-meeting-1?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=fa935b";
 
 const demoFaqs = [
-  {
-    question: "Do I need to prepare anything?",
-    answer:
-      "We recommend two things before the call: sign up for the free Vome Recruit plan and spend a few minutes exploring the platform, and watch our brief explainer video. You'll come to the meeting with better questions and a much clearer sense of what you want to see. Neither is required, but both make the call significantly more useful.",
-    open: true,
-  },
-  {
-    question: "Can I include other team members on the call?",
-    answer:
-      "Absolutely. Forward the calendar invite to anyone who should be there — volunteer coordinator, program manager, IT lead, whoever. Just add them before the meeting.",
-  },
-  {
-    question: "What if I can't find a time that works?",
-    answer:
-      "Visit our contact page and we'll find something that works. We have availability across multiple time zones.",
-  },
+  { question: t(d.q_prepare, locale), answer: t(d.a_prepare, locale), open: true },
+  { question: t(d.q_team, locale), answer: t(d.a_team, locale) },
+  { question: t(d.q_no_time, locale), answer: t(d.a_no_time, locale) },
 ];
+
+const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
+const confirmedHref = locale === "fr" ? "/fr/demo-confirmed" : "/demo-confirmed";
 ---
 
 <Layout
-  title="Book a Demo | Vome Volunteer"
-  description="See Vome in action. Book a personalized 30-minute demo with our team and learn how we can help your organization manage volunteers more effectively."
+  locale={locale}
+  title={t(d.page_title, locale)}
+  description={t(d.page_description, locale)}
 >
-  <!-- ── HEADER + CALENDLY ── -->
   <section class="demo-cal">
     <div class="demo-cal__inner">
       <div class="demo-cal__header">
-        <div class="demo-cal__eyebrow">See Vome in action</div>
-        <h1 class="demo-cal__h1">Schedule a demo</h1>
-        <p class="demo-cal__sub">Pick a time and we'll walk you through Vome and answer your questions.</p>
+        <div class="demo-cal__eyebrow">{t(d.eyebrow, locale)}</div>
+        <h1 class="demo-cal__h1">{t(d.h1, locale)}</h1>
+        <p class="demo-cal__sub">{t(d.sub, locale)}</p>
       </div>
       <div class="calendly-inline-widget" data-url={CALENDLY_URL}></div>
     </div>
   </section>
   <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
-  <!-- Redirect to /demo-confirmed after Calendly booking completes -->
-  <script is:inline>
+  <script is:inline define:vars={{ confirmedHref }}>
     window.addEventListener('message', function (e) {
       if (e.data && e.data.event === 'calendly.event_scheduled') {
-        window.location.href = '/demo-confirmed';
+        window.location.href = confirmedHref;
       }
     });
   </script>
 
-  <!-- ── TRUST SIGNALS — logo marquee ── -->
-  <Partners />
+  <Partners locale={locale} />
 
-  <!-- ── FAQ ── -->
   <section class="faq">
     <div class="faq__wrap">
       <div class="faq__intro">
-        <h2 class="faq__h2">Questions about the demo</h2>
-        <p class="faq__sub">Everything people ask before booking a call with us.</p>
+        <h2 class="faq__h2">{t(d.faq_h2, locale)}</h2>
+        <p class="faq__sub">{t(d.faq_sub, locale)}</p>
         <p class="faq__sub faq__sub--cta">
-          Something else? <a href="/contact" class="faq__link">Contact our team →</a>
+          {t(d.faq_cta, locale)} <a href={contactHref} class="faq__link">{t(d.faq_cta_link, locale)}</a>
         </p>
       </div>
       <div class="faq__list">
@@ -74,27 +69,24 @@ const demoFaqs = [
     </div>
   </section>
 
-  <!-- ── FALLBACK CONTACT ── -->
   <section class="demo-fallback">
     <div class="demo-fallback__inner">
       <p class="demo-fallback__text">
-        Can't find a time that works?
-        <a href="/contact" class="demo-fallback__link">Visit our contact page</a>
-        and we'll sort something out.
+        {t(d.fallback_part_1, locale)}
+        <a href={contactHref} class="demo-fallback__link">{t(d.fallback_link, locale)}</a>
+        {t(d.fallback_part_2, locale)}
       </p>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* ── Shared container padding — matches nav/hero column ── */
   .demo-cal,
   .demo-fallback {
     padding-left: max(5%, calc((100% - 1120px) / 2));
     padding-right: max(5%, calc((100% - 1120px) / 2));
   }
 
-  /* ── Header + Calendly embed ── */
   .demo-cal {
     background: var(--surface-1);
     padding-top: 48px;
@@ -133,6 +125,7 @@ const demoFaqs = [
     letter-spacing: -0.4px;
     color: #000;
     margin: 0 0 12px;
+    text-wrap: balance;
   }
 
   .demo-cal__sub {
@@ -149,7 +142,6 @@ const demoFaqs = [
     width: 100%;
   }
 
-  /* ── Fallback contact ── */
   .demo-fallback {
     background: var(--surface-1);
     border-top: 1px solid var(--border-2);
@@ -180,14 +172,11 @@ const demoFaqs = [
     text-decoration: underline;
   }
 
-  /* ── Responsive ── */
   @media (max-width: 640px) {
     .demo-cal {
       padding-top: 32px;
       padding-bottom: 40px;
     }
-
-    /* Calendly's calendar UI stacks vertically on narrow viewports */
     .calendly-inline-widget {
       height: 900px;
     }

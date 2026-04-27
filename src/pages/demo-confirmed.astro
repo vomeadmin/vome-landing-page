@@ -1,12 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const d = strings.demo_confirmed;
+const videoHref = locale === "fr" ? "/fr/video" : "/video";
+const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
 ---
 
 <Layout
-  title="You're booked! | Vome Volunteer"
-  description="Your discovery call is confirmed. Here's how to make the most of it before we meet."
+  locale={locale}
+  title={t(d.page_title, locale)}
+  description={t(d.page_description, locale)}
 >
-  <!-- ── CONFIRMATION HERO ── -->
   <section class="dc-hero">
     <div class="dc-hero__inner">
       <div class="dc-check" aria-hidden="true">
@@ -14,32 +24,24 @@ import Layout from "../layouts/Layout.astro";
           <path d="M20 6L9 17l-5-5" />
         </svg>
       </div>
-      <h1 class="dc-hero__h1">You're booked — see you soon!</h1>
-      <p class="dc-hero__sub">
-        A calendar invite is on its way to your inbox. We're looking forward to learning about your organization and how we can help.
-      </p>
+      <h1 class="dc-hero__h1">{t(d.h1, locale)}</h1>
+      <p class="dc-hero__sub">{t(d.sub, locale)}</p>
     </div>
   </section>
 
-  <!-- ── BEFORE THE CALL ── -->
   <section class="dc-prep">
     <div class="dc-prep__inner">
-      <h2 class="dc-prep__h2">Make the most of your call</h2>
-      <p class="dc-prep__sub">
-        Two things we recommend before we meet — they take less than 10 minutes and make the conversation significantly more useful.
-      </p>
+      <h2 class="dc-prep__h2">{t(d.prep_h2, locale)}</h2>
+      <p class="dc-prep__sub">{t(d.prep_sub, locale)}</p>
 
       <div class="dc-prep__steps">
-
         <div class="dc-step">
           <div class="dc-step__num" aria-hidden="true">1</div>
           <div class="dc-step__body">
-            <h3 class="dc-step__title">Sign up for the free plan and have a look around</h3>
-            <p class="dc-step__text">
-              Vome Recruit is free with no time limit. Creating an account takes two minutes, and exploring the platform before we meet means you'll come with much more specific questions — and you'll get a lot more out of the call.
-            </p>
-            <a href="/register" class="dc-step__cta btn btn--primary">
-              Sign up for free →
+            <h3 class="dc-step__title">{t(d.step1_title, locale)}</h3>
+            <p class="dc-step__text">{t(d.step1_text, locale)}</p>
+            <a href="https://www.vomevolunteer.com/register" class="dc-step__cta btn btn--primary">
+              {t(d.step1_cta, locale)}
             </a>
           </div>
         </div>
@@ -47,33 +49,28 @@ import Layout from "../layouts/Layout.astro";
         <div class="dc-step">
           <div class="dc-step__num" aria-hidden="true">2</div>
           <div class="dc-step__body">
-            <h3 class="dc-step__title">Watch our brief explainer video</h3>
-            <p class="dc-step__text">
-              Get a quick overview of what Vome does and how it fits into a volunteer program. Two minutes that give you a solid foundation before we go deeper on your specific needs.
-            </p>
-            <a href="https://youtu.be/wEGJ49XhOQg" target="_blank" rel="noopener noreferrer" class="dc-step__cta btn btn--ghost">
-              Watch on YouTube →
+            <h3 class="dc-step__title">{t(d.step2_title, locale)}</h3>
+            <p class="dc-step__text">{t(d.step2_text, locale)}</p>
+            <a href={videoHref} class="dc-step__cta btn btn--ghost">
+              {t(d.step2_cta, locale)}
             </a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ── FOOTER NOTE ── -->
   <section class="dc-foot">
     <div class="dc-foot__inner">
       <p class="dc-foot__text">
-        Need to reschedule or have a question before we meet?
-        <a href="/contact" class="dc-foot__link">Contact our team →</a>
+        {t(d.foot_part_1, locale)}
+        <a href={contactHref} class="dc-foot__link">{t(d.foot_link, locale)}</a>
       </p>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* ── Shared container padding ── */
   .dc-hero,
   .dc-prep,
   .dc-foot {
@@ -81,7 +78,6 @@ import Layout from "../layouts/Layout.astro";
     padding-right: max(5%, calc((100% - 1120px) / 2));
   }
 
-  /* ── Confirmation hero ── */
   .dc-hero {
     background: var(--vome-peach-50);
     padding-top: 64px;
@@ -126,7 +122,6 @@ import Layout from "../layouts/Layout.astro";
     text-wrap: pretty;
   }
 
-  /* ── Prep steps ── */
   .dc-prep {
     background: var(--surface-0);
     padding-top: 72px;
@@ -206,7 +201,6 @@ import Layout from "../layouts/Layout.astro";
     display: inline-flex;
   }
 
-  /* ── Footer note ── */
   .dc-foot {
     background: var(--surface-1);
     border-top: 1px solid var(--border-2);
@@ -237,7 +231,6 @@ import Layout from "../layouts/Layout.astro";
     text-decoration: underline;
   }
 
-  /* ── Responsive ── */
   @media (max-width: 600px) {
     .dc-hero {
       padding-top: 48px;

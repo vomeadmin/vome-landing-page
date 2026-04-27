@@ -1,30 +1,36 @@
 ---
 import Button from "../Button.astro";
 import HeroMockup from "./HeroMockup.astro";
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
 ---
 
 <section class="hero">
   <div class="hero__grid">
     <div class="hero__copy">
-      <div class="hero__eyebrow">4.6 ★ on Capterra, GetApp &amp; G2</div>
+      <div class="hero__eyebrow">{t(strings.hero.eyebrow, locale)}</div>
 
       <h1 class="hero__h1">
-        The volunteer management software your <span class="accent">volunteers and staff</span> actually want to use
+        {t(strings.hero.headline_part_1, locale)} <span class="accent">{t(strings.hero.headline_accent, locale)}</span> {t(strings.hero.headline_part_2, locale)}
       </h1>
 
-      <p class="hero__sub">
-        From a single coordinator to teams running programs across multiple sites, <strong>Vome automates the manual work</strong> behind onboarding, scheduling, and communication. All in one platform, with unlimited volunteers on every plan.
-      </p>
+      <p class="hero__sub" set:html={t(strings.hero.sub, locale)} />
 
       <div class="hero__ctas">
-        <Button href="/register" variant="primary" class="btn--hero">Sign up for Free</Button>
-        <Button href="/demo" variant="ghost" class="btn--hero">Book a demo</Button>
+        <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">{t(strings.hero.cta_primary, locale)}</Button>
+        <Button href={demoHref} variant="ghost" class="btn--hero">{t(strings.hero.cta_secondary, locale)}</Button>
       </div>
 
       <div class="hero__meta">
-        <span><span class="check">✓</span>Free plan + 30-day trials on paid</span>
-        <span><span class="check">✓</span>Set up in minutes</span>
-        <span><span class="check">✓</span>HIPAA, GDPR &amp; SOC 2</span>
+        <span><span class="check">✓</span>{t(strings.hero.meta_free_plan, locale)}</span>
+        <span><span class="check">✓</span>{t(strings.hero.meta_setup, locale)}</span>
+        <span><span class="check">✓</span>{t(strings.hero.meta_compliance, locale)}</span>
       </div>
     </div>
 
@@ -33,17 +39,17 @@ import HeroMockup from "./HeroMockup.astro";
         <span class="avatar">DR</span>
         <div>
           <strong>Dylan Randall</strong>
-          <span class="hours">Hours Logged: 1h 00</span>
-          <div class="party">Party size: <span class="party__count">3 people</span></div>
+          <span class="hours">{t(strings.hero.fly_hours, locale)}</span>
+          <div class="party">{t(strings.hero.fly_party, locale)} <span class="party__count">{t(strings.hero.fly_party_count, locale)}</span></div>
         </div>
       </div>
 
       <div class="hero__fly hero__fly--msg">
         <span class="msg-ic"></span>
-        <div><strong>New message</strong><small>Céline: See you Saturday!</small></div>
+        <div><strong>{t(strings.hero.fly_new_message, locale)}</strong><small>{t(strings.hero.fly_message_preview, locale)}</small></div>
       </div>
 
-      <HeroMockup />
+      <HeroMockup locale={locale} />
     </div>
   </div>
 </section>

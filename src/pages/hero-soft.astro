@@ -1,0 +1,126 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroMockup from "../components/sections/HeroMockup.astro";
+import Button from "../components/Button.astro";
+import Partners from "../components/sections/Partners.astro";
+import FeatureTabs from "../components/sections/FeatureTabs.astro";
+import MobileApp from "../components/sections/MobileApp.astro";
+import Enterprise from "../components/sections/Enterprise.astro";
+import Security from "../components/sections/Security.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+import Faq from "../components/sections/Faq.astro";
+---
+
+<Layout
+  title="[Preview A — Soft mockup] Vome"
+  description="Hero preview: side-by-side with blurred/softened app mockup."
+>
+  <section class="hero">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__eyebrow">4.6 ★ on Capterra, GetApp &amp; G2</div>
+
+        <h1 class="hero__h1">
+          The volunteer management software your <span class="accent">volunteers and staff</span> actually want to use
+        </h1>
+
+        <p class="hero__sub">
+          From a single coordinator to teams running programs across multiple sites, <strong>Vome automates the manual work</strong> behind onboarding, scheduling, and communication. All in one platform, with unlimited volunteers on every plan.
+        </p>
+
+        <div class="hero__ctas">
+          <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">Sign up for Free</Button>
+          <Button href="/demo" variant="ghost" class="btn--hero">Book a demo</Button>
+        </div>
+
+        <div class="hero__meta">
+          <span><span class="check">✓</span>Free plan + 30-day trials on paid</span>
+          <span><span class="check">✓</span>Set up in minutes</span>
+          <span><span class="check">✓</span>HIPAA, GDPR &amp; SOC 2</span>
+        </div>
+      </div>
+
+      <div class="hero__visual hero__visual--soft">
+        <div class="hero__fly hero__fly--volunteer">
+          <span class="avatar">DR</span>
+          <div>
+            <strong>Dylan Randall</strong>
+            <span class="hours">Hours Logged: 1h 00</span>
+            <div class="party">Party size: <span class="party__count">3 people</span></div>
+          </div>
+        </div>
+        <div class="hero__fly hero__fly--msg">
+          <span class="msg-ic"></span>
+          <div><strong>New message</strong><small>Céline: See you Saturday!</small></div>
+        </div>
+        <HeroMockup />
+      </div>
+    </div>
+  </section>
+
+  <Partners />
+  <FeatureTabs />
+  <MobileApp />
+  <Enterprise />
+  <Security />
+  <Testimonials />
+  <ClosingCta />
+  <Faq />
+</Layout>
+
+<style is:global>
+/* ┌─────────────────────────────────────────────────────────────┐
+   │  FLOATING CARD POSITIONS — tweak these freely              │
+   │  Positive = inset from that edge of .hero__visual          │
+   │  Negative = bleed outside the mockup boundary             │
+   └─────────────────────────────────────────────────────────────┘ */
+.hero__visual--soft .hero__fly--volunteer {
+  right: 18%;          /* ← right edge distance         */
+  bottom: -18px;       /* ← negative bleeds below image */
+  left: auto;
+  top: auto;
+}
+.hero__visual--soft .hero__fly--msg {
+  right: -28px;        /* ← negative bleeds off the right */
+  top: 18%;            /* ← distance from top edge        */
+  left: auto;
+  bottom: auto;
+}
+
+/* ── Preview A: soften/blur the mockup so copy reads first ── */
+
+/* Shrink and soften the whole app block */
+.hero__visual--soft .app {
+  filter: blur(1.5px) saturate(0.65) opacity(0.82);
+  transform: scale(0.97);
+  transform-origin: center top;
+}
+
+/* Make the "Volunteer Onboarding" heading smaller and lighter */
+.hero__visual--soft .app__heading h3 {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+/* Fade the card names further so content doesn't compete */
+.hero__visual--soft .card__name {
+  opacity: 0.6;
+}
+
+/* Thin gradient veil over the right side of the visual */
+.hero__visual--soft::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(249,249,251,0.15) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+</style>

@@ -10,78 +10,72 @@ import Security from "../components/sections/Security.astro";
 import Testimonials from "../components/sections/Testimonials.astro";
 import ClosingCta from "../components/sections/ClosingCta.astro";
 import Faq from "../components/sections/Faq.astro";
-import { strings, t, localeFromPath, type Locale } from "../i18n";
-
-interface Props {
-  locale?: Locale;
-}
-
-const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
-const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
-
-const pageTitle = locale === "fr"
-  ? "Vome — Logiciel de gestion des bénévoles que votre équipe utilisera vraiment"
-  : "Vome — Volunteer management software your team will actually use";
-const pageDescription = locale === "fr"
-  ? "Vome automatise le travail manuel derrière le recrutement, l'intégration, la planification, le suivi des heures, la production de rapports et la communication. Bénévoles illimités sur tous les forfaits."
-  : "Vome automates the manual work behind recruitment, onboarding, scheduling, hour tracking, reporting, and communication. Unlimited volunteers on every plan.";
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription}>
+<Layout
+  title="Vome — Volunteer management software your team will actually use"
+  description="Vome automates the manual work behind recruitment, onboarding, scheduling, hour tracking, reporting, and communication. Unlimited volunteers on every plan."
+>
   <section class="hero hero--centered">
     <div class="hero__copy hero__copy--centered">
-      <div class="hero__eyebrow">{t(strings.hero.eyebrow, locale)}</div>
+      <div class="hero__eyebrow">4.6 ★ on Capterra, GetApp &amp; G2</div>
 
       <h1 class="hero__h1">
-        {t(strings.hero.headline_part_1, locale)}<br class="h1-break" />{t(strings.hero.headline_accent, locale)} <span class="accent">{t(strings.hero.headline_part_2, locale)}</span>
+        The volunteer management software<br class="h1-break" />your volunteers and staff <span class="accent">actually want to use</span>
       </h1>
 
-      <p class="hero__sub" set:html={t(strings.hero.sub, locale)} />
+      <p class="hero__sub">
+        From a single coordinator to teams running programs across multiple sites, <strong>Vome automates the manual work</strong> behind onboarding, scheduling, and communication. All in one platform, with unlimited volunteers on every plan.
+      </p>
 
       <div class="hero__ctas">
-        <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">{t(strings.hero.cta_primary, locale)}</Button>
-        <Button href={demoHref} variant="ghost" class="btn--hero">{t(strings.hero.cta_secondary, locale)}</Button>
+        <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">Sign up for Free</Button>
+        <Button href="/demo" variant="ghost" class="btn--hero">Book a demo</Button>
       </div>
 
       <div class="hero__meta hero__meta--centered">
-        <span><span class="check">✓</span>{t(strings.hero.meta_free_plan, locale)}</span>
-        <span><span class="check">✓</span>{t(strings.hero.meta_setup, locale)}</span>
-        <span><span class="check">✓</span>{t(strings.hero.meta_compliance, locale)}</span>
+        <span><span class="check">✓</span>Free plan + 30-day trials on paid</span>
+        <span><span class="check">✓</span>Set up in minutes</span>
+        <span><span class="check">✓</span>HIPAA, GDPR &amp; SOC 2</span>
       </div>
     </div>
 
     <div class="hero__showcase">
+      <!-- Floating cards — positions set in the CSS below -->
       <div class="hero__fly hero__fly--volunteer hero__fly--showcase-vol">
         <span class="avatar">DR</span>
         <div>
           <strong>Dylan Randall</strong>
-          <span class="hours">{t(strings.hero.fly_hours, locale)}</span>
-          <div class="party">{t(strings.hero.fly_party, locale)} <span class="party__count">{t(strings.hero.fly_party_count, locale)}</span></div>
+          <span class="hours">Hours Logged: 1h 00</span>
+          <div class="party">Party size: <span class="party__count">3 people</span></div>
         </div>
       </div>
       <div class="hero__fly hero__fly--msg hero__fly--showcase-msg">
         <span class="msg-ic"></span>
-        <div><strong>{t(strings.hero.fly_new_message, locale)}</strong><small>{t(strings.hero.fly_message_preview, locale)}</small></div>
+        <div><strong>New message</strong><small>Céline: See you Saturday!</small></div>
       </div>
+      <!-- Separate clip wrapper — handles height + bottom fade only -->
       <div class="hero__showcase-clip">
         <div class="hero__showcase-inner">
-          <HeroMockupFull locale={locale} />
+          <HeroMockupFull />
         </div>
       </div>
     </div>
   </section>
 
-  <Partners locale={locale} />
-  <FeatureTabs locale={locale} />
-  <MobileApp locale={locale} />
-  <Enterprise locale={locale} />
-  <Security locale={locale} />
-  <Testimonials locale={locale} />
-  <ClosingCta locale={locale} />
-  <Faq locale={locale} />
+  <Partners />
+  <FeatureTabs />
+  <MobileApp />
+  <Enterprise />
+  <Security />
+  <Testimonials />
+  <ClosingCta />
+  <Faq />
 </Layout>
 
 <style is:global>
+/* ── Centered hero with FULL original mockup ── */
+
 .hero--centered {
   padding-bottom: 0;
   overflow: visible;
@@ -122,27 +116,35 @@ const pageDescription = locale === "fr"
   justify-content: center;
 }
 
+/* ┌─────────────────────────────────────────────────────────────┐
+   │  FLOATING CARD POSITIONS — tweak these freely              │
+   │  Positive = inset from that edge                           │
+   │  Negative = bleed outside the mockup boundary             │
+   └─────────────────────────────────────────────────────────────┘ */
 .hero__fly--showcase-vol {
-  left:  8%;
-  bottom: -12px;
+  left:  8%;           /* ← left edge distance          */
+  bottom: -12px;       /* ← negative bleeds below image */
   right: auto;
   top: auto;
 }
 .hero__fly--showcase-msg {
-  right: 4%;
-  top: 20px;
+  right: 4%;           /* ← right edge distance         */
+  top: 20px;           /* ← distance from top edge      */
   left: auto;
   bottom: auto;
 }
 
+/* Wide mockup showcase — overflow:visible so cards can bleed */
 .hero__showcase {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
   position: relative;
+  /* padding gives room for cards that bleed outside */
   padding-top: 32px;
 }
 
+/* Separate inner div handles the clipping + bottom fade */
 .hero__showcase-clip {
   height: 400px;
   overflow: hidden;
@@ -173,6 +175,7 @@ const pageDescription = locale === "fr"
   border: none;
 }
 
+/* ── Restore full sidebar for .app--full ── */
 .app--full {
   grid-template-columns: 168px 1fr !important;
 }
@@ -228,4 +231,5 @@ const pageDescription = locale === "fr"
 .card__step-pill--full {
   display: inline-block !important;
 }
+
 </style>

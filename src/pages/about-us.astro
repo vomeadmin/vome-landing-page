@@ -1,18 +1,26 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ContactForm from "../components/ContactForm.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const a = strings.about_us;
 ---
 
 <Layout
-  title="About Us | Vome Volunteer"
-  description="Learn about Vome's mission to make volunteering easy and accessible for everyone — our story, our team, and our commitment to volunteer managers worldwide."
+  locale={locale}
+  title={t(a.page_title, locale)}
+  description={t(a.page_description, locale)}
 >
-  <!-- ─── HERO ─── -->
   <section class="au-hero">
     <div class="au-hero__copy">
-      <span class="au-eyebrow">About Us</span>
+      <span class="au-eyebrow">{t(a.eyebrow, locale)}</span>
       <h1 class="au-hero__h1">
-        By partnering with Vome, you are choosing to work with a team of dedicated, passionate and innovative professionals.
+        {t(a.hero_h1, locale)}
       </h1>
     </div>
     <div class="au-hero__media">
@@ -26,7 +34,7 @@ import ContactForm from "../components/ContactForm.astro";
           src="/about/about.jpg"
           srcset="/about/about-320w.jpg 320w, /about/about-640w.jpg 640w, /about/about-1024w.jpg 1024w, /about/about-1920w.jpg 1920w"
           sizes="(max-width: 768px) 100vw, 50vw"
-          alt="Vome volunteer management platform in action"
+          alt={t(a.hero_alt, locale)}
           width="960"
           height="640"
           loading="eager"
@@ -36,46 +44,28 @@ import ContactForm from "../components/ContactForm.astro";
     </div>
   </section>
 
-  <!-- ─── STORY ─── -->
   <section class="au-story">
     <div class="au-story__inner">
-      <h2 class="au-story__head">About Us</h2>
+      <h2 class="au-story__head">{t(a.story_head, locale)}</h2>
       <div class="au-story__body">
-        <p class="au-p">
-          Vome is a volunteer management platform that was built with a clear mission in mind — to make volunteering easy and accessible for everyone. We believe that volunteering is the cornerstone of building strong communities, and that everyone should have the opportunity to give back in a way that is meaningful to them.
-        </p>
-        <p class="au-p">
-          Our platform was designed to meet the needs of volunteer managers, so they can easily streamline their workflows and focus on the most important part of their job — managing their volunteers. We understand that managing and engaging volunteers can be a challenging and time-consuming process, which is why we built Vome to be intuitive, powerful, and affordable.
-        </p>
-        <p class="au-p">
-          At Vome, we believe that the volunteer journey should be just as seamless as booking a hotel, flight or a table at your favorite restaurant. That's why we've made it incredibly easy for volunteers to sign up for opportunities and reserve shifts, all within just a few clicks.
-        </p>
-        <p class="au-p">
-          We take pride in our commitment to listening to our customers' feedback and continuously improving the platform. Our team is dedicated to adding new features and capabilities that make it even easier for volunteer managers to do their jobs. We strive to continue building a community of individuals who are passionate about volunteer management and share our vision of making volunteering accessible to everyone.
-        </p>
-        <p class="au-p">
-          We understand the vital role that volunteers play in the success of many organizations and their operations. Without the selfless dedication and hard work of volunteers, many organizations would not have the resources to achieve their missions and continue making a positive impact. As a technology provider, it is our responsibility to continue making their lives as easy as possible to continue giving their time.
-        </p>
-        <p class="au-p">
-          Our team also recognizes the challenge of quantifying the value (or ROI) of volunteer contribution for organizations. That's why our platform makes it super easy to track and report on various forms of volunteer activity, including hours contributed. By integrating with other tools and data sources, we've set out to provide clear visibility into organizational KPIs, empowering our partners to secure funding, engage stakeholders, and make better informed decisions.
-        </p>
-        <p class="au-p">
-          For organizations evaluating using Vome to manage their volunteers, we can guarantee that working with the Vome team will be unlike any other platform. You can consider us a partner to help you accomplish your technology goals, go the extra mile to understand your operations and provide levels of customer support you won't find anywhere else. You'll immediately feel the difference after your first meeting with us.
-        </p>
+        <p class="au-p">{t(a.p1, locale)}</p>
+        <p class="au-p">{t(a.p2, locale)}</p>
+        <p class="au-p">{t(a.p3, locale)}</p>
+        <p class="au-p">{t(a.p4, locale)}</p>
+        <p class="au-p">{t(a.p5, locale)}</p>
+        <p class="au-p">{t(a.p6, locale)}</p>
+        <p class="au-p">{t(a.p7, locale)}</p>
         <p class="au-p au-p--cta">
-          See for yourself and <a class="au-link" href="https://app.vomevolunteer.com/register">sign up for free</a> or <a class="au-link" href="https://calendly.com/vome/demo">book a demo</a>.
+          {t(a.cta_part_1, locale)} <a class="au-link" href="https://www.vomevolunteer.com/register">{t(a.cta_link_1, locale)}</a> {t(a.cta_or, locale)} <a class="au-link" href="https://calendly.com/vome/demo">{t(a.cta_link_2, locale)}</a>{t(a.cta_period, locale)}
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ─── CONTACT ─── -->
   <section class="au-contact">
     <div class="au-contact__info">
-      <h2 class="au-contact__head">Need more information?</h2>
-      <p class="au-contact__sub">
-        We would love to hear more about your organization and learn how volunteers help drive your mission. We can't wait to hear from you!
-      </p>
+      <h2 class="au-contact__head">{t(a.contact_head, locale)}</h2>
+      <p class="au-contact__sub">{t(a.contact_sub, locale)}</p>
       <div class="au-contact__addr">
         <span class="au-contact__addr-icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -83,7 +73,7 @@ import ContactForm from "../components/ContactForm.astro";
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
         </span>
-        <span>2900 Loyalist St, Cornwall, ON K6H 6C8</span>
+        <span>{t(a.contact_address, locale)}</span>
       </div>
       <picture class="au-contact__img">
         <source
@@ -104,13 +94,12 @@ import ContactForm from "../components/ContactForm.astro";
     </div>
 
     <div class="au-contact__form-wrap">
-      <ContactForm />
+      <ContactForm locale={locale} />
     </div>
   </section>
 </Layout>
 
 <style>
-  /* ── shared container padding matching nav ── */
   .au-hero,
   .au-story,
   .au-contact {
@@ -118,7 +107,6 @@ import ContactForm from "../components/ContactForm.astro";
     padding-right: max(5%, calc((100% - 1120px) / 2));
   }
 
-  /* ─── HERO ─── */
   .au-hero {
     background: var(--vome-peach-50);
     padding-top: 64px;
@@ -153,6 +141,7 @@ import ContactForm from "../components/ContactForm.astro";
     color: var(--fg-2);
     margin: 0;
     max-width: 540px;
+    text-wrap: balance;
   }
 
   .au-hero__media {
@@ -170,7 +159,6 @@ import ContactForm from "../components/ContactForm.astro";
     object-fit: cover;
   }
 
-  /* ─── STORY ─── */
   .au-story {
     background: var(--surface-0);
     padding-top: 72px;
@@ -213,7 +201,6 @@ import ContactForm from "../components/ContactForm.astro";
     text-decoration: underline;
   }
 
-  /* ─── CONTACT ─── */
   .au-contact {
     background: var(--surface-1);
     padding-top: 80px;
@@ -284,7 +271,6 @@ import ContactForm from "../components/ContactForm.astro";
     padding: 36px 40px;
   }
 
-  /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     .au-hero {
       grid-template-columns: 1fr;

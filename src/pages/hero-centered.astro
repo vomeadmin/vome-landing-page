@@ -1,0 +1,172 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroMockup from "../components/sections/HeroMockup.astro";
+import Button from "../components/Button.astro";
+import Partners from "../components/sections/Partners.astro";
+import FeatureTabs from "../components/sections/FeatureTabs.astro";
+import MobileApp from "../components/sections/MobileApp.astro";
+import Enterprise from "../components/sections/Enterprise.astro";
+import Security from "../components/sections/Security.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+import Faq from "../components/sections/Faq.astro";
+---
+
+<Layout
+  title="[Preview B — Centered] Vome"
+  description="Hero preview: centered copy, app mockup below."
+>
+  <section class="hero hero--centered">
+    <div class="hero__copy hero__copy--centered">
+      <div class="hero__eyebrow">4.6 ★ on Capterra, GetApp &amp; G2</div>
+
+      <h1 class="hero__h1">
+        The volunteer management software your <span class="accent">volunteers and staff</span> actually want to use
+      </h1>
+
+      <p class="hero__sub">
+        From a single coordinator to teams running programs across multiple sites, <strong>Vome automates the manual work</strong> behind onboarding, scheduling, and communication. All in one platform, with unlimited volunteers on every plan.
+      </p>
+
+      <div class="hero__ctas">
+        <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">Sign up for Free</Button>
+        <Button href="/demo" variant="ghost" class="btn--hero">Book a demo</Button>
+      </div>
+
+      <div class="hero__meta hero__meta--centered">
+        <span><span class="check">✓</span>Free plan + 30-day trials on paid</span>
+        <span><span class="check">✓</span>Set up in minutes</span>
+        <span><span class="check">✓</span>HIPAA, GDPR &amp; SOC 2</span>
+      </div>
+    </div>
+
+    <!-- Mockup sits below the copy, wide, partially clipped at bottom -->
+    <div class="hero__showcase">
+      <!-- Floating cards — positions set in the CSS below -->
+      <div class="hero__fly hero__fly--volunteer hero__fly--showcase-vol">
+        <span class="avatar">DR</span>
+        <div>
+          <strong>Dylan Randall</strong>
+          <span class="hours">Hours Logged: 1h 00</span>
+          <div class="party">Party size: <span class="party__count">3 people</span></div>
+        </div>
+      </div>
+      <div class="hero__fly hero__fly--msg hero__fly--showcase-msg">
+        <span class="msg-ic"></span>
+        <div><strong>New message</strong><small>Céline: See you Saturday!</small></div>
+      </div>
+      <!-- Separate clip wrapper — handles height + bottom fade only -->
+      <div class="hero__showcase-clip">
+        <div class="hero__showcase-inner">
+          <HeroMockup />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Partners />
+  <FeatureTabs />
+  <MobileApp />
+  <Enterprise />
+  <Security />
+  <Testimonials />
+  <ClosingCta />
+  <Faq />
+</Layout>
+
+<style is:global>
+/* ── Preview B: Centered hero with mockup below ── */
+
+.hero--centered {
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+/* Single-column centered copy block */
+.hero__copy--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+.hero__copy--centered .hero__h1 {
+  max-width: none;
+  font-size: clamp(28px, 2.8vw, 42px);
+  text-align: center;
+}
+
+.hero__copy--centered .hero__sub {
+  max-width: 560px;
+  text-align: center;
+}
+
+.hero__copy--centered .hero__ctas {
+  justify-content: center;
+}
+
+.hero__meta--centered {
+  justify-content: center;
+}
+
+/* ┌─────────────────────────────────────────────────────────────┐
+   │  FLOATING CARD POSITIONS — tweak these freely              │
+   │  Positive = inset from that edge                           │
+   │  Negative = bleed outside the mockup boundary             │
+   └─────────────────────────────────────────────────────────────┘ */
+.hero__fly--showcase-vol {
+  left:  4%;           /* ← left edge distance          */
+  bottom: -24px;       /* ← negative bleeds below image */
+  right: auto;
+  top: auto;
+}
+.hero__fly--showcase-msg {
+  right: 4%;           /* ← right edge distance         */
+  top: -20px;          /* ← negative bleeds above image */
+  left: auto;
+  bottom: auto;
+}
+
+/* Wide mockup showcase — overflow:visible so cards can bleed */
+.hero__showcase {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 32px;
+}
+
+/* Separate inner div handles the clipping + bottom fade */
+.hero__showcase-clip {
+  height: 400px;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 40px -8px rgba(17,17,40,.12), 0 0 0 1px rgba(0,0,0,.05);
+  position: relative;
+}
+
+.hero__showcase-clip::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--surface-1));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero__showcase-inner {
+  width: 100%;
+  height: 500px;
+}
+
+.hero__showcase-inner .app {
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+</style>

@@ -1,23 +1,30 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const v = strings.video_page;
+const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
+const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
 ---
 
 <Layout
-  title="Watch Vome in Action | Volunteer Management Software"
-  description="See how Vome handles volunteer recruitment, scheduling, and reporting in 2 minutes. No signup required."
+  locale={locale}
+  title={t(v.page_title, locale)}
+  description={t(v.page_description, locale)}
 >
-  <!-- ── HERO ── -->
   <section class="vhero">
     <div class="vhero__inner">
-      <div class="vhero__eyebrow">See Vome in 2 minutes</div>
-      <h1 class="vhero__h1">See how Vome works</h1>
-      <p class="vhero__sub">
-        No signup required — just hit play.
-      </p>
+      <div class="vhero__eyebrow">{t(v.eyebrow, locale)}</div>
+      <h1 class="vhero__h1">{t(v.h1, locale)}</h1>
+      <p class="vhero__sub">{t(v.sub, locale)}</p>
     </div>
   </section>
 
-  <!-- ── VIDEO ── -->
   <section class="vsec">
     <div class="vsec__inner">
       <div class="yt-wrap">
@@ -25,12 +32,12 @@ import Layout from "../layouts/Layout.astro";
           class="yt-facade"
           role="button"
           tabindex="0"
-          aria-label="Play Vome product video"
+          aria-label={t(v.play_aria, locale)}
         >
           <img
             class="yt-thumb"
             src="https://i.ytimg.com/vi/wEGJ49XhOQg/maxresdefault.jpg"
-            alt="Vome volunteer management software walkthrough"
+            alt={t(v.thumb_alt, locale)}
             width="1280"
             height="720"
             loading="lazy"
@@ -45,23 +52,21 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </section>
 
-  <!-- ── CONVERSION CTA ── -->
   <section class="vcta">
     <div class="vcta__glow" aria-hidden="true"></div>
     <div class="vcta__wrap">
-      <h2 class="vcta__h2">Ready to try it yourself?</h2>
-      <p class="vcta__sub">Start free today, or book a personalized demo.</p>
+      <h2 class="vcta__h2">{t(v.cta_h2, locale)}</h2>
+      <p class="vcta__sub">{t(v.cta_sub, locale)}</p>
       <div class="vcta__actions">
-        <a href="/register" class="cta__btn cta__btn--primary">Start for free</a>
-        <a href="/demo" class="cta__btn cta__btn--ghost">Book a demo</a>
+        <a href="https://www.vomevolunteer.com/register" class="cta__btn cta__btn--primary">{t(v.cta_primary, locale)}</a>
+        <a href={demoHref} class="cta__btn cta__btn--ghost">{t(v.cta_secondary, locale)}</a>
       </div>
       <p class="vcta__foot">
-        Questions? <a href="/contact" class="vcta__footlink">Contact us</a>
+        {t(v.foot_part_1, locale)} <a href={contactHref} class="vcta__footlink">{t(v.foot_link, locale)}</a>
       </p>
     </div>
   </section>
 
-  <!-- Lite embed: ~400 bytes of inline JS. Only script on the page. -->
   <script is:inline>
     (function () {
       var el = document.querySelector('.yt-facade');
@@ -83,14 +88,12 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
-  /* ── Shared horizontal padding — matches nav/hero column ── */
   .vhero,
   .vsec {
     padding-left: max(5%, calc((100% - 1120px) / 2));
     padding-right: max(5%, calc((100% - 1120px) / 2));
   }
 
-  /* ── Hero ── */
   .vhero {
     background: var(--surface-1);
     padding-top: 60px;
@@ -125,6 +128,7 @@ import Layout from "../layouts/Layout.astro";
     letter-spacing: -0.4px;
     color: #000;
     margin: 0 0 12px;
+    text-wrap: balance;
   }
 
   .vhero__sub {
@@ -135,7 +139,6 @@ import Layout from "../layouts/Layout.astro";
     margin: 0;
   }
 
-  /* ── Video section ── */
   .vsec {
     background: var(--surface-1);
     padding-top: 12px;
@@ -201,7 +204,6 @@ import Layout from "../layouts/Layout.astro";
     box-shadow: 0 14px 36px -6px rgba(250, 147, 91, 0.7);
   }
 
-  /* ── CTA section — mirrors ClosingCta visual language ── */
   .vcta {
     background: linear-gradient(160deg, #1a1b2e 0%, #0f1020 100%);
     padding: 72px max(5%, calc((100% - 1120px) / 2));
@@ -269,7 +271,6 @@ import Layout from "../layouts/Layout.astro";
     color: var(--vome-orange);
   }
 
-  /* ── Responsive ── */
   @media (max-width: 640px) {
     .vhero {
       padding-top: 40px;

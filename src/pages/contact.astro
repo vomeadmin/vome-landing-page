@@ -1,47 +1,47 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import FaqItem from "../components/FaqItem.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const c = strings.contact_page;
+const cf = strings.contact_form;
+const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
+const homeHref = locale === "fr" ? "/fr/" : "/";
+const supportHref = locale === "fr"
+  ? "https://support.vomevolunteer.com/portal/fr/home"
+  : "https://support.vomevolunteer.com/portal/en/home";
+const faqHref = locale === "fr" ? "/fr/#faq" : "/#faq";
 
 const contactFaqs = [
-  {
-    question: "How quickly will I hear back?",
-    answer:
-      "We typically reply within one business day. If your need is urgent, the fastest path to an answer is our support portal — it usually gets you there faster.",
-  },
-  {
-    question: "Can I schedule a call instead of sending a message?",
-    answer:
-      "Absolutely. Head to our demo page to pick a time that works. You'll book a 30-minute call directly with our team.",
-  },
-  {
-    question: "Where can I find documentation and guides?",
-    answer:
-      "Our support portal has step-by-step articles, tutorials, and guides for every Vome feature — available at support.vomevolunteer.com.",
-  },
+  { question: t(c.cfaq_q1, locale), answer: t(c.cfaq_a1, locale) },
+  { question: t(c.cfaq_q2, locale), answer: t(c.cfaq_a2, locale) },
+  { question: t(c.cfaq_q3, locale), answer: t(c.cfaq_a3, locale) },
 ];
 ---
 
 <Layout
-  title="Contact Us | Vome Volunteer"
-  description="Get in touch with the Vome team. Ask about the platform, get account support, or explore a partnership — we'd love to hear from you."
+  locale={locale}
+  title={t(c.page_title, locale)}
+  description={t(c.page_description, locale)}
 >
-  <!-- ── HERO ── -->
   <section class="ch">
     <div class="ch__inner">
-      <div class="ch__eyebrow">We're here to help</div>
-      <h1 class="ch__h1">How can we help?</h1>
-      <p class="ch__sub">
-        Whether you have questions about Vome, need support, or want to explore a partnership, we'd love to hear from you.
-      </p>
+      <div class="ch__eyebrow">{t(c.eyebrow, locale)}</div>
+      <h1 class="ch__h1">{t(c.h1, locale)}</h1>
+      <p class="ch__sub">{t(c.sub, locale)}</p>
     </div>
   </section>
 
-  <!-- ── ROUTE-FIRST OPTIONS ── -->
-  <section class="croute" aria-label="Quick links">
+  <section class="croute" aria-label={t(c.eyebrow, locale)}>
     <div class="croute__inner">
       <div class="croute__grid">
 
-        <a class="croute__card" href="/demo">
+        <a class="croute__card" href={demoHref}>
           <div class="croute__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -51,12 +51,12 @@ const contactFaqs = [
               <polyline points="9 16 11 18 15 14"></polyline>
             </svg>
           </div>
-          <h2 class="croute__title">Looking for a demo?</h2>
-          <p class="croute__body">See Vome in action with one of our team members. We'll walk you through the platform and answer your questions live.</p>
-          <span class="croute__cta" aria-hidden="true">Book a demo →</span>
+          <h2 class="croute__title">{t(c.route_demo_title, locale)}</h2>
+          <p class="croute__body">{t(c.route_demo_body, locale)}</p>
+          <span class="croute__cta" aria-hidden="true">{t(c.route_demo_cta, locale)}</span>
         </a>
 
-        <a class="croute__card" href="https://support.vomevolunteer.com/portal/en/home" target="_blank" rel="noopener noreferrer">
+        <a class="croute__card" href={supportHref} target="_blank" rel="noopener noreferrer">
           <div class="croute__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
@@ -64,156 +64,133 @@ const contactFaqs = [
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
           </div>
-          <h2 class="croute__title">Need help with your account?</h2>
-          <p class="croute__body">Our support portal has step-by-step guides and direct access to our support team for billing, bugs, and account questions.</p>
-          <span class="croute__cta" aria-hidden="true">Visit support portal →</span>
+          <h2 class="croute__title">{t(c.route_support_title, locale)}</h2>
+          <p class="croute__body">{t(c.route_support_body, locale)}</p>
+          <span class="croute__cta" aria-hidden="true">{t(c.route_support_cta, locale)}</span>
         </a>
 
-        <a class="croute__card" href="/#faq">
+        <a class="croute__card" href={faqHref}>
           <div class="croute__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
           </div>
-          <h2 class="croute__title">Have a quick question?</h2>
-          <p class="croute__body">We've answered the most common questions about Vome, pricing, integrations, and getting started on our FAQ page.</p>
-          <span class="croute__cta" aria-hidden="true">Browse the FAQ →</span>
+          <h2 class="croute__title">{t(c.route_faq_title, locale)}</h2>
+          <p class="croute__body">{t(c.route_faq_body, locale)}</p>
+          <span class="croute__cta" aria-hidden="true">{t(c.route_faq_cta, locale)}</span>
         </a>
 
       </div>
     </div>
   </section>
 
-  <!-- ── CONTACT FORM ── -->
-  <!--
-    FORM SUBMISSION NOTE
-    ────────────────────────────────────────────────────────────────────────────
-    The React app posts to: POST https://vomeorg.com/api/vome-admin/contact-us/
-    Payload shape: { first_name, last_name, email, message, organization_name, user_type }
-
-    Before going to production, confirm three things:
-      1. CONTACT_API_URL in the <script> below points to the correct production URL
-      2. CORS is configured on the backend to allow requests from the landing page domain
-      3. The endpoint accepts unauthenticated POST requests from the public web
-
-    If the Vome backend is not accessible without auth from the static landing page,
-    replace CONTACT_API_URL with a Formspree / Basin / similar endpoint instead.
-    ────────────────────────────────────────────────────────────────────────────
-  -->
   <section class="cform-sec">
     <div class="cform-sec__inner">
       <div class="cform-sec__header">
-        <h2 class="cform-sec__h2">Send us a message</h2>
-        <p class="cform-sec__sub">Fill in the form and we'll get back to you within one business day.</p>
+        <h2 class="cform-sec__h2">{t(c.form_h2, locale)}</h2>
+        <p class="cform-sec__sub">{t(c.form_sub, locale)}</p>
       </div>
 
-      <form id="contact-form" class="cform" novalidate>
+      <p class="cform__fr-note">{t(cf.fr_docs_note, locale)}</p>
 
-        <!-- Honeypot — hidden from humans, filled by bots -->
+      <form id="contact-form" class="cform" novalidate>
         <div style="display:none" aria-hidden="true">
           <label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
         </div>
 
         <div class="cform__row">
           <label class="cform__label">
-            <span>First name <abbr title="required">*</abbr></span>
+            <span>{t(c.fld_first, locale)} <abbr title={t(c.required, locale)}>*</abbr></span>
             <input class="cform__input" type="text" name="firstName" required autocomplete="given-name" />
           </label>
           <label class="cform__label">
-            <span>Last name</span>
+            <span>{t(c.fld_last, locale)}</span>
             <input class="cform__input" type="text" name="lastName" autocomplete="family-name" />
           </label>
         </div>
 
         <label class="cform__label">
-          <span>Email <abbr title="required">*</abbr></span>
+          <span>{t(c.fld_email, locale)} <abbr title={t(c.required, locale)}>*</abbr></span>
           <input class="cform__input" type="email" name="email" required autocomplete="email" />
         </label>
 
         <label class="cform__label">
-          <span>Organization</span>
+          <span>{t(c.fld_org, locale)}</span>
           <input class="cform__input" type="text" name="organizationName" autocomplete="organization" />
         </label>
 
         <label class="cform__label">
-          <span>Topic <abbr title="required">*</abbr></span>
+          <span>{t(c.fld_topic, locale)} <abbr title={t(c.required, locale)}>*</abbr></span>
           <select class="cform__input cform__select" name="subject" required>
-            <option value="">Select a topic…</option>
-            <option value="General inquiry">General inquiry</option>
-            <option value="Sales">Sales</option>
-            <option value="Support">Support</option>
-            <option value="Partnership">Partnership</option>
-            <option value="Press">Press</option>
-            <option value="Other">Other</option>
+            <option value="">{t(c.fld_topic_placeholder, locale)}</option>
+            <option value="General inquiry">{t(c.topic_general, locale)}</option>
+            <option value="Sales">{t(c.topic_sales, locale)}</option>
+            <option value="Support">{t(c.topic_support, locale)}</option>
+            <option value="Partnership">{t(c.topic_partnership, locale)}</option>
+            <option value="Press">{t(c.topic_press, locale)}</option>
+            <option value="Other">{t(c.topic_other, locale)}</option>
           </select>
         </label>
 
         <label class="cform__label">
-          <span>Message <abbr title="required">*</abbr></span>
-          <textarea class="cform__input cform__textarea" name="questions" required rows="5" placeholder="Tell us what's on your mind…"></textarea>
+          <span>{t(c.fld_message, locale)} <abbr title={t(c.required, locale)}>*</abbr></span>
+          <textarea class="cform__input cform__textarea" name="questions" required rows="5" placeholder={t(c.fld_message_placeholder, locale)}></textarea>
         </label>
 
         <div role="alert" class="cform__error" id="cform-error" hidden></div>
 
         <div class="cform__footer">
-          <button type="submit" class="cform__submit" id="cform-submit">Send message</button>
-          <p class="cform__note">We typically reply within one business day.</p>
+          <button type="submit" class="cform__submit" id="cform-submit" data-label-default={t(c.submit, locale)} data-label-sending={t(c.sending, locale)}>{t(c.submit, locale)}</button>
+          <p class="cform__note">{t(c.note, locale)}</p>
         </div>
 
       </form>
 
-      <!-- Success state — swapped in after submission, hidden by default -->
       <div id="contact-success" class="cform-success" hidden aria-live="polite">
         <div class="cform-success__check" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
-        <h3 class="cform-success__h3">Message sent</h3>
-        <p class="cform-success__body" id="contact-success-body">
-          We typically reply within one business day.
+        <h3 class="cform-success__h3">{t(c.success_heading, locale)}</h3>
+        <p class="cform-success__body" id="contact-success-body" data-template={t(c.success_body_named, locale)}>
+          {t(c.success_body, locale)}
         </p>
-        <a href="/" class="cform-success__back">Back to homepage</a>
+        <a href={homeHref} class="cform-success__back">{t(c.success_back, locale)}</a>
       </div>
 
     </div>
   </section>
 
-  <!-- ── DIRECT CONTACT INFO ── -->
   <section class="cinfo">
     <div class="cinfo__inner">
-      <h2 class="cinfo__h2">Other ways to reach us</h2>
+      <h2 class="cinfo__h2">{t(c.info_h2, locale)}</h2>
       <div class="cinfo__grid">
 
         <div class="cinfo__col">
-          <h3 class="cinfo__colhead">Support</h3>
-          <p class="cinfo__colbody">For account help, billing questions, or bugs, our support portal connects you directly to our support team and is usually the fastest path to a resolution.</p>
-          <a class="cinfo__link" href="https://support.vomevolunteer.com/portal/en/home" target="_blank" rel="noopener noreferrer">support.vomevolunteer.com →</a>
+          <h3 class="cinfo__colhead">{t(c.info_support_h, locale)}</h3>
+          <p class="cinfo__colbody">{t(c.info_support_body, locale)}</p>
+          <a class="cinfo__link" href={supportHref} target="_blank" rel="noopener noreferrer">support.vomevolunteer.com →</a>
         </div>
 
         <div class="cinfo__col">
-          <h3 class="cinfo__colhead">Mailing address</h3>
-          <address class="cinfo__address">
-            2900 Loyalist St<br />
-            Cornwall, ON K6H 6C8<br />
-            Canada
-          </address>
+          <h3 class="cinfo__colhead">{t(c.info_address_h, locale)}</h3>
+          <address class="cinfo__address" set:html={t(c.info_address_body, locale).replace(/\n/g, "<br />")} />
         </div>
 
         <div class="cinfo__col">
-          <h3 class="cinfo__colhead">Response time</h3>
-          <p class="cinfo__colbody">We monitor messages during business hours (EST) and aim to reply within one business day. Urgent account issues are typically resolved faster through the support portal.</p>
+          <h3 class="cinfo__colhead">{t(c.info_response_h, locale)}</h3>
+          <p class="cinfo__colbody">{t(c.info_response_body, locale)}</p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ── MINI FAQ ── -->
   <section class="cfaq">
     <div class="faq__wrap">
       <div class="cfaq__intro">
-        <h2 class="cfaq__h2">Common questions</h2>
+        <h2 class="cfaq__h2">{t(c.cfaq_h2, locale)}</h2>
       </div>
       <div class="faq__list">
         {contactFaqs.map((item) => (
@@ -223,9 +200,8 @@ const contactFaqs = [
     </div>
   </section>
 
-  <script is:inline>
+  <script is:inline define:vars={{ errorText: t(c.error, locale) }}>
     (function () {
-      // TODO: confirm this is the correct production endpoint and that CORS is configured
       var CONTACT_API_URL = 'https://vomeorg.com/api/vome-admin/contact-us/';
 
       var form = document.getElementById('contact-form');
@@ -236,15 +212,17 @@ const contactFaqs = [
 
       if (!form) return;
 
+      var labelDefault = submitBtn.getAttribute('data-label-default') || 'Send message';
+      var labelSending = submitBtn.getAttribute('data-label-sending') || 'Sending…';
+      var successTemplate = successBody.getAttribute('data-template') || '';
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         errorEl.hidden = true;
 
-        // Honeypot guard
         var honeypot = form.querySelector('[name="_gotcha"]');
         if (honeypot && honeypot.value) return;
 
-        // HTML5 constraint validation
         if (!form.checkValidity()) {
           form.reportValidity();
           return;
@@ -254,7 +232,7 @@ const contactFaqs = [
         var firstName = (data.get('firstName') || '').trim();
 
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
+        submitBtn.textContent = labelSending;
 
         fetch(CONTACT_API_URL, {
           method: 'POST',
@@ -272,16 +250,14 @@ const contactFaqs = [
             if (!res.ok) throw new Error('HTTP ' + res.status);
             form.hidden = true;
             successEl.hidden = false;
-            if (firstName) {
-              successBody.textContent =
-                'Thanks, ' + firstName + '. We typically reply within one business day.';
+            if (firstName && successTemplate) {
+              successBody.textContent = successTemplate.replace('{name}', firstName);
             }
           })
           .catch(function () {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Send message';
-            errorEl.textContent =
-              'Something went wrong — please try again, or visit our support portal if the issue continues.';
+            submitBtn.textContent = labelDefault;
+            errorEl.textContent = errorText;
             errorEl.hidden = false;
           });
       });
@@ -291,7 +267,6 @@ const contactFaqs = [
 </Layout>
 
 <style>
-  /* ── Shared horizontal padding ── */
   .ch,
   .croute,
   .cform-sec,
@@ -301,7 +276,6 @@ const contactFaqs = [
     padding-right: max(5%, calc((100% - 1120px) / 2));
   }
 
-  /* ── Hero ── */
   .ch {
     background: var(--surface-1);
     padding-top: 64px;
@@ -336,6 +310,7 @@ const contactFaqs = [
     letter-spacing: -0.4px;
     color: #000;
     margin: 0 0 14px;
+    text-wrap: balance;
   }
 
   .ch__sub {
@@ -347,7 +322,6 @@ const contactFaqs = [
     max-width: 540px;
   }
 
-  /* ── Route-first option cards ── */
   .croute {
     background: var(--surface-0);
     padding-top: 52px;
@@ -431,7 +405,6 @@ const contactFaqs = [
     margin-top: 6px;
   }
 
-  /* ── Contact form ── */
   .cform-sec {
     background: var(--surface-0);
     padding-top: 72px;
@@ -445,7 +418,7 @@ const contactFaqs = [
 
   .cform-sec__header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
   }
 
   .cform-sec__h2 {
@@ -461,6 +434,17 @@ const contactFaqs = [
     color: var(--fg-4);
     margin: 0;
     line-height: 1.6;
+  }
+
+  .cform__fr-note {
+    font-size: 13px;
+    color: var(--fg-4);
+    background: var(--vome-peach-50);
+    border-left: 3px solid var(--vome-orange);
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin: 0 0 24px;
+    line-height: 1.5;
   }
 
   .cform {
@@ -573,7 +557,6 @@ const contactFaqs = [
     line-height: 1.5;
   }
 
-  /* Success state */
   .cform-success {
     text-align: center;
     padding: 64px 24px;
@@ -617,7 +600,6 @@ const contactFaqs = [
     text-decoration: underline;
   }
 
-  /* ── Direct contact info ── */
   .cinfo {
     background: var(--surface-1);
     padding-top: 64px;
@@ -679,7 +661,6 @@ const contactFaqs = [
     margin: 0;
   }
 
-  /* ── Mini FAQ ── */
   .cfaq {
     background: var(--vome-peach-50);
     padding-top: 64px;
@@ -699,7 +680,6 @@ const contactFaqs = [
     margin: 0;
   }
 
-  /* ── Responsive ── */
   @media (max-width: 820px) {
     .croute__grid {
       grid-template-columns: 1fr;

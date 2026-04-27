@@ -3,18 +3,36 @@ interface Props {
   quote: string;
   name: string;
   title: string;
-  logo: string;
-  logoAlt: string;
+  logo?: string;
+  logoAlt?: string;
+  logoFull?: boolean;
   highlight?: boolean;
+  starsAria?: string;
 }
 
-const { quote, name, title, logo, logoAlt, highlight = false } = Astro.props;
+const {
+  quote,
+  name,
+  title,
+  logo,
+  logoAlt,
+  logoFull = false,
+  highlight = false,
+  starsAria = "5 out of 5",
+} = Astro.props;
 ---
 
 <figure class={`tst__card${highlight ? " tst__card--highlight" : ""}`}>
   <div class="tst__cardhead">
-    <div class="tst__stars" aria-label="5 out of 5">★★★★★</div>
-    <img class="tst__logo" src={logo} alt={logoAlt} loading="lazy" decoding="async" />
+    <div class="tst__stars" aria-label={starsAria}>★★★★★</div>
+    {logo && logoFull && (
+      <img class="tst__logo-full" src={logo} alt={logoAlt ?? ""} loading="lazy" decoding="async" onerror="this.style.display='none'" />
+    )}
+    {logo && !logoFull && (
+      <div class="tst__logo-ring">
+        <img class="tst__logo" src={logo} alt={logoAlt ?? ""} loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'" />
+      </div>
+    )}
   </div>
   <blockquote class="tst__quotetxt">{quote}</blockquote>
   <figcaption class="tst__who">

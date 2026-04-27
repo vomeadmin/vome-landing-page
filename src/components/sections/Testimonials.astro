@@ -1,89 +1,163 @@
 ---
 import TestimonialCard from "../TestimonialCard.astro";
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
 
 /**
- * Testimonial copy + organization logos ported from vome-react's
- * Testimonials.js + translations/landingpage.js. Highlighted cards
- * (Kate, Jessica, Deidre) match the React treatment.
+ * Testimonial copy + organization logos. Quotes/titles read from strings.ts so
+ * they translate alongside the rest of the site. Names are kept as proper nouns.
+ * Highlighted cards (Kate, Jessica, Deidre) match the React treatment.
  */
 const testimonials = [
   {
-    quote:
-      "Loving Vome. Definitely has been a huge help. It has been so much easier keeping track of hours and who we have on our team of volunteers using this technology. During our busiest time, Vome has helped our center streamline applications. So glad we made the change!",
+    quote: t(strings.testimonials.laura_quote, locale),
+    name: "Laura",
+    title: t(strings.testimonials.laura_title, locale),
+    logo: "/customers/hospicecareottawa-circle.webp",
+    logoAlt: "Hospice Care Ottawa",
+  },
+  {
+    quote: t(strings.testimonials.brook_quote, locale),
+    name: "Brook",
+    title: t(strings.testimonials.brook_title, locale),
+    logo: "/customers/dawnhealth-circle.webp",
+    logoAlt: "Dawn Health",
+  },
+  {
+    quote: t(strings.testimonials.roberta_quote, locale),
+    name: "Roberta",
+    title: t(strings.testimonials.roberta_title, locale),
+    logo: "/customers/red-cross-malta.webp",
+    logoAlt: "Red Cross Malta",
+    logoFull: true,
+  },
+  {
+    quote: t(strings.testimonials.jaime_quote, locale),
+    name: "Jaime",
+    title: t(strings.testimonials.jaime_title, locale),
+    logo: "/customers/habitatvictoria-circle.webp",
+    logoAlt: "Habitat for Humanity Victoria",
+  },
+  {
+    quote: t(strings.testimonials.gary_quote, locale),
+    name: "Gary",
+    title: t(strings.testimonials.gary_title, locale),
+    logo: "/customers/waterfire-circle.webp",
+    logoAlt: "WaterFire",
+  },
+  {
+    quote: t(strings.testimonials.hanna_quote, locale),
+    name: "Hanna",
+    title: t(strings.testimonials.hanna_title, locale),
+    logo: "/customers/raisingreaders-circle.webp",
+    logoAlt: "Raising Readers in Story County",
+  },
+  {
+    quote: t(strings.testimonials.kadie_quote, locale),
+    name: "Kadie",
+    title: t(strings.testimonials.kadie_title, locale),
+    logo: "/customers/growwithtrellis-circle.webp",
+    logoAlt: "Grow with Trellis",
+  },
+  {
+    quote: t(strings.testimonials.jolie_quote, locale),
+    name: "Jolie",
+    title: t(strings.testimonials.jolie_title, locale),
+    logo: "/customers/humanesocietyutah-circle.webp",
+    logoAlt: "Humane Society of Utah",
+  },
+  {
+    quote: t(strings.testimonials.gia_quote, locale),
     name: "Gia",
-    title: "Director of Day Program Services, Long Island Alzheimer's & Dementia Center",
+    title: t(strings.testimonials.gia_title, locale),
     logo: "/customers/alz-dementia.webp",
     logoAlt: "Long Island Alzheimer's & Dementia Center",
   },
   {
-    quote:
-      "Implementing Vome has revolutionized our volunteer management operations at the Ronald McDonald House Charities of Columbia, SC. The automated scheduling system is a standout feature, saving us significant time and reducing errors. Our volunteers appreciate the flexibility and ease of being able to schedule shifts, which has led to a notable 55% increase in participation and significant improvements in retention.",
+    quote: t(strings.testimonials.kate_quote, locale),
     name: "Kate",
-    title: "Marketing & Communications Manager, RMHC Columbia SC",
+    title: t(strings.testimonials.kate_title, locale),
     logo: "/customers/rmhc.webp",
     logoAlt: "Ronald McDonald House Charities",
+    logoFull: true,
     highlight: true,
   },
   {
-    quote:
-      "Vome has been saving me a lot of time managing volunteers across my programs. It offers a robust set of tools that make it simple to recruit and onboard new volunteers, while also providing the functionality needed to communicate with them. They made our transition straightforward, respond to my questions immediately, and incorporate feedback into the platform in record time.",
+    quote: t(strings.testimonials.elizabeth_quote, locale),
     name: "Elizabeth",
-    title: "Manager, Volunteer & Guest Services",
+    title: t(strings.testimonials.elizabeth_title, locale),
     logo: "/customers/rochester.webp",
     logoAlt: "Rochester Regional Health",
+    logoFull: true,
   },
   {
-    quote:
-      "I like that I can search for particular volunteers and track their shifts. I love that we can get a quick total of all volunteers and their hours. Customer service is the best — I usually hear right back if not by the next day. And Vome is always trying to improve. Feedback is welcomed and improvements are always being rolled out.",
+    quote: t(strings.testimonials.jessica_quote, locale),
     name: "Jessica",
-    title: "Community Engagement Manager",
+    title: t(strings.testimonials.jessica_title, locale),
     logo: "/customers/centerstage.webp",
     logoAlt: "CenterStage",
     highlight: true,
   },
   {
-    quote:
-      "The ease of doing reports is faaaar better than our previous platform. I have zero issues creating volunteer reports for our team.",
+    quote: t(strings.testimonials.wesley_quote, locale),
     name: "Wesley",
-    title: "Volunteer Engagement Manager",
+    title: t(strings.testimonials.wesley_title, locale),
     logo: "/customers/molaa.webp",
     logoAlt: "MOLAA",
   },
   {
-    quote:
-      "The database is easy to use. I can quickly get the monthly total hours of volunteering and it is incredibly easy to speak with their team. They are also constantly improving.",
+    quote: t(strings.testimonials.deidre_quote, locale),
     name: "Deidre",
-    title: "Volunteer & Donations Coordinator",
+    title: t(strings.testimonials.deidre_title, locale),
     logo: "/customers/mhwss.webp",
     logoAlt: "Medicine Hat Women's Shelter Society",
     highlight: true,
   },
 ];
 
-// Author-time duplication for seamless infinite CSS marquee.
 const looped = [...testimonials, ...testimonials];
 ---
 
 <section class="tst">
   <div class="tst__wrap">
     <div class="tst__intro">
-      <h2 class="tst__h2">See what our customers <span class="tst__h2accent">are saying</span></h2>
-      <p class="tst__sub">From hospital systems to national nonprofits, thousands of coordinators trust Vome to manage their volunteers.</p>
+      <h2 class="tst__h2">{t(strings.testimonials.header_part_1, locale)} <span class="tst__h2accent">{t(strings.testimonials.header_accent, locale)}</span></h2>
+      <p class="tst__sub">{t(strings.testimonials.sub, locale)}</p>
+      {t(strings.testimonials.fr_translation_note, locale) && (
+        <p class="tst__sub tst__sub--note">{t(strings.testimonials.fr_translation_note, locale)}</p>
+      )}
     </div>
   </div>
 
   <div class="tst__marquee">
     <div class="tst__track">
-      {looped.map((t) => (
+      {looped.map((tst) => (
         <TestimonialCard
-          quote={t.quote}
-          name={t.name}
-          title={t.title}
-          logo={t.logo}
-          logoAlt={t.logoAlt}
-          highlight={t.highlight}
+          quote={tst.quote}
+          name={tst.name}
+          title={tst.title}
+          logo={tst.logo}
+          logoAlt={tst.logoAlt}
+          logoFull={tst.logoFull}
+          highlight={tst.highlight}
+          starsAria={t(strings.testimonials.stars_aria, locale)}
         />
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  .tst__sub--note {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--fg-5);
+    margin-top: 12px;
+    max-width: 640px;
+  }
+</style>

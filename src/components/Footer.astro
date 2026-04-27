@@ -1,18 +1,6 @@
 ---
 import { strings, t, switchLocaleHref, type Locale } from "../i18n";
 
-/**
- * Footer information architecture ported from vome-react
- * (src/views/landingPage/landingPage/SectionBottomNav.js), styled with the
- * new design tokens. Column structure, link targets, social URLs, app store
- * URLs and address are the ones used by the live React site.
- *
- * Popup-only destinations in React (Book a demo, Contact us, Watch a video,
- * Give feedback, Become affiliate) point to static URLs here — see the
- * comments next to each. These are flagged as judgment calls in the
- * rebuild report.
- */
-
 interface Props {
   locale?: Locale;
 }
@@ -22,43 +10,49 @@ const year = new Date().getFullYear();
 const enHref = switchLocaleHref(Astro.url.pathname, "en");
 const frHref = switchLocaleHref(Astro.url.pathname, "fr");
 
+const f = strings.footer;
+const prefix = locale === "fr" ? "/fr" : "";
+
 const featureLinks = [
-  { href: "/features", label: "Feature overview" },
-  { href: "/volunteer-application-forms", label: "Volunteer application forms" },
-  { href: "/volunteer-onboarding-software", label: "Volunteer onboarding" },
-  { href: "/volunteer-scheduling-software", label: "Volunteer scheduling" },
-  { href: "/volunteer-hour-tracking", label: "Hour tracking" },
-  { href: "/volunteer-database", label: "Database & reports" },
-  { href: "/volunteer-communications", label: "Communications" },
-  { href: "/app-for-volunteers", label: "App for volunteers" },
+  { href: `${prefix}/features`, label: t(f.feat_overview, locale) },
+  { href: `${prefix}/volunteer-application-forms`, label: t(f.feat_apps, locale) },
+  { href: `${prefix}/volunteer-onboarding-software`, label: t(f.feat_onboarding, locale) },
+  { href: `${prefix}/volunteer-scheduling-software`, label: t(f.feat_scheduling, locale) },
+  { href: `${prefix}/volunteer-hour-tracking`, label: t(f.feat_hours, locale) },
+  { href: `${prefix}/volunteer-database`, label: t(f.feat_database, locale) },
+  { href: `${prefix}/volunteer-communications`, label: t(f.feat_comms, locale) },
+  { href: `${prefix}/app-for-volunteers`, label: t(f.feat_app, locale) },
 ];
 
 const softwareLinks = [
-  { href: "/", label: "Visit our homepage" },
-  { href: "/plans", label: "View plans & pricing" },
-  { href: "/register", label: "Sign up as an organization" },
-  { href: "/register-volunteer", label: "Sign up as a volunteer" },
-  { href: "/login", label: "Login" },
+  { href: locale === "fr" ? "/fr/" : "/", label: t(f.sw_home, locale) },
+  { href: `${prefix}/plans`, label: t(f.sw_plans, locale) },
+  { href: "https://www.vomevolunteer.com/register", label: t(f.sw_signup_org, locale) },
+  { href: "https://www.vomevolunteer.com/register-volunteer", label: t(f.sw_signup_vol, locale) },
+  { href: "https://www.vomevolunteer.com/login", label: t(f.sw_login, locale) },
 ];
 
-const aboutLinks = [
-  { href: "/about-us", label: "Our story" },
-  { href: "/video", label: "Watch a video" },
-  { href: "/demo", label: "Book a demo" }, // popup in React
-  { href: "/contact", label: "Contact us" }, // popup in React
-  { href: "/affiliates", label: "Become an affiliate" }, // popup in React
-  { href: "/ambassador", label: "Become an ambassador" },
+interface FooterLink { href: string; label: string; external?: boolean; }
+
+const aboutLinks: FooterLink[] = [
+  { href: `${prefix}/about-us`, label: t(f.about_story, locale) },
+  { href: `${prefix}/video`, label: t(f.about_video, locale) },
+  { href: `${prefix}/demo`, label: t(f.about_demo, locale) },
+  { href: `${prefix}/contact`, label: t(f.about_contact, locale) },
+  { href: `${prefix}/affiliates`, label: t(f.about_affiliate, locale) },
 ];
 
-const resourceLinks = [
-  { href: "/blog", label: "Blog" },
-  { href: "/privacy", label: "Privacy policy" },
-  { href: "/terms", label: "Terms of service" },
-  { href: "/cookie", label: "Cookie policy" },
-  { href: "/glossary", label: "Glossary" },
+const resourceLinks: FooterLink[] = [
+  { href: `${prefix}/blog`, label: t(f.res_blog, locale) },
+  { href: `${prefix}/privacy`, label: t(f.res_privacy, locale) },
+  { href: `${prefix}/terms`, label: t(f.res_terms, locale) },
+  { href: `${prefix}/cookie`, label: t(f.res_cookie, locale) },
+  { href: `${prefix}/glossary`, label: t(f.res_glossary, locale) },
   {
-    href: "https://support.vomevolunteer.com/portal/en/home",
-    label: "Get support",
+    href: locale === "fr"
+      ? "https://support.vomevolunteer.com/portal/fr/home"
+      : "https://support.vomevolunteer.com/portal/en/home",
+    label: t(f.res_support, locale),
     external: true,
   },
 ];
@@ -67,11 +61,10 @@ const resourceLinks = [
 <footer class="site-footer">
   <div class="site-footer__top">
     <div class="site-footer__brand">
-      <a href="/" aria-label="Vome home">
-        <!-- Natural logo aspect is ~2.44:1 — preserve it at 88x36. -->
+      <a href={locale === "fr" ? "/fr/" : "/"} aria-label={t(strings.nav.vome_home, locale)}>
         <img class="site-footer__logo" src="/logos/full-logo-orange.png" alt="Vome" width="88" height="36" />
       </a>
-      <p class="site-footer__tagline">{t(strings.footer.tagline, locale)}</p>
+      <p class="site-footer__tagline">{t(f.tagline, locale)}</p>
 
       <div class="site-footer__badges">
         <a
@@ -79,14 +72,14 @@ const resourceLinks = [
           href="https://apps.apple.com/ca/app/vome-volunteer/id1490871417"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Download on the App Store"
+          aria-label={t(f.badge_apple_aria, locale)}
         >
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
             <path d="M17.05 12.04c-.03-2.98 2.43-4.41 2.54-4.48-1.38-2.02-3.54-2.3-4.31-2.33-1.84-.19-3.58 1.08-4.51 1.08-.94 0-2.37-1.06-3.9-1.03-2.01.03-3.86 1.17-4.9 2.95-2.09 3.62-.53 8.97 1.5 11.91 1 1.44 2.19 3.06 3.74 3 1.5-.06 2.07-.97 3.88-.97 1.81 0 2.32.97 3.91.94 1.62-.03 2.64-1.47 3.63-2.91 1.14-1.67 1.61-3.29 1.63-3.37-.04-.02-3.13-1.2-3.16-4.76zM14.1 4.47c.83-1 1.39-2.39 1.23-3.77-1.2.05-2.65.79-3.51 1.79-.77.88-1.44 2.29-1.26 3.65 1.34.1 2.71-.68 3.54-1.67z" />
           </svg>
           <span>
-            <span class="site-footer__badge-sm">Download on the</span>
-            <span class="site-footer__badge-lg">App Store</span>
+            <span class="site-footer__badge-sm">{t(f.badge_apple_sm, locale)}</span>
+            <span class="site-footer__badge-lg">{t(f.badge_apple_lg, locale)}</span>
           </span>
         </a>
         <a
@@ -94,14 +87,14 @@ const resourceLinks = [
           href="https://play.google.com/store/apps/details?id=com.vome.vomevolunteer"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Get it on Google Play"
+          aria-label={t(f.badge_google_aria, locale)}
         >
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
             <path d="M3 2.5v19l15-9.5-15-9.5z" />
           </svg>
           <span>
-            <span class="site-footer__badge-sm">Get it on</span>
-            <span class="site-footer__badge-lg">Google Play</span>
+            <span class="site-footer__badge-sm">{t(f.badge_google_sm, locale)}</span>
+            <span class="site-footer__badge-lg">{t(f.badge_google_lg, locale)}</span>
           </span>
         </a>
       </div>
@@ -132,8 +125,8 @@ const resourceLinks = [
       </div>
     </div>
 
-    <nav class="site-footer__col" aria-label={t(strings.footer.col_features, locale)}>
-      <h4>{t(strings.footer.col_features, locale)}</h4>
+    <nav class="site-footer__col" aria-label={t(f.col_features, locale)}>
+      <h4>{t(f.col_features, locale)}</h4>
       <ul>
         {featureLinks.map((l) => (
           <li><a href={l.href}>{l.label}</a></li>
@@ -141,8 +134,8 @@ const resourceLinks = [
       </ul>
     </nav>
 
-    <nav class="site-footer__col" aria-label={t(strings.footer.col_software, locale)}>
-      <h4>{t(strings.footer.col_software, locale)}</h4>
+    <nav class="site-footer__col" aria-label={t(f.col_software, locale)}>
+      <h4>{t(f.col_software, locale)}</h4>
       <ul>
         {softwareLinks.map((l) => (
           <li><a href={l.href}>{l.label}</a></li>
@@ -150,21 +143,19 @@ const resourceLinks = [
       </ul>
     </nav>
 
-    <nav class="site-footer__col" aria-label={t(strings.footer.col_about, locale)}>
-      <h4>{t(strings.footer.col_about, locale)}</h4>
+    <nav class="site-footer__col" aria-label={t(f.col_about, locale)}>
+      <h4>{t(f.col_about, locale)}</h4>
       <ul>
         {aboutLinks.map((l) => (
           <li>
-            <a href={l.href} {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-              {l.label}
-            </a>
+            <a href={l.href}>{l.label}</a>
           </li>
         ))}
       </ul>
     </nav>
 
-    <nav class="site-footer__col" aria-label={t(strings.footer.col_resources, locale)}>
-      <h4>{t(strings.footer.col_resources, locale)}</h4>
+    <nav class="site-footer__col" aria-label={t(f.col_resources, locale)}>
+      <h4>{t(f.col_resources, locale)}</h4>
       <ul>
         {resourceLinks.map((l) => (
           <li>
@@ -178,8 +169,8 @@ const resourceLinks = [
   </div>
 
   <div class="site-footer__bottom">
-    <span>© {year} Vome · {t(strings.footer.address, locale)}</span>
-    <span class="site-footer__lang" aria-label="Language">
+    <span>© {year} Vome · {t(f.address, locale)}</span>
+    <span class="site-footer__lang" aria-label={t(f.lang_label, locale)}>
       <a href={enHref} {...(locale === "en" ? { "aria-current": "page" } : {})}>EN</a>
       <span aria-hidden="true">·</span>
       <a href={frHref} {...(locale === "fr" ? { "aria-current": "page" } : {})}>FR</a>

@@ -1,228 +1,204 @@
 ---
 import FaqItem from "../FaqItem.astro";
+import { strings, t, type Locale } from "../../i18n";
 
-type PlanVal = true | false | string;
-interface Row { name: string; desc: string; recruit: PlanVal; pro: PlanVal; ent: PlanVal; ult: PlanVal; }
-interface Section { title: string; rows: Row[]; }
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const p = strings.plans;
+const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
+const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
+
+type PlanVal = true | false | { en: string; fr?: string };
+interface Row { name: { en: string; fr?: string }; desc: { en: string; fr?: string }; recruit: PlanVal; pro: PlanVal; ent: PlanVal; ult: PlanVal; }
+interface Section { title: { en: string; fr?: string }; rows: Row[]; }
 
 const C = true;
 const X = false;
 
 const sections: Section[] = [
   {
-    title: "Fundamentals",
+    title: p.sec_fundamentals,
     rows: [
-      { name: "Max number of manageable users & profiles", desc: "You can grow your volunteer base without worrying about paying more — we don't charge for volunteer records.", recruit: "Unlimited", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
-      { name: "Max number of admin seats", desc: "You can invite an unlimited number of admins to the portal. On paid plans you're charged per seat you activate.", recruit: "Unlimited", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
-      { name: "Access on any device (iOS & Android apps, web & mobile browser)", desc: "Our platform is accessible from any device. The Vome Volunteer mobile app on the App Store and Google Play is free to download for all users.", recruit: C, pro: C, ent: C, ult: C },
+      { name: p.f_users_n, desc: p.f_users_d, recruit: p.comp_unlimited, pro: p.comp_unlimited, ent: p.comp_unlimited, ult: p.comp_unlimited },
+      { name: p.f_seats_n, desc: p.f_seats_d, recruit: p.comp_unlimited, pro: p.comp_unlimited, ent: p.comp_unlimited, ult: p.comp_unlimited },
+      { name: p.f_devices_n, desc: p.f_devices_d, recruit: C, pro: C, ent: C, ult: C },
     ],
   },
   {
-    title: "Recruitment",
+    title: p.sec_recruitment,
     rows: [
-      { name: "Custom-branded recruitment page", desc: "Build a volunteer recruitment page featuring volunteer opportunities and application forms.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Feature volunteer opportunities", desc: "Build volunteer opportunities structured by activity, role, or anything you want.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Group opportunities by category", desc: "Group your opportunities by location, program, event, department, or whatever works best for you.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Access to opportunity dashboards", desc: "View everything about your opportunity from a single page — applicants, shift requests, hour claims, analytics and more.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Opportunity-specific application forms", desc: "Customize application forms for your opportunities and events, including templates to reuse across opportunities.", recruit: "Unlimited", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
-      { name: "Customize forms for recruitment, data collection & surveys", desc: "Get access to a dynamic form-builder that allows you to collect any information you need from volunteers.", recruit: "1 form", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
-      { name: "Custom recruitment process", desc: "Choose the volunteer recruitment workflow that works best for your organization.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Generate direct landing page links to your page, forms, opportunities, programs, events, locations, etc.", desc: "Dynamic shareable links open the mobile app if the person is already logged into the Vome Volunteer app.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "App & email notifications for new applicants", desc: "Choose which admin users will receive app and/or email notifications when you receive new applicants.", recruit: C, pro: C, ent: C, ult: C },
+      { name: p.rc_page_n, desc: p.rc_page_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.rc_opps_n, desc: p.rc_opps_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.rc_group_n, desc: p.rc_group_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.rc_dash_n, desc: p.rc_dash_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.rc_appforms_n, desc: p.rc_appforms_d, recruit: p.comp_unlimited, pro: p.comp_unlimited, ent: p.comp_unlimited, ult: p.comp_unlimited },
+      { name: p.rc_forms_n, desc: p.rc_forms_d, recruit: p.comp_form_1, pro: p.comp_unlimited, ent: p.comp_unlimited, ult: p.comp_unlimited },
+      { name: p.rc_proc_n, desc: p.rc_proc_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.rc_links_n, desc: p.rc_links_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.rc_notif_n, desc: p.rc_notif_d, recruit: C, pro: C, ent: C, ult: C },
     ],
   },
   {
-    title: "Onboarding",
+    title: p.sec_onboarding,
     rows: [
-      { name: "Build onboarding sequences to manage your entire screening process", desc: "Build step-by-step onboarding processes for volunteers to complete, with optional visibility for the volunteer.", recruit: "1 sequence", pro: "Unlimited", ent: "Unlimited", ult: "Unlimited" },
-      { name: "Manage interviews, orientation & training sessions for opportunities", desc: "Build a screening checklist to use across your opportunities to stay on track about who completed what.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Sterling Volunteers background check integration", desc: "Integrate background checks directly into volunteer sequences with automatic status updates and ongoing monitoring.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "SCORM Cloud E-Learning integration", desc: "Add SCORM-compliant e-learning courses directly into volunteer sequences with automatic progress tracking.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Manage submitted waivers", desc: "Allow volunteers to submit signed forms and waivers as part of your screening process.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Create and manage notes", desc: "Create notes on volunteer profiles and specific components of their onboarding process.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Onboarding status tracking", desc: "Easily keep track of whether volunteers completed their screening requirements and if there are any expiration dates.", recruit: C, pro: C, ent: C, ult: C },
+      { name: p.on_seq_n, desc: p.on_seq_d, recruit: p.comp_seq_1, pro: p.comp_unlimited, ent: p.comp_unlimited, ult: p.comp_unlimited },
+      { name: p.on_int_n, desc: p.on_int_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.on_bg_n, desc: p.on_bg_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.on_scorm_n, desc: p.on_scorm_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.on_waiv_n, desc: p.on_waiv_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.on_notes_n, desc: p.on_notes_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.on_status_n, desc: p.on_status_d, recruit: C, pro: C, ent: C, ult: C },
     ],
   },
   {
-    title: "Scheduling",
+    title: p.sec_scheduling,
     rows: [
-      { name: "Generate one-time and recurring shifts", desc: "Easily add available shifts on your calendar in a few clicks, with bulk creation for recurring time slots.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Allow volunteers to self-schedule pre-determined shifts", desc: "Volunteers who are eligible for your opportunities can directly reserve their spots to available shifts.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Double the Donation corporate matching gifts integration", desc: "Unlock corporate matching gifts during volunteer registration and shift reservations.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Allow instant bookings for approved volunteers", desc: "Choose to allow approved volunteers to instantly reserve spots to shifts or require them to submit a request first.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Allow volunteers to create their own schedule", desc: "Allow approved volunteers to create shifts based on their availabilities, which automatically populate your calendar.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Create custom scheduling policies to manage check-ins, cancellations and more", desc: "Control how many reservations volunteers can create, when they can check-in, and much more.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Recurring schedule assignments", desc: "Bulk-assign volunteers to shifts, log hours, and manage cancellations directly from your schedule view.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Auto-generated shift chatrooms", desc: "Streamline communication among attendees with auto-generated shift chatrooms for each shift.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Export & print your schedule in PDF, Excel or .CSV format", desc: "Export your calendar in various formats with customizable field visibility.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Mobile app & email scheduling reminders", desc: "Automate all sorts of scheduling notifications to keep volunteers and administrators in the loop.", recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_shifts_n, desc: p.sc_shifts_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_self_n, desc: p.sc_self_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_dtd_n, desc: p.sc_dtd_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_inst_n, desc: p.sc_inst_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_own_n, desc: p.sc_own_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_pol_n, desc: p.sc_pol_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_assign_n, desc: p.sc_assign_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_rooms_n, desc: p.sc_rooms_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_export_n, desc: p.sc_export_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.sc_remind_n, desc: p.sc_remind_d, recruit: X, pro: C, ent: C, ult: C },
     ],
   },
   {
-    title: "Hour tracking",
+    title: p.sec_hours,
     rows: [
-      { name: "Receive hour claims", desc: "Allow volunteers to submit hour claims for shifts they completed. Once approved, their hours are added to their profiles.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "QR-code attendance tracking", desc: "Print and display a QR code to allow volunteers to scan via the mobile app to check-in/out of shifts and automate hour tracking.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "On-site Attendance Kiosk", desc: "Customize unlimited on-site attendance kiosks to let volunteers self check-in/out from any device (tablet, computer, smartphone).", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Mass hour loggings", desc: "Bulk log hours for volunteers in a few clicks, keeping accurate date/time records without manual work.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Hours reports", desc: "Easily generate reservation and hours reports with integrated analytics.", recruit: X, pro: C, ent: C, ult: C },
+      { name: p.hr_claims_n, desc: p.hr_claims_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.hr_qr_n, desc: p.hr_qr_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.hr_kiosk_n, desc: p.hr_kiosk_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.hr_mass_n, desc: p.hr_mass_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.hr_reports_n, desc: p.hr_reports_d, recruit: X, pro: C, ent: C, ult: C },
     ],
   },
   {
-    title: "Data & reports",
+    title: p.sec_data,
     rows: [
-      { name: "Access volunteer profiles", desc: "View everything you need about a volunteer from a single view — contacts, opportunities, shifts, notes and more.", recruit: "Basic", pro: C, ent: C, ult: C },
-      { name: "Import volunteer profiles", desc: "Add up to 10,000 volunteer contacts from Excel per import with batch assignment of tags, opportunities, and shifts.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Import custom field data", desc: "Import and map data into any custom field in your database via Excel or .CSV.", recruit: X, pro: X, ent: C, ult: C },
-      { name: "Offline profile management", desc: "Create offline profiles for volunteers who will not claim their profile on Vome — ideal for seniors or non-digital participants.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Unlimited custom & dynamic database fields", desc: "Choose from various field types (lists, dates, attachments, links, etc.) when creating custom database fields.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Profile tags", desc: "Group volunteers in your database by anything you want — great for bulk actions like emails or shift assignments.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Advanced group management", desc: "Unlock the Groups module to associate group reservations to dedicated groups for cleaner workflows and analytics.", recruit: X, pro: X, ent: C, ult: C },
-      { name: "Filtering, sorting & exporting", desc: "Use filters and sorting to get the data you need quickly, plus export everything to Excel at any time.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Google Sheets ↔ Vome Database integration", desc: "Sync your Vome database with a Google Sheet to automatically keep a backup or perform additional operations on your data.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Access instant reports", desc: "Instantly generate different types of reports about attendees, hours, volunteers, shifts and more.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Access instant analytics dashboards", desc: "Integrated analytics dashboards show you key metrics about your volunteers and activity to detail performance.", recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_profiles_n, desc: p.da_profiles_d, recruit: p.comp_basic, pro: C, ent: C, ult: C },
+      { name: p.da_import_n, desc: p.da_import_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_imp_field_n, desc: p.da_imp_field_d, recruit: X, pro: X, ent: C, ult: C },
+      { name: p.da_offline_n, desc: p.da_offline_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_fields_n, desc: p.da_fields_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_tags_n, desc: p.da_tags_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_groups_n, desc: p.da_groups_d, recruit: X, pro: X, ent: C, ult: C },
+      { name: p.da_filter_n, desc: p.da_filter_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_sheets_n, desc: p.da_sheets_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_reports_n, desc: p.da_reports_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.da_analytics_n, desc: p.da_analytics_d, recruit: X, pro: C, ent: C, ult: C },
     ],
   },
   {
-    title: "Communications",
+    title: p.sec_comms,
     rows: [
-      { name: "Individual & bulk emailing", desc: "Send targeted emails to specific contact lists or one-off emails to individuals directly from Vome.", recruit: "Basic", pro: C, ent: C, ult: C },
-      { name: "Integrate your email domain using Google or Microsoft", desc: "Send more personalized emails on Vome from your own mailbox using our integrations with Google and Microsoft.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Private chats", desc: "Use Vome's integrated instant messaging feature to message volunteers directly from the platform.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Custom group chats", desc: "Build custom group chats with volunteers and other administrators to simplify coordination.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Auto-generated chatrooms", desc: "Choose to use auto-generated chatrooms for your opportunities or shifts with automatic participant management.", recruit: X, pro: C, ent: C, ult: C },
+      { name: p.co_email_n, desc: p.co_email_d, recruit: p.comp_basic, pro: C, ent: C, ult: C },
+      { name: p.co_dom_n, desc: p.co_dom_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.co_priv_n, desc: p.co_priv_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.co_grp_n, desc: p.co_grp_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.co_auto_n, desc: p.co_auto_d, recruit: X, pro: C, ent: C, ult: C },
     ],
   },
   {
-    title: "Recognition",
+    title: p.sec_recognition,
     rows: [
-      { name: "Achievements", desc: "Give volunteers automatic achievements based on their progress — hours logged, shifts completed, and more.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Custom awards", desc: "Create custom awards and badges to recognize volunteers for milestones, contributions, or special moments.", recruit: X, pro: X, ent: C, ult: C },
+      { name: p.re_ach_n, desc: p.re_ach_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.re_aw_n, desc: p.re_aw_d, recruit: X, pro: X, ent: C, ult: C },
     ],
   },
   {
-    title: "Advanced",
+    title: p.sec_advanced,
     rows: [
-      { name: "Custom admin roles & permissions", desc: "Restrict administrative access by assigning admin roles with custom permission sets.", recruit: X, pro: X, ent: C, ult: C },
-      { name: "Two-Factor Authentication (2FA)", desc: "Protect your account with Two-Factor Authentication. Add a secure phone number and enter a code upon each login attempt.", recruit: X, pro: X, ent: C, ult: C },
-      { name: "Built-in KPI & metric dashboards", desc: "Access integrated analytics dashboards and reports to gain a deeper understanding of your operation.", recruit: X, pro: "Basic", ent: "Advanced", ult: "Advanced" },
-      { name: "Multi-site segmentation", desc: "Setup your portal to better manage multiple sites under a single account.", recruit: X, pro: X, ent: C, ult: C },
-      { name: "Map form fields to database fields", desc: "Map any question or attachment field on a form to a database field to centralize your data.", recruit: X, pro: X, ent: C, ult: C },
-      { name: "API integration & custom webhooks", desc: "Access a developer dashboard to create integrations with Vome using APIs or custom webhooks.", recruit: X, pro: X, ent: X, ult: C },
-      { name: "Automations with Zapier & Power Automate", desc: "Choose from thousands of custom automations using our integrations with Zapier and Microsoft Power Automate.", recruit: X, pro: X, ent: X, ult: C },
-      { name: "Native integration with Salesforce", desc: "Access an installable Vome package on Salesforce to achieve a native integration.", recruit: X, pro: X, ent: X, ult: C },
-      { name: "SAML & Azure SSO for admins", desc: "Ensure you're compliant by provisioning admin users and enforcing SSO for their accounts.", recruit: X, pro: X, ent: X, ult: C },
+      { name: p.ad_roles_n, desc: p.ad_roles_d, recruit: X, pro: X, ent: C, ult: C },
+      { name: p.ad_2fa_n, desc: p.ad_2fa_d, recruit: X, pro: X, ent: C, ult: C },
+      { name: p.ad_kpi_n, desc: p.ad_kpi_d, recruit: X, pro: p.comp_basic, ent: p.comp_advanced, ult: p.comp_advanced },
+      { name: p.ad_multi_n, desc: p.ad_multi_d, recruit: X, pro: X, ent: C, ult: C },
+      { name: p.ad_map_n, desc: p.ad_map_d, recruit: X, pro: X, ent: C, ult: C },
+      { name: p.ad_api_n, desc: p.ad_api_d, recruit: X, pro: X, ent: X, ult: C },
+      { name: p.ad_zap_n, desc: p.ad_zap_d, recruit: X, pro: X, ent: X, ult: C },
+      { name: p.ad_sf_n, desc: p.ad_sf_d, recruit: X, pro: X, ent: X, ult: C },
+      { name: p.ad_sso_n, desc: p.ad_sso_d, recruit: X, pro: X, ent: X, ult: C },
     ],
   },
   {
-    title: "Customer success",
+    title: p.sec_success,
     rows: [
-      { name: "FAQ & Knowledge base", desc: "Access many articles for quick answers to frequently asked questions.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Email support", desc: "Personalized customer support with guaranteed quick response times.", recruit: "Basic", pro: "Standard", ent: "Priority", ult: "Priority" },
-      { name: "Technical support", desc: "We offer base tech support when you come across a technical issue that needs to be resolved by a developer.", recruit: C, pro: C, ent: C, ult: C },
-      { name: "Onboarding sessions", desc: "One-hour calls with a platform specialist to get you fully set up on Vome. Unlocked as a one-time benefit upon upgrading.", recruit: "1", pro: "1", ent: "5", ult: "Unlimited *" },
-      { name: "Account review sessions", desc: "30-minute check-ins with a Vome specialist to go through new features, improvements, or any questions your team has. Unlocked as a one-time benefit upon upgrading.", recruit: X, pro: "1", ent: "4", ult: "Unlimited *" },
-      { name: "Dedicated account management", desc: "Gain access to a dedicated Vome expert to help you optimize your portal and share best practices for managing volunteers at scale.", recruit: X, pro: X, ent: C, ult: C },
-      { name: "New Admin & Transition Onboarding", desc: "When your team brings on a new admin or transitions coordinators, we provide a complimentary onboarding session for a smooth handoff.", recruit: X, pro: C, ent: C, ult: C },
-      { name: "Tech & operational consulting", desc: "Get access to Vome's software engineers and onboarding experts to help you strategize your tech setup.", recruit: X, pro: X, ent: X, ult: C },
+      { name: p.cs_kb_n, desc: p.cs_kb_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.cs_email_n, desc: p.cs_email_d, recruit: p.comp_basic, pro: p.comp_standard, ent: p.comp_priority, ult: p.comp_priority },
+      { name: p.cs_tech_n, desc: p.cs_tech_d, recruit: C, pro: C, ent: C, ult: C },
+      { name: p.cs_onb_n, desc: p.cs_onb_d, recruit: p.comp_one, pro: p.comp_one, ent: p.comp_five, ult: p.comp_unlimited_star },
+      { name: p.cs_rev_n, desc: p.cs_rev_d, recruit: X, pro: p.comp_one, ent: p.comp_four, ult: p.comp_unlimited_star },
+      { name: p.cs_dam_n, desc: p.cs_dam_d, recruit: X, pro: X, ent: C, ult: C },
+      { name: p.cs_trans_n, desc: p.cs_trans_d, recruit: X, pro: C, ent: C, ult: C },
+      { name: p.cs_consult_n, desc: p.cs_consult_d, recruit: X, pro: X, ent: X, ult: C },
     ],
   },
 ];
 
 const faqItems = [
-  {
-    question: "Do you offer a free trial for any of the premium plans?",
-    answer: "Yes, we offer a 30-day free trial for all premium plans — Pro, Enterprise, and Ultimate. The free trial begins automatically as soon as you upgrade from your admin portal.",
-  },
-  {
-    question: "Which organizations are eligible to use Vome?",
-    answer: "Any organization looking to streamline community engagement for volunteers, staff, members, clients, or event attendees. We serve hospitals and healthcare networks, membership associations, grassroots organizations, multi-national NGOs, community centres, food banks and shelters, municipalities and government agencies, festivals, school districts and universities, and businesses. Vome's Enterprise plan is well-suited for multi-site entities.",
-  },
-  {
-    question: "How many volunteers am I allowed to manage?",
-    answer: "As many as you have. There is no limit to the number of volunteers you can recruit or import. Our pricing depends on the number of administrative seats you wish to use on any paid plan.",
-  },
-  {
-    question: "Why do you charge per administrator?",
-    answer: "We charge per administrative seat to help you with budgetary planning. Most organizations know how many administrators will need access to Vome, but the number of active volunteers may vary throughout the year.",
-  },
-  {
-    question: "Can I use monthly and annual pricing at the same time for different administrators?",
-    answer: "Yes. We allow organizations to purchase a combination of monthly and annual seats for maximum flexibility. For example, you can purchase annual seats for your full-time employees and monthly seats for part-time employees who do not require year-round access.",
-  },
-  {
-    question: "What happens if we decide to cancel our plan?",
-    answer: "If you no longer wish to use a premium plan, you may cancel at any time. You will be able to use your premium plan until your current billing cycle is over, and will then be downgraded to the free base plan.",
-  },
-  {
-    question: "Do you offer any discounts?",
-    answer: "Yes. When you choose the annual billing option on Vome Pro, you receive a 33% discount compared to 12 monthly payments. We also offer additional savings for organizations that require a sizeable number of admin seats, have unique organizational structures, or are looking to partner for longer terms. We do not offer general nonprofit discounts because all of our clients are nonprofits.",
-  },
-  {
-    question: "What languages do you support?",
-    answer: "Vome is a bilingual platform, available in both English and French.",
-  },
-  {
-    question: "What if I have more questions?",
-    answer: "That's what we're here for! You can contact us to share your questions, or book a demo to see the platform in action.",
-  },
+  { question: t(strings.faq.q_free_trial, locale), answer: t(strings.faq.a_free_trial, locale) },
+  { question: t(strings.faq.q_eligible, locale), answer: t(strings.faq.a_eligible, locale) },
+  { question: t(strings.faq.q_max_volunteers, locale), answer: t(strings.faq.a_max_volunteers, locale) },
+  { question: t(strings.faq.q_per_admin, locale), answer: t(strings.faq.a_per_admin, locale) },
+  { question: t(strings.faq.q_mix_billing, locale), answer: t(strings.faq.a_mix_billing, locale) },
+  { question: t(strings.faq.q_cancel, locale), answer: t(strings.faq.a_cancel, locale) },
+  { question: t(strings.faq.q_discounts, locale), answer: t(strings.faq.a_discounts, locale) },
+  { question: t(strings.faq.q_languages, locale), answer: t(strings.faq.a_languages, locale) },
+  { question: t(p.plans_q_more, locale), answer: t(p.plans_a_more, locale) },
 ];
 ---
 
-<!-- ─── HERO ─── -->
 <section class="pp-hero">
   <div class="pp-hero__inner">
-    <span class="pp-eyebrow">Plans &amp; Pricing</span>
-    <h1 class="pp-hero__h1">Choosing the right plan is simple.</h1>
-    <p class="pp-hero__sub">
-      Get started with the free plan — no credit card required. Upgrade any time and get a
-      30-day free trial on any premium plan.
-    </p>
+    <span class="pp-eyebrow">{t(p.eyebrow, locale)}</span>
+    <h1 class="pp-hero__h1">{t(p.hero_h1, locale)}</h1>
+    <p class="pp-hero__sub">{t(p.hero_sub, locale)}</p>
     <ul class="pp-hero__pills">
       <li>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-        Flexible pricing
+        {t(p.pill_flexible, locale)}
       </li>
       <li>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-        Unlimited volunteers
+        {t(p.pill_unlimited, locale)}
       </li>
       <li>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-        30-day free trial on premium plans
+        {t(p.pill_trial, locale)}
       </li>
     </ul>
   </div>
 </section>
 
-<!-- ─── BILLING TOGGLE ─── -->
 <section class="pp-controls">
   <div class="pp-controls__inner">
-    <div class="pp-toggle" role="group" aria-label="Currency">
+    <div class="pp-toggle" role="group" aria-label={t(p.aria_currency, locale)}>
       <button class="pp-toggle__btn pp-toggle__btn--active" data-currency="cad">CAD</button>
       <button class="pp-toggle__btn" data-currency="usd">USD</button>
     </div>
-    <div class="pp-toggle" role="group" aria-label="Billing cycle">
-      <button class="pp-toggle__btn" data-billing="monthly">Monthly</button>
+    <div class="pp-toggle" role="group" aria-label={t(p.aria_billing, locale)}>
+      <button class="pp-toggle__btn" data-billing="monthly">{t(p.monthly, locale)}</button>
       <button class="pp-toggle__btn pp-toggle__btn--active" data-billing="annual">
-        Annual
-        <span class="pp-save-chip">Save 33%</span>
+        {t(p.annual, locale)}
+        <span class="pp-save-chip">{t(p.save_chip, locale)}</span>
       </button>
     </div>
   </div>
-  <p class="pp-controls__note">For customized pricing on multi-year plans, <a href="/contact" class="pp-link">contact us</a> for a personalized quote.</p>
+  <p class="pp-controls__note">{t(p.custom_pricing_part_1, locale)} <a href={contactHref} class="pp-link">{t(p.custom_pricing_link, locale)}</a> {t(p.custom_pricing_part_2, locale)}</p>
 </section>
 
-<!-- ─── PLAN CARDS ─── -->
 <section class="pp-plans">
   <div class="pp-plans__grid">
 
-    <!-- Recruit -->
     <div class="pp-card pp-card--recruit">
       <div class="pp-card__head">
-        <p class="pp-card__name">Recruit</p>
-        <p class="pp-card__sub">For recruiters that need to collect application forms and manage an onboarding process.</p>
+        <p class="pp-card__name">{t(p.plan_recruit, locale)}</p>
+        <p class="pp-card__sub">{t(p.plan_recruit_sub, locale)}</p>
       </div>
       <div class="pp-card__price-block">
         <div class="pp-card__price">
@@ -230,27 +206,26 @@ const faqItems = [
           <span class="pp-card__currency" data-show="usd" hidden>$</span>
           <span class="pp-card__amount">0</span>
         </div>
-        <p class="pp-card__billing-note">Forever free</p>
+        <p class="pp-card__billing-note">{t(p.forever_free, locale)}</p>
       </div>
-      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--outline">Get started</a>
+      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--outline">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
-        <p class="pp-card__feat-head">Features include:</p>
+        <p class="pp-card__feat-head">{t(p.feat_head, locale)}</p>
         <ul>
-          <li>Recruitment page with featured opportunities &amp; access to forms</li>
-          <li>Custom application form, onboarding sequence &amp; recruitment automation workflows</li>
-          <li>Manage opportunities &amp; assignments</li>
-          <li>Hour tracking via user-generated hour claims</li>
-          <li>35 default database fields, profile management with notes &amp; document storage (no export)</li>
-          <li>Integrated communication tools (email &amp; instant messaging)</li>
+          <li>{t(p.rec_b1, locale)}</li>
+          <li>{t(p.rec_b2, locale)}</li>
+          <li>{t(p.rec_b3, locale)}</li>
+          <li>{t(p.rec_b4, locale)}</li>
+          <li>{t(p.rec_b5, locale)}</li>
+          <li>{t(p.rec_b6, locale)}</li>
         </ul>
       </div>
     </div>
 
-    <!-- Pro -->
     <div class="pp-card pp-card--pro">
       <div class="pp-card__head">
-        <p class="pp-card__name">Pro</p>
-        <p class="pp-card__sub">For coordinators that need to manage scheduling, hour tracking and generate reports.</p>
+        <p class="pp-card__name">{t(p.plan_pro, locale)}</p>
+        <p class="pp-card__sub">{t(p.plan_pro_sub, locale)}</p>
       </div>
       <div class="pp-card__price-block">
         <div class="pp-card__price">
@@ -258,32 +233,31 @@ const faqItems = [
           <span class="pp-card__currency" data-show="usd" hidden>$</span>
           <span class="pp-card__amount" data-cad-annual="30" data-cad-monthly="45" data-usd-annual="25" data-usd-monthly="35">30</span>
         </div>
-        <p class="pp-card__seat-note">Per admin seat, per month</p>
-        <p class="pp-card__billing-note" data-billing-label="annual">Billed annually</p>
-        <p class="pp-card__billing-note" data-billing-label="monthly" hidden>Billed monthly</p>
+        <p class="pp-card__seat-note">{t(p.seat_note, locale)}</p>
+        <p class="pp-card__billing-note" data-billing-label="annual">{t(p.billed_annual, locale)}</p>
+        <p class="pp-card__billing-note" data-billing-label="monthly" hidden>{t(p.billed_monthly, locale)}</p>
       </div>
-      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled">Get started</a>
+      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
-        <p class="pp-card__feat-head">Everything in Recruit, plus:</p>
+        <p class="pp-card__feat-head">{t(p.feat_head_pro, locale)}</p>
         <ul>
-          <li>Unlimited forms &amp; sequences</li>
-          <li>Shift management &amp; user reservations</li>
-          <li>Streamline group reservations</li>
-          <li>Advanced hour tracking via Attendance QR Code &amp; Kiosk</li>
-          <li>Unlimited profile tags &amp; database export</li>
-          <li>Advanced mass communication tools (email lists, group chats &amp; auto-generated shift chatrooms)</li>
-          <li>Mobile app, custom &amp; automated notifications, reminders &amp; updates</li>
-          <li>Canned reports &amp; analytics with advanced filtering and sorting</li>
+          <li>{t(p.pro_b1, locale)}</li>
+          <li>{t(p.pro_b2, locale)}</li>
+          <li>{t(p.pro_b3, locale)}</li>
+          <li>{t(p.pro_b4, locale)}</li>
+          <li>{t(p.pro_b5, locale)}</li>
+          <li>{t(p.pro_b6, locale)}</li>
+          <li>{t(p.pro_b7, locale)}</li>
+          <li>{t(p.pro_b8, locale)}</li>
         </ul>
       </div>
     </div>
 
-    <!-- Enterprise — Most Popular -->
     <div class="pp-card pp-card--ent pp-card--featured">
-      <div class="pp-card__badge">Most Popular</div>
+      <div class="pp-card__badge">{t(p.most_popular, locale)}</div>
       <div class="pp-card__head">
-        <p class="pp-card__name">Enterprise</p>
-        <p class="pp-card__sub">For management teams that need custom database fields and admin role provisioning.</p>
+        <p class="pp-card__name">{t(p.plan_ent, locale)}</p>
+        <p class="pp-card__sub">{t(p.plan_ent_sub, locale)}</p>
       </div>
       <div class="pp-card__price-block">
         <div class="pp-card__price">
@@ -291,31 +265,30 @@ const faqItems = [
           <span class="pp-card__currency" data-show="usd" hidden>$</span>
           <span class="pp-card__amount" data-cad-annual="55" data-usd-annual="40">55</span>
         </div>
-        <p class="pp-card__seat-note">Per admin seat, per month</p>
-        <p class="pp-card__billing-note">Billed annually | Minimum 3 seats</p>
+        <p class="pp-card__seat-note">{t(p.seat_note, locale)}</p>
+        <p class="pp-card__billing-note">{t(p.billed_annual_min3, locale)}</p>
       </div>
-      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ent">Get started</a>
+      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ent">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
-        <p class="pp-card__feat-head">Everything in Pro, plus:</p>
+        <p class="pp-card__feat-head">{t(p.feat_head_ent, locale)}</p>
         <ul>
-          <li>Unlimited custom &amp; dynamic database fields</li>
-          <li>Import custom field data</li>
-          <li>Advanced group management</li>
-          <li>Custom admin roles &amp; permissions</li>
-          <li>Multi-site segmentation</li>
-          <li>Two-Factor Authentication (2FA)</li>
-          <li>Map form fields to database fields</li>
-          <li>Advanced email customizations</li>
-          <li>Recognition module with custom awards</li>
+          <li>{t(p.ent_b1, locale)}</li>
+          <li>{t(p.ent_b2, locale)}</li>
+          <li>{t(p.ent_b3, locale)}</li>
+          <li>{t(p.ent_b4, locale)}</li>
+          <li>{t(p.ent_b5, locale)}</li>
+          <li>{t(p.ent_b6, locale)}</li>
+          <li>{t(p.ent_b7, locale)}</li>
+          <li>{t(p.ent_b8, locale)}</li>
+          <li>{t(p.ent_b9, locale)}</li>
         </ul>
       </div>
     </div>
 
-    <!-- Ultimate -->
     <div class="pp-card pp-card--ult">
       <div class="pp-card__head">
-        <p class="pp-card__name">Ultimate</p>
-        <p class="pp-card__sub">For any team that needs more security features &amp; the ability to integrate Vome with other apps.</p>
+        <p class="pp-card__name">{t(p.plan_ult, locale)}</p>
+        <p class="pp-card__sub">{t(p.plan_ult_sub, locale)}</p>
       </div>
       <div class="pp-card__price-block">
         <div class="pp-card__price">
@@ -323,95 +296,94 @@ const faqItems = [
           <span class="pp-card__currency" data-show="usd" hidden>$</span>
           <span class="pp-card__amount" data-cad-annual="80" data-usd-annual="60">80</span>
         </div>
-        <p class="pp-card__seat-note">Per admin seat, per month</p>
-        <p class="pp-card__billing-note">Billed annually | Minimum 5 seats</p>
+        <p class="pp-card__seat-note">{t(p.seat_note, locale)}</p>
+        <p class="pp-card__billing-note">{t(p.billed_annual_min5, locale)}</p>
       </div>
-      <a href="https://app.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ult">Get started</a>
+      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ult">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
-        <p class="pp-card__feat-head">Everything in Enterprise, plus:</p>
+        <p class="pp-card__feat-head">{t(p.feat_head_ult, locale)}</p>
         <ul>
-          <li>API integration &amp; custom webhooks</li>
-          <li>Automations with Zapier &amp; Power Automate</li>
-          <li>Native integration with Salesforce</li>
-          <li>SAML &amp; Azure SSO for admins</li>
-          <li>Tech &amp; operational consulting</li>
+          <li>{t(p.ult_b1, locale)}</li>
+          <li>{t(p.ult_b2, locale)}</li>
+          <li>{t(p.ult_b3, locale)}</li>
+          <li>{t(p.ult_b4, locale)}</li>
+          <li>{t(p.ult_b5, locale)}</li>
         </ul>
       </div>
     </div>
 
   </div>
-  <p class="pp-disclaimer">*Additional sales tax may apply.</p>
+  <p class="pp-disclaimer">{t(p.disclaimer, locale)}</p>
 </section>
 
-<!-- ─── FEATURE COMPARISON TABLE ─── -->
 <section class="pp-comp">
   <div class="pp-comp__inner">
-    <h2 class="pp-section-h2">Feature comparison by plan</h2>
+    <h2 class="pp-section-h2">{t(p.comp_h2, locale)}</h2>
 
     <div class="pp-table-wrap">
       <table class="pp-table">
         <thead>
           <tr>
-            <th class="pp-table__col-feat">Plans</th>
-            <th class="pp-table__col-plan pp-table__col-plan--rec">Recruit</th>
-            <th class="pp-table__col-plan pp-table__col-plan--pro">Pro</th>
-            <th class="pp-table__col-plan pp-table__col-plan--ent">Enterprise</th>
-            <th class="pp-table__col-plan pp-table__col-plan--ult">Ultimate</th>
+            <th class="pp-table__col-feat">{t(p.comp_th_plans, locale)}</th>
+            <th class="pp-table__col-plan pp-table__col-plan--rec">{t(p.plan_recruit, locale)}</th>
+            <th class="pp-table__col-plan pp-table__col-plan--pro">{t(p.plan_pro, locale)}</th>
+            <th class="pp-table__col-plan pp-table__col-plan--ent">{t(p.plan_ent, locale)}</th>
+            <th class="pp-table__col-plan pp-table__col-plan--ult">{t(p.plan_ult, locale)}</th>
           </tr>
         </thead>
         <tbody>
           {sections.map((sec) => (
             <>
               <tr class="pp-table__divider">
-                <td colspan="5">{sec.title}</td>
+                <td colspan="5">{t(sec.title, locale)}</td>
               </tr>
               {sec.rows.map((row) => (
                 <tr class="pp-table__row">
                   <td class="pp-table__feat-cell">
                     <span class="pp-table__feat-name">
-                      {row.name}
+                      {t(row.name, locale)}
                       {row.desc && (
-                        <span class="pp-tip" tabindex="0">
-                          <svg class="pp-tip__icon" viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                          <span class="pp-tip__bubble" role="tooltip">{row.desc}</span>
+                        <span class="pp-tip" tabindex="0" aria-label={t(row.desc, locale)}>
+                          <svg class="pp-tip__icon" viewBox="0 0 512 512" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg>
+                          <span class="pp-tip__bubble" role="tooltip">{t(row.desc, locale)}</span>
                         </span>
                       )}
                     </span>
                   </td>
                   <td class="pp-table__val" align="center">
                     {row.recruit === true ? (
-                      <svg class="pp-icon pp-icon--rec" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                      <svg class="pp-icon pp-icon--rec" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label={t(p.comp_aria_included, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
                     ) : row.recruit === false ? (
-                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label={t(p.comp_aria_excluded, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
                     ) : (
-                      <span class="pp-val-text">{row.recruit}</span>
+                      <span class="pp-val-text">{t(row.recruit, locale)}</span>
                     )}
                   </td>
                   <td class="pp-table__val" align="center">
                     {row.pro === true ? (
-                      <svg class="pp-icon pp-icon--pro" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                      <svg class="pp-icon pp-icon--pro" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label={t(p.comp_aria_included, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
                     ) : row.pro === false ? (
-                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label={t(p.comp_aria_excluded, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
                     ) : (
-                      <span class="pp-val-text">{row.pro}</span>
+                      <span class="pp-val-text">{t(row.pro, locale)}</span>
                     )}
                   </td>
                   <td class="pp-table__val" align="center">
                     {row.ent === true ? (
-                      <svg class="pp-icon pp-icon--ent" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                      <svg class="pp-icon pp-icon--ent" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label={t(p.comp_aria_included, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
                     ) : row.ent === false ? (
-                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label={t(p.comp_aria_excluded, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
                     ) : (
-                      <span class="pp-val-text">{row.ent}</span>
+                      <span class="pp-val-text">{t(row.ent, locale)}</span>
                     )}
                   </td>
                   <td class="pp-table__val" align="center">
                     {row.ult === true ? (
-                      <svg class="pp-icon pp-icon--ult" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label="Included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
+                      <svg class="pp-icon pp-icon--ult" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-label={t(p.comp_aria_included, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm-2 14.4l-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7z"/></svg>
                     ) : row.ult === false ? (
-                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label="Not included"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
+                      <svg class="pp-icon pp-icon--x" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-label={t(p.comp_aria_excluded, locale)}><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm3.5 12.1l-1.4 1.4-2.1-2.1-2.1 2.1-1.4-1.4 2.1-2.1-2.1-2.1 1.4-1.4 2.1 2.1 2.1-2.1 1.4 1.4-2.1 2.1 2.1 2.1z"/></svg>
                     ) : (
-                      <span class="pp-val-text">{row.ult}</span>
+                      <span class="pp-val-text">{t(row.ult, locale)}</span>
                     )}
                   </td>
                 </tr>
@@ -421,24 +393,17 @@ const faqItems = [
         </tbody>
       </table>
     </div>
-    <p class="pp-comp__footnote">* Onboarding sessions &amp; account review sessions: maximum of 2 hours per week</p>
+    <p class="pp-comp__footnote">{t(p.comp_footnote, locale)}</p>
   </div>
 </section>
 
-<!-- ─── SUPPORT SECTION ─── -->
 <section class="pp-support">
   <div class="pp-support__inner">
     <div class="pp-support__text">
-      <h2 class="pp-support__h2">Personalized customer service</h2>
-      <p class="pp-support__body">
-        Our team is passionate about helping organizations effectively manage volunteer programs &amp;
-        events. We'll help you migrate your data, build the foundation of the admin portal, and show you
-        best practices when it comes to volunteer management &amp; engagement. We also offer extensive
-        customer support resources: email tickets, FAQ knowledge base, and a dedicated account manager
-        to make sure you're taken care of.
-      </p>
-      <p class="pp-support__cta-label">Want to see the difference for yourself?</p>
-      <a href="/demo" class="pp-support__btn">Book a demo</a>
+      <h2 class="pp-support__h2">{t(p.support_h2, locale)}</h2>
+      <p class="pp-support__body">{t(p.support_body, locale)}</p>
+      <p class="pp-support__cta-label">{t(p.support_cta_label, locale)}</p>
+      <a href={demoHref} class="pp-support__btn">{t(p.support_cta, locale)}</a>
     </div>
     <div class="pp-support__graphic" aria-hidden="true">
       <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -455,14 +420,12 @@ const faqItems = [
   </div>
 </section>
 
-<!-- ─── FAQ ─── -->
 <section class="pp-faq">
   <div class="pp-faq__inner">
     <div class="pp-faq__intro">
-      <h2 class="pp-section-h2">Frequently asked questions</h2>
-      <p class="pp-faq__sub">
-        Still have questions? <a href="/contact" class="pp-link">Talk to our team →</a>
-      </p>
+      <h2 class="pp-section-h2">{t(p.plans_faq_h2, locale)}</h2>
+      <p class="pp-faq__sub">{t(p.plans_faq_sub, locale)}</p>
+      <a href={contactHref} class="pp-link pp-faq__team-link">{t(p.plans_faq_team, locale)}</a>
     </div>
     <div class="pp-faq__list">
       {faqItems.map((item, i) => (
@@ -474,35 +437,32 @@ const faqItems = [
   </div>
 </section>
 
-<!-- ─── CLOSING CTA ─── -->
 <section class="pp-cta">
   <div class="pp-cta__inner">
-    <h2 class="pp-cta__h2">Ready to get started?</h2>
-    <p class="pp-cta__sub">Sign up for free or schedule a demo to see why thousands of volunteer managers choose Vome.</p>
+    <h2 class="pp-cta__h2">{t(p.closing_h2, locale)}</h2>
+    <p class="pp-cta__sub">{t(p.closing_sub, locale)}</p>
     <div class="pp-cta__btns">
-      <a href="https://app.vomevolunteer.com/register" class="pp-btn-primary">Start for free</a>
-      <a href="/demo" class="pp-btn-ghost">Schedule a demo</a>
+      <a href="https://www.vomevolunteer.com/register" class="pp-btn-primary">{t(p.closing_primary, locale)}</a>
+      <a href={demoHref} class="pp-btn-ghost">{t(p.closing_secondary, locale)}</a>
     </div>
   </div>
 </section>
 
 <style>
-  /* ── shared horizontal padding ── */
   .pp-hero, .pp-controls, .pp-plans, .pp-comp, .pp-support, .pp-faq, .pp-cta {
     padding-left: max(5%, calc((100% - 1200px) / 2));
     padding-right: max(5%, calc((100% - 1200px) / 2));
   }
 
-  /* ─── HERO ─── */
   .pp-hero {
-    background: var(--vome-peach-50);
+    background: var(--surface-0);
     padding-top: 72px;
     padding-bottom: 64px;
     text-align: center;
   }
 
   .pp-hero__inner {
-    max-width: 700px;
+    max-width: 920px;
     margin: 0 auto;
   }
 
@@ -520,11 +480,12 @@ const faqItems = [
   }
 
   .pp-hero__h1 {
-    font-size: clamp(26px, 3vw, 42px);
+    font-size: clamp(24px, 2.4vw, 36px);
     font-weight: 700;
     line-height: 1.2;
     color: var(--fg-2);
     margin: 0 0 16px;
+    text-wrap: balance;
   }
 
   .pp-hero__sub {
@@ -554,7 +515,6 @@ const faqItems = [
     color: var(--vome-orange);
   }
 
-  /* ─── CONTROLS ─── */
   .pp-controls {
     background: var(--surface-0);
     padding-top: 32px;
@@ -624,7 +584,6 @@ const faqItems = [
   }
   .pp-link:hover { text-decoration: underline; }
 
-  /* ─── PLAN CARDS ─── */
   .pp-plans {
     background: #f8f7fb;
     padding-top: 56px;
@@ -635,7 +594,6 @@ const faqItems = [
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
-    /* stretch so all cards are equal height */
     align-items: stretch;
   }
 
@@ -643,7 +601,6 @@ const faqItems = [
     background: var(--surface-0);
     border-radius: 16px;
     border: 1.5px solid #e8e6ee;
-    /* top accent via border-top on tier classes — follows rounded corners */
     border-top-width: 4px;
     padding: 24px 24px 32px;
     position: relative;
@@ -657,13 +614,11 @@ const faqItems = [
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   }
 
-  /* Tier accent colors via border-top */
   .pp-card--recruit { border-top-color: var(--vome-orange); }
   .pp-card--pro     { border-top-color: #4bb181; }
   .pp-card--ent     { border-top-color: #4b95e9; }
   .pp-card--ult     { border-top-color: #7c3aed; }
 
-  /* Featured card (Enterprise) */
   .pp-card--featured {
     border-color: #4b95e9;
     border-top-color: #4b95e9;
@@ -686,13 +641,12 @@ const faqItems = [
     white-space: nowrap;
   }
 
-  /* Card head: min-height equalises the name/sub section across all cards */
   .pp-card__head {
     min-height: 88px;
   }
 
   .pp-card--featured .pp-card__head {
-    padding-top: 8px; /* clear badge */
+    padding-top: 8px;
   }
 
   .pp-card__name {
@@ -710,7 +664,6 @@ const faqItems = [
     margin: 0;
   }
 
-  /* Price block: min-height aligns the CTA button across all cards */
   .pp-card__price-block {
     border-top: 1px solid #f0eff4;
     padding-top: 20px;
@@ -842,7 +795,6 @@ const faqItems = [
     font-weight: 500;
   }
 
-  /* ─── FEATURE COMPARISON TABLE ─── */
   .pp-comp {
     background: var(--surface-0);
     padding-top: 72px;
@@ -858,6 +810,7 @@ const faqItems = [
     font-weight: 700;
     color: var(--fg-2);
     margin: 0 0 32px;
+    text-wrap: balance;
   }
 
   .pp-table-wrap {
@@ -962,51 +915,52 @@ const faqItems = [
     font-weight: 500;
   }
 
-  /* ─── INFO TOOLTIP ─── */
   .pp-tip {
     display: inline-flex;
     align-items: center;
-    margin-left: 5px;
-    cursor: help;
+    margin-left: 6px;
+    cursor: pointer;
     position: relative;
     vertical-align: middle;
+    flex-shrink: 0;
   }
 
+  .pp-tip:focus { outline: none; }
+
   .pp-tip__icon {
-    color: rgba(0,0,0,0.3);
+    color: #000;
+    opacity: 0.75;
     flex-shrink: 0;
-    transition: color 0.15s;
+    transition: opacity 0.15s;
+    display: block;
   }
 
   .pp-tip:hover .pp-tip__icon,
   .pp-tip:focus .pp-tip__icon {
-    color: var(--vome-orange);
-    outline: none;
+    opacity: 1;
   }
 
   .pp-tip__bubble {
     display: none;
     position: fixed;
-    background: #1c1c2e;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.55;
+    background: #0a0a0a;
+    color: #fefefe;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
     padding: 10px 14px;
-    border-radius: 8px;
-    width: 260px;
+    border-radius: 2px;
+    width: 280px;
     z-index: 9999;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
     pointer-events: none;
     white-space: normal;
-    /* positioned by JS */
   }
 
   .pp-tip__bubble.is-visible {
     display: block;
   }
 
-  /* ─── SUPPORT ─── */
   .pp-support {
     background: var(--surface-1, #f8f7fb);
     padding-top: 72px;
@@ -1025,9 +979,6 @@ const faqItems = [
     font-weight: 700;
     color: var(--fg-2);
     margin: 0 0 16px;
-    padding-bottom: 10px;
-    border-bottom: 3px solid var(--vome-orange);
-    display: inline-block;
   }
 
   .pp-support__body {
@@ -1063,9 +1014,8 @@ const faqItems = [
     max-width: 280px;
   }
 
-  /* ─── FAQ ─── */
   .pp-faq {
-    background: var(--surface-0);
+    background: var(--surface-1, #f8f7fb);
     padding-top: 72px;
     padding-bottom: 72px;
   }
@@ -1081,18 +1031,22 @@ const faqItems = [
     font-size: 15px;
     color: rgba(0,0,0,0.55);
     font-weight: 500;
-    margin: 8px 0 0;
+    margin: 8px 0 4px;
     line-height: 1.6;
   }
 
-  /* Gap between each accordion item, matching homepage FAQ */
+  .pp-faq__team-link {
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
   .pp-faq__list {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
-  /* ─── CLOSING CTA ─── */
   .pp-cta {
     background: var(--vome-orange);
     padding-top: 72px;
@@ -1110,6 +1064,7 @@ const faqItems = [
     font-weight: 700;
     color: #fff;
     margin: 0 0 14px;
+    text-wrap: balance;
   }
 
   .pp-cta__sub {
@@ -1152,7 +1107,6 @@ const faqItems = [
   }
   .pp-btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
-  /* ─── RESPONSIVE ─── */
   @media (max-width: 1024px) {
     .pp-plans__grid {
       grid-template-columns: repeat(2, 1fr);
@@ -1217,7 +1171,6 @@ const faqItems = [
 </style>
 
 <script>
-  /* ── Currency / billing toggles ── */
   let currency: 'cad' | 'usd' = 'cad';
   let billing: 'annual' | 'monthly' = 'annual';
 
@@ -1268,15 +1221,12 @@ const faqItems = [
 
   updatePrices();
 
-  /* ── Equalize card head + price-block heights so all CTA buttons align ── */
   function equalizeCardSections() {
     const heads  = Array.from(document.querySelectorAll<HTMLElement>('.pp-card__head'));
     const prices = Array.from(document.querySelectorAll<HTMLElement>('.pp-card__price-block'));
 
-    // Reset to natural heights first
     [...heads, ...prices].forEach((el) => (el.style.minHeight = ''));
 
-    // Only equalise when cards are in a multi-column layout
     const grid = document.querySelector<HTMLElement>('.pp-plans__grid');
     if (!grid) return;
     const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
@@ -1296,25 +1246,30 @@ const faqItems = [
     resizeTimer = setTimeout(equalizeCardSections, 60);
   });
 
-  /* ── Info tooltips (fixed-position to escape overflow:auto containers) ── */
   document.querySelectorAll<HTMLElement>('.pp-tip').forEach((tip) => {
     const bubble = tip.querySelector<HTMLElement>('.pp-tip__bubble');
     if (!bubble) return;
 
     const show = () => {
       const rect = tip.getBoundingClientRect();
+      const bw = 280;
+
+      bubble.style.visibility = 'hidden';
+      bubble.style.left = '-9999px';
       bubble.classList.add('is-visible');
-      // Position above the icon, centred horizontally
-      const bw = 260;
+      const bh = bubble.offsetHeight;
+
       let left = rect.left + rect.width / 2 - bw / 2;
-      // Keep within viewport
       left = Math.max(8, Math.min(left, window.innerWidth - bw - 8));
-      bubble.style.left = `${left}px`;
-      bubble.style.top = `${rect.top - bubble.offsetHeight - 10 + window.scrollY}px`;
-      // Switch to below if clipped at top
-      if (rect.top - bubble.offsetHeight - 10 < 0) {
-        bubble.style.top = `${rect.bottom + 8 + window.scrollY}px`;
+
+      let top = rect.bottom + 8;
+      if (top + bh > window.innerHeight - 8) {
+        top = rect.top - bh - 8;
       }
+
+      bubble.style.left = `${left}px`;
+      bubble.style.top = `${top}px`;
+      bubble.style.visibility = '';
     };
 
     const hide = () => bubble.classList.remove('is-visible');
