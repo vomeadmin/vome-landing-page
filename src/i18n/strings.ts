@@ -70,6 +70,8 @@ export const strings = {
     signup_free: { en: "Sign up for Free", fr: "S'inscrire gratuitement" },
     vome_home: { en: "Vome home", fr: "Accueil Vome" },
     toggle_navigation: { en: "Toggle navigation", fr: "Ouvrir/fermer la navigation" },
+    features_menu_aria: { en: "Open features menu", fr: "Ouvrir le menu des fonctionnalités" },
+    features_view_all: { en: "View all features", fr: "Voir toutes les fonctionnalités" },
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -270,6 +272,187 @@ export const strings = {
     com_f4_body: {
       en: "Every email and notification in one dashboard. See what was sent, to whom, when, and by which admin. Share email templates across the team so everyone's communication stays consistent.",
       fr: "Chaque courriel et notification dans un tableau de bord unique. Voyez ce qui a été envoyé, à qui, quand et par quel administrateur. Partagez les modèles de courriel à travers l'équipe pour que la communication reste cohérente.",
+    },
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  //  FEATURES PAGE — /features standalone overview page (hero + module grid)
+  // ─────────────────────────────────────────────────────────────────────────
+  features_page: {
+    page_title: {
+      en: "Features | Complete volunteer management platform | Vome",
+      fr: "Fonctionnalités | Plateforme complète de gestion des bénévoles | Vome",
+    },
+    page_description: {
+      en: "From first application to final report, Vome connects every stage of your volunteer program in one integrated platform.",
+      fr: "De la première candidature au rapport final, Vome relie chaque étape de votre programme bénévole dans une seule plateforme intégrée.",
+    },
+
+    hero_eyebrow: { en: "All-in-one volunteer management", fr: "Gestion des bénévoles tout-en-un" },
+    // Headline split: part1 | accent (orange) | part2. Adjust placement of the
+    // accent in FR if a more natural translation requires re-ordering.
+    hero_h1_part1: { en: "One ", fr: "Une " },
+    hero_h1_accent: { en: "connected platform", fr: "plateforme connectée" },
+    hero_h1_part2: {
+      en: " for every stage of volunteer management.",
+      fr: " pour chaque étape de la gestion des bénévoles.",
+    },
+    // Sub copy is split into three rhythmic lines so the "Flexible" and
+    // "Simple" promises each get their own beat instead of fighting for space
+    // on the same wrapped line. Inline emphasis: <em> on each "your"/"vos"
+    // lands the punch; <strong> on "Flexible"/"Simple" anchors each promise.
+    // Rendered with Astro's set:html (no user input is interpolated).
+    hero_sub_l1: {
+      en: "<em>Your</em> onboarding flows, <em>your</em> scheduling rules, <em>your</em> check-in methods, <em>your</em> reports.",
+      fr: "<em>Vos</em> flux d'intégration, <em>vos</em> règles de planification, <em>vos</em> méthodes de pointage, <em>vos</em> rapports.",
+    },
+    hero_sub_l2: {
+      en: "<strong>Flexible</strong> enough to match any workflow your organization needs.",
+      fr: "Suffisamment <strong>flexible</strong> pour s'adapter à tout flux de travail dont votre organisation a besoin.",
+    },
+    hero_sub_l3: {
+      en: "<strong>Simple</strong> enough to start using it today.",
+      fr: "Assez <strong>simple</strong> pour commencer à l'utiliser dès aujourd'hui.",
+    },
+    hero_meta_unlimited: { en: "Unlimited volunteers", fr: "Bénévoles illimités" },
+    hero_meta_apps: { en: "iOS, Android & Web", fr: "iOS, Android et Web" },
+    hero_meta_trial: {
+      en: "30-day free trial on paid plans",
+      fr: "Essai gratuit de 30 jours sur les forfaits payants",
+    },
+
+    // Module short labels and one-line descriptors used inside the platform viz nodes.
+    node_recruitment_title: { en: "Recruitment", fr: "Recrutement" },
+    node_recruitment_desc: { en: "Applications & automations", fr: "Candidatures et automatisations" },
+    node_onboarding_title: { en: "Onboarding", fr: "Intégration" },
+    node_onboarding_desc: { en: "Guided workflows", fr: "Parcours guidés" },
+    node_scheduling_title: { en: "Scheduling", fr: "Planification" },
+    node_scheduling_desc: { en: "Shifts & self-scheduling", fr: "Quarts et auto-planification" },
+    node_hours_title: { en: "Hour tracking", fr: "Suivi des heures" },
+    node_hours_desc: { en: "QR, kiosk, tap & auto", fr: "QR, borne, tape et auto" },
+    node_comms_title: { en: "Communications", fr: "Communications" },
+    node_comms_desc: { en: "Chat, email & automations", fr: "Clavardage, courriel et automatisations" },
+    node_data_title: { en: "Data & reports", fr: "Données et rapports" },
+    node_data_desc: { en: "Your database, your way", fr: "Votre base de données, à votre façon" },
+    node_recognition_title: { en: "Recognition", fr: "Reconnaissance" },
+    node_recognition_desc: { en: "Custom challenges & awards", fr: "Défis et récompenses personnalisés" },
+    node_app_title: { en: "Mobile app", fr: "Application mobile" },
+    node_app_desc: { en: "iOS & Android", fr: "iOS et Android" },
+
+    // ── Modules grid section ────────────────────────────────────────────
+    // Eight cards, one per module shown in the platform diagram. Card copy
+    // is distilled from the per-plan feature comparison (strings.plans.*)
+    // and the React landing pages for each module — see
+    // vome-react/src/views/landingPage/feature{Onboarding,Hours,Schedule,…}/.
+    // Keep the bullets concrete (a real Vome capability, not a generic
+    // promise) so prospects can map each card back to the comparison table.
+    modules_h2: { en: "Explore by module", fr: "Explorer par module" },
+    modules_sub: {
+      en: "Learn more about each feature module - the capabilities, the integrations, and the workflows your team can put to work today.",
+      fr: "Apprenez-en plus sur chaque module - les fonctionnalités, les intégrations et les flux de travail que votre équipe peut mettre en place dès aujourd'hui.",
+    },
+
+    // Card 1 — Recruitment & applications
+    card_recruitment_title: { en: "Recruitment & applications", fr: "Recrutement et candidatures" },
+    card_recruitment_desc: {
+      en: "Build modern, custom-branded forms and turn interest into ready-to-go applicants. No manual triage required.",
+      fr: "Bâtissez des formulaires modernes à votre image et transformez l'intérêt en candidats prêts à contribuer. Sans triage manuel.",
+    },
+    card_recruitment_f1: { en: "Custom forms with conditional logic, e-signatures & file uploads", fr: "Formulaires personnalisés avec logique conditionnelle, signatures électroniques et téléversements" },
+    card_recruitment_f2: { en: "Reusable form templates across opportunities", fr: "Modèles de formulaires réutilisables entre opportunités" },
+    card_recruitment_f3: { en: "Recruitment automation workflows (auto-tag, auto-assign, status updates)", fr: "Flux d'automatisation de recrutement (étiquetage, affectation, mises à jour de statut)" },
+    card_recruitment_f4: { en: "Direct shareable links, QR codes & embeddable widgets", fr: "Liens partageables, codes QR et widgets intégrables" },
+    card_recruitment_link: { en: "Learn more about recruitment", fr: "En savoir plus sur le recrutement" },
+
+    // Card 2 — Onboarding & screening
+    card_onboarding_title: { en: "Onboarding & screening", fr: "Intégration et vérification" },
+    card_onboarding_desc: {
+      en: "Build any onboarding flow your program needs (interviews, training, waivers, background checks) in one guided sequence.",
+      fr: "Bâtissez n'importe quel flux d'intégration (entrevues, formations, décharges, vérifications d'antécédents) dans une seule séquence guidée.",
+    },
+    card_onboarding_f1: { en: "Step-by-step sequences with optional volunteer self-tracking", fr: "Séquences étape par étape avec autosuivi optionnel pour le bénévole" },
+    card_onboarding_f2: { en: "Sterling Volunteers background-check integration", fr: "Intégration des vérifications d'antécédents Sterling Volunteers" },
+    card_onboarding_f3: { en: "SCORM Cloud e-learning, fillable PDFs & e-signatures", fr: "Apprentissage en ligne SCORM Cloud, PDF interactifs et signatures électroniques" },
+    card_onboarding_f4: { en: "Auto-expiring renewals + audit-ready status tracking", fr: "Renouvellements à expiration automatique et suivi prêt pour les audits" },
+    card_onboarding_link: { en: "Learn more about onboarding", fr: "En savoir plus sur l'intégration" },
+
+    // Card 3 — Scheduling & shifts
+    card_scheduling_title: { en: "Scheduling & shifts", fr: "Planification et quarts" },
+    card_scheduling_desc: {
+      en: "From a single shift to multi-site recurring programs. Vome scales scheduling to whatever your operation looks like.",
+      fr: "D'un seul quart aux programmes récurrents multi-sites. Vome adapte la planification à l'envergure de vos opérations.",
+    },
+    card_scheduling_f1: { en: "Recurring & one-time shifts with bulk creation", fr: "Quarts récurrents et ponctuels avec création en lot" },
+    card_scheduling_f2: { en: "Self-scheduling, instant booking, or admin-approval flows", fr: "Auto-planification, réservation instantanée ou approbation par admin" },
+    card_scheduling_f3: { en: "Custom policies for capacity, cancellations & check-ins", fr: "Politiques personnalisées de capacité, annulations et pointage" },
+    card_scheduling_f4: { en: "Calendar sync, exports, and reminders by app + email", fr: "Synchronisation calendrier, exports, rappels par app et courriel" },
+    card_scheduling_link: { en: "Learn more about scheduling", fr: "En savoir plus sur la planification" },
+
+    // Card 4 — Hour tracking & check-in
+    card_hours_title: { en: "Hour tracking & check-in", fr: "Suivi des heures et pointage" },
+    card_hours_desc: {
+      en: "So many ways to track hours. Pick what fits each program: QR codes, kiosks, hour claims, or fully automatic check-in.",
+      fr: "Tant de façons de suivre les heures. Choisissez ce qui convient à chaque programme : codes QR, bornes, déclarations ou pointage automatique.",
+    },
+    card_hours_f1: { en: "QR-code attendance tracking via the mobile app", fr: "Suivi de présence par code QR depuis l'application mobile" },
+    card_hours_f2: { en: "Unlimited on-site kiosks (any tablet, computer, or phone)", fr: "Bornes sur place illimitées (sur toute tablette, ordinateur ou téléphone)" },
+    card_hours_f3: { en: "Volunteer-submitted hour claims with admin approval", fr: "Déclarations d'heures soumises par les bénévoles avec approbation admin" },
+    card_hours_f4: { en: "Bulk hour logging + integrated reservation & hours reports", fr: "Saisie d'heures en lot et rapports intégrés de réservations et d'heures" },
+    card_hours_link: { en: "Learn more about hour tracking", fr: "En savoir plus sur le suivi des heures" },
+
+    // Card 5 — Recognition (Enterprise+)
+    card_recognition_title: { en: "Recognition", fr: "Reconnaissance" },
+    card_recognition_desc: {
+      en: "Reward and motivate your volunteers with auto-earned achievements and the custom awards your team designs.",
+      fr: "Récompensez et motivez vos bénévoles avec des accomplissements gagnés automatiquement et les prix personnalisés conçus par votre équipe.",
+    },
+    card_recognition_f1: { en: "Automatic achievements based on hours & shift milestones", fr: "Accomplissements automatiques selon les heures et jalons de quarts" },
+    card_recognition_f2: { en: "Custom awards & badges for personal moments", fr: "Prix et badges personnalisés pour les moments importants" },
+    card_recognition_f3: { en: "Visible on volunteer profiles, share-ready", fr: "Visibles sur les profils des bénévoles, prêts à partager" },
+    card_recognition_f4: { en: "Available on Enterprise & Ultimate plans", fr: "Disponible sur les forfaits Entreprise et Ultime" },
+    card_recognition_link: { en: "Learn more about recognition", fr: "En savoir plus sur la reconnaissance" },
+
+    // Card 6 — Communications
+    card_comms_title: { en: "Communications", fr: "Communications" },
+    card_comms_desc: {
+      en: "Every channel volunteers actually use, in one place. Email, in-app chat, group chats, and auto-generated shift rooms.",
+      fr: "Tous les canaux que vos bénévoles utilisent vraiment, au même endroit. Courriel, messagerie in-app, conversations de groupe et salons de quart automatiques.",
+    },
+    card_comms_f1: { en: "Bulk + individual email with Google or Microsoft domain integration", fr: "Courriels individuels et de masse avec intégration de domaine Google ou Microsoft" },
+    card_comms_f2: { en: "Native private messaging and custom group chats", fr: "Messagerie privée native et conversations de groupe personnalisées" },
+    card_comms_f3: { en: "Auto-generated chatrooms for every shift and opportunity", fr: "Salons générés automatiquement pour chaque quart et opportunité" },
+    card_comms_f4: { en: "Automated reminders, confirmations, and announcements", fr: "Rappels, confirmations et annonces automatisés" },
+    card_comms_link: { en: "Learn more about communications", fr: "En savoir plus sur les communications" },
+
+    // Card 7 — Data & reports
+    card_data_title: { en: "Data & reports", fr: "Données et rapports" },
+    card_data_desc: {
+      en: "Import your data, organize it your way, and report in just a few clicks.",
+      fr: "Importez vos données, organisez-les à votre façon et produisez vos rapports en quelques clics.",
+    },
+    card_data_f1: { en: "Bulk import + custom field mapping (Excel, .CSV)", fr: "Importation en lot et association de champs personnalisés (Excel, .CSV)" },
+    card_data_f2: { en: "Unlimited custom & dynamic database fields", fr: "Champs de base de données personnalisés et dynamiques illimités" },
+    card_data_f3: { en: "Profile tags, advanced filtering, and group management", fr: "Étiquettes de profil, filtrage avancé et gestion de groupe" },
+    card_data_f4: { en: "Instant reports, analytics dashboards & Google Sheets sync", fr: "Rapports instantanés, tableaux de bord analytiques et synchro Google Sheets" },
+    card_data_link: { en: "Learn more about data & reports", fr: "En savoir plus sur les données et rapports" },
+
+    // Card 8 — Mobile app
+    card_app_title: { en: "Mobile app", fr: "Application mobile" },
+    card_app_desc: {
+      en: "Designed for every age, skill, and shift. Free for volunteers, full admin power for your team, wherever you are.",
+      fr: "Conçue pour tous les âges, toutes les compétences et tous les quarts. Gratuite pour les bénévoles, puissance admin complète pour votre équipe, où que vous soyez.",
+    },
+    card_app_f1: { en: "iOS & Android, free download for everyone", fr: "iOS et Android, téléchargement gratuit pour tous" },
+    card_app_f2: { en: "Volunteers apply, reserve, check-in, and message in-app", fr: "Les bénévoles posent leur candidature, réservent, pointent et écrivent dans l'app" },
+    card_app_f3: { en: "Admins manage shifts, attendees, and chats from anywhere", fr: "Les admins gèrent quarts, participants et conversations depuis n'importe où" },
+    card_app_f4: { en: "Push notifications + reminders built in", fr: "Notifications poussées et rappels intégrés" },
+    card_app_link: { en: "Learn more about the app", fr: "En savoir plus sur l'application" },
+
+    // Post-modules CTA
+    cta_h2: { en: "See it in action", fr: "Voyez Vome à l'œuvre" },
+    cta_sub: {
+      en: "Sign up free and explore the platform yourself, or book a demo and we'll walk you through the modules that matter most to you.",
+      fr: "Inscrivez-vous gratuitement et explorez la plateforme par vous-même, ou réservez une démo et nous vous présenterons les modules les plus pertinents pour vous.",
     },
   },
 

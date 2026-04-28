@@ -16,6 +16,22 @@ const langOptions: { code: Locale; label: string; href: string }[] = [
 
 // Convenience accessors. Strings come from src/i18n/strings.ts.
 const n = strings.nav;
+const f = strings.footer;
+
+// Features dropdown items. Hrefs mirror the React app's marketing routes
+// (web-app/vome-react/src/routers/AppRouter.js). Labels come from `footer.feat_*`
+// (already translated EN/FR) so we don't duplicate strings between nav + footer.
+const featurePrefix = locale === "fr" ? "/fr" : "";
+const featureItems: { href: string; label: string }[] = [
+  { href: `${featurePrefix}/volunteer-application-forms`, label: t(f.feat_apps, locale) },
+  { href: `${featurePrefix}/volunteer-onboarding-software`, label: t(f.feat_onboarding, locale) },
+  { href: `${featurePrefix}/volunteer-scheduling-software`, label: t(f.feat_scheduling, locale) },
+  { href: `${featurePrefix}/volunteer-hour-tracking`, label: t(f.feat_hours, locale) },
+  { href: `${featurePrefix}/volunteer-database`, label: t(f.feat_database, locale) },
+  { href: `${featurePrefix}/volunteer-communications`, label: t(f.feat_comms, locale) },
+  { href: `${featurePrefix}/app-for-volunteers`, label: t(f.feat_app, locale) },
+];
+const featuresAllHref = `${featurePrefix}/features`;
 ---
 
 <div class="topnav">
@@ -47,12 +63,29 @@ const n = strings.nav;
     </ul>
   </details>
   <div class="topnav__links">
-    <a href={locale === "fr" ? "/fr/features" : "/features"}>
-      {t(n.features, locale)}
-      <svg class="caret" viewBox="0 0 24 24">
-        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-    </a>
+    <details class="topnav__features-dd">
+      <summary class="topnav__features" aria-label={t(n.features_menu_aria, locale)}>
+        <span>{t(n.features, locale)}</span>
+        <svg class="caret" viewBox="0 0 24 24">
+          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </summary>
+      <ul class="topnav__features-menu" role="list">
+        <li class="topnav__features-menu-all">
+          <a href={featuresAllHref}>
+            <span>{t(n.features_view_all, locale)}</span>
+            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
+        </li>
+        {featureItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </details>
     <a href={locale === "fr" ? "/fr/plans" : "/plans"}>{t(n.plans, locale)}</a>
     <a href={locale === "fr" ? "/fr/about-us" : "/about-us"}>{t(n.about, locale)}</a>
     <a href={locale === "fr" ? "/fr/contact" : "/contact"}>{t(n.contact, locale)}</a>
