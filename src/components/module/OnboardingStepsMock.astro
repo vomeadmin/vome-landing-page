@@ -1,0 +1,50 @@
+---
+/**
+ * Spotlight 1 (BUILD) mockup: vertical list of sequence steps with
+ * type chips and conditional/required badges. Distinct from the hero
+ * mockup: rendered inside `.sp-mock` frame, narrower, no browser
+ * chrome, and uses a different inner class system (`.sp-steps__*`).
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_onboarding.steps_mock;
+
+const steps = [
+  { type: t(m.s1_type, locale), name: t(m.s1_name, locale), kind: "interview", badge: "req"  },
+  { type: t(m.s2_type, locale), name: t(m.s2_name, locale), kind: "orient",    badge: "req"  },
+  { type: t(m.s3_type, locale), name: t(m.s3_name, locale), kind: "waiver",    badge: "req"  },
+  { type: t(m.s4_type, locale), name: t(m.s4_name, locale), kind: "bg",        badge: "req"  },
+  { type: t(m.s5_type, locale), name: t(m.s5_name, locale), kind: "training",  badge: "cond" },
+];
+---
+
+<div class="sp-mock sp-mock--steps" aria-label="Onboarding step types preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.seq_name, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-mock__col-label">{t(m.label, locale)}</div>
+    <ul class="sp-steps__list">
+      {steps.map((s, i) => (
+        <li class={`sp-steps__row sp-steps__row--${s.kind}`}>
+          <span class="sp-steps__num">{i + 1}</span>
+          <div class="sp-steps__body">
+            <div class="sp-steps__row-top">
+              <span class={`sp-steps__chip sp-steps__chip--${s.kind}`}>{s.type}</span>
+              <span class={`sp-steps__badge sp-steps__badge--${s.badge}`}>
+                {s.badge === "cond" ? t(m.cond_chip, locale) : t(m.req_chip, locale)}
+              </span>
+            </div>
+            <div class="sp-steps__name">{s.name}</div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

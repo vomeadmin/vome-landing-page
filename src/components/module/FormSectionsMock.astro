@@ -1,0 +1,61 @@
+---
+/**
+ * Build spotlight mockup — Vome's form-section editor view, simplified.
+ *
+ * Mirrors the React `views/org/orgForms/createForms` layout: a left
+ * sidebar listing form sections (General info, Profile, Attachments,
+ * Digital consent, custom questions). Each section has a drag handle and
+ * reorder arrows. One question is flagged "Conditional" to surface the
+ * branching capability we sell on this page.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recruitment.build_mock;
+
+const sections = [
+  { label: t(m.sec1, locale), conditional: false },
+  { label: t(m.sec2, locale), conditional: false },
+  { label: t(m.sec3, locale), conditional: false },
+  { label: t(m.sec4, locale), conditional: false },
+  { label: t(m.sec5, locale), conditional: true, dragging: true },
+];
+---
+
+<div class="sp-mock sp-mock--build" aria-label="Form sections editor preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.form_name, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-mock__col-label">{t(m.sections_label, locale)}</div>
+    <ul class="sp-build__list">
+      {sections.map((s) => (
+        <li class={`sp-build__row${s.dragging ? " sp-build__row--dragging" : ""}`}>
+          <span class="sp-build__handle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6" r="1.2"/><circle cx="15" cy="6" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="9" cy="18" r="1.2"/><circle cx="15" cy="18" r="1.2"/></svg>
+          </span>
+          <span class="sp-build__label">{s.label}</span>
+          {s.conditional && (
+            <span class="sp-build__cond">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v12a4 4 0 0 0 4 4h8M14 15l4 4-4 4"/></svg>
+              {t(m.cond_chip, locale)}
+            </span>
+          )}
+          <span class="sp-build__arrows" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 4 18 9"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 20 18 15"/></svg>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <button type="button" class="sp-build__add" disabled>
+      <span class="sp-build__plus">+</span>
+      {t(m.add_section, locale)}
+    </button>
+  </div>
+</div>

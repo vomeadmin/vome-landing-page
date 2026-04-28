@@ -1,0 +1,67 @@
+---
+/**
+ * Automate spotlight mockup — automation rule editor.
+ *
+ * Mirrors the React `AutomationPopup.js` shape: a When/If/Then rule card
+ * with a trigger event, a condition, and one or more actions. Each action
+ * has a verb (Add tag, Assign sequence, Send email) plus a highlighted
+ * value chip showing the configured target.
+ *
+ * Layout: each row is a flex pair — small uppercase label chip on the
+ * left, value card on the right — so the WHEN/IF/THEN chips always sit
+ * inside the card padding, never floating outside.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recruitment.automate_mock;
+
+const actions = [
+  { label: t(m.action1, locale), value: t(m.action1_value, locale), kind: "tag" },
+  { label: t(m.action2, locale), value: t(m.action2_value, locale), kind: "seq" },
+  { label: t(m.action3, locale), value: t(m.action3_value, locale), kind: "email" },
+];
+---
+
+<div class="sp-mock sp-mock--automate" aria-label="Automation rule preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.rule_name, locale)}</span>
+    <span class="sp-auto__enabled">
+      <span class="sp-auto__pulse"></span>{t(m.enabled, locale)}
+    </span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-auto__row">
+      <span class="sp-auto__row-label">{t(m.when_label, locale)}</span>
+      <div class="sp-auto__row-value">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>{t(m.when_value, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-auto__row">
+      <span class="sp-auto__row-label">{t(m.if_label, locale)}</span>
+      <div class="sp-auto__row-value">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9h6v6H9z"/></svg>
+        <span>{t(m.if_value, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-auto__row sp-auto__row--then">
+      <span class="sp-auto__row-label">{t(m.then_label, locale)}</span>
+      <ul class="sp-auto__actions">
+        {actions.map((a) => (
+          <li class={`sp-auto__action sp-auto__action--${a.kind}`}>
+            <span class="sp-auto__action-verb">{a.label}</span>
+            <span class="sp-auto__action-value">{a.value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>

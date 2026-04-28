@@ -1,0 +1,55 @@
+---
+/**
+ * Benefit grid — small cards under the hero showing what's possible
+ * with this module at a glance. Each card: line-icon (SVG paths in the
+ * same style as the platform diagram), title, one-line desc.
+ *
+ * Auto-fit grid: 4 cards on wide, 2 on tablet, 1 on phone.
+ */
+import { type Locale } from "../../i18n";
+
+interface BenefitItem {
+  /** Inline SVG path string for a 24x24 viewBox icon. */
+  iconSvg: string;
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  locale?: Locale;
+  h2: string;
+  sub?: string;
+  items: BenefitItem[];
+}
+
+const { h2, sub, items } = Astro.props;
+---
+
+<section class="mp-benefits">
+  <div class="mp-benefits__inner">
+    <div class="mp-benefits__intro">
+      <h2 class="mp-benefits__h2">{h2}</h2>
+      {sub && <p class="mp-benefits__sub">{sub}</p>}
+    </div>
+    <div class="mp-benefits__grid">
+      {items.map((item) => (
+        <div class="mp-benefit">
+          <div class="mp-benefit__icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={item.iconSvg}
+            />
+          </div>
+          <h3 class="mp-benefit__title">{item.title}</h3>
+          <p class="mp-benefit__desc">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

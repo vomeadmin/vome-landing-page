@@ -1,0 +1,64 @@
+---
+/**
+ * Spotlight 3 (TRACK) mockup: admin view of one volunteer's progress
+ * through their onboarding sequence. Each row shows the step name,
+ * a state pill (done / pending / expiring), and an optional date chip.
+ *
+ * Distinct from spotlight 1 (which uses `.sp-steps__*` and shows step
+ * types) and spotlight 2 (which uses `.sp-bg__*` and shows one step
+ * config). This mockup uses `.sp-status__*` and shows live status.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_onboarding.status_mock;
+
+const rows = [
+  { name: t(m.s1_name, locale), state: t(m.s1_state, locale), kind: "done"     },
+  { name: t(m.s2_name, locale), state: t(m.s2_state, locale), kind: "done"     },
+  { name: t(m.s3_name, locale), state: t(m.s3_state, locale), kind: "expiring" },
+  { name: t(m.s4_name, locale), state: t(m.s4_state, locale), kind: "done"     },
+  { name: t(m.s5_name, locale), state: t(m.s5_state, locale), kind: "pending"  },
+];
+---
+
+<div class="sp-mock sp-mock--status" aria-label="Volunteer status preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.vol_name, locale)}</span>
+  </div>
+
+  <div class="sp-mock__body">
+    <div class="sp-mock__col-label">{t(m.label, locale)}</div>
+    <ul class="sp-status__list">
+      {rows.map((r) => (
+        <li class={`sp-status__row sp-status__row--${r.kind}`}>
+          <span class={`sp-status__icon sp-status__icon--${r.kind}`} aria-hidden="true">
+            {r.kind === "done" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            )}
+            {r.kind === "pending" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            )}
+            {r.kind === "expiring" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 17H2z"/><path d="M12 9v5"/><circle cx="12" cy="17.5" r="1"/></svg>
+            )}
+          </span>
+          <span class="sp-status__name">{r.name}</span>
+          <span class={`sp-status__pill sp-status__pill--${r.kind}`}>{r.state}</span>
+        </li>
+      ))}
+    </ul>
+
+    <div class="sp-status__summary">
+      <span class="sp-status__sum-bar" aria-hidden="true">
+        <span class="sp-status__sum-fill"></span>
+      </span>
+      <span class="sp-status__sum-text">{t(m.summary, locale)}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,225 @@
+---
+/**
+ * Module landing page — Onboarding & screening.
+ *
+ * Mirrors the canonical /volunteer-application-forms composition.
+ * Copy lives in `strings.module_onboarding`. Hand-built mockups:
+ *   Hero        SequenceBuilderMock     (sequence overview + step types)
+ *   Spotlight 1 OnboardingStepsMock     (step-type chips on a sequence)
+ *   Spotlight 2 BackgroundCheckMock     (Sterling step config + tracker)
+ *   Spotlight 3 StatusTrackerMock       (volunteer status with expirations)
+ */
+import Layout from "../layouts/Layout.astro";
+import Partners from "../components/sections/Partners.astro";
+import Faq from "../components/sections/Faq.astro";
+import FeatureMatrix from "../components/sections/FeatureMatrix.astro";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+import ModuleHero from "../components/module/ModuleHero.astro";
+import BenefitGrid from "../components/module/BenefitGrid.astro";
+import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
+import HowItWorks from "../components/module/HowItWorks.astro";
+import Differentiators from "../components/module/Differentiators.astro";
+import SequenceBuilderMock from "../components/module/SequenceBuilderMock.astro";
+import OnboardingStepsMock from "../components/module/OnboardingStepsMock.astro";
+import BackgroundCheckMock from "../components/module/BackgroundCheckMock.astro";
+import StatusTrackerMock from "../components/module/StatusTrackerMock.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const r = strings.module_onboarding;
+const prefix = locale === "fr" ? "/fr" : "";
+const demoHref = `${prefix}/demo`;
+const signupHref = "https://www.vomevolunteer.com/register";
+
+// ── Hero meta pills ──
+const heroMeta = [
+  { text: t(r.hero_meta_steps, locale) },
+  { text: t(r.hero_meta_native, locale) },
+  { text: t(r.hero_meta_audit, locale) },
+];
+
+// ── Benefits grid (6 cards). Icons match the platform-diagram line style. ──
+const benefits = [
+  {
+    // Numbered list / steps glyph
+    iconSvg: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h6M7 16h8"/>',
+    title: t(r.ben1_title, locale),
+    desc: t(r.ben1_desc, locale),
+  },
+  {
+    // Shield / check (background check)
+    iconSvg: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/>',
+    title: t(r.ben2_title, locale),
+    desc: t(r.ben2_desc, locale),
+  },
+  {
+    // Open book / training
+    iconSvg: '<path d="M3 5a2 2 0 0 1 2-2h6v17H5a2 2 0 0 1-2-2z"/><path d="M21 5a2 2 0 0 0-2-2h-6v17h6a2 2 0 0 0 2-2z"/>',
+    title: t(r.ben3_title, locale),
+    desc: t(r.ben3_desc, locale),
+  },
+  {
+    // Document with signature line
+    iconSvg: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 16c2-2 4 2 6 0"/>',
+    title: t(r.ben4_title, locale),
+    desc: t(r.ben4_desc, locale),
+  },
+  {
+    // Eye / visibility
+    iconSvg: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    title: t(r.ben5_title, locale),
+    desc: t(r.ben5_desc, locale),
+  },
+  {
+    // 4-grid dashboard (multi-site permissions)
+    iconSvg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    title: t(r.ben6_title, locale),
+    desc: t(r.ben6_desc, locale),
+  },
+];
+
+// ── Spotlight bullets ──
+const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3, locale), t(r.spot1_b4, locale)];
+const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
+const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
+
+// ── How-it-works steps (4) ──
+const steps = [
+  { title: t(r.step1_title, locale), desc: t(r.step1_desc, locale) },
+  { title: t(r.step2_title, locale), desc: t(r.step2_desc, locale) },
+  { title: t(r.step3_title, locale), desc: t(r.step3_desc, locale) },
+  { title: t(r.step4_title, locale), desc: t(r.step4_desc, locale) },
+];
+
+// ── Differentiators (3) ──
+const differentiators = [
+  {
+    // Linked nodes / connected database
+    iconSvg: '<ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5"/><path d="M4 11v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-6"/>',
+    title: t(r.diff1_title, locale),
+    desc: t(r.diff1_desc, locale),
+  },
+  {
+    // Plug / native integration
+    iconSvg: '<path d="M9 4v4M15 4v4M7 8h10v4a5 5 0 0 1-10 0z"/><path d="M12 17v4"/>',
+    title: t(r.diff2_title, locale),
+    desc: t(r.diff2_desc, locale),
+  },
+  {
+    // Calendar with checkmark / audit-ready expirations
+    iconSvg: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M8.5 14.5l2.5 2.5 4.5-5"/>',
+    title: t(r.diff3_title, locale),
+    desc: t(r.diff3_desc, locale),
+  },
+];
+
+// ── Module FAQs (6) ──
+const faqItems = [
+  { q: r.faq1_q, a: r.faq1_a, open: true },
+  { q: r.faq2_q, a: r.faq2_a },
+  { q: r.faq3_q, a: r.faq3_a },
+  { q: r.faq4_q, a: r.faq4_a },
+  { q: r.faq5_q, a: r.faq5_a },
+  { q: r.faq6_q, a: r.faq6_a },
+];
+---
+
+<Layout
+  locale={locale}
+  title={t(r.page_title, locale)}
+  description={t(r.page_description, locale)}
+>
+  <ModuleHero
+    locale={locale}
+    eyebrow={t(r.hero_eyebrow, locale)}
+    h1Part1={t(r.hero_h1_part1, locale)}
+    h1Accent={t(r.hero_h1_accent, locale)}
+    h1Part2={t(r.hero_h1_part2, locale)}
+    sub={t(r.hero_sub, locale)}
+    ctaPrimaryHref={signupHref}
+    ctaPrimaryLabel={t(strings.nav.signup_free, locale)}
+    ctaSecondaryHref={demoHref}
+    ctaSecondaryLabel={t(strings.nav.book_demo, locale)}
+    meta={heroMeta}
+  >
+    <SequenceBuilderMock slot="mockup" locale={locale} />
+  </ModuleHero>
+
+  <Partners locale={locale} />
+
+  <BenefitGrid
+    locale={locale}
+    h2={t(r.benefits_h2, locale)}
+    sub={t(r.benefits_sub, locale)}
+    items={benefits}
+  />
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot1_kicker, locale)}
+    title={t(r.spot1_title, locale)}
+    body={t(r.spot1_body, locale)}
+    bullets={spot1Bullets}
+    side="right"
+  >
+    <OnboardingStepsMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot2_kicker, locale)}
+    title={t(r.spot2_title, locale)}
+    body={t(r.spot2_body, locale)}
+    bullets={spot2Bullets}
+    side="left"
+  >
+    <BackgroundCheckMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot3_kicker, locale)}
+    title={t(r.spot3_title, locale)}
+    body={t(r.spot3_body, locale)}
+    bullets={spot3Bullets}
+    side="right"
+  >
+    <StatusTrackerMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <HowItWorks
+    locale={locale}
+    h2={t(r.how_h2, locale)}
+    sub={t(r.how_sub, locale)}
+    steps={steps}
+  />
+
+  <Differentiators
+    locale={locale}
+    h2={t(r.diff_h2, locale)}
+    sub={t(r.diff_sub, locale)}
+    items={differentiators}
+  />
+
+  <Faq
+    locale={locale}
+    items={faqItems}
+    heading={r.faq_h2}
+    sub={r.faq_sub}
+    ctaText={r.faq_cta_text}
+    ctaLink={r.faq_cta_link}
+  />
+
+  <FeatureMatrix
+    locale={locale}
+    onlySection="onboarding"
+    heading={r.matrix_h2}
+    showAllToggle
+  />
+
+  <ClosingCta locale={locale} />
+</Layout>

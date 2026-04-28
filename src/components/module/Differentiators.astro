@@ -1,0 +1,53 @@
+---
+/**
+ * "Why Vome" differentiators — 3-column callout that names what this
+ * module does that generic alternatives can't. Module pages use this
+ * to bridge from features to differentiation.
+ */
+import { type Locale } from "../../i18n";
+
+interface DiffItem {
+  /** Inline SVG path string for a 24x24 viewBox icon. */
+  iconSvg: string;
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  locale?: Locale;
+  h2: string;
+  sub?: string;
+  items: DiffItem[];
+}
+
+const { h2, sub, items } = Astro.props;
+---
+
+<section class="mp-diff">
+  <div class="mp-diff__inner">
+    <div class="mp-diff__intro">
+      <h2 class="mp-diff__h2">{h2}</h2>
+      {sub && <p class="mp-diff__sub">{sub}</p>}
+    </div>
+    <div class="mp-diff__grid">
+      {items.map((item) => (
+        <div class="mp-diff__item">
+          <div class="mp-diff__icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={item.iconSvg}
+            />
+          </div>
+          <h3 class="mp-diff__title">{item.title}</h3>
+          <p class="mp-diff__desc">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

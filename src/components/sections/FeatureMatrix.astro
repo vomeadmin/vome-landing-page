@@ -9,22 +9,55 @@
  */
 import { strings, t, type Locale } from "../../i18n";
 
+/**
+ * `onlySection` filters the matrix to a single module's rows (used on
+ * per-module landing pages). Pass the section key from the union below;
+ * default is "all" which renders every section.
+ */
+type SectionKey =
+  | "all"
+  | "fundamentals"
+  | "recruitment"
+  | "onboarding"
+  | "scheduling"
+  | "hours"
+  | "data"
+  | "comms"
+  | "recognition"
+  | "advanced"
+  | "success";
+
 interface Props {
   locale?: Locale;
+  onlySection?: SectionKey;
+  /** Override the section heading. Defaults to `plans.comp_h2`. */
+  heading?: { en: string; fr?: string };
+  /**
+   * When true (and `onlySection` is set to a single module), render the
+   * remaining sections inside a collapsed `<details>` so the user can
+   * expand to see the full per-plan matrix. Default false.
+   */
+  showAllToggle?: boolean;
 }
 
-const { locale = "en" } = Astro.props;
+const {
+  locale = "en",
+  onlySection = "all",
+  heading,
+  showAllToggle = false,
+} = Astro.props;
 const p = strings.plans;
 
 type PlanVal = true | false | { en: string; fr?: string };
 interface Row { name: { en: string; fr?: string }; desc: { en: string; fr?: string }; recruit: PlanVal; pro: PlanVal; ent: PlanVal; ult: PlanVal; }
-interface Section { title: { en: string; fr?: string }; rows: Row[]; }
+interface Section { key: SectionKey; title: { en: string; fr?: string }; rows: Row[]; }
 
 const C = true;
 const X = false;
 
-const sections: Section[] = [
+const allSections: Section[] = [
   {
+    key: 'fundamentals',
     title: p.sec_fundamentals,
     rows: [
       { name: p.f_users_n, desc: p.f_users_d, recruit: p.comp_unlimited, pro: p.comp_unlimited, ent: p.comp_unlimited, ult: p.comp_unlimited },
@@ -33,6 +66,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'recruitment',
     title: p.sec_recruitment,
     rows: [
       { name: p.rc_page_n, desc: p.rc_page_d, recruit: C, pro: C, ent: C, ult: C },
@@ -47,6 +81,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'onboarding',
     title: p.sec_onboarding,
     rows: [
       { name: p.on_seq_n, desc: p.on_seq_d, recruit: p.comp_seq_1, pro: p.comp_unlimited, ent: p.comp_unlimited, ult: p.comp_unlimited },
@@ -59,6 +94,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'scheduling',
     title: p.sec_scheduling,
     rows: [
       { name: p.sc_shifts_n, desc: p.sc_shifts_d, recruit: X, pro: C, ent: C, ult: C },
@@ -74,6 +110,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'hours',
     title: p.sec_hours,
     rows: [
       { name: p.hr_claims_n, desc: p.hr_claims_d, recruit: C, pro: C, ent: C, ult: C },
@@ -84,6 +121,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'data',
     title: p.sec_data,
     rows: [
       { name: p.da_profiles_n, desc: p.da_profiles_d, recruit: p.comp_basic, pro: C, ent: C, ult: C },
@@ -100,6 +138,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'comms',
     title: p.sec_comms,
     rows: [
       { name: p.co_email_n, desc: p.co_email_d, recruit: p.comp_basic, pro: C, ent: C, ult: C },
@@ -110,6 +149,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'recognition',
     title: p.sec_recognition,
     rows: [
       { name: p.re_ach_n, desc: p.re_ach_d, recruit: X, pro: C, ent: C, ult: C },
@@ -117,6 +157,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'advanced',
     title: p.sec_advanced,
     rows: [
       { name: p.ad_roles_n, desc: p.ad_roles_d, recruit: X, pro: X, ent: C, ult: C },
@@ -131,6 +172,7 @@ const sections: Section[] = [
     ],
   },
   {
+    key: 'success',
     title: p.sec_success,
     rows: [
       { name: p.cs_kb_n, desc: p.cs_kb_d, recruit: C, pro: C, ent: C, ult: C },
@@ -144,11 +186,32 @@ const sections: Section[] = [
     ],
   },
 ];
+
+// Filter logic:
+// - onlySection="all" → render every section as primary (no toggle).
+// - onlySection=<key>, showAllToggle=false → render just that section.
+// - onlySection=<key>, showAllToggle=true → render that section as primary
+//   and the rest hidden by default; a button below the table reveals them.
+const isPartialView = onlySection !== "all";
+const sections =
+  isPartialView && !showAllToggle
+    ? allSections.filter((s) => s.key === onlySection)
+    : allSections;
+const useToggle = isPartialView && showAllToggle;
+const headingText = t(heading ?? p.comp_h2, locale);
+
+// The footnote refers to asterisks in the customer-success rows. It's only
+// meaningful when that section is actually rendered. So we only show it
+// if the success section is in the rendered list, and on toggle pages it
+// inherits the same secondary visibility (hidden until expanded).
+const successInSections = sections.some((s) => s.key === "success");
+const footnoteIsSecondary =
+  useToggle && successInSections && onlySection !== "success";
 ---
 
 <section class="pp-comp">
-  <div class="pp-comp__inner">
-    <h2 class="pp-section-h2">{t(p.comp_h2, locale)}</h2>
+  <div class={`pp-comp__inner${useToggle ? " pp-comp__inner--toggle" : ""}`}>
+    <h2 class="pp-section-h2">{headingText}</h2>
 
     <div class="pp-table-wrap">
       <table class="pp-table">
@@ -161,13 +224,12 @@ const sections: Section[] = [
             <th class="pp-table__col-plan pp-table__col-plan--ult">{t(p.plan_ult, locale)}</th>
           </tr>
         </thead>
-        <tbody>
-          {sections.map((sec) => (
-            <>
-              <tr class="pp-table__divider">
-                <td colspan="5">{t(sec.title, locale)}</td>
-              </tr>
-              {sec.rows.map((row) => (
+        {sections.map((sec) => (
+          <tbody class={`pp-tbody${useToggle && sec.key !== onlySection ? " pp-tbody--secondary" : ""}`}>
+            <tr class="pp-table__divider">
+              <td colspan="5">{t(sec.title, locale)}</td>
+            </tr>
+            {sec.rows.map((row) => (
                 <tr class="pp-table__row">
                   <td class="pp-table__feat-cell">
                     <span class="pp-table__feat-name">
@@ -217,12 +279,273 @@ const sections: Section[] = [
                     )}
                   </td>
                 </tr>
-              ))}
-            </>
-          ))}
-        </tbody>
+            ))}
+          </tbody>
+        ))}
       </table>
     </div>
-    <p class="pp-comp__footnote">{t(p.comp_footnote, locale)}</p>
+    {useToggle && (
+      <button
+        type="button"
+        class="pp-comp__toggle"
+        data-show-label={t(p.comp_show_all, locale)}
+        data-hide-label={t(p.comp_show_less, locale)}
+        aria-expanded="false"
+      >
+        {t(p.comp_show_all, locale)}
+      </button>
+    )}
+    {successInSections && (
+      <p class={`pp-comp__footnote${footnoteIsSecondary ? " pp-comp__footnote--secondary" : ""}`}>
+        {t(p.comp_footnote, locale)}
+      </p>
+    )}
   </div>
 </section>
+
+<style>
+  /* Matrix styling — kept inside this component so the table renders the
+     same on /plans and /features. Originally lived inline in PlansBody;
+     moved here so the styles travel with the markup wherever the
+     component is mounted. */
+  .pp-comp{
+    background:var(--surface-0);
+    padding:72px 5%;
+  }
+  .pp-comp__inner{
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .pp-section-h2{
+    font-family:var(--font-display);
+    font-size:clamp(24px, 2.5vw, 32px);
+    font-weight:700;
+    color:var(--fg-2);
+    margin:0 0 32px;
+    text-wrap:balance;
+    text-align:center;
+  }
+
+  .pp-table-wrap{
+    overflow-x:auto;
+    border-radius:10px;
+    border:1px solid #e2e0e0;
+    box-shadow:0 1px 4px rgba(0,0,0,0.07);
+  }
+  .pp-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+    font-size:14px;
+  }
+  .pp-table thead tr{
+    height:72px;
+    background:var(--surface-0);
+  }
+  .pp-table th{
+    font-size:13px;
+    font-weight:700;
+    color:var(--fg-2);
+    padding:0 16px;
+    text-align:center;
+    border-bottom:2px solid #f0eff4;
+  }
+  .pp-table__col-feat{
+    text-align:left !important;
+    width:38%;
+    min-width:260px;
+  }
+  .pp-table__col-plan{
+    width:15.5%;
+    font-size:15px;
+  }
+  .pp-table__col-plan--rec{color:var(--vome-orange)}
+  .pp-table__col-plan--pro{color:#4bb181}
+  .pp-table__col-plan--ent{color:#4b95e9}
+  .pp-table__col-plan--ult{color:#7c3aed}
+
+  .pp-table__divider td{
+    background:#fef4ea;
+    padding:12px 16px;
+    font-size:13px;
+    font-weight:700;
+    color:rgba(0,0,0,0.7);
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    border-top:1px solid #e8e6ee;
+    border-bottom:1px solid #e8e6ee;
+  }
+  .pp-table__row:hover td{background:#fafafa}
+  .pp-table__row td{
+    border-bottom:1px solid #f0eff4;
+    padding:14px 16px;
+    vertical-align:middle;
+  }
+  .pp-table__feat-cell{vertical-align:middle}
+  .pp-table__feat-name{
+    font-weight:600;
+    color:rgba(0,0,0,0.8);
+    font-size:13.5px;
+    line-height:1.4;
+    display:inline;
+  }
+  .pp-table__val{
+    text-align:center !important;
+    vertical-align:middle !important;
+  }
+  .pp-icon{display:inline-block;vertical-align:middle}
+  .pp-icon--rec{color:var(--vome-orange)}
+  .pp-icon--pro{color:#4bb181}
+  .pp-icon--ent{color:#4b95e9}
+  .pp-icon--ult{color:#7c3aed}
+  .pp-icon--x{color:rgba(0,0,0,0.2)}
+  .pp-val-text{
+    font-size:12px;
+    font-weight:600;
+    color:rgba(0,0,0,0.6);
+  }
+  .pp-comp__footnote{
+    font-size:12px;
+    color:rgba(0,0,0,0.4);
+    margin:10px 0 0;
+    font-weight:500;
+  }
+
+  .pp-tip{
+    display:inline-flex;
+    align-items:center;
+    margin-left:6px;
+    cursor:pointer;
+    position:relative;
+    vertical-align:middle;
+    flex-shrink:0;
+  }
+  .pp-tip:focus{outline:none}
+  .pp-tip__icon{
+    color:#000;
+    opacity:0.75;
+    flex-shrink:0;
+    transition:opacity 0.15s;
+    display:block;
+  }
+  .pp-tip:hover .pp-tip__icon,
+  .pp-tip:focus .pp-tip__icon{opacity:1}
+  .pp-tip__bubble{
+    display:none;
+    position:fixed;
+    background:#0a0a0a;
+    color:#fefefe;
+    font-size:13px;
+    font-weight:500;
+    line-height:1.5;
+    padding:10px 14px;
+    border-radius:6px;
+    width:280px;
+    z-index:9999;
+    box-shadow:0 4px 16px rgba(0,0,0,0.35);
+    pointer-events:none;
+    white-space:normal;
+  }
+  .pp-tip:hover .pp-tip__bubble,
+  .pp-tip:focus-within .pp-tip__bubble{display:block}
+  .pp-tip__bubble.is-visible{display:block}
+
+  /* Phone: tighter vertical padding so the table doesn't dominate. */
+  @media (max-width: 720px){
+    .pp-comp{padding-top:48px;padding-bottom:48px}
+  }
+
+  /* Show-all toggle — used on per-module pages. Secondary tbodies are
+     hidden until the user opts in to the full matrix. The footnote
+     references the customer-success section and inherits the same
+     visibility so it only shows when its referent is on screen. */
+  .pp-comp__inner--toggle .pp-tbody--secondary,
+  .pp-comp__inner--toggle .pp-comp__footnote--secondary{display:none}
+  .pp-comp__inner--toggle.is-expanded .pp-tbody--secondary{display:table-row-group}
+  .pp-comp__inner--toggle.is-expanded .pp-comp__footnote--secondary{display:block}
+  .pp-comp__toggle{
+    display:inline-flex;align-items:center;gap:8px;
+    margin:24px auto 0;
+    padding:12px 22px;
+    font-family:var(--font-display);
+    font-size:14px;font-weight:600;
+    color:var(--vome-orange);
+    background:#fff;
+    border:1.5px solid rgba(250,147,91,.45);
+    border-radius:10px;
+    cursor:pointer;
+    transition:background .15s, border-color .15s, color .15s;
+  }
+  .pp-comp__toggle::after{
+    content:"↓";
+    display:inline-block;
+    transition:transform .2s;
+  }
+  .pp-comp__inner--toggle.is-expanded .pp-comp__toggle::after{
+    transform:rotate(180deg);
+  }
+  .pp-comp__toggle:hover{
+    background:var(--vome-peach-50);
+    border-color:var(--vome-orange);
+  }
+  .pp-comp__inner--toggle{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .pp-comp__inner--toggle .pp-comp__toggle{align-self:center}
+</style>
+
+<script>
+  /* Tooltip positioning for the feature-name info icons. The bubble is
+     position:fixed so it can escape the table's overflow:auto wrapper.
+     We compute placement on hover/focus relative to the trigger and clamp
+     to the viewport. Lives here (not on the host page) so the matrix
+     works wherever it's mounted. */
+  document.querySelectorAll<HTMLElement>('.pp-tip').forEach((tip) => {
+    const bubble = tip.querySelector<HTMLElement>('.pp-tip__bubble');
+    if (!bubble) return;
+
+    const show = () => {
+      const rect = tip.getBoundingClientRect();
+      const bw = 280;
+
+      bubble.style.visibility = 'hidden';
+      bubble.style.left = '-9999px';
+      bubble.classList.add('is-visible');
+      const bh = bubble.offsetHeight;
+
+      let left = rect.left + rect.width / 2 - bw / 2;
+      left = Math.max(8, Math.min(left, window.innerWidth - bw - 8));
+
+      let top = rect.bottom + 8;
+      if (top + bh > window.innerHeight - 8) {
+        top = rect.top - bh - 8;
+      }
+
+      bubble.style.left = `${left}px`;
+      bubble.style.top = `${top}px`;
+      bubble.style.visibility = '';
+    };
+
+    const hide = () => bubble.classList.remove('is-visible');
+
+    tip.addEventListener('mouseenter', show);
+    tip.addEventListener('mouseleave', hide);
+    tip.addEventListener('focus', show);
+    tip.addEventListener('blur', hide);
+  });
+
+  /* Show-all toggle on module pages: expand to reveal secondary tbodies. */
+  document.querySelectorAll<HTMLButtonElement>('.pp-comp__toggle').forEach((btn) => {
+    const wrap = btn.closest<HTMLElement>('.pp-comp__inner--toggle');
+    if (!wrap) return;
+    btn.addEventListener('click', () => {
+      const expanded = wrap.classList.toggle('is-expanded');
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      btn.textContent = expanded
+        ? btn.dataset.hideLabel ?? 'Show fewer features'
+        : btn.dataset.showLabel ?? 'Show all features by plan';
+    });
+  });
+</script>

@@ -1,0 +1,45 @@
+---
+/**
+ * Feature spotlight — a deeper-than-bullet writeup with copy on one side
+ * and a mockup/illustration on the other. Module pages stack 2–3 of these
+ * with alternating sides so the page reads top-to-bottom without flat
+ * repetition.
+ *
+ * Each spotlight gets: a kicker (small uppercase tag), a headline, a
+ * 1–2 sentence body, an optional checkmark bullet list, and a slot for
+ * the mockup. `side="right"` puts the mockup on the right (default);
+ * `side="left"` flips it.
+ */
+import { type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+  kicker: string;
+  title: string;
+  /** Body. May contain inline <strong>/<em>. Rendered with set:html. */
+  body: string;
+  bullets?: string[];
+  side?: "left" | "right";
+}
+
+const { kicker, title, body, bullets = [], side = "right" } = Astro.props;
+const sideClass = side === "left" ? "mp-spotlight--flip" : "";
+---
+
+<section class={`mp-spotlight ${sideClass}`}>
+  <div class="mp-spotlight__inner">
+    <div class="mp-spotlight__copy">
+      <span class="mp-spotlight__kicker">{kicker}</span>
+      <h2 class="mp-spotlight__title">{title}</h2>
+      <p class="mp-spotlight__body" set:html={body} />
+      {bullets.length > 0 && (
+        <ul class="mp-spotlight__bullets">
+          {bullets.map((b) => (<li>{b}</li>))}
+        </ul>
+      )}
+    </div>
+    <div class="mp-spotlight__visual">
+      <slot name="mockup" />
+    </div>
+  </div>
+</section>

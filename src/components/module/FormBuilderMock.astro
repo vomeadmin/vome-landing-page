@@ -1,0 +1,84 @@
+---
+/**
+ * Hand-built HTML/CSS mockup of the Vome form builder. Used as the hero
+ * visual on /volunteer-application-forms. Decorative — sample names, dates,
+ * and labels are placeholders. Structural labels (chips, kicker headers)
+ * translate via t() so the mockup speaks the right language.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recruitment.mock;
+---
+
+<div class="fb-mock" aria-label="Form builder preview">
+  <div class="fb-mock__chrome">
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__url">{t(m.url, locale)}</span>
+  </div>
+
+  <div class="fb-mock__body">
+    <div class="fb-mock__head">
+      <div class="fb-mock__title-row">
+        <span class="fb-mock__kicker">{t(m.kicker, locale)}</span>
+        <span class="fb-mock__live">
+          <span class="fb-mock__live-dot"></span>{t(m.live, locale)}
+        </span>
+      </div>
+      <h3 class="fb-mock__title">{t(m.form_title, locale)}</h3>
+    </div>
+
+    <div class="fb-mock__field">
+      <div class="fb-mock__field-meta">
+        <span class="fb-mock__field-type">{t(m.q1_type, locale)}</span>
+        <span class="fb-mock__field-rule">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="4" cy="18" r="1.5"/></svg>
+          {t(m.q1_rule, locale)}
+        </span>
+      </div>
+      <div class="fb-mock__field-q">{t(m.q1_q, locale)}</div>
+      <div class="fb-mock__choices">
+        <span class="fb-mock__choice">{t(m.q1_o1, locale)}</span>
+        <span class="fb-mock__choice fb-mock__choice--sel">{t(m.q1_o2, locale)}</span>
+        <span class="fb-mock__choice">{t(m.q1_o3, locale)}</span>
+      </div>
+    </div>
+
+    <div class="fb-mock__field fb-mock__field--branch">
+      <div class="fb-mock__branch-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v12a4 4 0 0 0 4 4h8M14 15l4 4-4 4"/></svg>
+        {t(m.branch_label, locale)}
+      </div>
+      <div class="fb-mock__field-meta">
+        <span class="fb-mock__field-type">{t(m.q2_type, locale)}</span>
+      </div>
+      <div class="fb-mock__field-q">{t(m.q2_q, locale)}</div>
+      <div class="fb-mock__file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 14l3-3 3 3M12 11v7"/></svg>
+        <span>{t(m.file_hint, locale)}</span>
+      </div>
+    </div>
+
+    <div class="fb-mock__field">
+      <div class="fb-mock__field-meta">
+        <span class="fb-mock__field-type">{t(m.q3_type, locale)}</span>
+      </div>
+      <div class="fb-mock__field-q">{t(m.q3_q, locale)}</div>
+      <div class="fb-mock__sig">
+        <span class="fb-mock__sig-line"></span>
+        <span class="fb-mock__sig-tag">{t(m.signed, locale)}</span>
+      </div>
+    </div>
+
+    <div class="fb-mock__add">
+      <span class="fb-mock__plus">+</span>
+      {t(m.add_question, locale)}
+    </div>
+  </div>
+</div>

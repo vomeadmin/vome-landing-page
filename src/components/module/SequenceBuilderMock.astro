@@ -1,0 +1,74 @@
+---
+/**
+ * Hero mockup for /volunteer-onboarding-software. Hand-built HTML/CSS
+ * preview of Vome's sequence builder: ordered list of onboarding steps
+ * with type chips (Interview, Training, Waiver, Background check,
+ * Document) and required/optional badges. Mirrors the layout patterns
+ * in `web-app/vome-react/src/views/org/orgSequences/createSequence`.
+ *
+ * Reuses the shared `.fb-mock` chrome (browser bar) so hero mockups
+ * across module pages feel like a family.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_onboarding.builder_mock;
+
+const steps = [
+  { type: t(m.step1_type, locale), name: t(m.step1_name, locale), meta: t(m.step1_meta, locale), required: true,  kind: "interview" },
+  { type: t(m.step2_type, locale), name: t(m.step2_name, locale), meta: t(m.step2_meta, locale), required: true,  kind: "training"  },
+  { type: t(m.step3_type, locale), name: t(m.step3_name, locale), meta: t(m.step3_meta, locale), required: true,  kind: "waiver"    },
+  { type: t(m.step4_type, locale), name: t(m.step4_name, locale), meta: t(m.step4_meta, locale), required: true,  kind: "bg"        },
+  { type: t(m.step5_type, locale), name: t(m.step5_name, locale), meta: t(m.step5_meta, locale), required: false, kind: "doc"       },
+];
+---
+
+<div class="fb-mock fb-mock--seq" aria-label="Sequence builder preview">
+  <div class="fb-mock__chrome">
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__url">{t(m.url, locale)}</span>
+  </div>
+
+  <div class="fb-mock__body">
+    <div class="fb-mock__head">
+      <div class="fb-mock__title-row">
+        <span class="fb-mock__kicker">{t(m.kicker, locale)}</span>
+        <span class="fb-seq__draft">
+          <span class="fb-seq__draft-dot"></span>{t(m.draft, locale)}
+        </span>
+      </div>
+      <h3 class="fb-mock__title">{t(m.seq_title, locale)}</h3>
+    </div>
+
+    <div class="fb-seq__col-label">{t(m.steps_label, locale)}</div>
+
+    <ol class="fb-seq__list">
+      {steps.map((s, i) => (
+        <li class={`fb-seq__step fb-seq__step--${s.kind}`}>
+          <span class="fb-seq__num">{String(i + 1).padStart(2, "0")}</span>
+          <div class="fb-seq__step-body">
+            <div class="fb-seq__step-row">
+              <span class={`fb-seq__chip fb-seq__chip--${s.kind}`}>{s.type}</span>
+              <span class={`fb-seq__badge${s.required ? " fb-seq__badge--req" : ""}`}>
+                {s.required ? t(m.required, locale) : t(m.optional, locale)}
+              </span>
+            </div>
+            <div class="fb-seq__step-name">{s.name}</div>
+            <div class="fb-seq__step-meta">{s.meta}</div>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="fb-seq__add">
+      <span class="fb-mock__plus">+</span>
+      {t(m.add_step, locale)}
+    </div>
+  </div>
+</div>

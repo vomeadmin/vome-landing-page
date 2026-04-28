@@ -338,6 +338,8 @@ export const strings = {
     node_recognition_desc: { en: "Custom challenges & awards", fr: "Défis et récompenses personnalisés" },
     node_app_title: { en: "Mobile app", fr: "Application mobile" },
     node_app_desc: { en: "iOS & Android", fr: "iOS et Android" },
+    node_integrations_title: { en: "Integrations", fr: "Intégrations" },
+    node_integrations_desc: { en: "Native, API & Zapier", fr: "Natif, API et Zapier" },
 
     // ── Modules grid section ────────────────────────────────────────────
     // Eight cards, one per module shown in the platform diagram. Card copy
@@ -391,11 +393,11 @@ export const strings = {
     // Card 4 — Hour tracking & check-in
     card_hours_title: { en: "Hour tracking & check-in", fr: "Suivi des heures et pointage" },
     card_hours_desc: {
-      en: "So many ways to track hours. Pick what fits each program: QR codes, kiosks, hour claims, or fully automatic check-in.",
-      fr: "Tant de façons de suivre les heures. Choisissez ce qui convient à chaque programme : codes QR, bornes, déclarations ou pointage automatique.",
+      en: "So many ways to track hours. Pick what fits each program: QR codes, kiosks, hour claims, or fully auto check-in & out.",
+      fr: "Tant de façons de suivre les heures. Choisissez ce qui convient à chaque programme : codes QR, bornes, déclarations ou pointage automatique d'entrée et de sortie.",
     },
-    card_hours_f1: { en: "QR-code attendance tracking via the mobile app", fr: "Suivi de présence par code QR depuis l'application mobile" },
-    card_hours_f2: { en: "Unlimited on-site kiosks (any tablet, computer, or phone)", fr: "Bornes sur place illimitées (sur toute tablette, ordinateur ou téléphone)" },
+    card_hours_f1: { en: "QR-code or tap-to-check-in attendance tracking via the mobile app", fr: "Suivi de présence par code QR ou pointage par tape via l'application mobile" },
+    card_hours_f2: { en: "Attendance kiosks to be used on any tablet, computer or phone", fr: "Bornes de présence à utiliser sur toute tablette, ordinateur ou téléphone" },
     card_hours_f3: { en: "Volunteer-submitted hour claims with admin approval", fr: "Déclarations d'heures soumises par les bénévoles avec approbation admin" },
     card_hours_f4: { en: "Bulk hour logging + integrated reservation & hours reports", fr: "Saisie d'heures en lot et rapports intégrés de réservations et d'heures" },
     card_hours_link: { en: "Learn more about hour tracking", fr: "En savoir plus sur le suivi des heures" },
@@ -406,10 +408,10 @@ export const strings = {
       en: "Reward and motivate your volunteers with auto-earned achievements and the custom awards your team designs.",
       fr: "Récompensez et motivez vos bénévoles avec des accomplissements gagnés automatiquement et les prix personnalisés conçus par votre équipe.",
     },
-    card_recognition_f1: { en: "Automatic achievements based on hours & shift milestones", fr: "Accomplissements automatiques selon les heures et jalons de quarts" },
-    card_recognition_f2: { en: "Custom awards & badges for personal moments", fr: "Prix et badges personnalisés pour les moments importants" },
-    card_recognition_f3: { en: "Visible on volunteer profiles, share-ready", fr: "Visibles sur les profils des bénévoles, prêts à partager" },
-    card_recognition_f4: { en: "Available on Enterprise & Ultimate plans", fr: "Disponible sur les forfaits Entreprise et Ultime" },
+    card_recognition_f1: { en: "Built-in Vome achievements your volunteers earn out of the box", fr: "Accomplissements Vome intégrés que vos bénévoles gagnent dès le départ" },
+    card_recognition_f2: { en: "Custom awards & badges your team designs", fr: "Prix et badges personnalisés conçus par votre équipe" },
+    card_recognition_f3: { en: "Auto-earned based on hours, shifts & milestones", fr: "Gagnés automatiquement selon les heures, quarts et jalons" },
+    card_recognition_f4: { en: "Visible on volunteer profiles, share-ready", fr: "Visibles sur les profils des bénévoles, prêts à partager" },
     card_recognition_link: { en: "Learn more about recognition", fr: "En savoir plus sur la reconnaissance" },
 
     // Card 6 — Communications
@@ -448,12 +450,482 @@ export const strings = {
     card_app_f4: { en: "Push notifications + reminders built in", fr: "Notifications poussées et rappels intégrés" },
     card_app_link: { en: "Learn more about the app", fr: "En savoir plus sur l'application" },
 
+    // Card 9 — Integrations & API
+    card_integrations_title: { en: "Integrations & API", fr: "Intégrations et API" },
+    card_integrations_desc: {
+      en: "Connect Vome to the tools your team already uses. Native integrations for the essentials, plus API access and no-code automations for everything else.",
+      fr: "Connectez Vome aux outils que votre équipe utilise déjà. Intégrations natives pour l'essentiel, accès API et automatisations sans code pour le reste.",
+    },
+    card_integrations_f1: { en: "Native integrations: Salesforce Lightning app, Sterling Volunteers, Double the Donation, and many more", fr: "Intégrations natives : application Salesforce Lightning, Sterling Volunteers, Double the Donation, et bien d'autres" },
+    card_integrations_f2: { en: "Build custom no-code automations with Zapier and Microsoft Power Automate", fr: "Bâtissez des automatisations sans code avec Zapier et Microsoft Power Automate" },
+    card_integrations_f3: { en: "SAML-based SSO with Microsoft Entra ID, JumpCloud, and other providers", fr: "SSO basé sur SAML avec Microsoft Entra ID, JumpCloud et autres fournisseurs" },
+    card_integrations_f4: { en: "REST API, custom webhooks, and a developer dashboard", fr: "API REST, webhooks personnalisés et tableau de bord développeur" },
+    card_integrations_link: { en: "Learn more about integrations", fr: "En savoir plus sur les intégrations" },
+
     // Post-modules CTA
     cta_h2: { en: "See it in action", fr: "Voyez Vome à l'œuvre" },
     cta_sub: {
       en: "Sign up free and explore the platform yourself, or book a demo and we'll walk you through the modules that matter most to you.",
       fr: "Inscrivez-vous gratuitement et explorez la plateforme par vous-même, ou réservez une démo et nous vous présenterons les modules les plus pertinents pour vous.",
     },
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  //  MODULE PAGE: RECRUITMENT  /volunteer-application-forms
+  //  Pilot for the per-module template. Other modules will follow the same
+  //  shape (hero / benefits / spotlights / how-it-works / differentiators /
+  //  faq / matrix / closing CTA) under their own namespaces.
+  // ─────────────────────────────────────────────────────────────────────────
+  module_recruitment: {
+    page_title: { en: "Volunteer application forms & recruitment workflows | Vome", fr: "Formulaires de candidature et flux de recrutement | Vome" },
+    page_description: {
+      en: "Build modern, custom-branded forms with conditional questions, automations, and recruitment workflows that route applicants automatically.",
+      fr: "Bâtissez des formulaires modernes à votre image avec questions conditionnelles, automatisations et flux de recrutement qui acheminent les candidats automatiquement.",
+    },
+
+    // ── Hero ──
+    hero_eyebrow: { en: "Recruitment & application forms", fr: "Recrutement et formulaires de candidature" },
+    hero_h1_part1: { en: "Build the ", fr: "Bâtissez le " },
+    hero_h1_accent: { en: "recruitment process", fr: "processus de recrutement" },
+    hero_h1_part2: { en: " your program needs.", fr: " dont votre programme a besoin." },
+    hero_sub: {
+      en: "Modern forms with <em>conditional questions</em>, <em>file uploads</em>, and <em>e-signatures</em>. <strong>Automations</strong> that route applicants. <strong>Recruitment workflows</strong> wired into the rest of the platform.",
+      fr: "Formulaires modernes avec <em>questions conditionnelles</em>, <em>téléversements</em> et <em>signatures électroniques</em>. <strong>Automatisations</strong> qui acheminent les candidats. <strong>Flux de recrutement</strong> connectés au reste de la plateforme.",
+    },
+    hero_meta_unlimited: { en: "Build your first form free", fr: "Bâtissez votre premier formulaire gratuitement" },
+    hero_meta_branded: { en: "Custom-branded recruitment page", fr: "Page de recrutement à votre image" },
+    hero_meta_apps: { en: "Works on every device", fr: "Fonctionne sur tout appareil" },
+
+    // ── Form-builder mockup labels ──
+    mock: {
+      url: { en: "vomevolunteer.com/forms/spring-2026", fr: "vomevolunteer.com/forms/printemps-2026" },
+      kicker: { en: "FORM BUILDER", fr: "CONCEPTEUR DE FORMULAIRE" },
+      live: { en: "Live preview", fr: "Aperçu en direct" },
+      form_title: { en: "Volunteer application · Spring 2026", fr: "Candidature de bénévole · Printemps 2026" },
+      q1_type: { en: "Multiple choice", fr: "Choix multiple" },
+      q1_rule: { en: "Branches", fr: "Branche" },
+      q1_q: { en: "Which programs interest you?", fr: "Quels programmes vous intéressent ?" },
+      q1_o1: { en: "Tutoring", fr: "Tutorat" },
+      q1_o2: { en: "Event support", fr: "Soutien aux événements" },
+      q1_o3: { en: "Hospital", fr: "Hôpital" },
+      branch_label: { en: "If 'Event support' is selected", fr: "Si « Soutien aux événements » est choisi" },
+      q2_type: { en: "File upload", fr: "Téléversement de fichier" },
+      q2_q: { en: "Upload your event-coordinator certificate", fr: "Téléversez votre certificat de coordination d'événement" },
+      file_hint: { en: "PDF, JPG, PNG · up to 10MB", fr: "PDF, JPG, PNG · jusqu'à 10 Mo" },
+      q3_type: { en: "E-signature", fr: "Signature électronique" },
+      q3_q: { en: "I agree to the volunteer code of conduct", fr: "J'accepte le code de conduite des bénévoles" },
+      signed: { en: "Signed", fr: "Signé" },
+      add_question: { en: "Add question", fr: "Ajouter une question" },
+    },
+
+    // ── Build spotlight mockup: form sections list ──
+    build_mock: {
+      chip: { en: "FORM EDITOR", fr: "ÉDITEUR DE FORMULAIRE" },
+      form_name: { en: "Volunteer application · Spring 2026", fr: "Candidature · Printemps 2026" },
+      sections_label: { en: "Form sections", fr: "Sections du formulaire" },
+      sec1: { en: "General info", fr: "Infos générales" },
+      sec2: { en: "Profile info", fr: "Profil" },
+      sec3: { en: "Attachments", fr: "Pièces jointes" },
+      sec4: { en: "Digital consent", fr: "Consentement numérique" },
+      sec5: { en: "Program preference", fr: "Programme préféré" },
+      cond_chip: { en: "Conditional", fr: "Conditionnel" },
+      add_section: { en: "Add section", fr: "Ajouter une section" },
+      reorder_hint: { en: "Drag to reorder", fr: "Glissez pour réorganiser" },
+    },
+
+    // ── Route spotlight mockup: workflow + visibility ──
+    route_mock: {
+      chip: { en: "RECRUITMENT WORKFLOW", fr: "FLUX DE RECRUTEMENT" },
+      opp_name: { en: "Hospital companion program", fr: "Programme d'accompagnement hospitalier" },
+      stage1: { en: "Applied", fr: "Candidature" },
+      stage2: { en: "Screening", fr: "Sélection" },
+      stage3: { en: "Interview", fr: "Entrevue" },
+      stage4: { en: "Ready", fr: "Prêt" },
+      visibility_label: { en: "Visible to volunteers who:", fr: "Visible aux bénévoles qui :" },
+      vis1: { en: "Have the 'Healthcare' tag", fr: "Ont l'étiquette « Santé »" },
+      vis2: { en: "Are 18 or older", fr: "Ont 18 ans ou plus" },
+      vis3: { en: "Completed background check", fr: "Ont une vérification d'antécédents" },
+    },
+
+    // ── Automate spotlight mockup: when/if/then rule ──
+    automate_mock: {
+      chip: { en: "AUTOMATION", fr: "AUTOMATISATION" },
+      rule_name: { en: "Hospital applicants", fr: "Candidats hospitaliers" },
+      when_label: { en: "When", fr: "Quand" },
+      when_value: { en: "Form submitted: Volunteer application", fr: "Formulaire soumis : Candidature de bénévole" },
+      if_label: { en: "If", fr: "Si" },
+      if_value: { en: "Program contains \"Hospital\"", fr: "Le programme contient « Hôpital »" },
+      then_label: { en: "Then", fr: "Alors" },
+      action1: { en: "Add tag", fr: "Ajouter l'étiquette" },
+      action1_value: { en: "medical", fr: "médical" },
+      action2: { en: "Assign sequence", fr: "Affecter la séquence" },
+      action2_value: { en: "Hospital onboarding", fr: "Intégration hospitalière" },
+      action3: { en: "Send email", fr: "Envoyer un courriel" },
+      action3_value: { en: "Welcome to the medical team", fr: "Bienvenue dans l'équipe médicale" },
+      enabled: { en: "Enabled", fr: "Activée" },
+    },
+
+    // ── Benefits grid (4 cards) ──
+    benefits_h2: { en: "Everything you need to convert interest into action", fr: "Tout ce qu'il faut pour transformer l'intérêt en action" },
+    benefits_sub: {
+      en: "Redirect users from your website, social media, or email campaigns to custom forms that guide applicants through your recruitment process and save your team hours of manual work.",
+      fr: "Redirigez vos visiteurs depuis votre site web, les réseaux sociaux ou vos infolettres vers des formulaires personnalisés qui guident les candidats à travers votre processus de recrutement et font gagner des heures à votre équipe.",
+    },
+    ben1_title: { en: "A branded page for every opportunity", fr: "Une page à votre image pour chaque opportunité" },
+    ben1_desc: { en: "Build custom landing pages for events, programs, and positions. Each routes to its own form and recruitment workflow.", fr: "Bâtissez des pages de destination pour vos événements, programmes et postes. Chacune dirige vers son propre formulaire et flux de recrutement." },
+    ben2_title: { en: "Conditional questions", fr: "Questions conditionnelles" },
+    ben2_desc: { en: "Show only what's relevant. Branch on each answer to personalize the volunteer's experience.", fr: "Affichez seulement ce qui compte. Branchez chaque réponse pour personnaliser l'expérience." },
+    ben3_title: { en: "One-click apply links", fr: "Liens de candidature en un clic" },
+    ben3_desc: { en: "Share dynamic links anywhere. They open the Vome app for logged-in volunteers automatically.", fr: "Partagez des liens dynamiques partout. Ils ouvrent l'app Vome pour les bénévoles connectés." },
+    ben4_title: { en: "Auto-routing into onboarding", fr: "Acheminement vers l'intégration" },
+    ben4_desc: { en: "Submissions trigger sequences, status changes, tags, and assignments without any manual work.", fr: "Les soumissions déclenchent séquences, statuts, étiquettes et affectations sans aucun travail manuel." },
+    ben5_title: { en: "A dashboard built for forms", fr: "Un tableau de bord conçu pour les formulaires" },
+    ben5_desc: { en: "Filter, sort, and save custom views. Permissions let each team see only the forms that matter to them, across sites and locations.", fr: "Filtrez, triez et sauvegardez des vues personnalisées. Les permissions font en sorte que chaque équipe ne voit que les formulaires pertinents, à travers vos sites et lieux." },
+    ben6_title: { en: "Apply from any device", fr: "Postuler depuis n'importe quel appareil" },
+    ben6_desc: { en: "Volunteers fill out forms on the iOS and Android apps, browser, tablet, or computer. Mobile-first by default, accessible everywhere.", fr: "Les bénévoles remplissent les formulaires depuis les apps iOS et Android, un navigateur, une tablette ou un ordinateur. Mobile d'abord, accessible partout." },
+
+    // ── Spotlight 1: Form builder ──
+    spot1_kicker: { en: "BUILD", fr: "BÂTIR" },
+    spot1_title: { en: "Build any application form your program needs.", fr: "Bâtissez tout formulaire dont votre programme a besoin." },
+    spot1_body: {
+      en: "Drag, drop, save. Add <strong>conditional questions</strong> that show or hide based on previous answers, request <strong>file uploads</strong> with one-time secure links, collect <strong>digital consent through e-signatures</strong>, and embed shift calendars right inside the form.",
+      fr: "Glissez, déposez, enregistrez. Ajoutez des <strong>questions conditionnelles</strong> qui s'affichent selon les réponses précédentes, demandez des <strong>téléversements</strong> avec liens sécurisés à usage unique, recueillez le <strong>consentement par signature électronique</strong>, et intégrez les calendriers de quarts directement dans le formulaire.",
+    },
+    spot1_b1: { en: "Conditional questions that branch on previous answers", fr: "Questions conditionnelles qui se branchent sur les réponses précédentes" },
+    spot1_b2: { en: "File uploads, e-signatures, and shift-calendar embeds", fr: "Téléversements, signatures électroniques et calendriers de quarts intégrés" },
+    spot1_b3: { en: "Pre-built sections: profile info, consent, attachments", fr: "Sections prédéfinies : profil, consentement, pièces jointes" },
+    spot1_b4: { en: "Duplicate any opportunity to spin up new ones with the same form and workflow", fr: "Dupliquez une opportunité pour en créer une nouvelle avec le même formulaire et le même flux" },
+
+    // ── Spotlight 2: Recruitment workflow ──
+    spot2_kicker: { en: "ROUTE", fr: "ACHEMINER" },
+    spot2_title: { en: "The right applicants land in the right opportunities, every time.", fr: "Les bons candidats vers les bonnes opportunités, à chaque fois." },
+    spot2_body: {
+      en: "Different opportunities have different requirements. Set <strong>who can see each role</strong>, <strong>what they need to complete</strong>, and how they advance through interview, training, and orientation. Vome routes each applicant based on their answers, so nothing falls through the cracks.",
+      fr: "Chaque opportunité a ses exigences. Définissez <strong>qui peut voir chaque poste</strong>, <strong>ce qu'il faut compléter</strong>, et comment les candidats avancent à travers les étapes d'entrevue, de formation et d'orientation. Vome achemine chaque candidat selon ses réponses, sans que rien ne passe entre les mailles du filet.",
+    },
+    spot2_b1: { en: "Make opportunities visible only to volunteers who match (by tag, role, or location)", fr: "Affichez les opportunités uniquement aux bénévoles qui correspondent (étiquette, rôle ou lieu)" },
+    spot2_b2: { en: "Add screening questions tailored to each opportunity", fr: "Ajoutez des questions de sélection adaptées à chaque opportunité" },
+    spot2_b3: { en: "Move applicants through interview, training, and orientation stages", fr: "Faites avancer les candidats à travers les étapes d'entrevue, de formation et d'orientation" },
+    spot2_b4: { en: "Volunteers can see their progress, or admins can keep it private and move them forward", fr: "Les bénévoles peuvent suivre leur progression, ou les admins peuvent la garder privée et les faire avancer" },
+
+    // ── Spotlight 3: Post-submission automation ──
+    spot3_kicker: { en: "AUTOMATE", fr: "AUTOMATISER" },
+    spot3_title: { en: "Automations pick up where the form leaves off.", fr: "Les automatisations prennent le relais après le formulaire." },
+    spot3_body: {
+      en: "When a form is submitted, <strong>automations fire</strong>. Add tags, assign onboarding sequences, send a confirmation email from your domain, and post applicants to the right opportunity dashboard. Each action is triggered by what they answered.",
+      fr: "À la soumission d'un formulaire, les <strong>automatisations se déclenchent</strong>. Ajoutez des étiquettes, attribuez des séquences d'intégration, envoyez un courriel de confirmation depuis votre domaine et publiez les candidats sur le bon tableau de bord. Chaque action est déclenchée par leurs réponses.",
+    },
+    spot3_b1: { en: "Trigger automations on form submission", fr: "Déclenchez des automatisations à la soumission" },
+    spot3_b2: { en: "Auto-tag, auto-assign to a sequence, auto-add to an opportunity", fr: "Étiquetage, séquence et opportunité attribués automatiquement" },
+    spot3_b3: { en: "Conditional email and notification templates per status", fr: "Modèles de courriels et notifications conditionnels par statut" },
+    spot3_b4: { en: "Connected to scheduling, messaging, and the volunteer database", fr: "Connecté à la planification, à la messagerie et à la base de données" },
+
+    // ── How it works (4 steps) ──
+    how_h2: { en: "How it works", fr: "Comment ça fonctionne" },
+    how_sub: {
+      en: "Build once. Set the rules. Let Vome do the rest, every time someone applies.",
+      fr: "Bâtissez une fois. Définissez les règles. Laissez Vome s'occuper du reste à chaque candidature.",
+    },
+    step1_title: { en: "Build the form", fr: "Bâtir le formulaire" },
+    step1_desc: { en: "Drag-and-drop fields. Add conditional logic, file uploads, e-signatures, and shift-calendar embeds.", fr: "Glissez-déposez les champs. Ajoutez logique conditionnelle, téléversements, signatures et calendriers." },
+    step2_title: { en: "Set the workflow", fr: "Définir le flux" },
+    step2_desc: { en: "Configure eligibility, screening questions, and the stages applicants will move through.", fr: "Configurez l'admissibilité, les questions de sélection et les étapes à parcourir." },
+    step3_title: { en: "Publish and share", fr: "Publier et partager" },
+    step3_desc: { en: "Direct links, QR codes, and embeds. A branded recruitment page with featured opportunities.", fr: "Liens directs, codes QR et intégrations. Une page de recrutement à votre image." },
+    step4_title: { en: "Automations take over", fr: "Les automatisations prennent le relais" },
+    step4_desc: { en: "Submissions trigger the right next steps. Tags, sequences, confirmations, and assignments run on their own based on what each volunteer answered.", fr: "Les soumissions déclenchent les bonnes étapes suivantes. Étiquettes, séquences, confirmations et affectations se font seules selon les réponses de chaque bénévole." },
+
+    // ── Differentiators (3) ──
+    diff_h2: { en: "More than a form builder", fr: "Plus qu'un concepteur de formulaires" },
+    diff_sub: {
+      en: "Generic form tools collect data into a spreadsheet. Vome turns each submission into an end-to-end recruitment workflow.",
+      fr: "Les outils de formulaires génériques collectent des données dans un chiffrier. Vome transforme chaque soumission en flux de recrutement complet.",
+    },
+    diff1_title: { en: "Wired into the platform", fr: "Connecté à la plateforme" },
+    diff1_desc: { en: "Forms feed directly into the volunteer database, scheduling, messaging, and reporting. No exports or copy-paste required.", fr: "Les formulaires alimentent directement la base de données, la planification, la messagerie et les rapports. Sans export." },
+    diff2_title: { en: "Routing beyond the form", fr: "Acheminement après le formulaire" },
+    diff2_desc: { en: "Conditional fields are table stakes. Vome adds conditional automations: status changes, sequence assignments, and email templates that fire on each answer.", fr: "Les champs conditionnels sont la base. Vome ajoute des automatisations conditionnelles : statuts, séquences et modèles de courriels déclenchés par chaque réponse." },
+    diff3_title: { en: "Built for volunteer programs", fr: "Conçu pour le bénévolat" },
+    diff3_desc: { en: "Eligibility rules, screening checklists, interview/training/orientation stages, waiver collection, and one-time secure document links. All out of the box.", fr: "Règles d'admissibilité, listes de sélection, étapes d'entrevue/formation/orientation, collecte de décharges et liens sécurisés à usage unique. Tout intégré." },
+
+    // ── FAQ (module-specific) ──
+    faq_h2: { en: "Recruitment FAQs", fr: "FAQ Recrutement" },
+    faq_sub: {
+      en: "Common questions about application forms and recruitment workflows.",
+      fr: "Questions fréquentes sur les formulaires et les flux de recrutement.",
+    },
+    faq_cta_text: { en: "Still have questions?", fr: "Vous avez encore des questions ?" },
+    faq_cta_link: { en: "Talk to our team", fr: "Parlez à notre équipe" },
+    faq1_q: { en: "Can I use my own branding?", fr: "Puis-je utiliser ma propre image de marque ?" },
+    faq1_a: {
+      en: "Yes. Match your organization's colors, logo, and domain. Build a custom landing page for each opportunity, embed it in your existing site, or share the direct link from your social media or email campaigns.",
+      fr: "Oui. Reprenez les couleurs, le logo et le domaine de votre organisation. Bâtissez une page de destination pour chaque opportunité, intégrez-la à votre site, ou partagez le lien direct depuis vos réseaux sociaux ou infolettres.",
+    },
+    faq2_q: { en: "How do conditional questions work?", fr: "Comment fonctionnent les questions conditionnelles ?" },
+    faq2_a: {
+      en: "Each question can branch based on a previous answer. Vome will show, hide, or require fields dynamically. Useful for personalizing the form by program, role, or eligibility.",
+      fr: "Chaque question peut se ramifier selon une réponse précédente. Vome affiche, masque ou exige des champs dynamiquement. Utile pour personnaliser par programme, rôle ou admissibilité.",
+    },
+    faq3_q: { en: "What happens after a form is submitted?", fr: "Que se passe-t-il après la soumission d'un formulaire ?" },
+    faq3_a: {
+      en: "Automations take over. Based on what the applicant answered, Vome can tag them, assign them to an onboarding sequence, post them to the right opportunity, and send a confirmation email, all without manual work from your team.",
+      fr: "Les automatisations prennent le relais. Selon les réponses du candidat, Vome peut l'étiqueter, l'affecter à une séquence d'intégration, le publier sur la bonne opportunité et envoyer un courriel de confirmation, sans travail manuel pour votre équipe.",
+    },
+    faq4_q: { en: "Can volunteers upload documents?", fr: "Les bénévoles peuvent-ils téléverser des documents ?" },
+    faq4_a: {
+      en: "Yes. File upload fields support PDF, image, and Office formats. Vome generates one-time secure links so the documents stay private and accessible only to your team.",
+      fr: "Oui. Les champs de téléversement acceptent PDF, images et fichiers Office. Vome génère des liens sécurisés à usage unique pour garder les documents privés et accessibles uniquement à votre équipe.",
+    },
+    faq5_q: { en: "Can I reuse a form across opportunities?", fr: "Puis-je réutiliser un formulaire entre opportunités ?" },
+    faq5_a: {
+      en: "Yes. Use the duplicate-opportunity feature to spin up a new opportunity with the same form, workflow, and settings already in place. Then tweak only what needs to change.",
+      fr: "Oui. Utilisez la duplication d'opportunité pour en créer une nouvelle avec le même formulaire, le même flux et les mêmes paramètres déjà en place. Modifiez seulement ce qui doit changer.",
+    },
+    faq6_q: { en: "Does it work on mobile?", fr: "Est-ce que ça fonctionne sur mobile ?" },
+    faq6_a: {
+      en: "Yes. Forms are mobile-first, and shareable links open the Vome app on logged-in volunteers' phones for an app-native experience.",
+      fr: "Oui. Les formulaires sont conçus pour mobile et les liens partageables ouvrent l'app Vome sur les téléphones des bénévoles connectés pour une expérience native.",
+    },
+
+    // ── Matrix heading override ──
+    matrix_h2: { en: "Recruitment features by plan", fr: "Fonctionnalités de recrutement par forfait" },
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────
+  //  MODULE: Onboarding & screening
+  //  Mirrors module_recruitment key shape. Used by
+  //  src/pages/volunteer-onboarding-software.astro (and the FR shell).
+  // ─────────────────────────────────────────────────────────────────────────
+  module_onboarding: {
+    page_title: { en: "Volunteer onboarding & screening software | Vome", fr: "Logiciel d'intégration et de sélection des bénévoles | Vome" },
+    page_description: {
+      en: "Build onboarding sequences with interviews, training, waivers, e-signatures, and Sterling Volunteers background checks. Track status and expirations in one place.",
+      fr: "Bâtissez des séquences d'intégration avec entrevues, formations, décharges, signatures électroniques et vérifications d'antécédents Sterling Volunteers. Suivez le statut et les expirations en un seul endroit.",
+    },
+
+    // ── Hero ──
+    hero_eyebrow: { en: "Onboarding & screening", fr: "Intégration et sélection" },
+    hero_h1_part1: { en: "Take new volunteers through ", fr: "Guidez les nouveaux bénévoles à travers " },
+    hero_h1_accent: { en: "every screening step", fr: "chaque étape de sélection" },
+    hero_h1_part2: { en: " your program requires." , fr: " que votre programme exige." },
+    hero_sub: {
+      en: "Build <strong>onboarding sequences</strong> for <em>your</em> programs. Combine <em>interviews</em>, <em>training</em>, <em>waivers</em>, and <strong>Sterling Volunteers</strong> background checks in one guided flow. Track status and renewals automatically.",
+      fr: "Bâtissez des <strong>séquences d'intégration</strong> pour <em>vos</em> programmes. Combinez <em>entrevues</em>, <em>formations</em>, <em>décharges</em> et vérifications d'antécédents <strong>Sterling Volunteers</strong> dans un parcours guidé. Suivez les statuts et les renouvellements automatiquement.",
+    },
+    hero_meta_steps: { en: "Any step type your program needs", fr: "Tout type d'étape requis" },
+    hero_meta_native: { en: "Sterling & SCORM Cloud built in", fr: "Sterling et SCORM Cloud intégrés" },
+    hero_meta_audit: { en: "Audit-ready expiration tracking", fr: "Suivi d'expiration prêt pour audit" },
+
+    // ── Hero mockup labels: sequence-builder overview ──
+    builder_mock: {
+      url: { en: "vomevolunteer.com/sequences/new-volunteer-2026", fr: "vomevolunteer.com/sequences/nouveau-benevole-2026" },
+      kicker: { en: "SEQUENCE BUILDER", fr: "CONCEPTEUR DE SÉQUENCE" },
+      draft: { en: "Draft", fr: "Brouillon" },
+      seq_title: { en: "New volunteer onboarding · 2026", fr: "Intégration des nouveaux bénévoles · 2026" },
+      steps_label: { en: "Sequence steps", fr: "Étapes de la séquence" },
+      step1_type: { en: "Interview", fr: "Entrevue" },
+      step1_name: { en: "Welcome interview with coordinator", fr: "Entrevue d'accueil avec la coordonnatrice" },
+      step1_meta: { en: "30 min · scheduled via Vome", fr: "30 min · planifiée via Vome" },
+      step2_type: { en: "Training", fr: "Formation" },
+      step2_name: { en: "Volunteer code of conduct", fr: "Code de conduite des bénévoles" },
+      step2_meta: { en: "SCORM Cloud · self-paced", fr: "SCORM Cloud · à son propre rythme" },
+      step3_type: { en: "Waiver", fr: "Décharge" },
+      step3_name: { en: "Liability and consent waiver", fr: "Décharge de responsabilité et consentement" },
+      step3_meta: { en: "E-signature · expires yearly", fr: "Signature électronique · expire annuellement" },
+      step4_type: { en: "Background check", fr: "Vérification d'antécédents" },
+      step4_name: { en: "Standard criminal record check", fr: "Vérification des antécédents criminels standard" },
+      step4_meta: { en: "Sterling Volunteers · auto-renewal", fr: "Sterling Volunteers · renouvellement auto" },
+      step5_type: { en: "Document", fr: "Document" },
+      step5_name: { en: "Upload proof of vaccination", fr: "Téléverser la preuve de vaccination" },
+      step5_meta: { en: "PDF or image · secure link", fr: "PDF ou image · lien sécurisé" },
+      required: { en: "Required", fr: "Obligatoire" },
+      optional: { en: "Optional", fr: "Facultatif" },
+      add_step: { en: "Add step", fr: "Ajouter une étape" },
+    },
+
+    // ── Spotlight 1 mockup: step list with type chips ──
+    steps_mock: {
+      chip: { en: "STEP TYPES", fr: "TYPES D'ÉTAPE" },
+      seq_name: { en: "Hospital companion onboarding", fr: "Intégration accompagnement hospitalier" },
+      label: { en: "Steps in this sequence", fr: "Étapes de cette séquence" },
+      s1_type: { en: "Interview", fr: "Entrevue" },
+      s1_name: { en: "30-min screening call", fr: "Appel de sélection de 30 min" },
+      s2_type: { en: "Orientation", fr: "Orientation" },
+      s2_name: { en: "Hospital floor tour", fr: "Visite des étages de l'hôpital" },
+      s3_type: { en: "Waiver", fr: "Décharge" },
+      s3_name: { en: "Confidentiality and HIPAA waiver", fr: "Décharge de confidentialité et HIPAA" },
+      s4_type: { en: "Background check", fr: "Vérification d'antécédents" },
+      s4_name: { en: "Sterling Volunteers · enhanced", fr: "Sterling Volunteers · approfondie" },
+      s5_type: { en: "Training", fr: "Formation" },
+      s5_name: { en: "Patient interaction · SCORM module", fr: "Interaction avec les patients · module SCORM" },
+      cond_chip: { en: "Conditional", fr: "Conditionnelle" },
+      req_chip: { en: "Required", fr: "Obligatoire" },
+    },
+
+    // ── Spotlight 2 mockup: background-check step config (Sterling) ──
+    bg_mock: {
+      chip: { en: "BACKGROUND CHECK", fr: "VÉRIFICATION D'ANTÉCÉDENTS" },
+      step_name: { en: "Standard criminal record check", fr: "Vérification des antécédents criminels standard" },
+      provider_label: { en: "Provider", fr: "Fournisseur" },
+      provider_name: { en: "Sterling Volunteers", fr: "Sterling Volunteers" },
+      connected: { en: "Connected", fr: "Connecté" },
+      package_label: { en: "Package", fr: "Forfait" },
+      package_value: { en: "Standard · criminal record + identity", fr: "Standard · antécédents criminels + identité" },
+      applicant_label: { en: "Applicant", fr: "Candidat" },
+      applicant_name: { en: "Riley Tremblay", fr: "Riley Tremblay" },
+      progress_label: { en: "Status", fr: "Statut" },
+      status_pending: { en: "Awaiting consent", fr: "En attente de consentement" },
+      status_progress: { en: "Verification in progress", fr: "Vérification en cours" },
+      status_clear: { en: "Cleared", fr: "Vérifié" },
+      renewal_label: { en: "Renewal", fr: "Renouvellement" },
+      renewal_value: { en: "Auto-renew every 12 months", fr: "Renouvellement auto aux 12 mois" },
+    },
+
+    // ── Spotlight 3 mockup: status tracker for one volunteer ──
+    status_mock: {
+      chip: { en: "VOLUNTEER STATUS", fr: "STATUT DU BÉNÉVOLE" },
+      vol_name: { en: "Riley Tremblay · Hospital companion", fr: "Riley Tremblay · Accompagnement hospitalier" },
+      label: { en: "Onboarding progress", fr: "Progression de l'intégration" },
+      s1_name: { en: "Welcome interview", fr: "Entrevue d'accueil" },
+      s1_state: { en: "Completed", fr: "Complétée" },
+      s2_name: { en: "Code of conduct training", fr: "Formation code de conduite" },
+      s2_state: { en: "Completed", fr: "Complétée" },
+      s3_name: { en: "Liability waiver", fr: "Décharge de responsabilité" },
+      s3_state: { en: "Expires Mar 14, 2026", fr: "Expire le 14 mars 2026" },
+      s4_name: { en: "Sterling background check", fr: "Vérification Sterling" },
+      s4_state: { en: "Cleared", fr: "Vérifiée" },
+      s5_name: { en: "Vaccination upload", fr: "Téléversement de vaccination" },
+      s5_state: { en: "Pending volunteer", fr: "En attente du bénévole" },
+      done_dot: { en: "Done", fr: "Fait" },
+      pending_dot: { en: "Pending", fr: "En attente" },
+      expiring_dot: { en: "Expiring", fr: "Expire bientôt" },
+      summary: { en: "3 of 5 complete · 1 expiring soon", fr: "3 sur 5 complétées · 1 expire bientôt" },
+    },
+
+    // ── Benefits grid (6) ──
+    benefits_h2: { en: "Everything your screening process requires.", fr: "Tout ce que votre processus de sélection exige." },
+    benefits_sub: {
+      en: "Combine interviews, training, waivers, document uploads, and background checks into one guided sequence per opportunity. Volunteers move through their steps. You see exactly where everyone is.",
+      fr: "Combinez entrevues, formations, décharges, téléversements et vérifications d'antécédents dans une séquence guidée par opportunité. Les bénévoles avancent. Vous savez exactement où chacun se situe.",
+    },
+    ben1_title: { en: "Step-by-step sequences", fr: "Séquences étape par étape" },
+    ben1_desc: { en: "Build the full onboarding flow for each opportunity. Order matters: each step gates the next when you need it to.", fr: "Bâtissez le parcours d'intégration complet pour chaque opportunité. L'ordre compte : chaque étape conditionne la suivante au besoin." },
+    ben2_title: { en: "Sterling Volunteers built in", fr: "Sterling Volunteers intégré" },
+    ben2_desc: { en: "Run criminal record and identity checks without leaving Vome. Statuses sync back automatically. No copy-paste.", fr: "Lancez les vérifications d'antécédents et d'identité sans quitter Vome. Les statuts se synchronisent automatiquement. Aucun copier-coller." },
+    ben3_title: { en: "SCORM Cloud e-learning", fr: "Apprentissage en ligne SCORM Cloud" },
+    ben3_desc: { en: "Drop SCORM-compliant training modules directly into a sequence. Completion and scores sync to the volunteer profile.", fr: "Insérez des modules de formation conformes SCORM directement dans une séquence. La complétion et les notes se synchronisent au profil." },
+    ben4_title: { en: "Waivers and e-signatures", fr: "Décharges et signatures électroniques" },
+    ben4_desc: { en: "Collect signed waivers, fillable PDFs, and digital consent inside the flow. Auto-expire and request renewal on schedule.", fr: "Recueillez décharges signées, PDF remplissables et consentement numérique dans le parcours. Expiration auto et renouvellement planifié." },
+    ben5_title: { en: "Self-track or admin-only", fr: "Autosuivi ou réservé aux admins" },
+    ben5_desc: { en: "Let volunteers see their next step and take action, or keep the sequence private and advance them yourself.", fr: "Laissez les bénévoles voir leur prochaine étape et agir, ou gardez la séquence privée et faites-les avancer vous-même." },
+    ben6_title: { en: "Status across every site", fr: "Statut à travers tous vos sites" },
+    ben6_desc: { en: "A dashboard view of who's screened, who's expiring, and who's waiting. Permissions scope each admin to their site or team.", fr: "Une vue tableau de bord de qui est sélectionné, qui expire bientôt et qui attend. Les permissions limitent chaque admin à son site ou à son équipe." },
+
+    // ── Spotlight 1: Build sequences ──
+    spot1_kicker: { en: "BUILD", fr: "BÂTIR" },
+    spot1_title: { en: "Build any onboarding sequence your program needs.", fr: "Bâtissez toute séquence d'intégration dont votre programme a besoin." },
+    spot1_body: {
+      en: "Combine <strong>interviews</strong>, <strong>orientations</strong>, <strong>training modules</strong>, <strong>waivers</strong>, document uploads, and <strong>background checks</strong> into one guided flow per opportunity. Mark steps as required or conditional. Vome enforces the order so nothing gets skipped.",
+      fr: "Combinez <strong>entrevues</strong>, <strong>orientations</strong>, <strong>modules de formation</strong>, <strong>décharges</strong>, téléversements et <strong>vérifications d'antécédents</strong> dans un parcours guidé par opportunité. Marquez les étapes obligatoires ou conditionnelles. Vome respecte l'ordre pour que rien ne soit sauté.",
+    },
+    spot1_b1: { en: "Interview, training, orientation, waiver, document, and background-check step types", fr: "Étapes d'entrevue, de formation, d'orientation, de décharge, de document et de vérification d'antécédents" },
+    spot1_b2: { en: "Mark steps required or conditional based on the volunteer's role and answers", fr: "Marquez les étapes obligatoires ou conditionnelles selon le rôle et les réponses du bénévole" },
+    spot1_b3: { en: "Schedule interviews, orientations, and training sessions inside the same flow", fr: "Planifiez entrevues, orientations et sessions de formation dans le même parcours" },
+    spot1_b4: { en: "Duplicate a sequence to spin up a new opportunity with the same screening checklist", fr: "Dupliquez une séquence pour créer une nouvelle opportunité avec la même liste de sélection" },
+
+    // ── Spotlight 2: Background checks + e-learning ──
+    spot2_kicker: { en: "SCREEN", fr: "SÉLECTIONNER" },
+    spot2_title: { en: "Background checks and training, native to Vome.", fr: "Vérifications d'antécédents et formations, natives à Vome." },
+    spot2_body: {
+      en: "Run <strong>Sterling Volunteers</strong> background checks and deliver <strong>SCORM Cloud</strong> training modules without leaving the volunteer profile. Vome handles consent, sends invitations, syncs status back, and tracks renewals so your team never chases paperwork.",
+      fr: "Lancez les vérifications <strong>Sterling Volunteers</strong> et livrez les modules de formation <strong>SCORM Cloud</strong> sans quitter le profil du bénévole. Vome gère le consentement, envoie les invitations, synchronise les statuts et suit les renouvellements pour que votre équipe ne court plus après la paperasse.",
+    },
+    spot2_b1: { en: "Sterling Volunteers integration: invite, consent, and status sync built in", fr: "Intégration Sterling Volunteers : invitation, consentement et synchronisation des statuts intégrés" },
+    spot2_b2: { en: "SCORM Cloud modules with completion and score tracking on the profile", fr: "Modules SCORM Cloud avec suivi de complétion et de notes au profil" },
+    spot2_b3: { en: "Collect signed waivers, fillable PDFs, and digital consent without third-party tools", fr: "Recueillez décharges signées, PDF remplissables et consentement numérique sans outils externes" },
+    spot2_b4: { en: "Pre-pull profile data so volunteers do not retype info already on file", fr: "Préremplissage des données du profil pour que les bénévoles ne ressaisissent pas les infos déjà au dossier" },
+
+    // ── Spotlight 3: Status + expirations ──
+    spot3_kicker: { en: "TRACK", fr: "SUIVRE" },
+    spot3_title: { en: "Audit-ready status, with expirations that handle themselves.", fr: "Statut prêt pour audit, avec expirations qui se gèrent toutes seules." },
+    spot3_body: {
+      en: "See exactly where every volunteer stands across every step. <strong>Expiration tracking</strong> flags renewals before they lapse, and <strong>auto-renewal</strong> requests fire on schedule. Reports group volunteers by site, opportunity, or status, so audits and renewals take minutes, not days.",
+      fr: "Voyez exactement où en est chaque bénévole pour chaque étape. Le <strong>suivi des expirations</strong> signale les renouvellements avant qu'ils n'expirent et les demandes de <strong>renouvellement automatique</strong> partent à l'heure. Les rapports regroupent les bénévoles par site, opportunité ou statut, alors les audits et les renouvellements prennent des minutes, pas des jours.",
+    },
+    spot3_b1: { en: "Live status per step: pending, in progress, complete, expiring, expired", fr: "Statut en direct par étape : en attente, en cours, complété, expire bientôt, expiré" },
+    spot3_b2: { en: "Auto-renewal requests for waivers, background checks, and trainings", fr: "Demandes de renouvellement automatique pour décharges, vérifications et formations" },
+    spot3_b3: { en: "Notes on the profile and on each step, scoped to the right admins", fr: "Notes sur le profil et sur chaque étape, limitées aux bons administrateurs" },
+    spot3_b4: { en: "Expiration dashboards filtered by site, opportunity, or step type", fr: "Tableaux de bord d'expiration filtrés par site, opportunité ou type d'étape" },
+
+    // ── How it works (4 steps) ──
+    how_h2: { en: "How it works", fr: "Comment ça fonctionne" },
+    how_sub: {
+      en: "Build the sequence once. Every volunteer who applies gets walked through the right screening for their role.",
+      fr: "Bâtissez la séquence une seule fois. Chaque bénévole qui postule est guidé à travers la bonne sélection pour son rôle.",
+    },
+    step1_title: { en: "Build the sequence", fr: "Bâtir la séquence" },
+    step1_desc: { en: "Add interview, training, waiver, background-check, and document steps in the order your program needs.", fr: "Ajoutez entrevues, formations, décharges, vérifications et documents dans l'ordre voulu." },
+    step2_title: { en: "Connect integrations", fr: "Connecter les intégrations" },
+    step2_desc: { en: "Sterling Volunteers and SCORM Cloud are native. Activate them once, reuse across every opportunity.", fr: "Sterling Volunteers et SCORM Cloud sont natifs. Activez-les une fois, réutilisez partout." },
+    step3_title: { en: "Volunteers move through", fr: "Les bénévoles avancent" },
+    step3_desc: { en: "Each volunteer sees their next step and takes action, or admins keep it private and advance them.", fr: "Chaque bénévole voit son étape suivante et agit, ou les admins gardent le tout privé et les font avancer." },
+    step4_title: { en: "Status stays current", fr: "Le statut reste à jour" },
+    step4_desc: { en: "Completion, expiration, and renewal sync back automatically. Reports and dashboards reflect it in real time.", fr: "Complétion, expiration et renouvellement se synchronisent automatiquement. Rapports et tableaux de bord se mettent à jour en temps réel." },
+
+    // ── Differentiators (3) ──
+    diff_h2: { en: "More than a checklist", fr: "Plus qu'une liste de vérification" },
+    diff_sub: {
+      en: "Generic onboarding tools track tasks. Vome runs the actual screening: native checks, native training, native renewals, all tied to the volunteer database.",
+      fr: "Les outils d'intégration génériques suivent des tâches. Vome exécute la vraie sélection : vérifications natives, formations natives, renouvellements natifs, le tout lié à la base de données.",
+    },
+    diff1_title: { en: "Native to your volunteer database", fr: "Natif à votre base de données bénévoles" },
+    diff1_desc: { en: "Sequences pull profile data, link to forms, scheduling, and messaging, and write status straight to the volunteer record. No exports.", fr: "Les séquences puisent dans le profil, se lient aux formulaires, à la planification et à la messagerie, et écrivent le statut directement au dossier. Sans export." },
+    diff2_title: { en: "Integrations built in, not bolted on", fr: "Intégrations intégrées, pas greffées" },
+    diff2_desc: { en: "Sterling Volunteers, SCORM Cloud, e-signatures, and fillable PDFs are first-class step types. Activate once, reuse across every sequence.", fr: "Sterling Volunteers, SCORM Cloud, signatures électroniques et PDF remplissables sont des types d'étape de plein droit. Activez une fois, réutilisez partout." },
+    diff3_title: { en: "Audit-ready expirations", fr: "Expirations prêtes pour audit" },
+    diff3_desc: { en: "Every step has a renewal cadence. Vome flags upcoming expirations, requests renewals automatically, and keeps a clean audit trail per volunteer.", fr: "Chaque étape a une cadence de renouvellement. Vome signale les expirations à venir, demande les renouvellements automatiquement et garde une piste de vérification claire par bénévole." },
+
+    // ── FAQ (module-specific) ──
+    faq_h2: { en: "Onboarding FAQs", fr: "FAQ Intégration" },
+    faq_sub: {
+      en: "Common questions about onboarding sequences, screening, and expiration tracking.",
+      fr: "Questions fréquentes sur les séquences d'intégration, la sélection et le suivi des expirations.",
+    },
+    faq_cta_text: { en: "Still have questions?", fr: "Vous avez encore des questions ?" },
+    faq_cta_link: { en: "Talk to our team", fr: "Parlez à notre équipe" },
+    faq1_q: { en: "What step types can I add to a sequence?", fr: "Quels types d'étapes puis-je ajouter à une séquence ?" },
+    faq1_a: {
+      en: "Interview, orientation, training (including SCORM Cloud modules), waiver and e-signature, fillable PDF, document upload, and Sterling Volunteers background check. Each step type has its own configuration: scheduling for interviews, expiration cadence for waivers, package selection for background checks, and so on.",
+      fr: "Entrevue, orientation, formation (incluant les modules SCORM Cloud), décharge et signature électronique, PDF remplissable, téléversement de document et vérification d'antécédents Sterling Volunteers. Chaque type d'étape a sa propre configuration : planification pour les entrevues, cadence d'expiration pour les décharges, choix de forfait pour les vérifications, et ainsi de suite.",
+    },
+    faq2_q: { en: "How does the Sterling Volunteers integration work?", fr: "Comment fonctionne l'intégration Sterling Volunteers ?" },
+    faq2_a: {
+      en: "Add a background-check step to any sequence and pick a Sterling package. When the volunteer reaches that step, Vome sends the invitation, collects consent, and syncs the result back to the profile. Renewals run on the cadence you set, with reminders to the volunteer and the admin.",
+      fr: "Ajoutez une étape de vérification d'antécédents à une séquence et choisissez un forfait Sterling. Quand le bénévole atteint cette étape, Vome envoie l'invitation, recueille le consentement et synchronise le résultat au profil. Les renouvellements suivent la cadence que vous définissez, avec rappels au bénévole et à l'admin.",
+    },
+    faq3_q: { en: "Can I let volunteers track their own progress?", fr: "Puis-je laisser les bénévoles suivre leur progression ?" },
+    faq3_a: {
+      en: "Yes. Each sequence can be set to volunteer-visible (they see their next step and take action themselves) or admin-only (your team advances them). You can mix modes per sequence depending on the opportunity.",
+      fr: "Oui. Chaque séquence peut être réglée à visibilité bénévole (ils voient leur prochaine étape et agissent eux-mêmes) ou réservée aux admins (votre équipe les fait avancer). Vous pouvez mélanger les modes par séquence selon l'opportunité.",
+    },
+    faq4_q: { en: "How are expirations and renewals handled?", fr: "Comment sont gérées les expirations et les renouvellements ?" },
+    faq4_a: {
+      en: "Steps that expire (waivers, background checks, certifications) carry a renewal date on the volunteer record. Vome flags upcoming expirations on the dashboard, sends reminders before the date, and re-opens the step so the volunteer can resubmit. Past expirations are surfaced in a dedicated report.",
+      fr: "Les étapes qui expirent (décharges, vérifications, certifications) portent une date de renouvellement au dossier. Vome signale les expirations à venir au tableau de bord, envoie des rappels avant la date et rouvre l'étape pour que le bénévole puisse soumettre à nouveau. Les expirations passées apparaissent dans un rapport dédié.",
+    },
+    faq5_q: { en: "Can I reuse a sequence across multiple opportunities?", fr: "Puis-je réutiliser une séquence entre plusieurs opportunités ?" },
+    faq5_a: {
+      en: "Yes. Build a sequence once and assign it to any number of opportunities, or duplicate a sequence to spin up a variation. Multi-site permissions scope sequences to the right admins so teams only manage what's theirs.",
+      fr: "Oui. Bâtissez une séquence une fois et affectez-la à plusieurs opportunités, ou dupliquez-la pour créer une variation. Les permissions multi-sites limitent les séquences aux bons administrateurs pour que chaque équipe ne gère que ce qui lui appartient.",
+    },
+    faq6_q: { en: "Where does the volunteer data go?", fr: "Où vont les données des bénévoles ?" },
+    faq6_a: {
+      en: "Straight onto the volunteer profile. Status, completion dates, expiration dates, signed documents, training scores, and background-check results are all stored on the record. Reports, exports, and the integrations API can pull from there.",
+      fr: "Directement sur le profil du bénévole. Statut, dates de complétion, dates d'expiration, documents signés, notes de formation et résultats de vérification d'antécédents sont tous conservés au dossier. Rapports, exports et API d'intégration peuvent y puiser.",
+    },
+
+    // ── Matrix heading override ──
+    matrix_h2: { en: "Onboarding features by plan", fr: "Fonctionnalités d'intégration par forfait" },
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -1173,6 +1645,8 @@ export const strings = {
 
     comp_h2: { en: "Feature comparison by plan", fr: "Comparaison des fonctionnalités par forfait" },
     comp_th_plans: { en: "Plans", fr: "Forfaits" },
+    comp_show_all: { en: "Show all features by plan", fr: "Afficher toutes les fonctionnalités par forfait" },
+    comp_show_less: { en: "Show fewer features", fr: "Afficher moins de fonctionnalités" },
     comp_footnote: { en: "* Onboarding sessions & account review sessions: maximum of 2 hours per week", fr: "* Sessions d'intégration et de revue de compte : maximum de 2 heures par semaine" },
     comp_unlimited: { en: "Unlimited", fr: "Illimité" },
     comp_unlimited_star: { en: "Unlimited *", fr: "Illimité *" },

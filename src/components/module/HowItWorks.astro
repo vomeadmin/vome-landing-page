@@ -1,0 +1,39 @@
+---
+/**
+ * "How it works" stepper — 3 or 4 numbered cards laid out horizontally,
+ * showing the typical flow for this module. Read top-to-bottom on phone.
+ */
+import { type Locale } from "../../i18n";
+
+interface Step {
+  title: string;
+  desc: string;
+}
+
+interface Props {
+  locale?: Locale;
+  h2: string;
+  sub?: string;
+  steps: Step[];
+}
+
+const { h2, sub, steps } = Astro.props;
+---
+
+<section class="mp-how">
+  <div class="mp-how__inner">
+    <div class="mp-how__intro">
+      <h2 class="mp-how__h2">{h2}</h2>
+      {sub && <p class="mp-how__sub">{sub}</p>}
+    </div>
+    <ol class="mp-how__steps">
+      {steps.map((step, i) => (
+        <li class="mp-step">
+          <div class="mp-step__num">{String(i + 1).padStart(2, "0")}</div>
+          <h3 class="mp-step__title">{step.title}</h3>
+          <p class="mp-step__desc">{step.desc}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

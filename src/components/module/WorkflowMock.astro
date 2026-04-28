@@ -1,0 +1,71 @@
+---
+/**
+ * Route spotlight mockup — recruitment workflow stages + visibility rules.
+ *
+ * Two-row layout:
+ *  • Pipeline row: 4 stages (Applied → Screening → Interview → Ready)
+ *    with applicant counts, connected by chevrons.
+ *  • Visibility rules: a card listing the conditions a volunteer must
+ *    meet for the opportunity to be visible to them.
+ *
+ * Mirrors the concepts from `RecruitmentWorkflow.js` and
+ * `RecruitmentWorkflowRulePopup.js` in the React app.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recruitment.route_mock;
+
+const stages = [
+  { label: t(m.stage1, locale), count: 12 },
+  { label: t(m.stage2, locale), count: 8 },
+  { label: t(m.stage3, locale), count: 3 },
+  { label: t(m.stage4, locale), count: 1 },
+];
+
+const visibility = [
+  t(m.vis1, locale),
+  t(m.vis2, locale),
+  t(m.vis3, locale),
+];
+---
+
+<div class="sp-mock sp-mock--route" aria-label="Recruitment workflow preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.opp_name, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-route__pipeline">
+      {stages.map((stage, i) => (
+        <>
+          <div class="sp-route__stage">
+            <div class="sp-route__count">{stage.count}</div>
+            <div class="sp-route__stage-label">{stage.label}</div>
+          </div>
+          {i < stages.length - 1 && (
+            <span class="sp-route__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </span>
+          )}
+        </>
+      ))}
+    </div>
+
+    <div class="sp-route__rules">
+      <div class="sp-route__rules-label">{t(m.visibility_label, locale)}</div>
+      <ul class="sp-route__rules-list">
+        {visibility.map((rule) => (
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>{rule}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+---
+/**
+ * Module landing-page hero. Mirrors the visual language of the
+ * /features hero (eyebrow chip, H1 with single orange accent word,
+ * sub copy, dual CTAs, meta pills) but sized down slightly so the
+ * inline mockup gets prominence.
+ *
+ * Layout: copy on the left, mockup slot on the right at desktop;
+ * stacks under 900px.
+ *
+ * Props are pre-resolved strings (call `t(...)` in the page).
+ */
+import Button from "../Button.astro";
+import { strings, t, type Locale } from "../../i18n";
+
+interface MetaItem {
+  text: string;
+}
+
+interface Props {
+  locale?: Locale;
+  eyebrow: string;
+  h1Part1: string;
+  h1Accent: string;
+  h1Part2?: string;
+  /** Sub copy. Allowed inline tags: <strong>, <em>. Rendered with set:html. */
+  sub: string;
+  ctaPrimaryHref: string;
+  ctaPrimaryLabel: string;
+  ctaSecondaryHref: string;
+  ctaSecondaryLabel: string;
+  meta: MetaItem[];
+}
+
+const {
+  locale = "en",
+  eyebrow,
+  h1Part1,
+  h1Accent,
+  h1Part2 = "",
+  sub,
+  ctaPrimaryHref,
+  ctaPrimaryLabel,
+  ctaSecondaryHref,
+  ctaSecondaryLabel,
+  meta,
+} = Astro.props;
+---
+
+<section class="mp-hero">
+  <div class="mp-hero__inner">
+    <div class="mp-hero__copy">
+      <div class="mp-hero__eyebrow">{eyebrow}</div>
+      <h1 class="mp-hero__h1">
+        {h1Part1}<span class="accent">{h1Accent}</span>{h1Part2}
+      </h1>
+      <p class="mp-hero__sub" set:html={sub} />
+      <div class="mp-hero__ctas">
+        <Button href={ctaPrimaryHref} variant="primary" class="btn--hero">
+          {ctaPrimaryLabel}
+        </Button>
+        <Button href={ctaSecondaryHref} variant="ghost" class="btn--hero">
+          {ctaSecondaryLabel}
+        </Button>
+      </div>
+      <div class="mp-hero__meta">
+        {meta.map((m) => (
+          <span><span class="check">✓</span>{m.text}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="mp-hero__visual">
+      <slot name="mockup" />
+    </div>
+  </div>
+</section>

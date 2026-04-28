@@ -243,7 +243,7 @@ const faqItems = [
 </section>
 
 <style>
-  .pp-hero, .pp-controls, .pp-plans, .pp-comp, .pp-support, .pp-faq, .pp-cta {
+  .pp-hero, .pp-controls, .pp-plans, .pp-support, .pp-faq, .pp-cta {
     padding-left: max(5%, calc((100% - 1200px) / 2));
     padding-right: max(5%, calc((100% - 1200px) / 2));
   }
@@ -589,15 +589,7 @@ const faqItems = [
     font-weight: 500;
   }
 
-  .pp-comp {
-    background: var(--surface-0);
-    padding-top: 72px;
-    padding-bottom: 72px;
-  }
 
-  .pp-comp__inner {
-    max-width: 1200px;
-  }
 
   .pp-section-h2 {
     font-size: 26px;
@@ -607,153 +599,26 @@ const faqItems = [
     text-wrap: balance;
   }
 
-  .pp-table-wrap {
-    overflow-x: auto;
-    border-radius: 10px;
-    border: 1px solid #e2e0e0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-  }
 
-  .pp-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 700px;
-    font-size: 14px;
-  }
 
-  .pp-table thead tr {
-    height: 72px;
-    background: var(--surface-0);
-  }
 
-  .pp-table th {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--fg-2);
-    padding: 0 16px;
-    text-align: center;
-    border-bottom: 2px solid #f0eff4;
-  }
 
-  .pp-table__col-feat {
-    text-align: left !important;
-    width: 38%;
-    min-width: 260px;
-  }
 
-  .pp-table__col-plan {
-    width: 15.5%;
-    font-size: 15px;
-  }
 
-  .pp-table__col-plan--rec { color: var(--vome-orange); }
-  .pp-table__col-plan--pro { color: #4bb181; }
-  .pp-table__col-plan--ent { color: #4b95e9; }
-  .pp-table__col-plan--ult { color: #7c3aed; }
 
-  .pp-table__divider td {
-    background: #fef4ea;
-    padding: 12px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    color: rgba(0,0,0,0.7);
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    border-top: 1px solid #e8e6ee;
-    border-bottom: 1px solid #e8e6ee;
-  }
 
-  .pp-table__row:hover td { background: #fafafa; }
 
-  .pp-table__row td {
-    border-bottom: 1px solid #f0eff4;
-    padding: 14px 16px;
-    vertical-align: middle;
-  }
 
-  .pp-table__feat-cell {
-    vertical-align: middle;
-  }
 
-  .pp-table__feat-name {
-    font-weight: 600;
-    color: rgba(0,0,0,0.8);
-    font-size: 13.5px;
-    line-height: 1.4;
-    display: inline;
-  }
 
-  .pp-table__val {
-    text-align: center !important;
-    vertical-align: middle !important;
-  }
 
-  .pp-icon { display: inline-block; vertical-align: middle; }
 
-  .pp-icon--rec { color: var(--vome-orange); }
-  .pp-icon--pro { color: #4bb181; }
-  .pp-icon--ent { color: #4b95e9; }
-  .pp-icon--ult { color: #7c3aed; }
-  .pp-icon--x   { color: rgba(0,0,0,0.2); }
 
-  .pp-val-text {
-    font-size: 12px;
-    font-weight: 600;
-    color: rgba(0,0,0,0.6);
-  }
 
-  .pp-comp__footnote {
-    font-size: 12px;
-    color: rgba(0,0,0,0.4);
-    margin: 10px 0 0;
-    font-weight: 500;
-  }
 
-  .pp-tip {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 6px;
-    cursor: pointer;
-    position: relative;
-    vertical-align: middle;
-    flex-shrink: 0;
-  }
 
-  .pp-tip:focus { outline: none; }
 
-  .pp-tip__icon {
-    color: #000;
-    opacity: 0.75;
-    flex-shrink: 0;
-    transition: opacity 0.15s;
-    display: block;
-  }
 
-  .pp-tip:hover .pp-tip__icon,
-  .pp-tip:focus .pp-tip__icon {
-    opacity: 1;
-  }
-
-  .pp-tip__bubble {
-    display: none;
-    position: fixed;
-    background: #0a0a0a;
-    color: #fefefe;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.5;
-    padding: 10px 14px;
-    border-radius: 2px;
-    width: 280px;
-    z-index: 9999;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-    pointer-events: none;
-    white-space: normal;
-  }
-
-  .pp-tip__bubble.is-visible {
-    display: block;
-  }
 
   .pp-support {
     background: var(--surface-1, #f8f7fb);
@@ -942,11 +807,6 @@ const faqItems = [
       align-items: flex-start;
     }
 
-    .pp-comp {
-      padding-top: 48px;
-      padding-bottom: 48px;
-    }
-
     .pp-support {
       padding-top: 48px;
       padding-bottom: 48px;
@@ -1040,37 +900,4 @@ const faqItems = [
     resizeTimer = setTimeout(equalizeCardSections, 60);
   });
 
-  document.querySelectorAll<HTMLElement>('.pp-tip').forEach((tip) => {
-    const bubble = tip.querySelector<HTMLElement>('.pp-tip__bubble');
-    if (!bubble) return;
-
-    const show = () => {
-      const rect = tip.getBoundingClientRect();
-      const bw = 280;
-
-      bubble.style.visibility = 'hidden';
-      bubble.style.left = '-9999px';
-      bubble.classList.add('is-visible');
-      const bh = bubble.offsetHeight;
-
-      let left = rect.left + rect.width / 2 - bw / 2;
-      left = Math.max(8, Math.min(left, window.innerWidth - bw - 8));
-
-      let top = rect.bottom + 8;
-      if (top + bh > window.innerHeight - 8) {
-        top = rect.top - bh - 8;
-      }
-
-      bubble.style.left = `${left}px`;
-      bubble.style.top = `${top}px`;
-      bubble.style.visibility = '';
-    };
-
-    const hide = () => bubble.classList.remove('is-visible');
-
-    tip.addEventListener('mouseenter', show);
-    tip.addEventListener('mouseleave', hide);
-    tip.addEventListener('focus', show);
-    tip.addEventListener('blur', hide);
-  });
 </script>

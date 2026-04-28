@@ -47,7 +47,10 @@ const modules = [
   },
   {
     href: `${prefix}/volunteer-onboarding-software`,
-    iconSvg: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/>',
+    // Staircase icon — step-by-step progression. Replaces the older
+    // shield-with-checkmark glyph; "guided workflows" reads better as
+    // upward steps than a generic checkmark.
+    iconSvg: '<polyline points="4 19 9 19 9 14 14 14 14 9 19 9 19 4"/><line x1="3" y1="20" x2="20" y2="20"/>',
     nodeTitle: t(fp.node_onboarding_title, locale),
     nodeDesc: t(fp.node_onboarding_desc, locale),
     cardTitle: t(fp.card_onboarding_title, locale),
@@ -151,6 +154,25 @@ const modules = [
       t(fp.card_app_f4, locale),
     ],
     cardLink: t(fp.card_app_link, locale),
+  },
+  {
+    // Integrations: no dedicated /integrations page yet, so we point at
+    // the comparison table on /plans (Advanced section lists every
+    // integration). Swap to /integrations when that page lands.
+    href: `${prefix}/plans#feature-comparison`,
+    // Triangle of connected nodes — universal "network / integrations" glyph.
+    iconSvg: '<circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="6" r="2"/><path d="M11 7.6L6.8 16M13 7.6L17.2 16M8 18h8"/>',
+    nodeTitle: t(fp.node_integrations_title, locale),
+    nodeDesc: t(fp.node_integrations_desc, locale),
+    cardTitle: t(fp.card_integrations_title, locale),
+    cardDesc: t(fp.card_integrations_desc, locale),
+    cardFeatures: [
+      t(fp.card_integrations_f1, locale),
+      t(fp.card_integrations_f2, locale),
+      t(fp.card_integrations_f3, locale),
+      t(fp.card_integrations_f4, locale),
+    ],
+    cardLink: t(fp.card_integrations_link, locale),
   },
 ];
 ---

@@ -1,15 +1,47 @@
 ---
+/**
+ * FAQ section.
+ *
+ * Two modes:
+ * 1. **Default** (no `items` prop) — renders the homepage's general FAQ list
+ *    using strings.faq.* (kept for backward compatibility with the homepage).
+ * 2. **Custom** — pass `items`, `heading`, and optional `sub` / `ctaText` /
+ *    `ctaLink` to render a module-specific FAQ. Used by module landing pages
+ *    so each module can answer its own questions.
+ */
 import FaqItem from "../FaqItem.astro";
 import { strings, t, type Locale } from "../../i18n";
 
-interface Props {
-  locale?: Locale;
+type StringEntry = { en: string; fr?: string };
+
+interface FaqInputItem {
+  q: StringEntry;
+  a: StringEntry;
+  open?: boolean;
 }
 
-const { locale = "en" } = Astro.props;
+interface Props {
+  locale?: Locale;
+  items?: FaqInputItem[];
+  heading?: StringEntry;
+  sub?: StringEntry;
+  ctaText?: StringEntry;
+  ctaLink?: StringEntry;
+}
+
+const {
+  locale = "en",
+  items: itemsProp,
+  heading,
+  sub,
+  ctaText,
+  ctaLink,
+} = Astro.props;
+
 const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
 
-const items = [
+// Default homepage FAQ list — used when no `items` prop is passed.
+const defaultItems: FaqInputItem[] = [
   { q: strings.faq.q_what_is, a: strings.faq.a_what_is, open: true },
   { q: strings.faq.q_integrations, a: strings.faq.a_integrations },
   { q: strings.faq.q_messaging, a: strings.faq.a_messaging },
@@ -24,15 +56,21 @@ const items = [
   { q: strings.faq.q_discounts, a: strings.faq.a_discounts },
   { q: strings.faq.q_languages, a: strings.faq.a_languages },
 ];
+
+const items = itemsProp ?? defaultItems;
+const headingText = t(heading ?? strings.faq.header, locale);
+const subText = t(sub ?? strings.faq.sub, locale);
+const ctaTextStr = t(ctaText ?? strings.faq.cta_text, locale);
+const ctaLinkStr = t(ctaLink ?? strings.faq.cta_link, locale);
 ---
 
 <section class="faq" id="faq">
   <div class="faq__wrap">
     <div class="faq__intro">
-      <h2 class="faq__h2">{t(strings.faq.header, locale)}</h2>
-      <p class="faq__sub">{t(strings.faq.sub, locale)}</p>
+      <h2 class="faq__h2">{headingText}</h2>
+      <p class="faq__sub">{subText}</p>
       <p class="faq__sub faq__sub--cta">
-        {t(strings.faq.cta_text, locale)} <a href={contactHref} class="faq__link">{t(strings.faq.cta_link, locale)}</a>
+        {ctaTextStr} <a href={contactHref} class="faq__link">{ctaLinkStr}</a>
       </p>
     </div>
 
