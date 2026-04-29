@@ -1,0 +1,88 @@
+---
+/**
+ * Hero mockup for /volunteer-database. Hand-built HTML/CSS preview of the
+ * Vome volunteer database table view: column headers (Name, Tags, Status,
+ * Hours, Last shift, custom Language field), filter chips for the active
+ * view, a few sample rows with one row highlighted, and an export footer.
+ *
+ * Reuses the shared `.fb-mock` chrome (browser bar) so hero mockups across
+ * module pages feel like a family. Inner classes are scoped to `.fb-tab__*`.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_data.table_mock;
+
+const rows = [
+  { name: t(m.r1_name, locale), tags: t(m.r1_tags, locale), status: t(m.r1_status, locale), hours: t(m.r1_hours, locale), last: t(m.r1_last, locale), custom: t(m.r1_custom, locale), state: "active" },
+  { name: t(m.r2_name, locale), tags: t(m.r2_tags, locale), status: t(m.r2_status, locale), hours: t(m.r2_hours, locale), last: t(m.r2_last, locale), custom: t(m.r2_custom, locale), state: "active" },
+  { name: t(m.r3_name, locale), tags: t(m.r3_tags, locale), status: t(m.r3_status, locale), hours: t(m.r3_hours, locale), last: t(m.r3_last, locale), custom: t(m.r3_custom, locale), state: "pending" },
+  { name: t(m.r4_name, locale), tags: t(m.r4_tags, locale), status: t(m.r4_status, locale), hours: t(m.r4_hours, locale), last: t(m.r4_last, locale), custom: t(m.r4_custom, locale), state: "active selected" },
+];
+---
+
+<div class="fb-mock fb-mock--tab" aria-label="Volunteer database preview">
+  <div class="fb-mock__chrome">
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__url">{t(m.url, locale)}</span>
+  </div>
+
+  <div class="fb-mock__body">
+    <div class="fb-mock__head">
+      <div class="fb-mock__title-row">
+        <span class="fb-mock__kicker">{t(m.kicker, locale)}</span>
+        <span class="fb-tab__view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          {t(m.view_pill, locale)}
+        </span>
+      </div>
+      <h3 class="fb-mock__title">{t(m.view_name, locale)}</h3>
+    </div>
+
+    <div class="fb-tab__filters">
+      <span class="fb-tab__filter">{t(m.filter_status, locale)}</span>
+      <span class="fb-tab__filter">{t(m.filter_tag, locale)}</span>
+      <span class="fb-tab__filter">{t(m.filter_site, locale)}</span>
+    </div>
+
+    <div class="fb-tab__table" role="table">
+      <div class="fb-tab__row fb-tab__row--head" role="row">
+        <span class="fb-tab__cell fb-tab__cell--name" role="columnheader">{t(m.col_name, locale)}</span>
+        <span class="fb-tab__cell fb-tab__cell--tags" role="columnheader">{t(m.col_tags, locale)}</span>
+        <span class="fb-tab__cell fb-tab__cell--status" role="columnheader">{t(m.col_status, locale)}</span>
+        <span class="fb-tab__cell fb-tab__cell--hours" role="columnheader">{t(m.col_hours, locale)}</span>
+        <span class="fb-tab__cell fb-tab__cell--last" role="columnheader">{t(m.col_last, locale)}</span>
+        <span class="fb-tab__cell fb-tab__cell--custom" role="columnheader">{t(m.col_custom, locale)}</span>
+      </div>
+      {rows.map((r) => (
+        <div class={`fb-tab__row${r.state.includes("selected") ? " fb-tab__row--selected" : ""}`} role="row">
+          <span class="fb-tab__cell fb-tab__cell--name" role="cell">
+            <span class="fb-tab__avatar" aria-hidden="true">{r.name.charAt(0)}</span>
+            <span class="fb-tab__name-text">{r.name}</span>
+          </span>
+          <span class="fb-tab__cell fb-tab__cell--tags" role="cell">{r.tags}</span>
+          <span class="fb-tab__cell fb-tab__cell--status" role="cell">
+            <span class={`fb-tab__pill fb-tab__pill--${r.state.includes("pending") ? "pending" : "active"}`}>{r.status}</span>
+          </span>
+          <span class="fb-tab__cell fb-tab__cell--hours" role="cell">{r.hours}</span>
+          <span class="fb-tab__cell fb-tab__cell--last" role="cell">{r.last}</span>
+          <span class="fb-tab__cell fb-tab__cell--custom" role="cell">{r.custom}</span>
+        </div>
+      ))}
+    </div>
+
+    <div class="fb-tab__footer">
+      <span class="fb-tab__count">{t(m.footer_count, locale)}</span>
+      <span class="fb-tab__export">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        {t(m.footer_export, locale)}
+      </span>
+    </div>
+  </div>
+</div>

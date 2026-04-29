@@ -1,0 +1,65 @@
+---
+/**
+ * Integrations module: logo grid.
+ *
+ * Page-shape deviation from the standard module template — replaces
+ * the `<HowItWorks>` 4-step stepper. The integration story isn't
+ * "build → publish → automate"; it's "look at how many things connect."
+ * This component shows every shipped integration grouped by category.
+ *
+ * Logos are decorative HTML/CSS text marks, not external images. Each
+ * mark is a styled pill with the partner's brand color tint, plus a
+ * small kind-of-thing label underneath.
+ *
+ * Categories (4): Native integrations, Email & identity, No-code
+ * automations, Developer surface.
+ */
+import { type Locale } from "../../i18n";
+
+interface LogoItem {
+  brand: string;          // CSS modifier key (e.g. "sf", "sterling")
+  name: string;
+  sub: string;
+}
+
+interface Group {
+  title: string;
+  items: LogoItem[];
+}
+
+interface Props {
+  locale?: Locale;
+  h2: string;
+  sub?: string;
+  groups: Group[];
+}
+
+const { h2, sub, groups } = Astro.props;
+---
+
+<section class="mp-logos">
+  <div class="mp-logos__inner">
+    <div class="mp-logos__intro">
+      <h2 class="mp-logos__h2">{h2}</h2>
+      {sub && <p class="mp-logos__sub">{sub}</p>}
+    </div>
+
+    <div class="mp-logos__groups">
+      {groups.map((g) => (
+        <div class="mp-logos__group">
+          <h3 class="mp-logos__cat">{g.title}</h3>
+          <ul class="mp-logos__grid">
+            {g.items.map((item) => (
+              <li class="mp-logo">
+                <span class={`mp-logo__mark mp-logo__mark--${item.brand}`}>
+                  {item.name}
+                </span>
+                <span class="mp-logo__sub">{item.sub}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

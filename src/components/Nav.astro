@@ -16,20 +16,60 @@ const langOptions: { code: Locale; label: string; href: string }[] = [
 
 // Convenience accessors. Strings come from src/i18n/strings.ts.
 const n = strings.nav;
-const f = strings.footer;
+const fp = strings.features_page;
 
-// Features dropdown items. Hrefs mirror the React app's marketing routes
-// (web-app/vome-react/src/routers/AppRouter.js). Labels come from `footer.feat_*`
-// (already translated EN/FR) so we don't duplicate strings between nav + footer.
+// Features dropdown — 9 module tiles in a 3x3 grid, plus a "View all
+// features" link at the top. Icons + short labels are reused from the
+// platform-diagram source of truth (features_page.node_*_title) so the
+// dropdown, the platform diagram, and the module cards stay visually in
+// sync. Hrefs match the marketing routes mirrored on each module page.
 const featurePrefix = locale === "fr" ? "/fr" : "";
-const featureItems: { href: string; label: string }[] = [
-  { href: `${featurePrefix}/volunteer-application-forms`, label: t(f.feat_apps, locale) },
-  { href: `${featurePrefix}/volunteer-onboarding-software`, label: t(f.feat_onboarding, locale) },
-  { href: `${featurePrefix}/volunteer-scheduling-software`, label: t(f.feat_scheduling, locale) },
-  { href: `${featurePrefix}/volunteer-hour-tracking`, label: t(f.feat_hours, locale) },
-  { href: `${featurePrefix}/volunteer-database`, label: t(f.feat_database, locale) },
-  { href: `${featurePrefix}/volunteer-communications`, label: t(f.feat_comms, locale) },
-  { href: `${featurePrefix}/app-for-volunteers`, label: t(f.feat_app, locale) },
+const featureItems: { href: string; label: string; iconSvg: string }[] = [
+  {
+    href: `${featurePrefix}/volunteer-application-forms`,
+    label: t(fp.node_recruitment_title, locale),
+    iconSvg: '<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><line x1="18.5" y1="8" x2="18.5" y2="14"/><line x1="15.5" y1="11" x2="21.5" y2="11"/>',
+  },
+  {
+    href: `${featurePrefix}/volunteer-onboarding-software`,
+    label: t(fp.node_onboarding_title, locale),
+    iconSvg: '<polyline points="4 19 9 19 9 14 14 14 14 9 19 9 19 4"/><line x1="3" y1="20" x2="20" y2="20"/>',
+  },
+  {
+    href: `${featurePrefix}/volunteer-scheduling-software`,
+    label: t(fp.node_scheduling_title, locale),
+    iconSvg: '<rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/>',
+  },
+  {
+    href: `${featurePrefix}/volunteer-hour-tracking`,
+    label: t(fp.node_hours_title, locale),
+    iconSvg: '<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
+  },
+  {
+    href: `${featurePrefix}/volunteer-recognition`,
+    label: t(fp.node_recognition_title, locale),
+    iconSvg: '<circle cx="12" cy="9" r="5"/><path d="M9 13l-1 8 4-2 4 2-1-8"/>',
+  },
+  {
+    href: `${featurePrefix}/volunteer-communications`,
+    label: t(fp.node_comms_title, locale),
+    iconSvg: '<path d="M21 12c0 4-4 7-9 7-1.4 0-2.7-.2-3.9-.7L3 20l1.5-3.7C3.6 15 3 13.6 3 12c0-4 4-7 9-7s9 3 9 7z"/>',
+  },
+  {
+    href: `${featurePrefix}/volunteer-database`,
+    label: t(fp.node_data_title, locale),
+    iconSvg: '<line x1="3" y1="20" x2="21" y2="20"/><rect x="5" y="13" width="3" height="7" rx="0.5"/><rect x="10.5" y="8" width="3" height="12" rx="0.5"/><rect x="16" y="15" width="3" height="5" rx="0.5"/>',
+  },
+  {
+    href: `${featurePrefix}/app-for-volunteers`,
+    label: t(fp.node_app_title, locale),
+    iconSvg: '<rect x="7" y="3" width="10" height="18" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/>',
+  },
+  {
+    href: `${featurePrefix}/integrations`,
+    label: t(fp.node_integrations_title, locale),
+    iconSvg: '<circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="6" r="2"/><path d="M11 7.6L6.8 16M13 7.6L17.2 16M8 18h8"/>',
+  },
 ];
 const featuresAllHref = `${featurePrefix}/features`;
 ---
@@ -70,21 +110,33 @@ const featuresAllHref = `${featurePrefix}/features`;
           <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </summary>
-      <ul class="topnav__features-menu" role="list">
-        <li class="topnav__features-menu-all">
-          <a href={featuresAllHref}>
-            <span>{t(n.features_view_all, locale)}</span>
-            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </a>
-        </li>
-        {featureItems.map((item) => (
-          <li>
-            <a href={item.href}>{item.label}</a>
-          </li>
-        ))}
-      </ul>
+      <div class="topnav__features-menu">
+        <a class="topnav__features-menu-all" href={featuresAllHref}>
+          <span>{t(n.features_view_all, locale)}</span>
+          <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+        <div class="topnav__features-grid" role="list">
+          {featureItems.map((item) => (
+            <a class="feat-tile" href={item.href} role="listitem">
+              <span class="feat-tile__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={item.iconSvg}
+                />
+              </span>
+              <span class="feat-tile__label">{item.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </details>
     <a href={locale === "fr" ? "/fr/plans" : "/plans"}>{t(n.plans, locale)}</a>
     <a href={locale === "fr" ? "/fr/about-us" : "/about-us"}>{t(n.about, locale)}</a>

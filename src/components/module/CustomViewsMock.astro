@@ -1,0 +1,78 @@
+---
+/**
+ * Spotlight 2 (VIEW) mockup: a saved custom views sidebar (4 named views
+ * with result counts) plus the active view's "applied filters" + "sort"
+ * + "result count" panel.
+ *
+ * Mirrors `web-app/vome-react/src/views/.../ManageCustomViewsPopup.js`.
+ * Distinct from spotlight 1 (`.sp-fields__*`) and spotlight 3
+ * (`.sp-rep__*`): uses a two-column layout via `.sp-views__*`.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_data.views_mock;
+
+const views = [
+  { name: t(m.v1_name, locale), count: t(m.v1_count, locale), active: false },
+  { name: t(m.v2_name, locale), count: t(m.v2_count, locale), active: true  },
+  { name: t(m.v3_name, locale), count: t(m.v3_count, locale), active: false },
+  { name: t(m.v4_name, locale), count: t(m.v4_count, locale), active: false },
+];
+
+const filters = [t(m.filter1, locale), t(m.filter2, locale), t(m.filter3, locale)];
+---
+
+<div class="sp-mock sp-mock--views" aria-label="Custom views preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.panel_title, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-views__layout">
+      <aside class="sp-views__sidebar">
+        <div class="sp-views__sidebar-label">{t(m.sidebar_label, locale)}</div>
+        <ul class="sp-views__list">
+          {views.map((v) => (
+            <li class={`sp-views__item${v.active ? " sp-views__item--active" : ""}`}>
+              <span class="sp-views__dot" aria-hidden="true"></span>
+              <span class="sp-views__name">{v.name}</span>
+              <span class="sp-views__count">{v.count}</span>
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      <div class="sp-views__panel">
+        <div class="sp-views__panel-head">
+          <span class="sp-views__panel-pill">{t(m.active_label, locale)}</span>
+          <span class="sp-views__panel-name">{t(m.active_name, locale)}</span>
+        </div>
+
+        <div class="sp-views__filter-label">{t(m.filter_label, locale)}</div>
+        <ul class="sp-views__filters">
+          {filters.map((f) => (
+            <li class="sp-views__filter-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 4 21 4 14 12 14 19 10 21 10 12 3 4"/></svg>
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="sp-views__sort">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h13M3 12h9M3 17h5"/><path d="M17 6v12M17 6l3 3M17 6l-3 3"/></svg>
+          <span>{t(m.sort_label, locale)}</span>
+        </div>
+
+        <div class="sp-views__result">
+          <span class="sp-views__result-dot" aria-hidden="true"></span>
+          <span>{t(m.result_count, locale)}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

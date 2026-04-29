@@ -1,0 +1,56 @@
+---
+/**
+ * Spotlight 3 (TIMELINE) mockup: chronological view of a single
+ * volunteer's recognition history, with each row marked auto-earned or
+ * sent by an admin. The leftmost rail is a vertical timeline with
+ * dots; each row shows the date, source chip, award name, and the
+ * trigger or sender.
+ *
+ * Distinct from the other spotlights: horizontal-rail vertical timeline
+ * layout instead of a card grid (cat) or a labelled form (builder).
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recognition.timeline_mock;
+
+const events = [
+  { when: t(m.e1_when, locale), name: t(m.e1_name, locale), meta: t(m.e1_meta, locale), source: "auto",   tone: "hours",       fresh: true  },
+  { when: t(m.e2_when, locale), name: t(m.e2_name, locale), meta: t(m.e2_meta, locale), source: "manual", tone: "anniversary", fresh: false },
+  { when: t(m.e3_when, locale), name: t(m.e3_name, locale), meta: t(m.e3_meta, locale), source: "auto",   tone: "shift",       fresh: false },
+  { when: t(m.e4_when, locale), name: t(m.e4_name, locale), meta: t(m.e4_meta, locale), source: "manual", tone: "program",     fresh: false },
+];
+---
+
+<div class="sp-mock sp-mock--time" aria-label="Recognition timeline preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-mock__col-label">{t(m.label, locale)}</div>
+    <ol class="sp-time__list">
+      {events.map((e) => (
+        <li class={`sp-time__row sp-time__row--${e.tone}${e.fresh ? " sp-time__row--fresh" : ""}`}>
+          <div class="sp-time__rail" aria-hidden="true">
+            <span class={`sp-time__dot sp-time__dot--${e.tone}`}></span>
+          </div>
+          <div class="sp-time__when">{e.when}</div>
+          <div class="sp-time__body">
+            <div class="sp-time__top">
+              <span class={`sp-time__source sp-time__source--${e.source}`}>
+                {e.source === "auto" ? t(m.auto_chip, locale) : t(m.manual_chip, locale)}
+              </span>
+              <span class="sp-time__name">{e.name}</span>
+            </div>
+            <div class="sp-time__meta">{e.meta}</div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</div>

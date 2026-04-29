@@ -1,0 +1,101 @@
+---
+/**
+ * Spotlight 2 (CLAIMS) mockup — admin queue of volunteer-submitted
+ * hour claims. Each row shows the volunteer, the shift / source,
+ * the claimed hours, a state pill, and approve/decline action chips.
+ * One row is shown post-approval with a small toast confirming the
+ * time was logged to the volunteer's profile.
+ *
+ * Distinct from sibling spotlight mockups: uses `.sp-claims__*` inner
+ * classes. The shared frame `.sp-mock` is reused.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_hours.claims_mock;
+
+const rows = [
+  {
+    initials: "LB",
+    name: t(m.c1_name, locale),
+    shift: t(m.c1_shift, locale),
+    hours: t(m.c1_hours, locale),
+    state: t(m.c1_state, locale),
+    kind: "pending",
+  },
+  {
+    initials: "MD",
+    name: t(m.c2_name, locale),
+    shift: t(m.c2_shift, locale),
+    hours: t(m.c2_hours, locale),
+    state: t(m.c2_state, locale),
+    kind: "approved",
+  },
+  {
+    initials: "AK",
+    name: t(m.c3_name, locale),
+    shift: t(m.c3_shift, locale),
+    hours: t(m.c3_hours, locale),
+    state: t(m.c3_state, locale),
+    kind: "pending",
+  },
+];
+---
+
+<div class="sp-mock sp-mock--claims" aria-label="Hour claims queue preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+    <span class="sp-claims__filter">
+      <span class="sp-claims__filter-label">{t(m.filter_label, locale)}</span>
+      <span class="sp-claims__filter-value">
+        {t(m.filter_value, locale)}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </span>
+    </span>
+  </div>
+
+  <div class="sp-mock__body">
+    <ul class="sp-claims__list">
+      {rows.map((r) => (
+        <li class={`sp-claims__row sp-claims__row--${r.kind}`}>
+          <span class="sp-claims__avatar" aria-hidden="true">{r.initials}</span>
+          <div class="sp-claims__info">
+            <div class="sp-claims__name">{r.name}</div>
+            <div class="sp-claims__shift">{r.shift}</div>
+          </div>
+          <span class="sp-claims__hours">{r.hours}</span>
+          {r.kind === "pending" && (
+            <span class="sp-claims__actions" aria-hidden="true">
+              <span class="sp-claims__btn sp-claims__btn--approve">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                {t(m.approve_btn, locale)}
+              </span>
+              <span class="sp-claims__btn sp-claims__btn--decline">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+                {t(m.decline_btn, locale)}
+              </span>
+            </span>
+          )}
+          {r.kind === "approved" && (
+            <span class={`sp-claims__pill sp-claims__pill--${r.kind}`}>{r.state}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <div class="sp-claims__toast">
+      <span class="sp-claims__toast-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </span>
+      <div class="sp-claims__toast-body">
+        <div class="sp-claims__toast-label">{t(m.toast_label, locale)}</div>
+        <div class="sp-claims__toast-meta">{t(m.toast_meta, locale)}</div>
+      </div>
+    </div>
+  </div>
+</div>

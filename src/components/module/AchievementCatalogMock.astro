@@ -1,0 +1,72 @@
+---
+/**
+ * Spotlight 1 (BUILT-IN) mockup: a 2-column grid of built-in Vome
+ * achievements with the trigger rule shown directly on each card. Each
+ * card carries a 'kind' (Hours / Shifts / Tenure / Programs) that drives
+ * its accent color and icon. Mirrors the layout family in
+ * `web-app/vome-react/src/views/org/orgRecognition/AchievementCard.js`.
+ *
+ * Distinct from the other spotlights: card-grid layout (not a vertical
+ * list, not a vertical form, not a horizontal timeline).
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recognition.cat_mock;
+
+const cards = [
+  { name: t(m.c1_name, locale), rule: t(m.c1_rule, locale), kind: t(m.c1_kind, locale), tone: "shift" },
+  { name: t(m.c2_name, locale), rule: t(m.c2_rule, locale), kind: t(m.c2_kind, locale), tone: "hours" },
+  { name: t(m.c3_name, locale), rule: t(m.c3_rule, locale), kind: t(m.c3_kind, locale), tone: "hours" },
+  { name: t(m.c4_name, locale), rule: t(m.c4_rule, locale), kind: t(m.c4_kind, locale), tone: "shift" },
+  { name: t(m.c5_name, locale), rule: t(m.c5_rule, locale), kind: t(m.c5_kind, locale), tone: "tenure" },
+  { name: t(m.c6_name, locale), rule: t(m.c6_rule, locale), kind: t(m.c6_kind, locale), tone: "program" },
+];
+---
+
+<div class="sp-mock sp-mock--cat" aria-label="Built-in achievements catalog preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-mock__col-label">{t(m.label, locale)}</div>
+    <ul class="sp-cat__grid">
+      {cards.map((c) => (
+        <li class={`sp-cat__card sp-cat__card--${c.tone}`}>
+          <span class={`sp-cat__icon sp-cat__icon--${c.tone}`} aria-hidden="true">
+            {c.tone === "shift" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M8.5 14.5l2.5 2.5 4.5-5"/></svg>
+            )}
+            {c.tone === "hours" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            )}
+            {c.tone === "tenure" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5.5 6 .6-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.6z"/></svg>
+            )}
+            {c.tone === "program" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg>
+            )}
+          </span>
+          <div class="sp-cat__body">
+            <div class="sp-cat__name">{c.name}</div>
+            <div class="sp-cat__rule">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h6l3-7 3 14 3-7h3"/></svg>
+              <span>{c.rule}</span>
+            </div>
+            <div class="sp-cat__row">
+              <span class={`sp-cat__kind sp-cat__kind--${c.tone}`}>{c.kind}</span>
+              <span class="sp-cat__auto">
+                <span class="sp-cat__auto-dot"></span>{t(m.auto_badge, locale)}
+              </span>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

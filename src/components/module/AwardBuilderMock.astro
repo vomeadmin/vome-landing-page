@@ -1,0 +1,111 @@
+---
+/**
+ * Spotlight 2 (DESIGN) mockup: admin-side custom-award builder. Shows
+ * the form fields a coordinator fills out: name, icon picker, description,
+ * criteria (auto rule vs manual award), eligibility scope, and the
+ * "visible on profile" toggle. Mirrors the layout in
+ * `web-app/vome-react/src/views/org/orgRecognition/AchievementEdit.js`.
+ *
+ * Distinct from the other spotlights: vertical form layout with labelled
+ * rows + an icon picker grid, instead of a card grid or timeline.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recognition.builder_mock;
+
+// Icon picker — `selected` controls which one is highlighted.
+const icons = [
+  { glyph: "trophy",     selected: false },
+  { glyph: "medal",      selected: true  },
+  { glyph: "star",       selected: false },
+  { glyph: "ribbon",     selected: false },
+  { glyph: "heart",      selected: false },
+];
+---
+
+<div class="sp-mock sp-mock--builder" aria-label="Custom award builder preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-builder__row">
+      <span class="sp-builder__label">{t(m.label_name, locale)}</span>
+      <div class="sp-builder__field">{t(m.name_value, locale)}</div>
+    </div>
+
+    <div class="sp-builder__row">
+      <span class="sp-builder__label">{t(m.label_icon, locale)}</span>
+      <ul class="sp-builder__icons">
+        {icons.map((it) => (
+          <li class={`sp-builder__icon-cell${it.selected ? " sp-builder__icon-cell--sel" : ""}`}>
+            {it.glyph === "trophy" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8v5a4 4 0 0 1-8 0z"/><path d="M5 5H3v3a3 3 0 0 0 3 3"/><path d="M19 5h2v3a3 3 0 0 1-3 3"/><path d="M9 14h6l-1 5h-4z"/><path d="M7 21h10"/></svg>
+            )}
+            {it.glyph === "medal" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="6"/><path d="M8.5 9L6 3h5l2 4M15.5 9L18 3h-5l-2 4"/></svg>
+            )}
+            {it.glyph === "star" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5.5 6 .6-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.6z"/></svg>
+            )}
+            {it.glyph === "ribbon" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v9l-5 3-5-3z"/><path d="M9 13l-3 8 6-3 6 3-3-8"/></svg>
+            )}
+            {it.glyph === "heart" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.7A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="sp-builder__row">
+      <span class="sp-builder__label">{t(m.label_desc, locale)}</span>
+      <div class="sp-builder__field sp-builder__field--multi">{t(m.desc_value, locale)}</div>
+    </div>
+
+    <div class="sp-builder__row">
+      <span class="sp-builder__label">{t(m.label_criteria, locale)}</span>
+      <div class="sp-builder__criteria">
+        <div class="sp-builder__radio sp-builder__radio--sel">
+          <span class="sp-builder__radio-dot"></span>
+          <div class="sp-builder__radio-body">
+            <span class="sp-builder__radio-title">{t(m.crit_auto, locale)}</span>
+            <span class="sp-builder__radio-desc">{t(m.crit_auto_desc, locale)}</span>
+          </div>
+        </div>
+        <div class="sp-builder__radio">
+          <span class="sp-builder__radio-dot"></span>
+          <div class="sp-builder__radio-body">
+            <span class="sp-builder__radio-title">{t(m.crit_manual, locale)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-builder__row">
+      <span class="sp-builder__label">{t(m.label_eligibility, locale)}</span>
+      <div class="sp-builder__field sp-builder__field--scope">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg>
+        <span>{t(m.elig_value, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-builder__toggle-row">
+      <span class="sp-builder__toggle-label">{t(m.label_visibility, locale)}</span>
+      <span class="sp-builder__toggle">
+        <span class="sp-builder__toggle-knob"></span>
+        <span class="sp-builder__toggle-text">{t(m.visibility_on, locale)}</span>
+      </span>
+    </div>
+
+    <div class="sp-builder__save">
+      <span class="sp-builder__save-btn">{t(m.save, locale)}</span>
+    </div>
+  </div>
+</div>

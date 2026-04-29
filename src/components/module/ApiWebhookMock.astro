@@ -1,0 +1,71 @@
+---
+/**
+ * Spotlight 3 (BUILD) mockup — webhook payload + response card.
+ *
+ * Code-style preview of a webhook delivery: method+endpoint header,
+ * a JSON payload, a 200 OK response, and a meta footer with the
+ * retry policy and HMAC signature header. Uses a monospace font
+ * stack and a subtle dark code surface to read as developer chrome.
+ *
+ * Distinct from the other two spotlight mockups by shape: a
+ * code/console card, not a list of cards or a chain of steps.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_integrations.api_mock;
+---
+
+<div class="sp-mock sp-mock--api" aria-label="Webhook delivery preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+    <span class="sp-api__delivered">
+      <span class="sp-api__delivered-dot"></span>{t(m.delivered, locale)}
+    </span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-api__meta">
+      <span class="sp-api__method">{t(m.method, locale)}</span>
+      <span class="sp-api__event-key">{t(m.event_label, locale)}</span>
+      <span class="sp-api__event-val">{t(m.event_value, locale)}</span>
+    </div>
+
+    <div class="sp-api__block">
+      <div class="sp-api__block-label">{t(m.payload_label, locale)}</div>
+      <pre class="sp-api__code"><span class="sp-api__br">{`{`}</span>
+{`  `}<span class="sp-api__k">"id"</span>: <span class="sp-api__s">"vlt_8c4a3"</span>,
+{`  `}<span class="sp-api__k">"event"</span>: <span class="sp-api__s">"volunteer.application.submitted"</span>,
+{`  `}<span class="sp-api__k">"created_at"</span>: <span class="sp-api__s">"2026-04-12T10:24:31Z"</span>,
+{`  `}<span class="sp-api__k">"data"</span>: <span class="sp-api__br">{`{`}</span>
+{`    `}<span class="sp-api__k">"applicant"</span>: <span class="sp-api__s">"Maya R."</span>,
+{`    `}<span class="sp-api__k">"opportunity"</span>: <span class="sp-api__s">"Hospital companion"</span>,
+{`    `}<span class="sp-api__k">"tags"</span>: [<span class="sp-api__s">"healthcare"</span>, <span class="sp-api__s">"weekend"</span>]
+{`  `}<span class="sp-api__br">{`}`}</span>
+<span class="sp-api__br">{`}`}</span></pre>
+    </div>
+
+    <div class="sp-api__block sp-api__block--res">
+      <div class="sp-api__block-label">{t(m.response_label, locale)}</div>
+      <pre class="sp-api__code sp-api__code--res">HTTP/1.1 <span class="sp-api__ok">200 OK</span>
+<span class="sp-api__k">content-type</span>: application/json
+
+<span class="sp-api__br">{`{ `}</span><span class="sp-api__k">"received"</span>: <span class="sp-api__b">true</span><span class="sp-api__br">{` }`}</span></pre>
+    </div>
+
+    <div class="sp-api__footer">
+      <div class="sp-api__foot-row">
+        <span class="sp-api__foot-label">{t(m.retries_label, locale)}</span>
+        <span class="sp-api__foot-value">{t(m.retries_value, locale)}</span>
+      </div>
+      <div class="sp-api__foot-row">
+        <span class="sp-api__foot-label">{t(m.signed_label, locale)}</span>
+        <span class="sp-api__foot-value sp-api__foot-value--mono">{t(m.signed_value, locale)}</span>
+      </div>
+    </div>
+  </div>
+</div>

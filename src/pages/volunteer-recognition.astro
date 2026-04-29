@@ -1,0 +1,225 @@
+---
+/**
+ * Module landing page — Recognition (achievements + custom awards).
+ *
+ * Mirrors the canonical /volunteer-application-forms composition.
+ * Copy lives in `strings.module_recognition`. Hand-built mockups:
+ *   Hero        AchievementsWallMock     (volunteer profile wall + freshly earned tile)
+ *   Spotlight 1 AchievementCatalogMock   (built-in catalog cards with trigger rules)
+ *   Spotlight 2 AwardBuilderMock         (admin form designing a custom award)
+ *   Spotlight 3 RecognitionTimelineMock  (chronological auto + manual entries)
+ */
+import Layout from "../layouts/Layout.astro";
+import Partners from "../components/sections/Partners.astro";
+import Faq from "../components/sections/Faq.astro";
+import FeatureMatrix from "../components/sections/FeatureMatrix.astro";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+import ModuleHero from "../components/module/ModuleHero.astro";
+import BenefitGrid from "../components/module/BenefitGrid.astro";
+import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
+import HowItWorks from "../components/module/HowItWorks.astro";
+import Differentiators from "../components/module/Differentiators.astro";
+import AchievementsWallMock from "../components/module/AchievementsWallMock.astro";
+import AchievementCatalogMock from "../components/module/AchievementCatalogMock.astro";
+import AwardBuilderMock from "../components/module/AwardBuilderMock.astro";
+import RecognitionTimelineMock from "../components/module/RecognitionTimelineMock.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const r = strings.module_recognition;
+const prefix = locale === "fr" ? "/fr" : "";
+const demoHref = `${prefix}/demo`;
+const signupHref = "https://www.vomevolunteer.com/register";
+
+// ── Hero meta pills ──
+const heroMeta = [
+  { text: t(r.hero_meta_builtin, locale) },
+  { text: t(r.hero_meta_custom, locale) },
+  { text: t(r.hero_meta_profile, locale) },
+];
+
+// ── Benefits grid (6 cards). Icons match the platform-diagram line style. ──
+const benefits = [
+  {
+    // Trophy / built-in achievement
+    iconSvg: '<path d="M8 3h8v5a4 4 0 0 1-8 0z"/><path d="M5 5H3v3a3 3 0 0 0 3 3"/><path d="M19 5h2v3a3 3 0 0 1-3 3"/><path d="M9 14h6l-1 5h-4z"/><path d="M7 21h10"/>',
+    title: t(r.ben1_title, locale),
+    desc: t(r.ben1_desc, locale),
+  },
+  {
+    // Star / custom award
+    iconSvg: '<path d="M12 3l2.4 5.5 6 .6-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.6z"/>',
+    title: t(r.ben2_title, locale),
+    desc: t(r.ben2_desc, locale),
+  },
+  {
+    // Pulse / trigger
+    iconSvg: '<path d="M3 12h6l3-7 3 14 3-7h3"/>',
+    title: t(r.ben3_title, locale),
+    desc: t(r.ben3_desc, locale),
+  },
+  {
+    // Hand-deliver / paper plane
+    iconSvg: '<path d="M3 11l18-7-7 18-3-7-8-4z"/><path d="M21 4l-10 10"/>',
+    title: t(r.ben4_title, locale),
+    desc: t(r.ben4_desc, locale),
+  },
+  {
+    // Profile card / id
+    iconSvg: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5 17c1-2 3-3 4-3s3 1 4 3"/><path d="M15 9h4M15 13h3"/>',
+    title: t(r.ben5_title, locale),
+    desc: t(r.ben5_desc, locale),
+  },
+  {
+    // Funnel / scope
+    iconSvg: '<path d="M3 4h18l-7 8v6l-4 2v-8z"/>',
+    title: t(r.ben6_title, locale),
+    desc: t(r.ben6_desc, locale),
+  },
+];
+
+// ── Spotlight bullets ──
+const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3, locale), t(r.spot1_b4, locale)];
+const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
+const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
+
+// ── How-it-works steps (4) ──
+const steps = [
+  { title: t(r.step1_title, locale), desc: t(r.step1_desc, locale) },
+  { title: t(r.step2_title, locale), desc: t(r.step2_desc, locale) },
+  { title: t(r.step3_title, locale), desc: t(r.step3_desc, locale) },
+  { title: t(r.step4_title, locale), desc: t(r.step4_desc, locale) },
+];
+
+// ── Differentiators (3) ──
+const differentiators = [
+  {
+    // Linked database / connected data
+    iconSvg: '<ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5"/><path d="M4 11v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-6"/>',
+    title: t(r.diff1_title, locale),
+    desc: t(r.diff1_desc, locale),
+  },
+  {
+    // Profile / identity
+    iconSvg: '<circle cx="12" cy="9" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/>',
+    title: t(r.diff2_title, locale),
+    desc: t(r.diff2_desc, locale),
+  },
+  {
+    // Hand-heart / earnest
+    iconSvg: '<path d="M12 17l-6-5a3.2 3.2 0 0 1 4.5-4.5L12 9l1.5-1.5A3.2 3.2 0 0 1 18 12z"/><path d="M3 14l3-2 3 1 4-2"/>',
+    title: t(r.diff3_title, locale),
+    desc: t(r.diff3_desc, locale),
+  },
+];
+
+// ── Module FAQs (6) ──
+const faqItems = [
+  { q: r.faq1_q, a: r.faq1_a, open: true },
+  { q: r.faq2_q, a: r.faq2_a },
+  { q: r.faq3_q, a: r.faq3_a },
+  { q: r.faq4_q, a: r.faq4_a },
+  { q: r.faq5_q, a: r.faq5_a },
+  { q: r.faq6_q, a: r.faq6_a },
+];
+---
+
+<Layout
+  locale={locale}
+  title={t(r.page_title, locale)}
+  description={t(r.page_description, locale)}
+>
+  <ModuleHero
+    locale={locale}
+    eyebrow={t(r.hero_eyebrow, locale)}
+    h1Part1={t(r.hero_h1_part1, locale)}
+    h1Accent={t(r.hero_h1_accent, locale)}
+    h1Part2={t(r.hero_h1_part2, locale)}
+    sub={t(r.hero_sub, locale)}
+    ctaPrimaryHref={signupHref}
+    ctaPrimaryLabel={t(strings.nav.signup_free, locale)}
+    ctaSecondaryHref={demoHref}
+    ctaSecondaryLabel={t(strings.nav.book_demo, locale)}
+    meta={heroMeta}
+  >
+    <AchievementsWallMock slot="mockup" locale={locale} />
+  </ModuleHero>
+
+  <Partners locale={locale} />
+
+  <BenefitGrid
+    locale={locale}
+    h2={t(r.benefits_h2, locale)}
+    sub={t(r.benefits_sub, locale)}
+    items={benefits}
+  />
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot1_kicker, locale)}
+    title={t(r.spot1_title, locale)}
+    body={t(r.spot1_body, locale)}
+    bullets={spot1Bullets}
+    side="right"
+  >
+    <AchievementCatalogMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot2_kicker, locale)}
+    title={t(r.spot2_title, locale)}
+    body={t(r.spot2_body, locale)}
+    bullets={spot2Bullets}
+    side="left"
+  >
+    <AwardBuilderMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot3_kicker, locale)}
+    title={t(r.spot3_title, locale)}
+    body={t(r.spot3_body, locale)}
+    bullets={spot3Bullets}
+    side="right"
+  >
+    <RecognitionTimelineMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <HowItWorks
+    locale={locale}
+    h2={t(r.how_h2, locale)}
+    sub={t(r.how_sub, locale)}
+    steps={steps}
+  />
+
+  <Differentiators
+    locale={locale}
+    h2={t(r.diff_h2, locale)}
+    sub={t(r.diff_sub, locale)}
+    items={differentiators}
+  />
+
+  <Faq
+    locale={locale}
+    items={faqItems}
+    heading={r.faq_h2}
+    sub={r.faq_sub}
+    ctaText={r.faq_cta_text}
+    ctaLink={r.faq_cta_link}
+  />
+
+  <FeatureMatrix
+    locale={locale}
+    onlySection="recognition"
+    heading={r.matrix_h2}
+    showAllToggle
+  />
+
+  <ClosingCta locale={locale} />
+</Layout>

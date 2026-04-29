@@ -1,0 +1,225 @@
+---
+/**
+ * Module landing page — Scheduling & shifts.
+ *
+ * Mirrors the canonical /volunteer-application-forms composition.
+ * Copy lives in `strings.module_scheduling`. Hand-built mockups:
+ *   Hero        SchedulerMock      (week view with shifts of varying state)
+ *   Spotlight 1 ShiftCreationMock  (recurring-shift create popup)
+ *   Spotlight 2 SelfBookingMock    (volunteer-side slot list)
+ *   Spotlight 3 ShiftChatroomMock  (auto-generated shift chat)
+ */
+import Layout from "../layouts/Layout.astro";
+import Partners from "../components/sections/Partners.astro";
+import Faq from "../components/sections/Faq.astro";
+import FeatureMatrix from "../components/sections/FeatureMatrix.astro";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+import ModuleHero from "../components/module/ModuleHero.astro";
+import BenefitGrid from "../components/module/BenefitGrid.astro";
+import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
+import HowItWorks from "../components/module/HowItWorks.astro";
+import Differentiators from "../components/module/Differentiators.astro";
+import SchedulerMock from "../components/module/SchedulerMock.astro";
+import ShiftCreationMock from "../components/module/ShiftCreationMock.astro";
+import SelfBookingMock from "../components/module/SelfBookingMock.astro";
+import ShiftChatroomMock from "../components/module/ShiftChatroomMock.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const r = strings.module_scheduling;
+const prefix = locale === "fr" ? "/fr" : "";
+const demoHref = `${prefix}/demo`;
+const signupHref = "https://www.vomevolunteer.com/register";
+
+// ── Hero meta pills (3) ──
+const heroMeta = [
+  { text: t(r.hero_meta_recurring, locale) },
+  { text: t(r.hero_meta_calendar, locale) },
+  { text: t(r.hero_meta_reminders, locale) },
+];
+
+// ── Benefits grid (6 cards). Icons match the platform-diagram line style. ──
+const benefits = [
+  {
+    // Calendar with repeat arrow → recurring shifts
+    iconSvg: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M9 14l2 2 4-4"/>',
+    title: t(r.ben1_title, locale),
+    desc: t(r.ben1_desc, locale),
+  },
+  {
+    // Hand pointing on tap → self-schedule / instant book
+    iconSvg: '<path d="M9 11V6a2 2 0 0 1 4 0v5"/><path d="M13 11V8a2 2 0 0 1 4 0v5"/><path d="M17 11V9a2 2 0 0 1 4 0v6a6 6 0 0 1-6 6h-3a6 6 0 0 1-6-6v-1l-3-4a2 2 0 0 1 3-3l2 2"/>',
+    title: t(r.ben2_title, locale),
+    desc: t(r.ben2_desc, locale),
+  },
+  {
+    // Sliders / policy controls
+    iconSvg: '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="7" cy="18" r="2"/>',
+    title: t(r.ben3_title, locale),
+    desc: t(r.ben3_desc, locale),
+  },
+  {
+    // Three people / group reservation
+    iconSvg: '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="6" r="2.5"/><path d="M16 14c2.8 0 5 2 5 5"/>',
+    title: t(r.ben4_title, locale),
+    desc: t(r.ben4_desc, locale),
+  },
+  {
+    // Chat bubble with shift bolt
+    iconSvg: '<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M11 7l-2 4h3l-2 4"/>',
+    title: t(r.ben5_title, locale),
+    desc: t(r.ben5_desc, locale),
+  },
+  {
+    // Calendar with bell / reminders + sync
+    iconSvg: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/><path d="M15 4l2 2"/>',
+    title: t(r.ben6_title, locale),
+    desc: t(r.ben6_desc, locale),
+  },
+];
+
+// ── Spotlight bullets ──
+const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3, locale), t(r.spot1_b4, locale)];
+const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
+const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
+
+// ── How-it-works steps (4) ──
+const steps = [
+  { title: t(r.step1_title, locale), desc: t(r.step1_desc, locale) },
+  { title: t(r.step2_title, locale), desc: t(r.step2_desc, locale) },
+  { title: t(r.step3_title, locale), desc: t(r.step3_desc, locale) },
+  { title: t(r.step4_title, locale), desc: t(r.step4_desc, locale) },
+];
+
+// ── Differentiators (3) ──
+const differentiators = [
+  {
+    // Sliders — policies, not just slots
+    iconSvg: '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="7" cy="18" r="2"/>',
+    title: t(r.diff1_title, locale),
+    desc: t(r.diff1_desc, locale),
+  },
+  {
+    // Group of people — group reservations native
+    iconSvg: '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="6" r="2.5"/><path d="M16 14c2.8 0 5 2 5 5"/>',
+    title: t(r.diff2_title, locale),
+    desc: t(r.diff2_desc, locale),
+  },
+  {
+    // Chat plus QR — wired to messaging and check-in
+    iconSvg: '<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><rect x="8" y="7" width="3" height="3"/><rect x="13" y="7" width="3" height="3"/><rect x="8" y="12" width="3" height="3"/>',
+    title: t(r.diff3_title, locale),
+    desc: t(r.diff3_desc, locale),
+  },
+];
+
+// ── Module FAQs (6) ──
+const faqItems = [
+  { q: r.faq1_q, a: r.faq1_a, open: true },
+  { q: r.faq2_q, a: r.faq2_a },
+  { q: r.faq3_q, a: r.faq3_a },
+  { q: r.faq4_q, a: r.faq4_a },
+  { q: r.faq5_q, a: r.faq5_a },
+  { q: r.faq6_q, a: r.faq6_a },
+];
+---
+
+<Layout
+  locale={locale}
+  title={t(r.page_title, locale)}
+  description={t(r.page_description, locale)}
+>
+  <ModuleHero
+    locale={locale}
+    eyebrow={t(r.hero_eyebrow, locale)}
+    h1Part1={t(r.hero_h1_part1, locale)}
+    h1Accent={t(r.hero_h1_accent, locale)}
+    h1Part2={t(r.hero_h1_part2, locale)}
+    sub={t(r.hero_sub, locale)}
+    ctaPrimaryHref={signupHref}
+    ctaPrimaryLabel={t(strings.nav.signup_free, locale)}
+    ctaSecondaryHref={demoHref}
+    ctaSecondaryLabel={t(strings.nav.book_demo, locale)}
+    meta={heroMeta}
+  >
+    <SchedulerMock slot="mockup" locale={locale} />
+  </ModuleHero>
+
+  <Partners locale={locale} />
+
+  <BenefitGrid
+    locale={locale}
+    h2={t(r.benefits_h2, locale)}
+    sub={t(r.benefits_sub, locale)}
+    items={benefits}
+  />
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot1_kicker, locale)}
+    title={t(r.spot1_title, locale)}
+    body={t(r.spot1_body, locale)}
+    bullets={spot1Bullets}
+    side="right"
+  >
+    <ShiftCreationMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot2_kicker, locale)}
+    title={t(r.spot2_title, locale)}
+    body={t(r.spot2_body, locale)}
+    bullets={spot2Bullets}
+    side="left"
+  >
+    <SelfBookingMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot3_kicker, locale)}
+    title={t(r.spot3_title, locale)}
+    body={t(r.spot3_body, locale)}
+    bullets={spot3Bullets}
+    side="right"
+  >
+    <ShiftChatroomMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <HowItWorks
+    locale={locale}
+    h2={t(r.how_h2, locale)}
+    sub={t(r.how_sub, locale)}
+    steps={steps}
+  />
+
+  <Differentiators
+    locale={locale}
+    h2={t(r.diff_h2, locale)}
+    sub={t(r.diff_sub, locale)}
+    items={differentiators}
+  />
+
+  <Faq
+    locale={locale}
+    items={faqItems}
+    heading={r.faq_h2}
+    sub={r.faq_sub}
+    ctaText={r.faq_cta_text}
+    ctaLink={r.faq_cta_link}
+  />
+
+  <FeatureMatrix
+    locale={locale}
+    onlySection="scheduling"
+    heading={r.matrix_h2}
+    showAllToggle
+  />
+
+  <ClosingCta locale={locale} />
+</Layout>

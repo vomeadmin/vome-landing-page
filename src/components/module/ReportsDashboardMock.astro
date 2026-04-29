@@ -1,0 +1,74 @@
+---
+/**
+ * Spotlight 3 (REPORT) mockup: an analytics dashboard with three KPI cards
+ * (total hours, active volunteers, sequence completion %) and a horizontal
+ * bar chart showing hours by program.
+ *
+ * Distinct from spotlight 1 (`.sp-fields__*`, list of field rows) and
+ * spotlight 2 (`.sp-views__*`, two-column saved views): this mockup uses
+ * `.sp-rep__*` and combines KPI tiles with a chart.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_data.reports_mock;
+
+const kpis = [
+  { label: t(m.kpi_hours_label,  locale), value: t(m.kpi_hours_value,  locale), delta: t(m.kpi_hours_delta,  locale), kind: "hours" },
+  { label: t(m.kpi_active_label, locale), value: t(m.kpi_active_value, locale), delta: t(m.kpi_active_delta, locale), kind: "active" },
+  { label: t(m.kpi_seq_label,    locale), value: t(m.kpi_seq_value,    locale), delta: t(m.kpi_seq_delta,    locale), kind: "seq" },
+];
+
+const bars = [
+  { name: t(m.bar1_name, locale), value: t(m.bar1_value, locale), pct: 100 },
+  { name: t(m.bar2_name, locale), value: t(m.bar2_value, locale), pct: 72  },
+  { name: t(m.bar3_name, locale), value: t(m.bar3_value, locale), pct: 54  },
+  { name: t(m.bar4_name, locale), value: t(m.bar4_value, locale), pct: 45  },
+  { name: t(m.bar5_name, locale), value: t(m.bar5_value, locale), pct: 38  },
+];
+---
+
+<div class="sp-mock sp-mock--rep" aria-label="Analytics dashboard preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.panel_title, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-rep__kpis">
+      {kpis.map((k) => (
+        <div class={`sp-rep__kpi sp-rep__kpi--${k.kind}`}>
+          <div class="sp-rep__kpi-label">{k.label}</div>
+          <div class="sp-rep__kpi-value">{k.value}</div>
+          <div class="sp-rep__kpi-delta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 15 12 9 18 15"/></svg>
+            {k.delta}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="sp-rep__chart">
+      <div class="sp-rep__chart-label">{t(m.chart_label, locale)}</div>
+      <ul class="sp-rep__bars">
+        {bars.map((b) => (
+          <li class="sp-rep__bar-row">
+            <span class="sp-rep__bar-name">{b.name}</span>
+            <span class="sp-rep__bar-track" aria-hidden="true">
+              <span class="sp-rep__bar-fill" style={`width:${b.pct}%`}></span>
+            </span>
+            <span class="sp-rep__bar-value">{b.value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="sp-rep__footer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      {t(m.footer_label, locale)}
+    </div>
+  </div>
+</div>

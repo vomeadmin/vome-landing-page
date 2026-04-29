@@ -1,0 +1,65 @@
+---
+/**
+ * Spotlight 1 (CHECK IN) mockup — phone screen showing the Vome app
+ * QR-scan + tap-to-confirm flow. Visualizes the moment a volunteer
+ * scans the daily QR code at a site, sees GPS proximity confirmed,
+ * and taps the orange "Check in now" button.
+ *
+ * Distinct shape from the other spotlights: this is a portrait phone
+ * frame, not the wide `.sp-mock` card. Uses `.sp-mock--qr` variant on
+ * the outer so shared chip styling still applies. Inner classes use
+ * the `.sp-qr__*` prefix.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_hours.qr_mock;
+---
+
+<div class="sp-mock sp-mock--qr" aria-label="Mobile QR check-in preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+
+  <div class="sp-mock__body sp-qr__body">
+    <div class="sp-qr__phone" aria-hidden="false">
+      <div class="sp-qr__notch"></div>
+      <div class="sp-qr__screen">
+        <div class="sp-qr__qr-card">
+          <div class="sp-qr__qr-label">{t(m.qr_label, locale)}</div>
+          <div class="sp-qr__qr" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="sp-qr__qr-caption">{t(m.qr_caption, locale)}</div>
+        </div>
+
+        <div class="sp-qr__detected">
+          <span class="sp-qr__detected-dot" aria-hidden="true"></span>
+          <span class="sp-qr__detected-text">{t(m.detected_label, locale)}</span>
+        </div>
+
+        <div class="sp-qr__gps">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-7 8-13a8 8 0 1 0-16 0c0 6 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span>{t(m.gps_chip, locale)}</span>
+        </div>
+
+        <div class="sp-qr__action-label">{t(m.action_label, locale)}</div>
+        <button type="button" class="sp-qr__btn" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          {t(m.action_btn, locale)}
+        </button>
+
+        <div class="sp-qr__auto">{t(m.auto_caption, locale)}</div>
+      </div>
+    </div>
+  </div>
+</div>

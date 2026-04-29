@@ -1,0 +1,57 @@
+---
+/**
+ * Spotlight 1 (CONNECT) mockup — native integrations grid.
+ *
+ * Five hand-built rows, one per shipped native integration. Each row
+ * has a brand-colored text mark (Salesforce blue pill, SCORM teal,
+ * etc.), the integration name, a one-line description of what it
+ * actually does in Vome, and a "Connected" status pill. Decorative
+ * text marks only (no `<img>` tags).
+ *
+ * Mirrors the layout of the OrgIntegrations admin page in the React
+ * app (`src/views/org/orgIntegrations/OrgIntegrations.js`) where the
+ * native cards stack vertically with status indicators.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_integrations.native_mock;
+
+const rows = [
+  { brand: "sf",       name: t(m.sf_name, locale),       meta: t(m.sf_meta, locale),       status: t(m.sf_status, locale)       },
+  { brand: "sterling", name: t(m.sterling_name, locale), meta: t(m.sterling_meta, locale), status: t(m.sterling_status, locale) },
+  { brand: "scorm",    name: t(m.scorm_name, locale),    meta: t(m.scorm_meta, locale),    status: t(m.scorm_status, locale)    },
+  { brand: "dtd",      name: t(m.dtd_name, locale),      meta: t(m.dtd_meta, locale),      status: t(m.dtd_status, locale)      },
+  { brand: "sheets",   name: t(m.sheets_name, locale),   meta: t(m.sheets_meta, locale),   status: t(m.sheets_status, locale)   },
+];
+---
+
+<div class="sp-mock sp-mock--native" aria-label="Native integrations preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <ul class="sp-native__list">
+      {rows.map((r) => (
+        <li class="sp-native__row">
+          <span class={`sp-native__mark sp-native__mark--${r.brand}`}>
+            {r.name}
+          </span>
+          <div class="sp-native__copy">
+            <div class="sp-native__name">{r.name}</div>
+            <div class="sp-native__meta">{r.meta}</div>
+          </div>
+          <span class="sp-native__status">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+            {r.status}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

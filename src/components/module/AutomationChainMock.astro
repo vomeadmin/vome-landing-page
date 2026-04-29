@@ -1,0 +1,62 @@
+---
+/**
+ * Spotlight 2 (AUTOMATE) mockup — Zapier-style automation chain.
+ *
+ * Renders a vertical "Zap" card with one trigger and three actions.
+ * Each step is a row: brand-colored app mark on the left + step
+ * description on the right. A small footer shows runs-this-month so
+ * the mockup feels alive. All copy translatable; no `<img>` used.
+ *
+ * Distinct from the recruitment AutomationMock (When/If/Then rule)
+ * by shape: this one is a multi-step inter-app chain with a
+ * stepped vertical track, not a single When/If/Then card.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_integrations.chain_mock;
+
+const steps = [
+  { kind: "trigger", label: t(m.trigger_label, locale), brand: "vome",    app: t(m.trigger_app, locale), event: t(m.trigger_event, locale) },
+  { kind: "action",  label: t(m.action1_label, locale), brand: "mail",    app: t(m.action1_app, locale), event: t(m.action1_event, locale) },
+  { kind: "action",  label: t(m.action2_label, locale), brand: "slack",   app: t(m.action2_app, locale), event: t(m.action2_event, locale) },
+  { kind: "action",  label: t(m.action3_label, locale), brand: "sheets",  app: t(m.action3_app, locale), event: t(m.action3_event, locale) },
+];
+---
+
+<div class="sp-mock sp-mock--chain" aria-label="Automation chain preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+    <span class="sp-chain__live">
+      <span class="sp-chain__live-dot"></span>{t(m.enabled, locale)}
+    </span>
+  </div>
+  <div class="sp-mock__body">
+    <ol class="sp-chain__list">
+      {steps.map((s, i) => (
+        <li class={`sp-chain__step sp-chain__step--${s.kind}`}>
+          <div class="sp-chain__rail">
+            <span class={`sp-chain__dot sp-chain__dot--${s.kind}`}>{i + 1}</span>
+          </div>
+          <div class="sp-chain__body">
+            <div class="sp-chain__row">
+              <span class={`sp-chain__kind sp-chain__kind--${s.kind}`}>{s.label}</span>
+              <span class={`sp-chain__app sp-chain__app--${s.brand}`}>{s.app}</span>
+            </div>
+            <div class="sp-chain__event">{s.event}</div>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="sp-chain__footer">
+      <span class="sp-chain__runs-label">{t(m.runs_label, locale)}</span>
+      <span class="sp-chain__runs-value">{t(m.runs_value, locale)}</span>
+    </div>
+  </div>
+</div>

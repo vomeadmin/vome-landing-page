@@ -1,0 +1,65 @@
+---
+/**
+ * Spotlight 2 (BOOK) mockup: volunteer-side self-scheduling view.
+ *
+ * A phone-style list of upcoming shifts the volunteer can book. Each
+ * row has the day/time, a meta line with capacity + state, and a
+ * primary action button whose label changes by booking mode (instant
+ * book, join waitlist, reserve for group, request approval).
+ *
+ * Distinct shape from spotlight 1 (key/value popup) and spotlight 3
+ * (chatroom). Uses `.sp-book__*` inner classes.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_scheduling.book_mock;
+
+const slots = [
+  { day: t(m.slot1_day, locale), time: t(m.slot1_time, locale), meta: t(m.slot1_meta, locale), action: t(m.slot1_action, locale), kind: "instant" },
+  { day: t(m.slot2_day, locale), time: t(m.slot2_time, locale), meta: t(m.slot2_meta, locale), action: t(m.slot2_action, locale), kind: "instant" },
+  { day: t(m.slot3_day, locale), time: t(m.slot3_time, locale), meta: t(m.slot3_meta, locale), action: t(m.slot3_action, locale), kind: "waitlist" },
+  { day: t(m.slot4_day, locale), time: t(m.slot4_time, locale), meta: t(m.slot4_meta, locale), action: t(m.slot4_action, locale), kind: "group" },
+  { day: t(m.slot5_day, locale), time: t(m.slot5_time, locale), meta: t(m.slot5_meta, locale), action: t(m.slot5_action, locale), kind: "approval" },
+];
+---
+
+<div class="sp-mock sp-mock--book" aria-label="Volunteer self-booking preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+
+  <div class="sp-mock__body">
+    <div class="sp-book__tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V6a2 2 0 0 0-2-2H8.83a2 2 0 0 0-1.41.59l-5 5a2 2 0 0 0 0 2.82l5 5A2 2 0 0 0 8.83 18H18a2 2 0 0 0 2-2v-4z"/><circle cx="12" cy="11" r="1.5"/></svg>
+      {t(m.tag_hospital, locale)}
+    </div>
+
+    <ul class="sp-book__list">
+      {slots.map((s) => (
+        <li class={`sp-book__row sp-book__row--${s.kind}`}>
+          <div class="sp-book__when">
+            <span class="sp-book__day">{s.day}</span>
+            <span class="sp-book__time">{s.time}</span>
+          </div>
+          <div class="sp-book__meta">
+            <span class={`sp-book__chip sp-book__chip--${s.kind}`}>{s.meta}</span>
+          </div>
+          <button type="button" class={`sp-book__cta sp-book__cta--${s.kind}`} disabled>
+            {s.action}
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    <div class="sp-book__policy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span>{t(m.footer_policy, locale)}</span>
+    </div>
+  </div>
+</div>

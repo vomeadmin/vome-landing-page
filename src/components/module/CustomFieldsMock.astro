@@ -1,0 +1,71 @@
+---
+/**
+ * Spotlight 1 (CUSTOMIZE) mockup: a "Manage database fields" panel showing
+ * different custom-field types being added to the volunteer database
+ * (List multi-select, Date, Attachment, Link, Dynamic auto-calculated).
+ *
+ * Mirrors the vocabulary of `web-app/vome-react/src/views/.../ManageFieldsPopup.js`.
+ * Distinct from the table view: rendered inside `.sp-mock` frame, narrower,
+ * uses its own `.sp-fields__*` inner class system.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_data.fields_mock;
+
+const fields = [
+  { name: t(m.f1_name, locale), type: t(m.f1_type, locale), kind: "list",      dynamic: false },
+  { name: t(m.f2_name, locale), type: t(m.f2_type, locale), kind: "date",      dynamic: false },
+  { name: t(m.f3_name, locale), type: t(m.f3_type, locale), kind: "attach",    dynamic: false },
+  { name: t(m.f4_name, locale), type: t(m.f4_type, locale), kind: "link",      dynamic: false },
+  { name: t(m.f5_name, locale), type: t(m.f5_type, locale), kind: "dynamic",   dynamic: true  },
+];
+---
+
+<div class="sp-mock sp-mock--fields" aria-label="Custom database fields preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.panel_title, locale)}</span>
+  </div>
+  <div class="sp-mock__body">
+    <div class="sp-mock__col-label">{t(m.label, locale)}</div>
+    <ul class="sp-fields__list">
+      {fields.map((f) => (
+        <li class={`sp-fields__row sp-fields__row--${f.kind}`}>
+          <span class={`sp-fields__icon sp-fields__icon--${f.kind}`} aria-hidden="true">
+            {f.kind === "list" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4" cy="6" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="4" cy="18" r="1.5"/></svg>
+            )}
+            {f.kind === "date" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+            )}
+            {f.kind === "attach" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.6L12.7 20.3a5 5 0 1 1-7.1-7.1L14.3 4.6a3.5 3.5 0 1 1 5 5l-8.7 8.7a2 2 0 1 1-2.8-2.8l8-8"/></svg>
+            )}
+            {f.kind === "link" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+            )}
+            {f.kind === "dynamic" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            )}
+          </span>
+          <div class="sp-fields__body">
+            <div class="sp-fields__name">{f.name}</div>
+            <div class="sp-fields__type">{f.type}</div>
+          </div>
+          {f.dynamic && (
+            <span class="sp-fields__dynamic">{t(m.dynamic_chip, locale)}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+    <div class="sp-fields__add">
+      <span class="sp-fields__plus">+</span>
+      {t(m.add_field, locale)}
+    </div>
+  </div>
+</div>

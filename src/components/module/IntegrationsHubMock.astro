@@ -1,0 +1,66 @@
+---
+/**
+ * Hero mockup for /integrations. Hand-built hub-and-spoke diagram:
+ * Vome at the center, six partner cards radiating around it, connected
+ * by light dotted spokes. The cards are decorative text marks (no
+ * `<img>`), each with the partner brand color tint.
+ *
+ * Reuses the shared `.fb-mock` chrome (browser bar) so hero mockups
+ * across module pages feel like a family. The hub layout itself uses
+ * its own `.fb-hub__*` class system, scoped to the component.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_integrations.hub_mock;
+
+const spokes = [
+  { brand: "sf",       label: t(m.sf, locale),       sub: t(m.sf_kind, locale)       },
+  { brand: "sterling", label: t(m.sterling, locale), sub: t(m.sterling_kind, locale) },
+  { brand: "scorm",    label: t(m.scorm, locale),    sub: t(m.scorm_kind, locale)    },
+  { brand: "sheets",   label: t(m.sheets, locale),   sub: t(m.sheets_kind, locale)   },
+  { brand: "zap",      label: t(m.zap, locale),      sub: t(m.zap_kind, locale)      },
+  { brand: "api",      label: t(m.api, locale),      sub: t(m.api_kind, locale)      },
+];
+---
+
+<div class="fb-mock fb-mock--hub" aria-label="Integrations hub preview">
+  <div class="fb-mock__chrome">
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__url">vomevolunteer.com/integrations</span>
+  </div>
+
+  <div class="fb-mock__body fb-hub__body">
+    <div class="fb-mock__head">
+      <div class="fb-mock__title-row">
+        <span class="fb-mock__kicker">{t(m.chip, locale)}</span>
+        <span class="fb-hub__live">
+          <span class="fb-hub__live-dot"></span>{t(m.synced, locale)}
+        </span>
+      </div>
+    </div>
+
+    <div class="fb-hub__diagram">
+      <div class="fb-hub__core" aria-hidden="false">
+        <div class="fb-hub__core-mark">V</div>
+        <div class="fb-hub__core-name">{t(m.vome, locale)}</div>
+        <div class="fb-hub__core-sub">{t(m.vome_sub, locale)}</div>
+      </div>
+
+      <ul class="fb-hub__spokes">
+        {spokes.map((s) => (
+          <li class={`fb-hub__spoke fb-hub__spoke--${s.brand}`}>
+            <span class={`fb-hub__mark fb-hub__mark--${s.brand}`}>{s.label}</span>
+            <span class="fb-hub__sub">{s.sub}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>

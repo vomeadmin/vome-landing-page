@@ -1,0 +1,225 @@
+---
+/**
+ * Module landing page — Hour tracking & Check-in.
+ *
+ * Mirrors the canonical /volunteer-application-forms composition.
+ * Copy lives in `strings.module_hours`. Hand-built mockups:
+ *   Hero        KioskMock              (on-site Attendance Kiosk view)
+ *   Spotlight 1 QrTapMock              (mobile QR scan + tap-to-check-in)
+ *   Spotlight 2 HourClaimsMock         (admin queue of pending hour claims)
+ *   Spotlight 3 HoursDashboardMock     (aggregated hours report)
+ */
+import Layout from "../layouts/Layout.astro";
+import Partners from "../components/sections/Partners.astro";
+import Faq from "../components/sections/Faq.astro";
+import FeatureMatrix from "../components/sections/FeatureMatrix.astro";
+import ClosingCta from "../components/sections/ClosingCta.astro";
+import ModuleHero from "../components/module/ModuleHero.astro";
+import BenefitGrid from "../components/module/BenefitGrid.astro";
+import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
+import HowItWorks from "../components/module/HowItWorks.astro";
+import Differentiators from "../components/module/Differentiators.astro";
+import KioskMock from "../components/module/KioskMock.astro";
+import QrTapMock from "../components/module/QrTapMock.astro";
+import HourClaimsMock from "../components/module/HourClaimsMock.astro";
+import HoursDashboardMock from "../components/module/HoursDashboardMock.astro";
+import { strings, t, localeFromPath, type Locale } from "../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const r = strings.module_hours;
+const prefix = locale === "fr" ? "/fr" : "";
+const demoHref = `${prefix}/demo`;
+const signupHref = "https://www.vomevolunteer.com/register";
+
+// ── Hero meta pills ──
+const heroMeta = [
+  { text: t(r.hero_meta_qr, locale) },
+  { text: t(r.hero_meta_kiosk, locale) },
+  { text: t(r.hero_meta_reports, locale) },
+];
+
+// ── Benefits grid (6 cards). Icons match the platform-diagram line style. ──
+const benefits = [
+  {
+    // QR-code glyph
+    iconSvg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h3M20 17v4"/>',
+    title: t(r.ben1_title, locale),
+    desc: t(r.ben1_desc, locale),
+  },
+  {
+    // Kiosk / monitor with stand
+    iconSvg: '<rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 16v5"/><circle cx="12" cy="9.5" r="1.2"/>',
+    title: t(r.ben2_title, locale),
+    desc: t(r.ben2_desc, locale),
+  },
+  {
+    // Hand raised / claim
+    iconSvg: '<path d="M8 11V5a2 2 0 0 1 4 0v6"/><path d="M12 11V4a2 2 0 0 1 4 0v9"/><path d="M16 9a2 2 0 0 1 4 0v6a6 6 0 0 1-6 6H10a4 4 0 0 1-4-4l-2-5a2 2 0 0 1 3-2l1 2"/>',
+    title: t(r.ben3_title, locale),
+    desc: t(r.ben3_desc, locale),
+  },
+  {
+    // Stacked layers / batch
+    iconSvg: '<path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/>',
+    title: t(r.ben4_title, locale),
+    desc: t(r.ben4_desc, locale),
+  },
+  {
+    // Map pin / GPS
+    iconSvg: '<path d="M12 22s8-7 8-13a8 8 0 1 0-16 0c0 6 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/>',
+    title: t(r.ben5_title, locale),
+    desc: t(r.ben5_desc, locale),
+  },
+  {
+    // Bar chart / report
+    iconSvg: '<path d="M3 21h18"/><rect x="5" y="11" width="3" height="9" rx="0.5"/><rect x="11" y="6" width="3" height="14" rx="0.5"/><rect x="17" y="14" width="3" height="6" rx="0.5"/>',
+    title: t(r.ben6_title, locale),
+    desc: t(r.ben6_desc, locale),
+  },
+];
+
+// ── Spotlight bullets ──
+const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3, locale), t(r.spot1_b4, locale)];
+const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
+const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
+
+// ── How-it-works steps (4) ──
+const steps = [
+  { title: t(r.step1_title, locale), desc: t(r.step1_desc, locale) },
+  { title: t(r.step2_title, locale), desc: t(r.step2_desc, locale) },
+  { title: t(r.step3_title, locale), desc: t(r.step3_desc, locale) },
+  { title: t(r.step4_title, locale), desc: t(r.step4_desc, locale) },
+];
+
+// ── Differentiators (3) ──
+const differentiators = [
+  {
+    // Layered / multi-method
+    iconSvg: '<path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/>',
+    title: t(r.diff1_title, locale),
+    desc: t(r.diff1_desc, locale),
+  },
+  {
+    // Calendar with check / tied to reservations
+    iconSvg: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/><path d="M8.5 14.5l2.5 2.5 4.5-5"/>',
+    title: t(r.diff2_title, locale),
+    desc: t(r.diff2_desc, locale),
+  },
+  {
+    // Document with chart / funder report
+    iconSvg: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 17v-3M12 17v-5M16 17v-2"/>',
+    title: t(r.diff3_title, locale),
+    desc: t(r.diff3_desc, locale),
+  },
+];
+
+// ── Module FAQs (6) ──
+const faqItems = [
+  { q: r.faq1_q, a: r.faq1_a, open: true },
+  { q: r.faq2_q, a: r.faq2_a },
+  { q: r.faq3_q, a: r.faq3_a },
+  { q: r.faq4_q, a: r.faq4_a },
+  { q: r.faq5_q, a: r.faq5_a },
+  { q: r.faq6_q, a: r.faq6_a },
+];
+---
+
+<Layout
+  locale={locale}
+  title={t(r.page_title, locale)}
+  description={t(r.page_description, locale)}
+>
+  <ModuleHero
+    locale={locale}
+    eyebrow={t(r.hero_eyebrow, locale)}
+    h1Part1={t(r.hero_h1_part1, locale)}
+    h1Accent={t(r.hero_h1_accent, locale)}
+    h1Part2={t(r.hero_h1_part2, locale)}
+    sub={t(r.hero_sub, locale)}
+    ctaPrimaryHref={signupHref}
+    ctaPrimaryLabel={t(strings.nav.signup_free, locale)}
+    ctaSecondaryHref={demoHref}
+    ctaSecondaryLabel={t(strings.nav.book_demo, locale)}
+    meta={heroMeta}
+  >
+    <KioskMock slot="mockup" locale={locale} />
+  </ModuleHero>
+
+  <Partners locale={locale} />
+
+  <BenefitGrid
+    locale={locale}
+    h2={t(r.benefits_h2, locale)}
+    sub={t(r.benefits_sub, locale)}
+    items={benefits}
+  />
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot1_kicker, locale)}
+    title={t(r.spot1_title, locale)}
+    body={t(r.spot1_body, locale)}
+    bullets={spot1Bullets}
+    side="right"
+  >
+    <QrTapMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot2_kicker, locale)}
+    title={t(r.spot2_title, locale)}
+    body={t(r.spot2_body, locale)}
+    bullets={spot2Bullets}
+    side="left"
+  >
+    <HourClaimsMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot3_kicker, locale)}
+    title={t(r.spot3_title, locale)}
+    body={t(r.spot3_body, locale)}
+    bullets={spot3Bullets}
+    side="right"
+  >
+    <HoursDashboardMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <HowItWorks
+    locale={locale}
+    h2={t(r.how_h2, locale)}
+    sub={t(r.how_sub, locale)}
+    steps={steps}
+  />
+
+  <Differentiators
+    locale={locale}
+    h2={t(r.diff_h2, locale)}
+    sub={t(r.diff_sub, locale)}
+    items={differentiators}
+  />
+
+  <Faq
+    locale={locale}
+    items={faqItems}
+    heading={r.faq_h2}
+    sub={r.faq_sub}
+    ctaText={r.faq_cta_text}
+    ctaLink={r.faq_cta_link}
+  />
+
+  <FeatureMatrix
+    locale={locale}
+    onlySection="hours"
+    heading={r.matrix_h2}
+    showAllToggle
+  />
+
+  <ClosingCta locale={locale} />
+</Layout>

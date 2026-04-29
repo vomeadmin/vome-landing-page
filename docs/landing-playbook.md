@@ -330,3 +330,49 @@ Don't trust self-reports. After each agent returns:
 5. Run `npm run build` yourself.
 
 If a check fails: don't patch the page. Patch the playbook section that should have prevented it, then reissue affected pages.
+
+---
+
+## 11. Lessons from the fan-out batch
+
+Captured live during the 6-page fan-out (Scheduling / Hours / Recognition / Communications / Data / Integrations). Each lesson became an actionable rule.
+
+### Commit the baseline before spawning worktree-isolated agents
+
+When `isolation: "worktree"` creates a new worktree, it forks from `main`'s **current commit**, not from `main`'s working tree. If the prior pilot work (pages, components, playbook) is uncommitted on main, the worktree won't have it — so the agent's `import ModuleHero` etc. will fail and the agent will be forced to manually copy main's working tree into the worktree before they can build.
+
+That's exactly what happened on the first 6-agent batch: every single agent flagged it. Result: each worktree branch ended up containing a copy of main's uncommitted state PLUS the agent's new module files, which broke the simple `git merge worktree → main` strategy.
+
+**Rule**: before any worktree fan-out, supervisor must `git add . && git commit -m 'baseline for fan-out'` and ideally `git push`. Confirm with `git status` shows clean before issuing the Agent calls.
+
+### Merge strategy: file-by-file extraction beats `git merge`
+
+Even when worktrees fork from a clean baseline, the safest merge is targeted extraction (copy the new files, append the new namespace block, append the new CSS). Reason: each worktree's branch may have diverged from main in subtle ways (settings.local.json, etc.) and `git merge` will pick those up.
+
+The fan-out batch used a small Node helper that, per worktree:
+1. Copies new mockup `.astro` files from `<worktree>/src/components/module/` to main
+2. Copies the new EN page + FR shell
+3. Extracts the `module_<key>:` namespace block from worktree's `strings.ts` (walks the brace depth) and inserts it into main's `strings.ts` before the `mobile_app:` anchor
+4. Computes `worktree.css − HEAD-baseline.css` (using `git show HEAD:...`) and appends the diff to main's CSS
+
+The HEAD-baseline check is critical: comparing against current main fails after the first merge appends another module's CSS.
+
+**Rule**: never use `git merge` to bring in worktrees. Use targeted extraction. Use `git show HEAD:<path>` as the baseline, not the working tree.
+
+### FR step titles legitimately run longer than 25 chars
+
+The 25-char step-title cap in §9 was set from EN testing. French equivalents naturally run 5–10 chars longer (e.g. "Volunteers move through" → "Les bénévoles avancent dans le parcours"). The cap should be **35 chars for FR**, **25 chars for EN**, or just "fits one line at desktop, eyeball both locales".
+
+**Rule**: relax the FR step-title cap. The EN cap stays at 25.
+
+### Nav.astro is a separate orchestration step
+
+None of the agents updated `src/components/Nav.astro` to link their new module page from the features dropdown. Each agent's brief was scoped to "ship the page", which doesn't include site-IA wiring. After all module pages are shipped, fire one targeted Agent (or do it as a single edit) to populate the dropdown with the full module set.
+
+**Rule**: nav linking is a post-fan-out step, not part of any module-page brief. Plan it explicitly.
+
+### Watch for hex colors creeping in outside the token set
+
+Scheduling agent introduced `#6e5ac8` (purple) as a per-state visual cue without adding it to `vome-tokens.css`. Easy to miss because the build doesn't enforce token discipline. Either codify the new color as `--vome-<name>` or replace with an existing token.
+
+**Rule**: review the agent's CSS append for `#[0-9a-f]{3,6}` literals. Anything not already in tokens needs a decision: either codify or revert.

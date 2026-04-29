@@ -1,0 +1,109 @@
+---
+/**
+ * Spotlight 3 mockup for /volunteer-communications.
+ *
+ * Configured message-automation rule. Layout uses a label-on-the-left,
+ * value-on-the-right row pattern (same family as `AutomationMock` but
+ * with extra rows for audience and channel). Editable variables in the
+ * message preview are visually highlighted as inline chips.
+ *
+ * Borrows patterns from React `automation` configs. Decorative; no <img>.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_comms.automation_mock;
+
+// Pre-compute variable lookups so the message body can be split around
+// each `{{var}}` token and each token rendered as a highlighted chip.
+const v1 = t(m.var1, locale);
+const v2 = t(m.var2, locale);
+const v3 = t(m.var3, locale);
+const message = t(m.message_preview, locale);
+
+// Replace {{var}} tokens with a placeholder, split, and zip back together
+// with chip elements between the parts. This avoids set:html so all values
+// remain text-escaped.
+type Segment = { kind: "text" | "var"; value: string };
+const tokens = [v1, v2, v3];
+const segments: Segment[] = (() => {
+  const out: Segment[] = [];
+  let rest = message;
+  while (rest.length > 0) {
+    let nextIdx = -1;
+    let nextTok = "";
+    for (const tok of tokens) {
+      const i = rest.indexOf(tok);
+      if (i !== -1 && (nextIdx === -1 || i < nextIdx)) {
+        nextIdx = i;
+        nextTok = tok;
+      }
+    }
+    if (nextIdx === -1) {
+      out.push({ kind: "text", value: rest });
+      break;
+    }
+    if (nextIdx > 0) out.push({ kind: "text", value: rest.slice(0, nextIdx) });
+    out.push({ kind: "var", value: nextTok });
+    rest = rest.slice(nextIdx + nextTok.length);
+  }
+  return out;
+})();
+---
+
+<div class="sp-mock sp-mock--msgauto" aria-label="Message automation preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.rule_name, locale)}</span>
+    <span class="sp-msgauto__active">
+      <span class="sp-msgauto__pulse"></span>{t(m.enabled, locale)}
+    </span>
+  </div>
+
+  <div class="sp-mock__body">
+    <div class="sp-msgauto__row">
+      <span class="sp-msgauto__row-label">{t(m.trigger_label, locale)}</span>
+      <span class="sp-msgauto__row-value">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+        <span>{t(m.trigger_value, locale)}</span>
+      </span>
+    </div>
+
+    <div class="sp-msgauto__row">
+      <span class="sp-msgauto__row-label">{t(m.audience_label, locale)}</span>
+      <span class="sp-msgauto__row-value">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="8" r="2.5"/><path d="M15 20a5 5 0 0 1 7 0"/></svg>
+        <span>{t(m.audience_value, locale)}</span>
+      </span>
+    </div>
+
+    <div class="sp-msgauto__row">
+      <span class="sp-msgauto__row-label">{t(m.channels_label, locale)}</span>
+      <span class="sp-msgauto__row-value sp-msgauto__row-value--channels">
+        <span class="sp-msgauto__channel sp-msgauto__channel--email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+          {t(m.channel_email, locale)}
+        </span>
+        <span class="sp-msgauto__channel sp-msgauto__channel--push">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 16V11a6 6 0 1 0-12 0v5l-2 3h16z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+          {t(m.channel_push, locale)}
+        </span>
+      </span>
+    </div>
+
+    <div class="sp-msgauto__msg">
+      <span class="sp-msgauto__msg-label">{t(m.message_label, locale)}</span>
+      <p class="sp-msgauto__msg-body">
+        {segments.map((seg) =>
+          seg.kind === "text"
+            ? <span>{seg.value}</span>
+            : <span class="sp-msgauto__var">{seg.value}</span>
+        )}
+      </p>
+    </div>
+  </div>
+</div>

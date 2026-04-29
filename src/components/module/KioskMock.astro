@@ -1,0 +1,83 @@
+---
+/**
+ * Hero mockup for /volunteer-hour-tracking. Hand-built HTML/CSS preview
+ * of the on-site Attendance Kiosk: a single volunteer's name + reserved
+ * shift, a big check-in button, and a recent-arrivals strip. Mirrors the
+ * patterns in `web-app/vome-react/src/views/org/dashboard/myOrgSchedule/
+ * checkInKiosk/CheckInKioskView.js`.
+ *
+ * Reuses the shared `.fb-mock` chrome (browser bar) so hero mockups
+ * across module pages feel like a family. Variant: `.fb-mock--kiosk`.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_hours.kiosk_mock;
+
+const arrivals = [
+  { meta: t(m.arrived_meta, locale) },
+  { meta: t(m.arrived_meta2, locale) },
+];
+---
+
+<div class="fb-mock fb-mock--kiosk" aria-label="On-site attendance kiosk preview">
+  <div class="fb-mock__chrome">
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__url">{t(m.url, locale)}</span>
+  </div>
+
+  <div class="fb-mock__body">
+    <div class="fb-mock__head">
+      <div class="fb-mock__title-row">
+        <span class="fb-mock__kicker">{t(m.kicker, locale)}</span>
+        <span class="fb-mock__live">
+          <span class="fb-mock__live-dot"></span>{t(m.live, locale)}
+        </span>
+      </div>
+      <h3 class="fb-mock__title">{t(m.site_label, locale)}</h3>
+    </div>
+
+    <div class="fb-kiosk__search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <span>{t(m.search_placeholder, locale)}</span>
+    </div>
+
+    <div class="fb-kiosk__card">
+      <div class="fb-kiosk__avatar" aria-hidden="true">MT</div>
+      <div class="fb-kiosk__info">
+        <div class="fb-kiosk__name">{t(m.vol_name, locale)}</div>
+        <div class="fb-kiosk__shift">{t(m.vol_shift, locale)}</div>
+        <span class="fb-kiosk__role-tag">{t(m.vol_role, locale)}</span>
+      </div>
+      <button type="button" class="fb-kiosk__btn" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        {t(m.checkin_btn, locale)}
+      </button>
+    </div>
+
+    <div class="fb-kiosk__qr-strip">
+      <span class="fb-kiosk__qr-glyph" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h3M20 17v4"/></svg>
+      </span>
+      <span class="fb-kiosk__qr-text">{t(m.qr_hint, locale)}</span>
+    </div>
+
+    <div class="fb-kiosk__arrivals">
+      <div class="fb-kiosk__arrivals-label">{t(m.arrived_label, locale)}</div>
+      <ul class="fb-kiosk__arrivals-list">
+        {arrivals.map((a) => (
+          <li>
+            <span class="fb-kiosk__arrivals-dot" aria-hidden="true"></span>
+            <span>{a.meta}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>

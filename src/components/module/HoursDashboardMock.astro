@@ -1,0 +1,87 @@
+---
+/**
+ * Spotlight 3 (REPORT) mockup — aggregated hours report. Shows two
+ * filter chips (site, program), three KPI tiles (hours, volunteers,
+ * reservations), and a small horizontal bar list breaking hours down
+ * by program. An "Export to Excel" button anchors the bottom.
+ *
+ * Visually distinct from the other spotlight mockups via `.sp-dash__*`
+ * inner classes. Reuses the shared `.sp-mock` frame.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_hours.dash_mock;
+
+const bars = [
+  { label: t(m.bar1, locale), value: "412 h", pct: 92 },
+  { label: t(m.bar2, locale), value: "318 h", pct: 71 },
+  { label: t(m.bar3, locale), value: "276 h", pct: 62 },
+  { label: t(m.bar4, locale), value: "242 h", pct: 54 },
+];
+---
+
+<div class="sp-mock sp-mock--dash" aria-label="Hours report dashboard preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+
+  <div class="sp-mock__body">
+    <div class="sp-dash__filters">
+      <span class="sp-dash__filter">
+        <span class="sp-dash__filter-label">{t(m.filter1_label, locale)}</span>
+        <span class="sp-dash__filter-value">
+          {t(m.filter1_value, locale)}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </span>
+      <span class="sp-dash__filter">
+        <span class="sp-dash__filter-label">{t(m.filter2_label, locale)}</span>
+        <span class="sp-dash__filter-value sp-dash__filter-value--active">
+          {t(m.filter2_value, locale)}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+      </span>
+    </div>
+
+    <div class="sp-dash__kpis">
+      <div class="sp-dash__kpi">
+        <div class="sp-dash__kpi-value">{t(m.kpi1_value, locale)}</div>
+        <div class="sp-dash__kpi-label">{t(m.kpi1_label, locale)}</div>
+      </div>
+      <div class="sp-dash__kpi">
+        <div class="sp-dash__kpi-value">{t(m.kpi2_value, locale)}</div>
+        <div class="sp-dash__kpi-label">{t(m.kpi2_label, locale)}</div>
+      </div>
+      <div class="sp-dash__kpi">
+        <div class="sp-dash__kpi-value">{t(m.kpi3_value, locale)}</div>
+        <div class="sp-dash__kpi-label">{t(m.kpi3_label, locale)}</div>
+      </div>
+    </div>
+
+    <div class="sp-dash__bars">
+      <div class="sp-dash__bars-label">{t(m.bars_label, locale)}</div>
+      <ul class="sp-dash__bars-list">
+        {bars.map((b) => (
+          <li class="sp-dash__bar-row">
+            <span class="sp-dash__bar-label">{b.label}</span>
+            <span class="sp-dash__bar-track" aria-hidden="true">
+              <span class="sp-dash__bar-fill" style={`width:${b.pct}%`}></span>
+            </span>
+            <span class="sp-dash__bar-value">{b.value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <button type="button" class="sp-dash__export" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M9 14l3 3 3-3M12 11v6"/></svg>
+      {t(m.export_btn, locale)}
+    </button>
+  </div>
+</div>

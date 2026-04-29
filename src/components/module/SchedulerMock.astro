@@ -1,0 +1,106 @@
+---
+/**
+ * Hero mockup for /volunteer-scheduling-software. Hand-built HTML/CSS
+ * preview of Vome's org schedule view: a horizontal week strip with
+ * shift cards stacked under each day. Cards carry capacity counts,
+ * waitlist, instant-book, group-reservation, and pending states so
+ * the visual surfaces the policies we sell on the page.
+ *
+ * Reuses the shared `.fb-mock` chrome (browser bar) so hero mockups
+ * across module pages feel like a family. Inner classes are
+ * `.fb-sched__*` — distinct from `.fb-seq__*` (onboarding hero) and
+ * `.fb-mock__field*` (recruitment hero).
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_scheduling.scheduler_mock;
+
+const days = [
+  {
+    label: t(m.day_mon, locale),
+    shifts: [
+      { time: t(m.shift1_time, locale), name: t(m.shift1_name, locale), meta: t(m.shift1_count, locale), state: "open" },
+    ],
+  },
+  {
+    label: t(m.day_tue, locale),
+    shifts: [
+      { time: t(m.shift2_time, locale), name: t(m.shift2_name, locale), meta: t(m.shift2_count, locale), state: "full" },
+    ],
+  },
+  {
+    label: t(m.day_wed, locale),
+    shifts: [
+      { time: t(m.shift3_time, locale), name: t(m.shift3_name, locale), meta: t(m.shift3_count, locale), state: "open" },
+    ],
+  },
+  {
+    label: t(m.day_thu, locale),
+    shifts: [
+      { time: t(m.shift4_time, locale), name: t(m.shift4_name, locale), meta: t(m.shift4_count, locale), state: "group" },
+    ],
+  },
+  {
+    label: t(m.day_fri, locale),
+    shifts: [
+      { time: t(m.shift5_time, locale), name: t(m.shift5_name, locale), meta: t(m.shift5_count, locale), state: "pending" },
+    ],
+  },
+];
+---
+
+<div class="fb-mock fb-mock--sched" aria-label="Org schedule preview">
+  <div class="fb-mock__chrome">
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__url">{t(m.url, locale)}</span>
+  </div>
+
+  <div class="fb-mock__body">
+    <div class="fb-mock__head">
+      <div class="fb-mock__title-row">
+        <span class="fb-mock__kicker">{t(m.kicker, locale)}</span>
+        <span class="fb-sched__view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+          {t(m.live, locale)}
+        </span>
+      </div>
+      <h3 class="fb-mock__title">{t(m.week_title, locale)}</h3>
+    </div>
+
+    <div class="fb-sched__filter">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+      <span>{t(m.filter_label, locale)}</span>
+    </div>
+
+    <div class="fb-sched__week">
+      {days.map((d) => (
+        <div class="fb-sched__day">
+          <div class="fb-sched__day-label">{d.label}</div>
+          {d.shifts.map((s) => (
+            <div class={`fb-sched__shift fb-sched__shift--${s.state}`}>
+              <div class="fb-sched__shift-time">{s.time}</div>
+              <div class="fb-sched__shift-name">{s.name}</div>
+              <div class={`fb-sched__shift-meta fb-sched__shift-meta--${s.state}`}>
+                <span class={`fb-sched__dot fb-sched__dot--${s.state}`} aria-hidden="true"></span>
+                {s.meta}
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+
+    <div class="fb-sched__legend">
+      <span class="fb-sched__legend-item"><span class="fb-sched__dot fb-sched__dot--open"></span>{t(m.legend_open, locale)}</span>
+      <span class="fb-sched__legend-item"><span class="fb-sched__dot fb-sched__dot--full"></span>{t(m.legend_full, locale)}</span>
+      <span class="fb-sched__legend-item"><span class="fb-sched__dot fb-sched__dot--pending"></span>{t(m.legend_pending, locale)}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+---
+/**
+ * Hero mockup for /volunteer-recognition. A volunteer profile page
+ * showing the recognition wall: earned achievements + custom awards as
+ * tiles, with one freshly earned ("100 hours of service") highlighted,
+ * and progress bars for the next ones in line.
+ *
+ * Reuses the shared `.fb-mock` chrome (browser bar) to feel like a
+ * family with the other hero mockups. Adds `.fb-wall__*` rules for the
+ * profile-wall layout.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_recognition.wall_mock;
+
+// Earned tiles — kind drives left-border accent + icon glyph.
+const earned = [
+  { title: t(m.a1_title, locale), meta: t(m.a1_meta, locale), kind: "fresh",  badge: "builtin", glyph: "hours" },
+  { title: t(m.a2_title, locale), meta: t(m.a2_meta, locale), kind: "builtin", badge: "builtin", glyph: "shift" },
+  { title: t(m.a3_title, locale), meta: t(m.a3_meta, locale), kind: "custom",  badge: "custom",  glyph: "anniversary" },
+  { title: t(m.a4_title, locale), meta: t(m.a4_meta, locale), kind: "custom",  badge: "custom",  glyph: "program" },
+];
+
+// In-progress tiles — pct drives the progress bar fill.
+const progress = [
+  { title: t(m.p1_title, locale), label: t(m.p1_progress, locale), pct: 99 },
+  { title: t(m.p2_title, locale), label: t(m.p2_progress, locale), pct: 64 },
+];
+---
+
+<div class="fb-mock fb-mock--wall" aria-label="Volunteer recognition wall preview">
+  <div class="fb-mock__chrome">
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__dot"></span>
+    <span class="fb-mock__url">{t(m.url, locale)}</span>
+  </div>
+
+  <div class="fb-mock__body">
+    <div class="fb-mock__head">
+      <div class="fb-mock__title-row">
+        <span class="fb-mock__kicker">{t(m.kicker, locale)}</span>
+        <span class="fb-wall__earned-tag">
+          <span class="fb-wall__earned-dot"></span>{t(m.just_earned, locale)}
+        </span>
+      </div>
+      <div class="fb-wall__profile">
+        <span class="fb-wall__avatar" aria-hidden="true">SP</span>
+        <div class="fb-wall__profile-text">
+          <h3 class="fb-mock__title">{t(m.vol_name, locale)}</h3>
+          <div class="fb-wall__profile-meta">{t(m.vol_meta, locale)}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fb-wall__col-label">{t(m.section_earned, locale)}</div>
+    <ul class="fb-wall__grid">
+      {earned.map((a) => (
+        <li class={`fb-wall__tile fb-wall__tile--${a.kind}`}>
+          <span class={`fb-wall__icon fb-wall__icon--${a.glyph}`} aria-hidden="true">
+            {a.glyph === "hours" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            )}
+            {a.glyph === "shift" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            )}
+            {a.glyph === "anniversary" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5.5 6 .6-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.6z"/></svg>
+            )}
+            {a.glyph === "program" && (
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4"/><path d="M3 17l9 4 9-4"/></svg>
+            )}
+          </span>
+          <div class="fb-wall__tile-body">
+            <div class="fb-wall__tile-title">{a.title}</div>
+            <div class="fb-wall__tile-meta">
+              <span class={`fb-wall__badge fb-wall__badge--${a.badge}`}>
+                {a.badge === "builtin" ? t(m.built_in, locale) : t(m.custom, locale)}
+              </span>
+              <span class="fb-wall__tile-when">{a.meta}</span>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div class="fb-wall__col-label fb-wall__col-label--progress">{t(m.section_progress, locale)}</div>
+    <ul class="fb-wall__progress-list">
+      {progress.map((p) => (
+        <li class="fb-wall__progress-row">
+          <div class="fb-wall__progress-top">
+            <span class="fb-wall__progress-title">{p.title}</span>
+            <span class="fb-wall__progress-label">{p.label}</span>
+          </div>
+          <div class="fb-wall__progress-track">
+            <span class="fb-wall__progress-fill" style={`width:${p.pct}%`}></span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

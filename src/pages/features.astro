@@ -94,9 +94,7 @@ const modules = [
     cardLink: t(fp.card_hours_link, locale),
   },
   {
-    // Recognition has no dedicated React landing page yet; the deep-dive
-    // anchor lands on the plans page recognition section.
-    href: `${prefix}/plans#recognition`,
+    href: `${prefix}/volunteer-recognition`,
     iconSvg: '<circle cx="12" cy="9" r="5"/><path d="M9 13l-1 8 4-2 4 2-1-8"/>',
     nodeTitle: t(fp.node_recognition_title, locale),
     nodeDesc: t(fp.node_recognition_desc, locale),
@@ -156,10 +154,7 @@ const modules = [
     cardLink: t(fp.card_app_link, locale),
   },
   {
-    // Integrations: no dedicated /integrations page yet, so we point at
-    // the comparison table on /plans (Advanced section lists every
-    // integration). Swap to /integrations when that page lands.
-    href: `${prefix}/plans#feature-comparison`,
+    href: `${prefix}/integrations`,
     // Triangle of connected nodes — universal "network / integrations" glyph.
     iconSvg: '<circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="6" r="2"/><path d="M11 7.6L6.8 16M13 7.6L17.2 16M8 18h8"/>',
     nodeTitle: t(fp.node_integrations_title, locale),

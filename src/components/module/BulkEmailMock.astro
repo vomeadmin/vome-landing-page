@@ -1,0 +1,85 @@
+---
+/**
+ * Spotlight 1 mockup for /volunteer-communications.
+ *
+ * A bulk-email composer card focused on the segmented-recipient story:
+ *   • Sender row showing the connected Google mailbox.
+ *   • Recipient segment built from filter chips (tag, status, site) with a
+ *     live "84 volunteers match" count.
+ *   • Saved-template row with a personalize chip.
+ *   • Send and schedule action buttons.
+ *
+ * Mirrors the React `SendMessageAllVolunteersPopup.js` flow without copying
+ * its layout. No <img> tags; the Google mark is a CSS-styled letter chip.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_comms.bulk_mock;
+
+const segments = [
+  { label: t(m.seg1, locale), kind: "tag" },
+  { label: t(m.seg2, locale), kind: "status" },
+  { label: t(m.seg3, locale), kind: "site" },
+];
+---
+
+<div class="sp-mock sp-mock--bulk" aria-label="Bulk email composer preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+  </div>
+
+  <div class="sp-mock__body">
+    <div class="sp-bulk__from">
+      <span class="sp-bulk__from-label">{t(m.from_label, locale)}</span>
+      <span class="sp-bulk__from-mark">G</span>
+      <span class="sp-bulk__from-value">
+        <span class="sp-bulk__from-addr">{t(m.from_value, locale)}</span>
+        <span class="sp-bulk__from-provider">{t(m.from_provider, locale)}</span>
+      </span>
+    </div>
+
+    <div class="sp-bulk__seg">
+      <div class="sp-bulk__seg-head">
+        <span class="sp-bulk__seg-label">{t(m.segment_label, locale)}</span>
+        <span class="sp-bulk__count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="8" r="2.5"/><path d="M15 20a5 5 0 0 1 7 0"/></svg>
+          {t(m.recipient_count, locale)}
+        </span>
+      </div>
+      <div class="sp-bulk__chips">
+        {segments.map((s) => (
+          <span class={`sp-bulk__chip sp-bulk__chip--${s.kind}`}>
+            <span class="sp-bulk__chip-dot"></span>
+            {s.label}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp-bulk__template">
+      <span class="sp-bulk__template-label">{t(m.template_label, locale)}</span>
+      <span class="sp-bulk__template-value">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12"/></svg>
+        {t(m.template_value, locale)}
+      </span>
+      <span class="sp-bulk__personalize">{t(m.personalize_chip, locale)}</span>
+    </div>
+
+    <div class="sp-bulk__actions">
+      <span class="sp-bulk__send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
+        {t(m.send_btn, locale)}
+      </span>
+      <span class="sp-bulk__schedule">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+        {t(m.schedule_btn, locale)}
+      </span>
+    </div>
+  </div>
+</div>

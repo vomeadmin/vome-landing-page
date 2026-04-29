@@ -1,0 +1,70 @@
+---
+/**
+ * Spotlight 3 (COORDINATE) mockup: auto-generated shift chatroom.
+ *
+ * A chat-thread shape with three message bubbles (admin, volunteer,
+ * admin), an auto-reminder banner, and a disabled message-input bar
+ * that doubles as a footer note. Distinct shape from spotlight 1
+ * (key/value popup) and spotlight 2 (slot list with action buttons).
+ *
+ * Inner classes use `.sp-chat__*`. References the auto-shift-chatroom
+ * concept named in `landingpage.js` (`auto_shift_chatroom_desc`) and
+ * the React `ShiftRoom` chat views.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_scheduling.chatroom_mock;
+
+const messages = [
+  { author: t(m.msg1_author, locale), time: t(m.msg1_time, locale), text: t(m.msg1_text, locale), side: "admin" },
+  { author: t(m.msg2_author, locale), time: t(m.msg2_time, locale), text: t(m.msg2_text, locale), side: "vol" },
+  { author: t(m.msg3_author, locale), time: t(m.msg3_time, locale), text: t(m.msg3_text, locale), side: "admin" },
+];
+---
+
+<div class="sp-mock sp-mock--chat" aria-label="Shift chatroom preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.title, locale)}</span>
+    <span class="sp-chat__auto">
+      <span class="sp-chat__auto-dot" aria-hidden="true"></span>
+      {t(m.auto_label, locale)}
+    </span>
+  </div>
+
+  <div class="sp-mock__body">
+    <ul class="sp-chat__thread">
+      {messages.map((msg) => (
+        <li class={`sp-chat__msg sp-chat__msg--${msg.side}`}>
+          <div class="sp-chat__meta">
+            <span class="sp-chat__author">{msg.author}</span>
+            <span class="sp-chat__time">{msg.time}</span>
+          </div>
+          <div class={`sp-chat__bubble sp-chat__bubble--${msg.side}`}>{msg.text}</div>
+        </li>
+      ))}
+    </ul>
+
+    <div class="sp-chat__reminder">
+      <span class="sp-chat__reminder-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      </span>
+      <div class="sp-chat__reminder-body">
+        <span class="sp-chat__reminder-label">{t(m.reminder_label, locale)}</span>
+        <span class="sp-chat__reminder-text">{t(m.reminder_text, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-chat__input">
+      <span class="sp-chat__input-text">{t(m.input_placeholder, locale)}</span>
+      <span class="sp-chat__send" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-7 19-3-8-8-3z"/></svg>
+      </span>
+    </div>
+  </div>
+</div>

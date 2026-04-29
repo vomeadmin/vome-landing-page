@@ -1,0 +1,96 @@
+---
+/**
+ * Spotlight 1 (BUILD) mockup: shift-creation popup with recurring
+ * settings, capacity, booking-mode pills, and a visibility rule.
+ *
+ * Mirrors `CreatScheduleShiftPopup.js` from the React app: a key/value
+ * config card showing the configurable surface (opportunity, when,
+ * repeat, capacity, booking, visibility) and a "generates N shifts"
+ * preview chip. Inner classes use `.sp-create__*`. Distinct from
+ * `.sp-build__*` (forms) and `.sp-bg__*` (onboarding).
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_scheduling.create_mock;
+
+const bookingModes = [
+  { label: t(m.pill_instant, locale),  selected: true  },
+  { label: t(m.pill_request, locale),  selected: false },
+  { label: t(m.pill_assign, locale),   selected: false },
+];
+---
+
+<div class="sp-mock sp-mock--create" aria-label="Shift creation preview">
+  <div class="sp-mock__head">
+    <span class="sp-mock__chip">{t(m.chip, locale)}</span>
+    <span class="sp-mock__title">{t(m.shift_title, locale)}</span>
+  </div>
+
+  <div class="sp-mock__body">
+    <div class="sp-create__row">
+      <span class="sp-create__row-label">{t(m.label_opp, locale)}</span>
+      <div class="sp-create__row-value">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 7l-9 5-9-5"/><path d="M3 7v10l9 5 9-5V7"/><path d="M3 7l9-5 9 5"/></svg>
+        <span>{t(m.value_opp, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-create__row">
+      <span class="sp-create__row-label">{t(m.label_when, locale)}</span>
+      <div class="sp-create__row-value">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>{t(m.value_when, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-create__row">
+      <span class="sp-create__row-label">{t(m.label_repeat, locale)}</span>
+      <div class="sp-create__row-value sp-create__row-value--accent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><path d="M3 21v-5h5"/></svg>
+        <span>{t(m.value_repeat, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-create__row sp-create__row--cap">
+      <span class="sp-create__row-label">{t(m.label_capacity, locale)}</span>
+      <div class="sp-create__caps">
+        <span class="sp-create__cap">{t(m.value_capacity_min, locale)}</span>
+        <span class="sp-create__cap">{t(m.value_capacity_max, locale)}</span>
+        <span class="sp-create__cap sp-create__cap--on">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          {t(m.value_capacity_wait, locale)}
+        </span>
+      </div>
+    </div>
+
+    <div class="sp-create__row sp-create__row--book">
+      <span class="sp-create__row-label">{t(m.label_booking, locale)}</span>
+      <div class="sp-create__pills">
+        {bookingModes.map((b) => (
+          <span class={`sp-create__pill${b.selected ? " sp-create__pill--sel" : ""}`}>{b.label}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="sp-create__row">
+      <span class="sp-create__row-label">{t(m.label_visible, locale)}</span>
+      <div class="sp-create__row-value sp-create__row-value--vis">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>{t(m.value_visible, locale)}</span>
+      </div>
+    </div>
+
+    <div class="sp-create__footer">
+      <span class="sp-create__preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        {t(m.preview_count, locale)}
+      </span>
+      <span class="sp-create__btn">{t(m.save_btn, locale)}</span>
+    </div>
+  </div>
+</div>
