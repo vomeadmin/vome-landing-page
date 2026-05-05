@@ -11,6 +11,7 @@ import Testimonials from "../components/sections/Testimonials.astro";
 import ClosingCta from "../components/sections/ClosingCta.astro";
 import Faq from "../components/sections/Faq.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -39,7 +40,7 @@ const pageDescription = locale === "fr"
       <p class="hero__sub" set:html={t(strings.hero.sub, locale)} />
 
       <div class="hero__ctas">
-        <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">{t(strings.hero.cta_primary, locale)}</Button>
+        <Button href={appUrl("/register")} variant="primary" class="btn--hero">{t(strings.hero.cta_primary, locale)}</Button>
         <Button href={demoHref} variant="ghost" class="btn--hero">{t(strings.hero.cta_secondary, locale)}</Button>
       </div>
 

@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -40,7 +41,7 @@ const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
           <div class="dc-step__body">
             <h3 class="dc-step__title">{t(d.step1_title, locale)}</h3>
             <p class="dc-step__text">{t(d.step1_text, locale)}</p>
-            <a href="https://www.vomevolunteer.com/register" class="dc-step__cta btn btn--primary">
+            <a href={appUrl("/register")} class="dc-step__cta btn btn--primary">
               {t(d.step1_cta, locale)}
             </a>
           </div>

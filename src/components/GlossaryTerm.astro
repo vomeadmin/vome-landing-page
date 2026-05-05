@@ -1,4 +1,6 @@
 ---
+import { appUrl } from "../lib/appUrl";
+
 interface Props {
   title: string;
   definition: string;
@@ -8,6 +10,11 @@ interface Props {
 
 const { title, definition, linkTitle, linkURL } = Astro.props;
 const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+const PROD_APP_PREFIX = "https://www.vomevolunteer.com";
+const resolvedHref = linkURL?.startsWith(PROD_APP_PREFIX)
+  ? appUrl(linkURL.slice(PROD_APP_PREFIX.length))
+  : linkURL;
 ---
 
 <div
@@ -21,7 +28,7 @@ const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
   {linkTitle && linkURL && (
     <p class="gl-term__link">
       <strong>Link: </strong>
-      <a href={linkURL} target="_blank" rel="noopener noreferrer">{linkTitle}</a>
+      <a href={resolvedHref} target="_blank" rel="noopener noreferrer">{linkTitle}</a>
     </p>
   )}
 </div>

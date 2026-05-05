@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ContactForm from "../components/ContactForm.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -56,7 +57,7 @@ const a = strings.about_us;
         <p class="au-p">{t(a.p6, locale)}</p>
         <p class="au-p">{t(a.p7, locale)}</p>
         <p class="au-p au-p--cta">
-          {t(a.cta_part_1, locale)} <a class="au-link" href="https://www.vomevolunteer.com/register">{t(a.cta_link_1, locale)}</a> {t(a.cta_or, locale)} <a class="au-link" href="https://calendly.com/vome/demo">{t(a.cta_link_2, locale)}</a>{t(a.cta_period, locale)}
+          {t(a.cta_part_1, locale)} <a class="au-link" href={appUrl("/register")}>{t(a.cta_link_1, locale)}</a> {t(a.cta_or, locale)} <a class="au-link" href="https://calendly.com/vome/demo">{t(a.cta_link_2, locale)}</a>{t(a.cta_period, locale)}
         </p>
       </div>
     </div>

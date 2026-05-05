@@ -2,6 +2,7 @@
 import FaqItem from "../FaqItem.astro";
 import FeatureMatrix from "../sections/FeatureMatrix.astro";
 import { strings, t, type Locale } from "../../i18n";
+import { appUrl } from "../../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -81,7 +82,7 @@ const faqItems = [
         </div>
         <p class="pp-card__billing-note">{t(p.forever_free, locale)}</p>
       </div>
-      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--outline">{t(p.get_started, locale)}</a>
+      <a href={appUrl("/register")} class="pp-card__cta pp-card__cta--outline">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
         <p class="pp-card__feat-head">{t(p.feat_head, locale)}</p>
         <ul>
@@ -110,7 +111,7 @@ const faqItems = [
         <p class="pp-card__billing-note" data-billing-label="annual">{t(p.billed_annual, locale)}</p>
         <p class="pp-card__billing-note" data-billing-label="monthly" hidden>{t(p.billed_monthly, locale)}</p>
       </div>
-      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled">{t(p.get_started, locale)}</a>
+      <a href={appUrl("/register")} class="pp-card__cta pp-card__cta--filled">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
         <p class="pp-card__feat-head">{t(p.feat_head_pro, locale)}</p>
         <ul>
@@ -141,7 +142,7 @@ const faqItems = [
         <p class="pp-card__seat-note">{t(p.seat_note, locale)}</p>
         <p class="pp-card__billing-note">{t(p.billed_annual_min3, locale)}</p>
       </div>
-      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ent">{t(p.get_started, locale)}</a>
+      <a href={appUrl("/register")} class="pp-card__cta pp-card__cta--filled-ent">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
         <p class="pp-card__feat-head">{t(p.feat_head_ent, locale)}</p>
         <ul>
@@ -172,7 +173,7 @@ const faqItems = [
         <p class="pp-card__seat-note">{t(p.seat_note, locale)}</p>
         <p class="pp-card__billing-note">{t(p.billed_annual_min5, locale)}</p>
       </div>
-      <a href="https://www.vomevolunteer.com/register" class="pp-card__cta pp-card__cta--filled-ult">{t(p.get_started, locale)}</a>
+      <a href={appUrl("/register")} class="pp-card__cta pp-card__cta--filled-ult">{t(p.get_started, locale)}</a>
       <div class="pp-card__features">
         <p class="pp-card__feat-head">{t(p.feat_head_ult, locale)}</p>
         <ul>
@@ -236,7 +237,7 @@ const faqItems = [
     <h2 class="pp-cta__h2">{t(p.closing_h2, locale)}</h2>
     <p class="pp-cta__sub">{t(p.closing_sub, locale)}</p>
     <div class="pp-cta__btns">
-      <a href="https://www.vomevolunteer.com/register" class="pp-btn-primary">{t(p.closing_primary, locale)}</a>
+      <a href={appUrl("/register")} class="pp-btn-primary">{t(p.closing_primary, locale)}</a>
       <a href={demoHref} class="pp-btn-ghost">{t(p.closing_secondary, locale)}</a>
     </div>
   </div>

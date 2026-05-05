@@ -24,6 +24,7 @@ import BulkEmailMock from "../components/module/BulkEmailMock.astro";
 import ChatroomMock from "../components/module/ChatroomMock.astro";
 import MessageAutomationMock from "../components/module/MessageAutomationMock.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -33,7 +34,7 @@ const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
 const r = strings.module_comms;
 const prefix = locale === "fr" ? "/fr" : "";
 const demoHref = `${prefix}/demo`;
-const signupHref = "https://www.vomevolunteer.com/register";
+const signupHref = appUrl("/register");
 
 // ── Hero meta pills (3) ──
 const heroMeta = [

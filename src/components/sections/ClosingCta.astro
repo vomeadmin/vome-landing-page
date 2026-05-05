@@ -1,5 +1,6 @@
 ---
 import { strings, t, type Locale } from "../../i18n";
+import { appUrl } from "../../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -15,7 +16,7 @@ const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
     <h2 class="cta__h2">{t(strings.cta.headline, locale)}</h2>
     <p class="cta__sub">{t(strings.cta.sub, locale)}</p>
     <div class="cta__actions">
-      <a href="https://www.vomevolunteer.com/register" class="cta__btn cta__btn--primary">{t(strings.cta.primary, locale)}</a>
+      <a href={appUrl("/register")} class="cta__btn cta__btn--primary">{t(strings.cta.primary, locale)}</a>
       <a href={demoHref} class="cta__btn cta__btn--ghost">{t(strings.cta.secondary, locale)}</a>
     </div>
     <div class="cta__meta">

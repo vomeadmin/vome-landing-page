@@ -24,6 +24,7 @@ import ShiftCreationMock from "../components/module/ShiftCreationMock.astro";
 import SelfBookingMock from "../components/module/SelfBookingMock.astro";
 import ShiftChatroomMock from "../components/module/ShiftChatroomMock.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -33,7 +34,7 @@ const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
 const r = strings.module_scheduling;
 const prefix = locale === "fr" ? "/fr" : "";
 const demoHref = `${prefix}/demo`;
-const signupHref = "https://www.vomevolunteer.com/register";
+const signupHref = appUrl("/register");
 
 // ── Hero meta pills (3) ──
 const heroMeta = [

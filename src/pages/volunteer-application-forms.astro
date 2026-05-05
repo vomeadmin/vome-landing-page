@@ -22,6 +22,7 @@ import FormSectionsMock from "../components/module/FormSectionsMock.astro";
 import WorkflowMock from "../components/module/WorkflowMock.astro";
 import AutomationMock from "../components/module/AutomationMock.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -31,7 +32,7 @@ const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
 const r = strings.module_recruitment;
 const prefix = locale === "fr" ? "/fr" : "";
 const demoHref = `${prefix}/demo`;
-const signupHref = "https://www.vomevolunteer.com/register";
+const signupHref = appUrl("/register");
 
 // ── Hero meta pills ──
 const heroMeta = [

@@ -10,6 +10,7 @@ import Security from "../components/sections/Security.astro";
 import Testimonials from "../components/sections/Testimonials.astro";
 import ClosingCta from "../components/sections/ClosingCta.astro";
 import Faq from "../components/sections/Faq.astro";
+import { appUrl } from "../lib/appUrl";
 ---
 
 <Layout
@@ -30,7 +31,7 @@ import Faq from "../components/sections/Faq.astro";
         </p>
 
         <div class="hero__ctas">
-          <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">Sign up for Free</Button>
+          <Button href={appUrl("/register")} variant="primary" class="btn--hero">Sign up for Free</Button>
           <Button href="/demo" variant="ghost" class="btn--hero">Book a demo</Button>
         </div>
 

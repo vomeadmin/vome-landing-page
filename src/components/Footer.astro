@@ -1,5 +1,6 @@
 ---
 import { strings, t, switchLocaleHref, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -27,9 +28,9 @@ const featureLinks = [
 const softwareLinks = [
   { href: locale === "fr" ? "/fr/" : "/", label: t(f.sw_home, locale) },
   { href: `${prefix}/plans`, label: t(f.sw_plans, locale) },
-  { href: "https://www.vomevolunteer.com/register", label: t(f.sw_signup_org, locale) },
-  { href: "https://www.vomevolunteer.com/register-volunteer", label: t(f.sw_signup_vol, locale) },
-  { href: "https://www.vomevolunteer.com/login", label: t(f.sw_login, locale) },
+  { href: appUrl("/register"), label: t(f.sw_signup_org, locale) },
+  { href: appUrl("/register-volunteer"), label: t(f.sw_signup_vol, locale) },
+  { href: appUrl("/login"), label: t(f.sw_login, locale) },
 ];
 
 interface FooterLink { href: string; label: string; external?: boolean; }

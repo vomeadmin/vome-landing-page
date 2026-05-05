@@ -33,6 +33,7 @@ import NativeIntegrationsMock from "../components/module/NativeIntegrationsMock.
 import AutomationChainMock from "../components/module/AutomationChainMock.astro";
 import ApiWebhookMock from "../components/module/ApiWebhookMock.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
+import { appUrl } from "../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -42,7 +43,7 @@ const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
 const r = strings.module_integrations;
 const prefix = locale === "fr" ? "/fr" : "";
 const demoHref = `${prefix}/demo`;
-const signupHref = "https://www.vomevolunteer.com/register";
+const signupHref = appUrl("/register");
 
 // ── Hero meta pills ──
 const heroMeta = [

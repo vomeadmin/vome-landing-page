@@ -2,6 +2,7 @@
 import Button from "../Button.astro";
 import HeroMockup from "./HeroMockup.astro";
 import { strings, t, type Locale } from "../../i18n";
+import { appUrl } from "../../lib/appUrl";
 
 interface Props {
   locale?: Locale;
@@ -23,7 +24,7 @@ const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
       <p class="hero__sub" set:html={t(strings.hero.sub, locale)} />
 
       <div class="hero__ctas">
-        <Button href="https://www.vomevolunteer.com/register" variant="primary" class="btn--hero">{t(strings.hero.cta_primary, locale)}</Button>
+        <Button href={appUrl("/register")} variant="primary" class="btn--hero">{t(strings.hero.cta_primary, locale)}</Button>
         <Button href={demoHref} variant="ghost" class="btn--hero">{t(strings.hero.cta_secondary, locale)}</Button>
       </div>
 

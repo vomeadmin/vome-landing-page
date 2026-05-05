@@ -38,6 +38,15 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## 🔗 App links (register / login)
+
+CTAs that point at the React web-app (`/register`, `/register-volunteer`,
+`/login`) are routed through `src/lib/appUrl.ts`:
+
+- `astro dev` (local) → `http://localhost:3000`
+- Build with `PUBLIC_APP_BASE_URL=https://d183e5ouzqo6cb.cloudfront.net npm run build` → dev CloudFront
+- Build with no env var → `https://www.vomevolunteer.com` (prod default)
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
