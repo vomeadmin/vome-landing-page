@@ -1,0 +1,49 @@
+name: Vome Landing Page PROD Build and Deploy
+on:
+  push:
+    branches:
+      - master
+
+env:
+  NODE_VERSION: "22.12.0"
+  PROD_REGION: "ca-central-1"
+  S3_BUCKET: "vome-astro"
+  CLOUDFRONT_DISTRIBUTION_ID: "E2TUSZJ14H2665"
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies and build
+        run: |
+          echo "Installing dependencies..."
+          npm ci
+
+          echo "Building Astro site for production..."
+          npm run build
+
+      - name: Configure AWS credentials for deployment
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.PROD_REGION }}
+
+      - name: Deploy to S3 and invalidate CloudFront
+        run: |
+          echo "Deploying Astro build to production S3 bucket..."
+          aws s3 sync dist/ s3://${{ env.S3_BUCKET }}/ --delete
+
+          echo "Invalidating CloudFront distribution..."
+          aws cloudfront create-invalidation --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+
+          echo "Production deployment completed successfully!"
