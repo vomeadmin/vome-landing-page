@@ -1,24 +1,20 @@
 // Environment-aware base URL for links into the React web-app
 // (register / register-volunteer / login).
 //
-// Resolution order (build- or dev-time, since this is a static site):
-//   1. astro dev locally -> http://localhost:3000
-//   2. PUBLIC_APP_BASE_URL env var if set (used for the dev CloudFront build)
-//   3. Fallback to production https://www.vomevolunteer.com
+// Resolution:
+//   1. astro dev locally  -> http://localhost:3000 (React dev server)
+//   2. Built deployments  -> relative path (CloudFront origin failover
+//      routes unknown paths to the React origin on the same domain)
 
 const LOCAL = "http://localhost:3000";
-const PROD = "https://www.vomevolunteer.com";
 
-function baseUrl(): string {
+function baseUrl(): string | null {
   if (import.meta.env.DEV) return LOCAL;
-  const explicit = import.meta.env.PUBLIC_APP_BASE_URL;
-  if (typeof explicit === "string" && explicit.length > 0) {
-    return explicit.replace(/\/+$/, "");
-  }
-  return PROD;
+  return null;
 }
 
 export function appUrl(path: string): string {
   const clean = path.startsWith("/") ? path : `/${path}`;
-  return `${baseUrl()}${clean}`;
+  const base = baseUrl();
+  return base ? `${base}${clean}` : clean;
 }
