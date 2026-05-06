@@ -17,8 +17,8 @@ import ClosingCta from "../components/sections/ClosingCta.astro";
 import ModuleHero from "../components/module/ModuleHero.astro";
 import BenefitGrid from "../components/module/BenefitGrid.astro";
 import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
-import HowItWorks from "../components/module/HowItWorks.astro";
 import Differentiators from "../components/module/Differentiators.astro";
+import InlineCta from "../components/module/InlineCta.astro";
 import KioskMock from "../components/module/KioskMock.astro";
 import QrTapMock from "../components/module/QrTapMock.astro";
 import HourClaimsMock from "../components/module/HourClaimsMock.astro";
@@ -70,8 +70,8 @@ const benefits = [
     desc: t(r.ben4_desc, locale),
   },
   {
-    // Map pin / GPS
-    iconSvg: '<path d="M12 22s8-7 8-13a8 8 0 1 0-16 0c0 6 8 13 8 13z"/><circle cx="12" cy="9" r="2.5"/>',
+    // Sliders / configurable settings
+    iconSvg: '<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="7" cy="18" r="2"/>',
     title: t(r.ben5_title, locale),
     desc: t(r.ben5_desc, locale),
   },
@@ -87,14 +87,6 @@ const benefits = [
 const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3, locale), t(r.spot1_b4, locale)];
 const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
 const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
-
-// ── How-it-works steps (4) ──
-const steps = [
-  { title: t(r.step1_title, locale), desc: t(r.step1_desc, locale) },
-  { title: t(r.step2_title, locale), desc: t(r.step2_desc, locale) },
-  { title: t(r.step3_title, locale), desc: t(r.step3_desc, locale) },
-  { title: t(r.step4_title, locale), desc: t(r.step4_desc, locale) },
-];
 
 // ── Differentiators (3) ──
 const differentiators = [
@@ -192,11 +184,11 @@ const faqItems = [
     <HoursDashboardMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
 
-  <HowItWorks
-    locale={locale}
-    h2={t(r.how_h2, locale)}
-    sub={t(r.how_sub, locale)}
-    steps={steps}
+  <InlineCta
+    h2={t(r.midcta_h2, locale)}
+    sub={t(r.midcta_sub, locale)}
+    ctaLabel={t(r.midcta_button, locale)}
+    ctaHref={signupHref}
   />
 
   <Differentiators

@@ -15,7 +15,7 @@ import ClosingCta from "../components/sections/ClosingCta.astro";
 import ModuleHero from "../components/module/ModuleHero.astro";
 import BenefitGrid from "../components/module/BenefitGrid.astro";
 import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
-import HowItWorks from "../components/module/HowItWorks.astro";
+import InlineCta from "../components/module/InlineCta.astro";
 import Differentiators from "../components/module/Differentiators.astro";
 import FormBuilderMock from "../components/module/FormBuilderMock.astro";
 import FormSectionsMock from "../components/module/FormSectionsMock.astro";
@@ -82,18 +82,10 @@ const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3
 const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
 const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
 
-// ── How-it-works steps (4) ──
-const steps = [
-  { title: t(r.step1_title, locale), desc: t(r.step1_desc, locale) },
-  { title: t(r.step2_title, locale), desc: t(r.step2_desc, locale) },
-  { title: t(r.step3_title, locale), desc: t(r.step3_desc, locale) },
-  { title: t(r.step4_title, locale), desc: t(r.step4_desc, locale) },
-];
-
 // ── Differentiators (3) ──
 const differentiators = [
   {
-    iconSvg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M10 17.5h4M6.5 10v4M17.5 10v4"/>',
+    iconSvg: '<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 4l2.5 2.5L23 2"/>',
     title: t(r.diff1_title, locale),
     desc: t(r.diff1_desc, locale),
   },
@@ -103,7 +95,7 @@ const differentiators = [
     desc: t(r.diff2_desc, locale),
   },
   {
-    iconSvg: '<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 4l2.5 2.5L23 2"/>',
+    iconSvg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M10 17.5h4M6.5 10v4M17.5 10v4"/>',
     title: t(r.diff3_title, locale),
     desc: t(r.diff3_desc, locale),
   },
@@ -111,8 +103,7 @@ const differentiators = [
 
 // ── Module FAQs (6) ──
 const faqItems = [
-  { q: r.faq1_q, a: r.faq1_a, open: true },
-  { q: r.faq2_q, a: r.faq2_a },
+  { q: r.faq2_q, a: r.faq2_a, open: true },
   { q: r.faq3_q, a: r.faq3_a },
   { q: r.faq4_q, a: r.faq4_a },
   { q: r.faq5_q, a: r.faq5_a },
@@ -183,11 +174,11 @@ const faqItems = [
     <AutomationMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
 
-  <HowItWorks
-    locale={locale}
-    h2={t(r.how_h2, locale)}
-    sub={t(r.how_sub, locale)}
-    steps={steps}
+  <InlineCta
+    h2={t(r.midcta_h2, locale)}
+    sub={t(r.midcta_sub, locale)}
+    ctaLabel={t(r.midcta_button, locale)}
+    ctaHref={signupHref}
   />
 
   <Differentiators

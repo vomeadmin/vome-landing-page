@@ -3063,7 +3063,7 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
   padding:72px 5%;
 }
 .mp-benefits__inner{max-width:1120px;margin:0 auto}
-.mp-benefits__intro{text-align:center;max-width:720px;margin:0 auto 44px}
+.mp-benefits__intro{text-align:center;max-width:1000px;margin:0 auto 44px}
 .mp-benefits__h2{
   font-family:var(--font-display);
   font-size:clamp(26px, 2.8vw, 36px);
@@ -3184,6 +3184,44 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
   .mp-spotlight__visual,
   .mp-spotlight--flip .mp-spotlight__copy,
   .mp-spotlight--flip .mp-spotlight__visual{order:initial}
+}
+
+/* ── Mid-page CTA banner (between spotlights and downstream
+   sections). Keeps the eye moving and gives a low-friction signup
+   prompt after the deep-dive demo blocks. */
+.mp-midcta{
+  padding:48px 5%;
+  background:#fff;
+}
+.mp-midcta__inner{
+  max-width:1120px;
+  margin:0 auto;
+  background:linear-gradient(135deg, #fff7f1 0%, #ffe9d8 100%);
+  border:1px solid rgba(250,147,91,0.18);
+  border-radius:18px;
+  padding:32px 36px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  flex-wrap:wrap;
+}
+.mp-midcta__copy{
+  display:flex;flex-direction:column;gap:6px;
+  min-width:0;flex:1 1 320px;
+}
+.mp-midcta__h2{
+  font-family:var(--font-display);
+  font-size:clamp(22px, 2.2vw, 28px);
+  font-weight:700;color:var(--fg-2);
+  margin:0;line-height:1.2;letter-spacing:-.2px;
+}
+.mp-midcta__sub{
+  font-size:15.5px;color:var(--fg-4);
+  font-weight:500;line-height:1.5;
+  margin:0;
+}
+.mp-midcta__btn{flex-shrink:0}
+@media (max-width: 720px){
+  .mp-midcta__inner{padding:24px 22px;flex-direction:column;align-items:flex-start}
+  .mp-midcta__btn{width:100%}
 }
 
 /* ── HowItWorks ───────────────────────────────────────────── */
@@ -4376,6 +4414,10 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
   padding:4px 8px;border-radius:5px;
   border:1px solid rgba(75,177,129,.25);
 }
+.sp-chat__meta{
+  font-size:12px;font-weight:500;color:var(--fg-5);
+  white-space:nowrap;
+}
 .sp-chat__auto-dot{
   display:inline-block;
   width:6px;height:6px;border-radius:50%;
@@ -5113,6 +5155,10 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 .sp-cat__card--hours{border-top-color:var(--vome-orange)}
 .sp-cat__card--tenure{border-top-color:#7c5cd6}
 .sp-cat__card--program{border-top-color:#4b95e9}
+.sp-cat__card--bronze{border-top-color:#b0793b}
+.sp-cat__card--silver{border-top-color:#9aa3ad}
+.sp-cat__card--gold{border-top-color:#d4a93a}
+.sp-cat__card--platinum{border-top-color:#5f6c8a}
 .sp-cat__icon{
   flex-shrink:0;
   width:28px;height:28px;border-radius:8px;
@@ -5124,6 +5170,10 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 .sp-cat__icon--hours{background:var(--vome-peach-50);color:var(--vome-orange)}
 .sp-cat__icon--tenure{background:rgba(124,92,214,.12);color:#5e44b3}
 .sp-cat__icon--program{background:rgba(75,149,233,.12);color:#3a78c0}
+.sp-cat__icon--bronze{background:rgba(176,121,59,.14);color:#8a5d2c}
+.sp-cat__icon--silver{background:rgba(154,163,173,.18);color:#5f6975}
+.sp-cat__icon--gold{background:rgba(212,169,58,.16);color:#9c7a1f}
+.sp-cat__icon--platinum{background:rgba(95,108,138,.14);color:#414c66}
 .sp-cat__body{flex:1;min-width:0}
 .sp-cat__name{
   font-size:12.5px;font-weight:700;color:var(--fg-2);
@@ -5154,6 +5204,10 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 .sp-cat__kind--hours{color:var(--vome-orange);background:var(--vome-peach-50);border-color:rgba(250,147,91,.3)}
 .sp-cat__kind--tenure{color:#5e44b3;background:rgba(124,92,214,.12);border-color:rgba(124,92,214,.3)}
 .sp-cat__kind--program{color:#3a78c0;background:rgba(75,149,233,.12);border-color:rgba(75,149,233,.3)}
+.sp-cat__kind--bronze{color:#8a5d2c;background:rgba(176,121,59,.14);border-color:rgba(176,121,59,.3)}
+.sp-cat__kind--silver{color:#5f6975;background:rgba(154,163,173,.18);border-color:rgba(154,163,173,.35)}
+.sp-cat__kind--gold{color:#9c7a1f;background:rgba(212,169,58,.16);border-color:rgba(212,169,58,.35)}
+.sp-cat__kind--platinum{color:#414c66;background:rgba(95,108,138,.14);border-color:rgba(95,108,138,.3)}
 .sp-cat__auto{
   display:inline-flex;align-items:center;gap:4px;
   font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;

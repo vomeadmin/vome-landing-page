@@ -1,0 +1,24 @@
+---
+import Button from "../Button.astro";
+
+interface Props {
+  h2: string;
+  sub?: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { h2, sub, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="mp-midcta">
+  <div class="mp-midcta__inner">
+    <div class="mp-midcta__copy">
+      <h2 class="mp-midcta__h2">{h2}</h2>
+      {sub && <p class="mp-midcta__sub">{sub}</p>}
+    </div>
+    <Button href={ctaHref} variant="primary" class="btn--hero mp-midcta__btn">
+      {ctaLabel}
+    </Button>
+  </div>
+</section>
