@@ -10,6 +10,7 @@ The goal: each new module page is a thin shell composing the same section sequen
 
 Every module page renders these sections, in this order:
 
+
 | # | Section | Component | Notes |
 |---|---|---|---|
 | 1 | Hero | [`ModuleHero`](../src/components/module/ModuleHero.astro) | Eyebrow + 3-part H1 + sub + dual CTAs + 3 meta pills. Named `<slot name="mockup">` for the hero mockup. |
