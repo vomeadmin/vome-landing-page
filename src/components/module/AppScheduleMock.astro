@@ -1,0 +1,77 @@
+---
+/**
+ * Spotlight 3 mockup for /app-for-volunteers — Schedule tab with upcoming
+ * shifts, cancel affordance, and the "add time off" card. Mirrors the
+ * structure in `mobile-app/VomeApp/src/screens/vol_schedule/` and the
+ * VolunteerPopup sheets (CancelBookingPopup, AddTimeOffSheet).
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props { locale?: Locale }
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_app.schedule_mock;
+---
+
+<div class="app-mock app-mock--sched" aria-label="My schedule screen">
+  <div class="mob__bezel">
+    <div class="mob__notch"></div>
+    <div class="mob__screen" style="background:#fff">
+      <div class="mob__statusbar">
+        <span>9:41</span>
+        <span class="mob__statusicons">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M2 10h3v6H2zM7 8h3v8H7zM12 6h3v10h-3zM17 4h3v12h-3z" /></svg>
+          <svg viewBox="0 0 24 12" width="16" height="10" fill="none" stroke="currentColor" stroke-width="1"><rect x=".5" y=".5" width="18" height="10" rx="2" fill="none" /><rect x="2" y="2" width="14" height="7" rx="1" fill="currentColor" /></svg>
+        </span>
+      </div>
+
+      <div class="app-mock__schedhead">
+        <span class="app-mock__kicker">{t(m.kicker, locale)}</span>
+      </div>
+
+      <div class="app-mock__segs">
+        <span class="app-mock__seg is-active">{t(m.tab_upcoming, locale)}</span>
+        <span class="app-mock__seg">{t(m.tab_past, locale)}</span>
+        <span class="app-mock__seg">{t(m.tab_off, locale)}</span>
+      </div>
+
+      <ul class="app-mock__schedlist">
+        <li class="app-mock__schedrow">
+          <span class="app-mock__schedstripe app-mock__schedstripe--confirmed" aria-hidden="true"></span>
+          <span class="app-mock__schedbody">
+            <span class="app-mock__schedtitle">{t(m.shift1_title, locale)}</span>
+            <span class="app-mock__schedmeta">{t(m.shift1_when, locale)}</span>
+          </span>
+          <span class="app-mock__schedstatus app-mock__schedstatus--confirmed">{t(m.shift1_status, locale)}</span>
+        </li>
+        <li class="app-mock__schedrow">
+          <span class="app-mock__schedstripe" aria-hidden="true"></span>
+          <span class="app-mock__schedbody">
+            <span class="app-mock__schedtitle">{t(m.shift2_title, locale)}</span>
+            <span class="app-mock__schedmeta">{t(m.shift2_when, locale)}</span>
+          </span>
+          <span class="app-mock__schedaction">{t(m.cancel_action, locale)}</span>
+        </li>
+        <li class="app-mock__schedrow">
+          <span class="app-mock__schedstripe" aria-hidden="true"></span>
+          <span class="app-mock__schedbody">
+            <span class="app-mock__schedtitle">{t(m.shift3_title, locale)}</span>
+            <span class="app-mock__schedmeta">{t(m.shift3_when, locale)}</span>
+          </span>
+          <span class="app-mock__schedaction">{t(m.cancel_action, locale)}</span>
+        </li>
+      </ul>
+
+      <div class="app-mock__offcard">
+        <span class="app-mock__officon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/><path d="M9 14l6 4M15 14l-6 4"/></svg>
+        </span>
+        <span class="app-mock__offbody">
+          <span class="app-mock__offtitle">{t(m.timeoff_card_title, locale)}</span>
+          <span class="app-mock__offmeta">{t(m.timeoff_card_meta, locale)}</span>
+        </span>
+        <span class="app-mock__offbtn">{t(m.timeoff_btn, locale)}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -36,7 +36,6 @@ const isTier = (tone: string) => tone === "bronze" || tone === "silver" || tone 
     <span class="sp-mock__title">{t(m.title, locale)}</span>
   </div>
   <div class="sp-mock__body">
-    <div class="sp-mock__col-label">{t(m.label, locale)}</div>
     <ul class="sp-cat__grid">
       {cards.map((c) => (
         <li class={`sp-cat__card sp-cat__card--${c.tone}`}>

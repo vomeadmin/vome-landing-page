@@ -1,13 +1,14 @@
 ---
 /**
- * Module landing page — Volunteer communications.
+ * Module landing page — App for volunteers.
  *
- * Mirrors the canonical /volunteer-application-forms composition.
- * Copy lives in `strings.module_comms`. Hand-built mockups:
- *   Hero        InboxComposerMock       (split inbox + email composer)
- *   Spotlight 1 BulkEmailMock           (segmented bulk email composer)
- *   Spotlight 2 ChatroomMock            (auto-generated shift chatroom)
- *   Spotlight 3 MessageAutomationMock   (configured message automation rule)
+ * Mirrors the canonical /volunteer-communications composition. Copy lives
+ * in `strings.module_app`. Hand-built mockups model real screens from
+ * `mobile-app/VomeApp/src/screens/`:
+ *   Hero        AppHomeMock         (volunteer home / dashboard)
+ *   Spotlight 1 AppReserveMock      (shift detail + group reservation)
+ *   Spotlight 2 AppQrArriveMock     (QR check-in on arrival)
+ *   Spotlight 3 AppScheduleMock     (schedule + cancel + add time off)
  */
 import Layout from "../layouts/Layout.astro";
 import Partners from "../components/sections/Partners.astro";
@@ -19,10 +20,10 @@ import BenefitGrid from "../components/module/BenefitGrid.astro";
 import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
 import InlineCta from "../components/module/InlineCta.astro";
 import Differentiators from "../components/module/Differentiators.astro";
-import InboxComposerMock from "../components/module/InboxComposerMock.astro";
-import BulkEmailMock from "../components/module/BulkEmailMock.astro";
-import ChatroomMock from "../components/module/ChatroomMock.astro";
-import MessageAutomationMock from "../components/module/MessageAutomationMock.astro";
+import AppHomeMock from "../components/module/AppHomeMock.astro";
+import AppReserveMock from "../components/module/AppReserveMock.astro";
+import AppQrArriveMock from "../components/module/AppQrArriveMock.astro";
+import AppScheduleMock from "../components/module/AppScheduleMock.astro";
 import { strings, t, localeFromPath, type Locale } from "../i18n";
 import { appUrl } from "../lib/appUrl";
 
@@ -31,53 +32,53 @@ interface Props {
 }
 
 const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
-const r = strings.module_comms;
+const r = strings.module_app;
 const prefix = locale === "fr" ? "/fr" : "";
 const demoHref = `${prefix}/demo`;
 const signupHref = appUrl("/register");
 
 // ── Hero meta pills (3) ──
 const heroMeta = [
-  { text: t(r.hero_meta_domain, locale) },
   { text: t(r.hero_meta_native, locale) },
-  { text: t(r.hero_meta_dashboard, locale) },
+  { text: t(r.hero_meta_free, locale) },
+  { text: t(r.hero_meta_multiorg, locale) },
 ];
 
 // ── Benefits grid (6 cards). Icons match the platform-diagram line style. ──
 const benefits = [
   {
-    // Envelope (bulk + individual email)
-    iconSvg: '<rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/>',
+    // Magnifying glass over list (browse opportunities)
+    iconSvg: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/><path d="M7 11h8M7 8h8M7 14h5"/>',
     title: t(r.ben1_title, locale),
     desc: t(r.ben1_desc, locale),
   },
   {
-    // Globe + at-sign (send from your domain)
-    iconSvg: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    // Calendar + check (reserve)
+    iconSvg: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/><path d="M8 14l3 3 5-5"/>',
     title: t(r.ben2_title, locale),
     desc: t(r.ben2_desc, locale),
   },
   {
-    // Speech bubble (private chat)
-    iconSvg: '<path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"/>',
+    // QR grid (check-in)
+    iconSvg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h3M20 17v4"/>',
     title: t(r.ben3_title, locale),
     desc: t(r.ben3_desc, locale),
   },
   {
-    // Multiple users (group / shift chatrooms)
-    iconSvg: '<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="8" r="2.5"/><path d="M15 20a5 5 0 0 1 7 0"/>',
+    // Calendar with X (time off / cancel)
+    iconSvg: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/><path d="M9 14l6 4M15 14l-6 4"/>',
     title: t(r.ben4_title, locale),
     desc: t(r.ben4_desc, locale),
   },
   {
-    // Bell + clock (automated reminders)
-    iconSvg: '<path d="M18 16V11a6 6 0 1 0-12 0v5l-2 3h16z"/><path d="M10 21a2 2 0 0 0 4 0"/>',
+    // Document + signature (onboarding)
+    iconSvg: '<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M8 16c1-3 3-3 5 0s4 2 4-1"/>',
     title: t(r.ben5_title, locale),
     desc: t(r.ben5_desc, locale),
   },
   {
-    // Dashboard grid (team-wide message dashboard)
-    iconSvg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    // Speech bubble + bell (chat + push)
+    iconSvg: '<path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"/><path d="M14 8a2 2 0 014 0v3l1 1h-6l1-1V8z"/>',
     title: t(r.ben6_title, locale),
     desc: t(r.ben6_desc, locale),
   },
@@ -91,20 +92,20 @@ const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3
 // ── Differentiators (3) ──
 const differentiators = [
   {
-    // Linked database / wired in
-    iconSvg: '<ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5"/><path d="M4 11v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-6"/>',
+    // Price tag (free)
+    iconSvg: '<path d="M20.6 12.6L12 21.2l-9-9V3h9.2z"/><circle cx="7.5" cy="7.5" r="1.6"/>',
     title: t(r.diff1_title, locale),
     desc: t(r.diff1_desc, locale),
   },
   {
-    // Globe + arrow out (sent from your domain)
-    iconSvg: '<circle cx="11" cy="12" r="8"/><path d="M3 12h16M11 4a12 12 0 0 1 0 16M11 4a12 12 0 0 0 0 16"/><path d="M17 5l4-2-2 4"/>',
+    // Stack of buildings (multi-org)
+    iconSvg: '<path d="M3 21V8l6-3 6 3v13"/><path d="M15 21V11l6 3v7"/><path d="M3 21h18"/>',
     title: t(r.diff2_title, locale),
     desc: t(r.diff2_desc, locale),
   },
   {
-    // Eye / shared visibility
-    iconSvg: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    // Key (sign in)
+    iconSvg: '<circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3M14 9l3 3"/>',
     title: t(r.diff3_title, locale),
     desc: t(r.diff3_desc, locale),
   },
@@ -139,7 +140,7 @@ const faqItems = [
     ctaSecondaryLabel={t(strings.nav.book_demo, locale)}
     meta={heroMeta}
   >
-    <InboxComposerMock slot="mockup" locale={locale} />
+    <AppHomeMock slot="mockup" locale={locale} />
   </ModuleHero>
 
   <Partners locale={locale} />
@@ -159,7 +160,7 @@ const faqItems = [
     bullets={spot1Bullets}
     side="right"
   >
-    <BulkEmailMock slot="mockup" locale={locale} />
+    <AppReserveMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
 
   <FeatureSpotlight
@@ -170,7 +171,7 @@ const faqItems = [
     bullets={spot2Bullets}
     side="left"
   >
-    <ChatroomMock slot="mockup" locale={locale} />
+    <AppQrArriveMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
 
   <FeatureSpotlight
@@ -181,7 +182,7 @@ const faqItems = [
     bullets={spot3Bullets}
     side="right"
   >
-    <MessageAutomationMock slot="mockup" locale={locale} />
+    <AppScheduleMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
 
   <InlineCta
@@ -209,7 +210,7 @@ const faqItems = [
 
   <FeatureMatrix
     locale={locale}
-    onlySection="comms"
+    onlySection="scheduling"
     heading={r.matrix_h2}
     showAllToggle
   />

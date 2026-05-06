@@ -1,0 +1,108 @@
+---
+/**
+ * Hero mockup for /app-for-volunteers — volunteer's home/dashboard screen
+ * inside a single phone bezel. Mirrors the layout in
+ * `mobile-app/VomeApp/src/screens/volDashboard/VolDashboard.js` and
+ * `viewImpact/HomeTabContainer.js` (greeting, next-shift card, quick
+ * actions, available-shifts list, bottom tab bar).
+ *
+ * Reuses the `.mob__bezel` / `.mob__notch` / `.mob__screen` shell from
+ * the homepage MobileApp section so the family of phone mockups all
+ * look like the same device. Variant class: `app-mock` for the
+ * inner content.
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "en" } = Astro.props;
+const m = strings.module_app.home_mock;
+---
+
+<div class="app-mock app-mock--home" aria-label="Volunteer mobile app home screen">
+  <div class="mob__bezel">
+    <div class="mob__notch"></div>
+    <div class="mob__screen" style="background:#fff7ee">
+      <div class="mob__statusbar">
+        <span>9:41</span>
+        <span class="mob__statusicons">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M2 10h3v6H2zM7 8h3v8H7zM12 6h3v10h-3zM17 4h3v12h-3z" /></svg>
+          <svg viewBox="0 0 24 12" width="16" height="10" fill="none" stroke="currentColor" stroke-width="1"><rect x=".5" y=".5" width="18" height="10" rx="2" fill="none" /><rect x="2" y="2" width="14" height="7" rx="1" fill="currentColor" /></svg>
+        </span>
+      </div>
+
+      <div class="mob__appbar">
+        <div class="mob__appavatar">D</div>
+        <div>
+          <div class="mob__appgreet">{t(m.greet, locale)}</div>
+          <div class="mob__appname">{t(m.name, locale)}</div>
+        </div>
+      </div>
+
+      <div class="mob__appcard">
+        <div class="mob__appcardlbl">{t(m.next_label, locale)}</div>
+        <div class="mob__appcardtitle">{t(m.next_title, locale)}</div>
+        <div class="mob__appcardmeta">{t(m.next_meta, locale)}</div>
+        <div class="mob__appcardtag">{t(m.next_tag, locale)}</div>
+      </div>
+
+      <div class="app-mock__quick">
+        <span class="app-mock__quickitem">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>{t(m.action_chat, locale)}</span>
+        </span>
+        <span class="app-mock__quickitem">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span>{t(m.action_hours, locale)}</span>
+        </span>
+        <span class="app-mock__quickitem">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 13l-2 9 6-4 6 4-2-9"/></svg>
+          <span>{t(m.action_awards, locale)}</span>
+        </span>
+      </div>
+
+      <div class="app-mock__sectrow">
+        <span class="mob__appsect">{t(m.avail_label, locale)}</span>
+        <span class="app-mock__see">{t(m.avail_view, locale)}</span>
+      </div>
+
+      <div class="mob__applist">
+        <div class="mob__applistitem">
+          <div class="mob__applistimg" style="background:linear-gradient(135deg,#fdd9be,#fa935b)"></div>
+          <div class="mob__applistinfo">
+            <div class="mob__applistname">{t(m.shift1_name, locale)}</div>
+            <div class="mob__applistmeta">{t(m.shift1_meta, locale)}</div>
+          </div>
+        </div>
+        <div class="mob__applistitem">
+          <div class="mob__applistimg" style="background:linear-gradient(135deg,#c6e3d4,#6aad8a)"></div>
+          <div class="mob__applistinfo">
+            <div class="mob__applistname">{t(m.shift2_name, locale)}</div>
+            <div class="mob__applistmeta">{t(m.shift2_meta, locale)}</div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="app-mock__tabbar" aria-hidden="true">
+        <span class="app-mock__tab is-active">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 9v11h14V9"/></svg>
+          <span>{t(m.tab_home, locale)}</span>
+        </span>
+        <span class="app-mock__tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+          <span>{t(m.tab_sched, locale)}</span>
+        </span>
+        <span class="app-mock__tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 004 0"/></svg>
+          <span>{t(m.tab_inbox, locale)}</span>
+        </span>
+        <span class="app-mock__tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>
+          <span>{t(m.tab_profile, locale)}</span>
+        </span>
+      </nav>
+    </div>
+  </div>
+</div>

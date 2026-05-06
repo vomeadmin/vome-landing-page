@@ -17,7 +17,7 @@ import ClosingCta from "../components/sections/ClosingCta.astro";
 import ModuleHero from "../components/module/ModuleHero.astro";
 import BenefitGrid from "../components/module/BenefitGrid.astro";
 import FeatureSpotlight from "../components/module/FeatureSpotlight.astro";
-import HowItWorks from "../components/module/HowItWorks.astro";
+import InlineCta from "../components/module/InlineCta.astro";
 import Differentiators from "../components/module/Differentiators.astro";
 import DatabaseTableMock from "../components/module/DatabaseTableMock.astro";
 import CustomFieldsMock from "../components/module/CustomFieldsMock.astro";
@@ -88,14 +88,6 @@ const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3
 const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
 const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
 
-// ── How-it-works steps (4) ──
-const steps = [
-  { title: t(r.step1_title, locale), desc: t(r.step1_desc, locale) },
-  { title: t(r.step2_title, locale), desc: t(r.step2_desc, locale) },
-  { title: t(r.step3_title, locale), desc: t(r.step3_desc, locale) },
-  { title: t(r.step4_title, locale), desc: t(r.step4_desc, locale) },
-];
-
 // ── Differentiators (3) ──
 const differentiators = [
   {
@@ -118,7 +110,7 @@ const differentiators = [
   },
 ];
 
-// ── Module FAQs (6) ──
+// ── Module FAQs (9) ──
 const faqItems = [
   { q: r.faq1_q, a: r.faq1_a, open: true },
   { q: r.faq2_q, a: r.faq2_a },
@@ -126,6 +118,9 @@ const faqItems = [
   { q: r.faq4_q, a: r.faq4_a },
   { q: r.faq5_q, a: r.faq5_a },
   { q: r.faq6_q, a: r.faq6_a },
+  { q: r.faq7_q, a: r.faq7_a },
+  { q: r.faq8_q, a: r.faq8_a },
+  { q: r.faq9_q, a: r.faq9_a },
 ];
 ---
 
@@ -192,11 +187,11 @@ const faqItems = [
     <ReportsDashboardMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
 
-  <HowItWorks
-    locale={locale}
-    h2={t(r.how_h2, locale)}
-    sub={t(r.how_sub, locale)}
-    steps={steps}
+  <InlineCta
+    h2={t(r.midcta_h2, locale)}
+    sub={t(r.midcta_sub, locale)}
+    ctaLabel={t(r.midcta_button, locale)}
+    ctaHref={signupHref}
   />
 
   <Differentiators
