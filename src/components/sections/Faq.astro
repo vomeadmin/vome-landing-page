@@ -77,7 +77,7 @@ const ctaLinkStr = t(ctaLink ?? strings.faq.cta_link, locale);
     <div class="faq__list">
       {items.map((item) => (
         <FaqItem question={t(item.q, locale)} open={item.open}>
-          {t(item.a, locale)}
+          <Fragment set:html={t(item.a, locale)} />
         </FaqItem>
       ))}
     </div>

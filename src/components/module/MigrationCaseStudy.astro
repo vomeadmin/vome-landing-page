@@ -1,0 +1,67 @@
+---
+/**
+ * Migration case-study band for /volunteer-database.
+ *
+ * Sits between the 6-card BenefitGrid and Spotlight 1, acting as proof
+ * before the deeper feature dives. Three peach stat tiles, a customer
+ * quote, attribution, and a CTA to the full case study.
+ *
+ * All copy comes from `strings.module_data.case_*` so EN/FR stay in sync.
+ * Pass `caseStudyHref` to point the CTA at the full asset (PDF or page).
+ */
+import { strings, t, type Locale } from "../../i18n";
+
+interface Props {
+  locale: Locale;
+  caseStudyHref: string;
+}
+
+const { locale, caseStudyHref } = Astro.props;
+const r = strings.module_data;
+---
+
+<section class="mp-case" aria-labelledby="case-study-headline">
+  <div class="mp-case__inner">
+    <div class="mp-case__head">
+      <span class="mp-case__kicker">{t(r.case_kicker, locale)}</span>
+      <span class="mp-case__org">{t(r.case_org, locale)}</span>
+    </div>
+
+    <h2 class="mp-case__headline" id="case-study-headline">
+      {t(r.case_headline, locale)}
+    </h2>
+
+    <ul class="mp-case__stats" role="list">
+      <li class="mp-case__stat">
+        <span class="mp-case__stat-value">{t(r.case_stat1_value, locale)}</span>
+        <span class="mp-case__stat-label">{t(r.case_stat1_label, locale)}</span>
+      </li>
+      <li class="mp-case__stat">
+        <span class="mp-case__stat-value">{t(r.case_stat2_value, locale)}</span>
+        <span class="mp-case__stat-label">{t(r.case_stat2_label, locale)}</span>
+      </li>
+      <li class="mp-case__stat">
+        <span class="mp-case__stat-value">{t(r.case_stat3_value, locale)}</span>
+        <span class="mp-case__stat-label">{t(r.case_stat3_label, locale)}</span>
+      </li>
+    </ul>
+
+    <blockquote class="mp-case__quote">
+      <p class="mp-case__quote-text">"{t(r.case_quote, locale)}"</p>
+      <footer class="mp-case__attribution">
+        <span class="mp-case__name">{t(r.case_attribution, locale)}</span>
+        <span class="mp-case__role">{t(r.case_role, locale)}</span>
+      </footer>
+    </blockquote>
+
+    <div class="mp-case__actions">
+      <a class="mp-case__cta" href={caseStudyHref}>
+        {t(r.case_cta_label, locale)}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

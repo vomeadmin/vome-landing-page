@@ -202,7 +202,8 @@ a{color:inherit;text-decoration:none}
 }
 .app__crumb strong{color:var(--fg-3);font-weight:600}
 .app__heading{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;gap:10px}
-.app__heading h3{
+.app__heading h3,
+.app__heading .app__heading-text{
   font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--fg-2);
   margin:0;letter-spacing:-.2px;
 }
@@ -350,10 +351,10 @@ a{color:inherit;text-decoration:none}
 }
 
 .logo-chip{
-  width:84px;height:84px;border-radius:50%;
+  width:96px;height:96px;border-radius:50%;
   background:#fff;border:1px solid #ececec;
   display:flex;align-items:center;justify-content:center;
-  padding:14px;flex:0 0 auto;
+  padding:16px;flex:0 0 auto;
   font-family:var(--font-display);font-size:10px;font-weight:600;color:var(--fg-5);text-align:center;
 }
 .logo-chip__img{object-fit:contain;display:block}
@@ -2253,6 +2254,15 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
   font-size:15px;line-height:1.6;color:var(--fg-4);
   text-wrap:pretty;
 }
+.faq__a a{
+  color:var(--vome-orange);
+  font-weight:600;
+  text-decoration:underline;
+  text-underline-offset:2px;
+  transition:color .15s ease;
+}
+.faq__a a:hover,
+.faq__a a:focus{color:var(--vome-orange-700)}
 
 @media (max-width:640px){
   .faq__q{font-size:15px;padding:16px 18px}
@@ -2571,7 +2581,11 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
   display:grid;
   grid-template-columns:repeat(3, 1fr);
   gap:2px;
+  list-style:none;
+  margin:0;
+  padding:0;
 }
+.topnav__features-grid li{margin:0;padding:0;list-style:none}
 .feat-tile{
   display:flex;align-items:flex-start;gap:11px;
   padding:11px 12px;
@@ -3158,6 +3172,15 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 }
 .mp-spotlight__body strong{color:var(--fg-2);font-weight:700}
 .mp-spotlight__body em{font-style:italic;color:var(--fg-2);font-weight:600}
+.mp-spotlight__body a{
+  color:var(--vome-orange);
+  font-weight:600;
+  text-decoration:underline;
+  text-underline-offset:2px;
+  transition:color .15s ease;
+}
+.mp-spotlight__body a:hover,
+.mp-spotlight__body a:focus{color:var(--vome-orange-700)}
 .mp-spotlight__bullets{
   list-style:none;padding:0;margin:0;
   display:flex;flex-direction:column;gap:10px;
@@ -3222,6 +3245,276 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 @media (max-width: 720px){
   .mp-midcta__inner{padding:24px 22px;flex-direction:column;align-items:flex-start}
   .mp-midcta__btn{width:100%}
+}
+
+/* ── Migration case study band ─────────────────────────────── */
+.mp-case{
+  padding:48px 5%;
+  background:#fff;
+}
+.mp-case__inner{
+  max-width:1120px;
+  margin:0 auto;
+  background:linear-gradient(135deg, #fff7f1 0%, #ffe9d8 100%);
+  border:1px solid rgba(250,147,91,0.18);
+  border-radius:18px;
+  padding:32px 36px;
+  display:flex;flex-direction:column;gap:22px;
+}
+.mp-case__head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;
+}
+.mp-case__kicker{
+  font-size:11px;font-weight:700;letter-spacing:.08em;
+  color:var(--vome-orange);text-transform:uppercase;
+  background:rgba(250,147,91,0.12);
+  border:1px solid rgba(250,147,91,0.22);
+  border-radius:999px;padding:5px 12px;
+}
+.mp-case__org{
+  font-size:13.5px;font-weight:700;color:var(--fg-3);
+  letter-spacing:.01em;
+}
+.mp-case__headline{
+  font-family:var(--font-display);
+  font-size:clamp(22px, 2.4vw, 30px);
+  font-weight:700;color:var(--fg-2);
+  margin:0;line-height:1.2;letter-spacing:-.2px;
+}
+.mp-case__stats{
+  list-style:none;padding:0;margin:0;
+  display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;
+}
+.mp-case__stat{
+  background:rgba(255,255,255,0.7);
+  border:1px solid rgba(250,147,91,0.18);
+  border-radius:12px;
+  padding:16px 18px;
+  display:flex;flex-direction:column;gap:4px;
+}
+.mp-case__stat-value{
+  font-family:var(--font-display);
+  font-size:clamp(24px, 2.8vw, 32px);
+  font-weight:800;color:var(--vome-orange);
+  letter-spacing:-.5px;line-height:1;
+}
+.mp-case__stat-label{
+  font-size:13px;font-weight:500;color:var(--fg-4);
+  line-height:1.35;
+}
+.mp-case__quote{
+  margin:0;
+  border-left:3px solid var(--vome-orange);
+  padding-left:14px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.mp-case__quote-text{
+  margin:0;
+  font-size:15.5px;color:var(--fg-2);
+  font-weight:500;line-height:1.55;font-style:italic;
+}
+.mp-case__attribution{
+  display:flex;flex-direction:column;gap:1px;
+}
+.mp-case__name{font-size:13px;font-weight:700;color:var(--fg-2)}
+.mp-case__role{font-size:12.5px;color:var(--fg-4)}
+.mp-case__actions{display:flex;justify-content:flex-end}
+.mp-case__cta{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:14px;font-weight:600;color:var(--vome-orange);
+  text-decoration:none;
+}
+.mp-case__cta svg{width:16px;height:16px;transition:transform .15s ease}
+.mp-case__cta:hover{text-decoration:underline}
+.mp-case__cta:hover svg{transform:translateX(2px)}
+@media (max-width: 720px){
+  .mp-case__inner{padding:24px 22px;gap:18px}
+  .mp-case__stats{grid-template-columns:1fr;gap:10px}
+  .mp-case__actions{justify-content:flex-start}
+}
+
+/* ── Gated case-study page (Brent's Place) ─────────────────── */
+.cs-hero{
+  background:var(--surface-1);
+  padding:64px 5% 40px;
+}
+.cs-hero__inner{max-width:880px;margin:0 auto;text-align:center}
+.cs-hero__kicker{
+  display:inline-block;
+  font-size:11px;font-weight:700;letter-spacing:.08em;
+  color:var(--vome-orange);text-transform:uppercase;
+  background:rgba(250,147,91,0.12);
+  border:1px solid rgba(250,147,91,0.22);
+  border-radius:999px;padding:5px 12px;
+  margin-bottom:18px;
+}
+.cs-hero__h1{
+  font-family:var(--font-display);
+  font-size:clamp(28px, 3.4vw, 42px);
+  font-weight:800;color:var(--fg-2);
+  margin:0 0 14px;line-height:1.15;letter-spacing:-.4px;
+}
+.cs-hero__sub{
+  font-size:17px;color:var(--fg-4);
+  font-weight:500;line-height:1.5;
+  margin:0 auto;max-width:680px;
+}
+.cs-body{padding:24px 5% 64px;background:#fff}
+.cs-body__inner{
+  max-width:1120px;margin:0 auto;
+  display:grid;grid-template-columns:1.05fr 1fr;gap:40px;
+  align-items:start;
+}
+.cs-preview{
+  background:linear-gradient(135deg, #fff7f1 0%, #ffe9d8 100%);
+  border:1px solid rgba(250,147,91,0.18);
+  border-radius:18px;
+  padding:28px;
+  display:flex;flex-direction:column;gap:22px;
+}
+.cs-preview__stats{
+  list-style:none;padding:0;margin:0;
+  display:grid;grid-template-columns:repeat(3, 1fr);gap:10px;
+}
+.cs-preview__stat{
+  background:rgba(255,255,255,0.7);
+  border:1px solid rgba(250,147,91,0.18);
+  border-radius:12px;
+  padding:14px 12px;
+  display:flex;flex-direction:column;gap:4px;text-align:center;
+}
+.cs-preview__stat-value{
+  font-family:var(--font-display);
+  font-size:clamp(22px, 2.4vw, 28px);
+  font-weight:800;color:var(--vome-orange);
+  letter-spacing:-.5px;line-height:1;
+}
+.cs-preview__stat-label{
+  font-size:12px;font-weight:500;color:var(--fg-4);
+  line-height:1.35;
+}
+.cs-preview__h2{
+  font-family:var(--font-display);
+  font-size:18px;font-weight:700;color:var(--fg-2);
+  margin:0;letter-spacing:-.1px;
+}
+.cs-preview__list{
+  list-style:none;padding:0;margin:0;
+  display:flex;flex-direction:column;gap:10px;
+}
+.cs-preview__item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:14px;color:var(--fg-3);line-height:1.45;
+}
+.cs-preview__item svg{
+  flex-shrink:0;
+  width:18px;height:18px;
+  color:var(--vome-orange);margin-top:2px;
+}
+.cs-preview__quote{
+  margin:0;
+  border-left:3px solid var(--vome-orange);
+  padding-left:14px;
+  display:flex;flex-direction:column;gap:8px;
+}
+.cs-preview__quote-text{
+  margin:0;
+  font-size:14.5px;color:var(--fg-2);
+  font-weight:500;line-height:1.55;font-style:italic;
+}
+.cs-preview__attribution{display:flex;flex-direction:column;gap:1px}
+.cs-preview__name{font-size:13px;font-weight:700;color:var(--fg-2)}
+.cs-preview__role{font-size:12.5px;color:var(--fg-4)}
+.cs-form-wrap{
+  background:#fff;
+  border:1px solid var(--border-1);
+  border-radius:18px;
+  padding:28px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.cs-form__h2{
+  font-family:var(--font-display);
+  font-size:24px;font-weight:700;color:var(--fg-2);
+  margin:0;letter-spacing:-.2px;
+}
+.cs-form__sub{font-size:14.5px;color:var(--fg-4);margin:0 0 6px;line-height:1.5}
+.cs-form{display:flex;flex-direction:column;gap:14px}
+.cs-form__label{
+  display:flex;flex-direction:column;gap:6px;
+  font-size:13px;font-weight:600;color:var(--fg-2);
+}
+.cs-form__label abbr{color:var(--vome-orange);text-decoration:none;margin-left:2px}
+.cs-form__input{
+  font-family:inherit;
+  font-size:14.5px;color:var(--fg-2);
+  background:#fff;border:1px solid var(--border-1);border-radius:10px;
+  padding:11px 13px;
+  width:100%;
+}
+.cs-form__input:focus{
+  outline:none;
+  border-color:var(--vome-orange);
+  box-shadow:0 0 0 3px rgba(250,147,91,0.15);
+}
+.cs-form__error{
+  font-size:13.5px;color:#c0392b;
+  background:rgba(192,57,43,0.06);
+  border:1px solid rgba(192,57,43,0.18);
+  border-radius:8px;padding:10px 12px;
+}
+.cs-form__submit{
+  font-family:inherit;
+  font-size:15px;font-weight:700;
+  color:#fff;background:var(--vome-orange);
+  border:none;border-radius:10px;
+  padding:13px 20px;cursor:pointer;
+  transition:background .15s ease;
+}
+.cs-form__submit:hover{background:#f47c41}
+.cs-form__submit:disabled{opacity:.6;cursor:not-allowed}
+.cs-form__note{
+  font-size:12.5px;color:var(--fg-5);
+  margin:4px 0 0;line-height:1.45;
+}
+.cs-success{
+  display:flex;flex-direction:column;align-items:flex-start;gap:14px;
+  padding:8px 0;
+}
+.cs-success__check{
+  width:54px;height:54px;border-radius:50%;
+  background:rgba(75,177,129,.14);
+  color:#3a9067;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.cs-success__h3{
+  font-family:var(--font-display);
+  font-size:22px;font-weight:700;color:var(--fg-2);
+  margin:0;letter-spacing:-.2px;
+}
+.cs-success__body{font-size:14.5px;color:var(--fg-4);margin:0;line-height:1.5}
+.cs-success__download{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:700;
+  color:#fff;background:var(--vome-orange);
+  border-radius:10px;padding:13px 20px;
+  text-decoration:none;
+  transition:background .15s ease;
+}
+.cs-success__download:hover{background:#f47c41}
+.cs-success__download svg{width:18px;height:18px}
+.cs-success__back{
+  font-size:13.5px;color:var(--vome-orange);
+  text-decoration:none;font-weight:600;
+}
+.cs-success__back:hover{text-decoration:underline}
+@media (max-width: 880px){
+  .cs-body__inner{grid-template-columns:1fr;gap:24px}
+  .cs-preview__stats{grid-template-columns:repeat(3, 1fr)}
+}
+@media (max-width: 540px){
+  .cs-preview__stats{grid-template-columns:1fr}
+  .cs-form-wrap, .cs-preview{padding:22px}
 }
 
 /* ── HowItWorks ───────────────────────────────────────────── */
@@ -6128,8 +6421,8 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 }
 .fb-tab__row{
   display:grid;
-  grid-template-columns: 1.5fr 1.5fr 0.9fr 0.7fr 1fr 0.9fr;
-  gap:0;
+  grid-template-columns: 1.4fr 1.3fr 1.1fr 0.7fr 1fr 0.85fr;
+  column-gap:8px;
   padding:9px 12px;
   border-bottom:1px solid rgba(0,0,0,.05);
   font-size:12px;color:var(--fg-2);
@@ -6138,8 +6431,8 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 .fb-tab__row:last-child{border-bottom:0}
 .fb-tab__row--head{
   background:#fafafa;
-  font-size:10.5px;font-weight:700;letter-spacing:.05em;
-  color:var(--fg-5);text-transform:uppercase;
+  font-size:10.5px;font-weight:600;letter-spacing:0;
+  color:var(--fg-5);text-transform:none;
   padding:8px 12px;
 }
 .fb-tab__row--selected{
@@ -6938,6 +7231,10 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 .mp-logo__mark--sterling{
   background:#e8eaf3;color:#1a2f6b;
 }
+/* Verified First — burgundy */
+.mp-logo__mark--vfirst{
+  background:#f5e6e8;color:#8a2436;
+}
 /* SCORM Cloud — teal */
 .fb-hub__mark--scorm,
 .sp-native__mark--scorm,
@@ -6971,6 +7268,14 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 /* JumpCloud — green-blue */
 .mp-logo__mark--jc{
   background:#e1f3ec;color:#1a8e63;
+}
+/* Okta — okta blue */
+.mp-logo__mark--okta{
+  background:#e6eef7;color:#1662dd;
+}
+/* Microsoft ADFS — neutral ms slate */
+.mp-logo__mark--adfs{
+  background:#eef1f5;color:#3a4a63;
 }
 /* Zapier — orange (close to brand) */
 .fb-hub__mark--zap,
@@ -7031,23 +7336,238 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 }
 .app-mock__tab.is-active{color:var(--vome-orange)}
 
-.app-mock__quick{
-  display:flex;justify-content:space-between;
-  margin:0 12px 10px;padding:10px 6px;
-  background:#fff;border-radius:12px;
-  box-shadow:0 2px 6px rgba(20,20,40,.06);
+/* Top bar (hamburger + page title + bell) shared by Home and Schedule
+   mocks. Hamburger and bell flank the centered title for true balance. */
+.app-mock__topbar{
+  display:flex;align-items:center;gap:10px;
+  padding:0 14px 8px;
 }
-.app-mock__quickitem{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  flex:1;font-size:9px;font-weight:600;color:#1a1a2a;
+.app-mock__menu,
+.app-mock__topbarbell{
+  width:18px;height:18px;flex-shrink:0;
+  color:#1a1a2a;display:flex;align-items:center;justify-content:center;
 }
-.app-mock__quickitem svg{color:var(--vome-orange)}
+.app-mock__topbartitle{
+  flex:1;text-align:center;
+  font-size:13px;font-weight:700;color:#1a1a2a;
+}
 
-.app-mock__sectrow{
-  display:flex;justify-content:space-between;align-items:baseline;
-  padding:0 14px 6px;
+/* Greeting row (avatar + question + name).
+   Mirrors mobile-app/VomeApp/src/screens/volDashboard/ActionContainer.js:
+   round avatar bordered #f1f1f1, then a single bold sentence. */
+.app-mock__greet{
+  display:flex;align-items:center;gap:10px;
+  padding:0 14px 12px;
 }
-.app-mock__see{font-size:9px;font-weight:600;color:var(--vome-orange)}
+.app-mock__greetav{
+  width:36px;height:36px;border-radius:50%;
+  background:#fff;
+  border:1px solid #f1f1f1;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.app-mock__greetav svg,
+.app-mock__greetav img{
+  width:100%;height:100%;display:block;
+}
+.app-mock__greettext{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.app-mock__greetq{font-size:10px;color:rgba(0,0,0,.55);font-weight:500}
+.app-mock__greetname{font-size:13.5px;font-weight:700;color:#111;margin-top:1px;letter-spacing:-.1px}
+
+/* Three-up primary action row — squared white tiles with thin border,
+   light-grey icon circles, color-coded icons (green/orange/blue) per
+   the live ActionContainer.js. Labels are forced to a single line. */
+.app-mock__actions{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  margin:0 12px 16px;
+}
+.app-mock__action{
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:11px 0 10px;
+  background:#fff;
+  border:1px solid #efeeee;
+  border-radius:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+  min-width:0;
+}
+.app-mock__actionicon{
+  width:28px;height:28px;border-radius:50%;
+  background:#f1f1f1;
+  display:flex;align-items:center;justify-content:center;
+}
+.app-mock__actionicon--book{color:#4bb181}
+.app-mock__actionicon--sched{color:var(--vome-orange)}
+.app-mock__actionicon--claim{color:#4b95e9}
+.app-mock__actionlbl{
+  font-size:8.5px;font-weight:700;color:#111;text-align:center;line-height:1.15;
+  white-space:nowrap;letter-spacing:-.2px;
+  width:100%;padding:0;
+  overflow:visible;
+}
+
+/* Section label + the date pill above the upcoming-shift card */
+.app-mock__sectlbl{
+  padding:0 14px 6px;
+  font-size:13px;font-weight:700;color:#111;
+}
+.app-mock__sectlbl--secondary{padding-top:16px}
+.app-mock__upcoming-date{
+  margin:0 14px 8px;padding:4px 10px;
+  background:var(--vome-peach-50);color:var(--vome-orange-700);
+  border-radius:6px;
+  font-size:9.5px;font-weight:700;width:max-content;
+}
+
+/* Shift card — mirrors CalendarListView.js: thin colored bar (4px) on
+   the left, white card with a hairline border, semibold title in
+   rgba(0,0,0,.85), org name in #616161. Used on Home (one upcoming)
+   and Schedule (one per day group). */
+.app-mock__shiftcard{
+  display:flex;align-items:stretch;gap:0;
+  margin:0 14px;padding:0;
+  background:#fff;
+  border:1px solid #efeeee;
+  border-radius:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+  overflow:hidden;
+}
+.app-mock__shiftstripe{
+  width:4px;align-self:stretch;
+  background:var(--vome-orange);
+  flex-shrink:0;
+}
+.app-mock__shifttime{
+  font-size:12px;font-weight:700;color:#111;
+  padding:0 12px;flex-shrink:0;
+  border-right:1px solid #f4f3f3;
+  display:flex;align-items:center;
+}
+.app-mock__shiftbody{
+  display:flex;flex-direction:column;flex:1;min-width:0;
+  padding:9px 10px;line-height:1.25;justify-content:center;
+}
+.app-mock__shifttitle{
+  font-size:11.5px;font-weight:700;color:rgba(0,0,0,.85);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.app-mock__shiftorg{
+  font-size:9.5px;color:#616161;margin-top:2px;font-weight:500;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.app-mock__shiftcancel{
+  font-size:9.5px;font-weight:700;color:#db2828;
+  padding:0 12px;flex-shrink:0;display:flex;align-items:center;
+}
+
+/* My-organization card on the Home screen — same squared white-tile
+   treatment as the action row. */
+.app-mock__orgcard{
+  display:flex;align-items:center;gap:10px;
+  margin:0 14px;padding:10px 12px;
+  background:#fff;
+  border:1px solid #efeeee;
+  border-radius:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+.app-mock__orglogo{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--vome-peach-50);color:var(--vome-orange);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.app-mock__orgbody{display:flex;flex-direction:column;flex:1;min-width:0}
+.app-mock__orgname{
+  font-size:11.5px;font-weight:700;color:#111;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.app-mock__orgmeta{font-size:9.5px;color:#616161;margin-top:1px;font-weight:500}
+
+/* Onboarding sequence screen — mirrors the live SequenceViewData.js +
+   the per-step screens. Sequence header card, progress bar, then a
+   list of typed step rows (info, video, e-sig, upload, training)
+   with a status string and a primary CTA at the bottom. */
+.app-mock__seqcard{
+  display:flex;align-items:center;gap:10px;
+  margin:0 14px 12px;padding:10px 12px;
+  background:#fff;
+  border:1px solid #efeeee;
+  border-radius:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+.app-mock__seqlogo{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--vome-peach-50);color:var(--vome-orange);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.app-mock__seqbody{display:flex;flex-direction:column;flex:1;min-width:0}
+.app-mock__seqtitle{
+  font-size:11.5px;font-weight:700;color:#111;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.app-mock__seqorg{font-size:9px;color:#616161;margin-top:1px;font-weight:500}
+
+.app-mock__seqprogwrap{padding:0 14px 10px}
+.app-mock__seqproglabel{
+  font-size:9px;font-weight:600;color:#616161;
+  margin-bottom:4px;
+}
+.app-mock__seqprogbar{
+  height:5px;background:#f0eeed;border-radius:999px;overflow:hidden;
+}
+.app-mock__seqprogfill{
+  height:100%;
+  background:linear-gradient(90deg,var(--vome-orange),#fa7b3a);
+  border-radius:999px;
+}
+
+.app-mock__steplist{
+  list-style:none;padding:0;margin:0 14px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.app-mock__step{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 10px;
+  background:#fff;
+  border:1px solid #efeeee;
+  border-radius:6px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+.app-mock__stepicon{
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:#f1f1f1;color:#a4a4a4;
+}
+.app-mock__step--done .app-mock__stepicon{
+  background:#4bb181;color:#fff;
+}
+.app-mock__step--current{
+  border-color:var(--vome-orange);
+  box-shadow:0 0 0 2px rgba(250,147,91,.12), 0 1px 2px rgba(0,0,0,.04);
+}
+.app-mock__step--current .app-mock__stepicon{
+  background:var(--vome-orange);color:#fff;
+}
+.app-mock__stepbody{display:flex;flex-direction:column;flex:1;min-width:0}
+.app-mock__steplbl{
+  font-size:10.5px;font-weight:700;color:#111;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.app-mock__step--done .app-mock__steplbl{color:#616161;text-decoration:line-through;text-decoration-thickness:1px}
+.app-mock__stepstatus{font-size:8.5px;color:#616161;margin-top:1px;font-weight:600}
+.app-mock__step--current .app-mock__stepstatus{color:var(--vome-orange-700)}
+.app-mock__steptype{
+  width:18px;height:18px;border-radius:6px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--vome-peach-50);color:var(--vome-orange-700);
+}
+
+.app-mock__seqcta{
+  margin:14px 14px 0;text-align:center;
+  background:var(--vome-orange);color:#fff;
+  padding:10px 14px;border-radius:8px;
+  font-size:10.5px;font-weight:700;letter-spacing:.2px;
+  box-shadow:0 6px 14px -6px rgba(232,88,62,.5);
+}
 
 /* Reserve-shift screen */
 .app-mock__navrow{
@@ -7159,69 +7679,55 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
   font-size:10px;font-weight:600;
 }
 
-/* Schedule screen */
-.app-mock__schedhead{padding:8px 14px 4px}
-.app-mock__segs{
-  display:flex;gap:6px;
-  margin:6px 14px 10px;padding:3px;
-  background:#f0eeed;border-radius:10px;
+/* Schedule screen — month strip + horizontal week scroller + agenda list */
+.app-mock__monthrow{padding:0 14px 6px}
+.app-mock__month{
+  font-size:18px;font-weight:700;color:var(--vome-orange);
+  letter-spacing:.5px;
 }
-.app-mock__seg{
-  flex:1;text-align:center;
-  padding:6px 4px;border-radius:8px;
-  font-size:9.5px;font-weight:600;color:#6b6b7e;
-}
-.app-mock__seg.is-active{
-  background:#fff;color:#1a1a2a;
-  box-shadow:0 1px 3px rgba(20,20,40,.08);
-}
-.app-mock__schedlist{
-  list-style:none;padding:0;margin:0 14px;
-  display:flex;flex-direction:column;gap:8px;
-}
-.app-mock__schedrow{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 12px 10px 8px;
-  background:#fff;border-radius:12px;
+.app-mock__weekstrip{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:2px;
+  margin:0 10px 12px;padding:6px 4px;
+  background:#fff;border-radius:14px;
   box-shadow:0 2px 6px rgba(20,20,40,.06);
 }
-.app-mock__schedstripe{
-  width:3px;height:32px;border-radius:2px;
-  background:#d8d8e0;flex-shrink:0;
+.app-mock__day{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:6px 0 6px;border-radius:10px;
 }
-.app-mock__schedstripe--confirmed{background:var(--vome-orange)}
-.app-mock__schedbody{flex:1;display:flex;flex-direction:column;min-width:0}
-.app-mock__schedtitle{
-  font-size:11px;font-weight:700;color:#1a1a2a;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+.app-mock__daylet{
+  font-size:8.5px;font-weight:700;color:#9a9aae;letter-spacing:.4px;
+  text-transform:uppercase;
 }
-.app-mock__schedmeta{font-size:9px;color:#6b6b7e;margin-top:2px}
-.app-mock__schedstatus{
-  font-size:9px;font-weight:700;letter-spacing:.2px;
-  padding:3px 8px;border-radius:999px;
-  background:#f0f0f4;color:#6b6b7e;
+.app-mock__daynum{
+  font-size:11.5px;font-weight:700;color:#1a1a2a;
 }
-.app-mock__schedstatus--confirmed{
-  background:var(--vome-peach-50);color:var(--vome-orange-700);
-}
-.app-mock__schedaction{font-size:9px;font-weight:700;color:#c44a4a}
-.app-mock__offcard{
-  display:flex;align-items:center;gap:10px;
-  margin:14px 14px 0;padding:10px 12px;
-  background:linear-gradient(135deg,#fff3e8,#ffe4cf);
-  border-radius:12px;
-}
-.app-mock__officon{
-  width:30px;height:30px;border-radius:8px;
-  background:#fff;color:var(--vome-orange-700);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.app-mock__offbody{flex:1;display:flex;flex-direction:column;min-width:0}
-.app-mock__offtitle{font-size:10.5px;font-weight:700;color:#1a1a2a}
-.app-mock__offmeta{font-size:9px;color:#6b6b7e;margin-top:2px}
-.app-mock__offbtn{
-  font-size:9.5px;font-weight:700;color:#fff;
+.app-mock__day--active{
   background:var(--vome-orange);
-  padding:5px 10px;border-radius:8px;
-  flex-shrink:0;
+}
+.app-mock__day--active .app-mock__daylet,
+.app-mock__day--active .app-mock__daynum{color:#fff}
+
+.app-mock__agenda{
+  display:flex;flex-direction:column;gap:10px;
+  padding:0 0 10px;
+}
+.app-mock__daygroup{display:flex;flex-direction:column;gap:6px}
+.app-mock__dayhead{
+  padding:0 14px;
+  font-size:10px;font-weight:700;color:#6b6b7e;
+  letter-spacing:.2px;
+}
+.app-mock__empty{
+  margin:0 14px;padding:10px 12px;
+  background:#fff;border:1px dashed rgba(20,20,40,.12);
+  border-radius:12px;
+  font-size:10px;color:#9a9aae;font-style:italic;text-align:center;
+}
+.app-mock__timeoffpill{
+  margin:6px auto 0;width:max-content;
+  padding:6px 12px;border-radius:999px;
+  background:var(--vome-peach-50);color:var(--vome-orange-700);
+  font-size:9.5px;font-weight:700;
+  border:1px solid rgba(250,147,91,.35);
 }

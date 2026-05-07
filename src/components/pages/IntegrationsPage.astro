@@ -2,15 +2,10 @@
 /**
  * Module landing page — Integrations & API.
  *
- * Two structural deviations from the canonical module template
+ * One structural deviation from the canonical module template
  * (see `docs/landing-playbook.md`):
- *   1. The `<HowItWorks>` 4-step stepper is replaced by an
- *      `<IntegrationLogoGrid>` showing every shipped integration
- *      grouped by category. The build → publish → automate flow
- *      doesn't fit an integrations page; the page is stronger when
- *      it puts every partner mark on screen at once.
- *   2. Spotlights focus on three angles (native, no-code, code)
- *      rather than three module mechanisms.
+ *   - Spotlights focus on three angles (native, no-code, code)
+ *     rather than three module mechanisms.
  *
  * Mockups (all hand-built HTML/CSS, no `<img>`):
  *   Hero        IntegrationsHubMock       (Vome at center, partner spokes)
@@ -26,7 +21,6 @@ import ClosingCta from "../sections/ClosingCta.astro";
 import ModuleHero from "../module/ModuleHero.astro";
 import BenefitGrid from "../module/BenefitGrid.astro";
 import FeatureSpotlight from "../module/FeatureSpotlight.astro";
-import IntegrationLogoGrid from "../module/IntegrationLogoGrid.astro";
 import Differentiators from "../module/Differentiators.astro";
 import IntegrationsHubMock from "../module/IntegrationsHubMock.astro";
 import NativeIntegrationsMock from "../module/NativeIntegrationsMock.astro";
@@ -97,44 +91,6 @@ const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3
 const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
 const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
 
-// ── Logo grid groups (4 categories). Brand keys map to .mp-logo__mark--<brand> CSS. ──
-const logoGroups = [
-  {
-    title: t(r.logos_cat_native, locale),
-    items: [
-      { brand: "sf",       name: t(r.logo_sf, locale),       sub: t(r.logo_sf_sub, locale) },
-      { brand: "sterling", name: t(r.logo_sterling, locale), sub: t(r.logo_sterling_sub, locale) },
-      { brand: "scorm",    name: t(r.logo_scorm, locale),    sub: t(r.logo_scorm_sub, locale) },
-      { brand: "dtd",      name: t(r.logo_dtd, locale),      sub: t(r.logo_dtd_sub, locale) },
-      { brand: "sheets",   name: t(r.logo_sheets, locale),   sub: t(r.logo_sheets_sub, locale) },
-    ],
-  },
-  {
-    title: t(r.logos_cat_email, locale),
-    items: [
-      { brand: "google",  name: t(r.logo_google_mail, locale), sub: t(r.logo_google_mail_sub, locale) },
-      { brand: "ms",      name: t(r.logo_outlook, locale),     sub: t(r.logo_outlook_sub, locale) },
-      { brand: "entra",   name: t(r.logo_entra, locale),       sub: t(r.logo_entra_sub, locale) },
-      { brand: "jc",      name: t(r.logo_jumpcloud, locale),   sub: t(r.logo_jumpcloud_sub, locale) },
-    ],
-  },
-  {
-    title: t(r.logos_cat_auto, locale),
-    items: [
-      { brand: "zap",     name: t(r.logo_zapier, locale),  sub: t(r.logo_zapier_sub, locale) },
-      { brand: "power",   name: t(r.logo_power, locale),   sub: t(r.logo_power_sub, locale) },
-    ],
-  },
-  {
-    title: t(r.logos_cat_dev, locale),
-    items: [
-      { brand: "api",      name: t(r.logo_api, locale),       sub: t(r.logo_api_sub, locale) },
-      { brand: "webhooks", name: t(r.logo_webhooks, locale),  sub: t(r.logo_webhooks_sub, locale) },
-      { brand: "devdash",  name: t(r.logo_devdash, locale),   sub: t(r.logo_devdash_sub, locale) },
-    ],
-  },
-];
-
 // ── Differentiators (3) ──
 const differentiators = [
   {
@@ -150,14 +106,14 @@ const differentiators = [
     desc: t(r.diff2_desc, locale),
   },
   {
-    // Lock / shield with key (auth)
-    iconSvg: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.25"/>',
+    // Network / hub with orbiting nodes (5,000+ apps reachable)
+    iconSvg: '<circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="1.5"/><circle cx="20" cy="6" r="1.5"/><circle cx="4" cy="18" r="1.5"/><circle cx="20" cy="18" r="1.5"/><path d="M5.3 7l4.4 3.5M18.7 7l-4.4 3.5M5.3 17l4.4-3.5M18.7 17l-4.4-3.5"/>',
     title: t(r.diff3_title, locale),
     desc: t(r.diff3_desc, locale),
   },
 ];
 
-// ── Module FAQs (6) ──
+// ── Module FAQs ──
 const faqItems = [
   { q: r.faq1_q, a: r.faq1_a, open: true },
   { q: r.faq2_q, a: r.faq2_a },
@@ -165,6 +121,7 @@ const faqItems = [
   { q: r.faq4_q, a: r.faq4_a },
   { q: r.faq5_q, a: r.faq5_a },
   { q: r.faq6_q, a: r.faq6_a },
+  { q: r.faq8_q, a: r.faq8_a },
 ];
 ---
 
@@ -230,13 +187,6 @@ const faqItems = [
   >
     <ApiWebhookMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
-
-  <IntegrationLogoGrid
-    locale={locale}
-    h2={t(r.logos_h2, locale)}
-    sub={t(r.logos_sub, locale)}
-    groups={logoGroups}
-  />
 
   <Differentiators
     locale={locale}

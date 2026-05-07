@@ -108,7 +108,7 @@ const featuresAllHref = `${featurePrefix}/features`;
         <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
     </summary>
-    <ul class="topnav__lang-menu" role="list">
+    <ul class="topnav__lang-menu">
       {langOptions.map((o) => (
         <li>
           <a
@@ -134,28 +134,30 @@ const featuresAllHref = `${featurePrefix}/features`;
       </summary>
       <div class="topnav__features-menu">
         <div class="topnav__features-eyebrow">{t(fp.modules_h2, locale)}</div>
-        <div class="topnav__features-grid" role="list">
+        <ul class="topnav__features-grid">
           {featureItems.map((item) => (
-            <a class="feat-tile" href={item.href} role="listitem">
-              <span class="feat-tile__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.75"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                  set:html={item.iconSvg}
-                />
-              </span>
-              <span class="feat-tile__text">
-                <span class="feat-tile__label">{item.label}</span>
-                <span class="feat-tile__desc">{item.desc}</span>
-              </span>
-            </a>
+            <li>
+              <a class="feat-tile" href={item.href}>
+                <span class="feat-tile__icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    set:html={item.iconSvg}
+                  />
+                </span>
+                <span class="feat-tile__text">
+                  <span class="feat-tile__label">{item.label}</span>
+                  <span class="feat-tile__desc">{item.desc}</span>
+                </span>
+              </a>
+            </li>
           ))}
-        </div>
+        </ul>
         <a class="topnav__features-menu-all" href={featuresAllHref}>
           <span>{t(n.features_view_all, locale)}</span>
           <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
@@ -180,7 +182,7 @@ const featuresAllHref = `${featurePrefix}/features`;
   <!-- Invented mobile hamburger (the reference did not design mobile nav behavior).
        Checkbox-hack approach: the hidden .nav__toggle drives .mainnav__cta
        visibility on narrow screens via a :checked sibling selector in landing.css. -->
-  <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true" />
+  <input type="checkbox" id="nav-toggle" class="nav__toggle" tabindex="-1" />
   <label for="nav-toggle" class="nav__burger" aria-label="Toggle navigation">
     <span></span>
     <span></span>

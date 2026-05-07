@@ -26,11 +26,11 @@ const {
   <div class="tst__cardhead">
     <div class="tst__stars" aria-label={starsAria}>★★★★★</div>
     {logo && logoFull && (
-      <img class="tst__logo-full" src={logo} alt={logoAlt ?? ""} loading="lazy" decoding="async" onerror="this.style.display='none'" />
+      <img class="tst__logo-full" src={logo} alt={logoAlt ?? ""} width="130" height="32" loading="lazy" decoding="async" onerror="this.style.display='none'" />
     )}
     {logo && !logoFull && (
       <div class="tst__logo-ring">
-        <img class="tst__logo" src={logo} alt={logoAlt ?? ""} loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'" />
+        <img class="tst__logo" src={logo} alt={logoAlt ?? ""} width="40" height="40" loading="lazy" decoding="async" onerror="this.parentElement.style.display='none'" />
       </div>
     )}
   </div>

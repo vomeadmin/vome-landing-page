@@ -1,13 +1,15 @@
 ---
 /**
- * Hero mockup for /integrations. Hand-built hub-and-spoke diagram:
- * Vome at the center, six partner cards radiating around it, connected
- * by light dotted spokes. The cards are decorative text marks (no
- * `<img>`), each with the partner brand color tint.
+ * Hero mockup for /integrations.
  *
- * Reuses the shared `.fb-mock` chrome (browser bar) so hero mockups
- * across module pages feel like a family. The hub layout itself uses
- * its own `.fb-hub__*` class system, scoped to the component.
+ * Mirrors the Enterprise integrations card on the home page: real partner
+ * logos arranged in a tight grid, with the white Vome mark sitting above
+ * them on an orange disc. The whole thing lives inside the shared
+ * .fb-mock browser-chrome shell so it reads as a family with the other
+ * module heroes.
+ *
+ * Logo assets live in /public/integrations/. To swap which logos appear,
+ * edit the `tiles` array below — order is left-to-right, top-to-bottom.
  */
 import { strings, t, type Locale } from "../../i18n";
 
@@ -18,13 +20,14 @@ interface Props {
 const { locale = "en" } = Astro.props;
 const m = strings.module_integrations.hub_mock;
 
-const spokes = [
-  { brand: "sf",       label: t(m.sf, locale),       sub: t(m.sf_kind, locale)       },
-  { brand: "sterling", label: t(m.sterling, locale), sub: t(m.sterling_kind, locale) },
-  { brand: "scorm",    label: t(m.scorm, locale),    sub: t(m.scorm_kind, locale)    },
-  { brand: "sheets",   label: t(m.sheets, locale),   sub: t(m.sheets_kind, locale)   },
-  { brand: "zap",      label: t(m.zap, locale),      sub: t(m.zap_kind, locale)      },
-  { brand: "api",      label: t(m.api, locale),      sub: t(m.api_kind, locale)      },
+const tiles = [
+  { src: "/integrations/salesforce.png", alt: "Salesforce" },
+  { src: "/integrations/zapier.png",     alt: "Zapier", wide: true },
+  { src: "/integrations/microsoft.png",  alt: "Microsoft Power Automate" },
+  { src: "/integrations/sterling.jpeg",  alt: "Sterling Volunteers" },
+  { src: "/integrations/dtd.png",        alt: "Double the Donation" },
+  { src: "/integrations/outlook.svg",    alt: "Outlook" },
+  { src: "/integrations/gmail.webp",     alt: "Gmail" },
 ];
 ---
 
@@ -46,21 +49,47 @@ const spokes = [
       </div>
     </div>
 
-    <div class="fb-hub__diagram">
-      <div class="fb-hub__core" aria-hidden="false">
-        <div class="fb-hub__core-mark">V</div>
-        <div class="fb-hub__core-name">{t(m.vome, locale)}</div>
-        <div class="fb-hub__core-sub">{t(m.vome_sub, locale)}</div>
+    <div class="ent__visual ent__visual--int fb-hub__viz">
+      <div class="ent__inthub" aria-label={t(m.vome, locale)}>
+        <img src="/logos/app-logo-white.png" alt={t(m.vome, locale)} />
       </div>
-
-      <ul class="fb-hub__spokes">
-        {spokes.map((s) => (
-          <li class={`fb-hub__spoke fb-hub__spoke--${s.brand}`}>
-            <span class={`fb-hub__mark fb-hub__mark--${s.brand}`}>{s.label}</span>
-            <span class="fb-hub__sub">{s.sub}</span>
-          </li>
+      <div class="ent__intgrid fb-hub__intgrid">
+        {tiles.map((tile) => (
+          <div class="ent__int" title={tile.alt}>
+            <img src={tile.src} alt={tile.alt} class={tile.wide ? "ent__int--wide" : undefined} />
+          </div>
         ))}
-      </ul>
+        <div class="ent__int ent__int--more" title="And more">
+          <span>{t(strings.enterprise.int_more, locale)}</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<style is:global>
+  /* Hero variant of the Enterprise hub. The base .ent__visual rules
+     (fixed 260px height, gray panel, border, bottom margin) are written
+     for the home-page card layout and don't fit inside the .fb-mock
+     browser chrome — neutralize them, then keep the hub-specific layout
+     from .ent__visual--int.
+
+     Reuses .ent__inthub / .ent__intgrid / .ent__int from the Enterprise
+     section so partner logos render at the same optical weight. */
+  .fb-mock--hub .fb-hub__viz{
+    background:transparent;
+    border:0;
+    border-radius:0;
+    height:auto;
+    margin:14px 0 0;
+    padding:8px 4px 4px;
+    gap:14px;
+  }
+  .fb-mock--hub .fb-hub__intgrid{
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+  }
+  .fb-mock--hub .ent__inthub{
+    width:52px;height:52px;
+  }
+</style>

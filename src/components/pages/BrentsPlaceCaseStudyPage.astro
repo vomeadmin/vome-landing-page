@@ -1,0 +1,225 @@
+---
+/**
+ * Gated case-study download page — Brent's Place migration.
+ *
+ * Two-column layout: left side previews the case study (stats, quote,
+ * "what's inside"), right side is a 4-field form (first name, email,
+ * organization, role). The form posts to the same `contact-us/` endpoint
+ * used by ContactPage.astro, with `user_type: "case_study_download"` and
+ * a `message` identifying which case study was requested.
+ *
+ * On a 200 response, the form is hidden and a download button is revealed
+ * pointing at `/case-studies/brents-place-migration.pdf` (drop the PDF in
+ * `public/case-studies/` to wire it up).
+ *
+ * All copy lives in `strings.module_data.case_*` so EN/FR stay in sync.
+ */
+import Layout from "../../layouts/Layout.astro";
+import ClosingCta from "../sections/ClosingCta.astro";
+import { strings, t, localeFromPath, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const r = strings.module_data;
+
+const dbHref = locale === "fr" ? "/fr/volunteer-database" : "/volunteer-database";
+const pdfHref = "/case-studies/brents-place-migration.pdf";
+
+const insideBullets = [
+  t(r.case_inside_b1, locale),
+  t(r.case_inside_b2, locale),
+  t(r.case_inside_b3, locale),
+  t(r.case_inside_b4, locale),
+];
+---
+
+<Layout
+  locale={locale}
+  title={t(r.case_page_title, locale)}
+  description={t(r.case_page_description, locale)}
+>
+  <section class="cs-hero">
+    <div class="cs-hero__inner">
+      <span class="cs-hero__kicker">{t(r.case_kicker, locale)} · {t(r.case_org, locale)}</span>
+      <h1 class="cs-hero__h1">{t(r.case_headline, locale)}</h1>
+      <p class="cs-hero__sub">{t(r.case_page_intro, locale)}</p>
+    </div>
+  </section>
+
+  <section class="cs-body">
+    <div class="cs-body__inner">
+
+      <aside class="cs-preview" aria-label={t(r.case_inside_h, locale)}>
+        <ul class="cs-preview__stats" role="list">
+          <li class="cs-preview__stat">
+            <span class="cs-preview__stat-value">{t(r.case_stat1_value, locale)}</span>
+            <span class="cs-preview__stat-label">{t(r.case_stat1_label, locale)}</span>
+          </li>
+          <li class="cs-preview__stat">
+            <span class="cs-preview__stat-value">{t(r.case_stat2_value, locale)}</span>
+            <span class="cs-preview__stat-label">{t(r.case_stat2_label, locale)}</span>
+          </li>
+          <li class="cs-preview__stat">
+            <span class="cs-preview__stat-value">{t(r.case_stat3_value, locale)}</span>
+            <span class="cs-preview__stat-label">{t(r.case_stat3_label, locale)}</span>
+          </li>
+        </ul>
+
+        <h2 class="cs-preview__h2">{t(r.case_inside_h, locale)}</h2>
+        <ul class="cs-preview__list" role="list">
+          {insideBullets.map((line) => (
+            <li class="cs-preview__item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+
+        <blockquote class="cs-preview__quote">
+          <p class="cs-preview__quote-text">"{t(r.case_quote, locale)}"</p>
+          <footer class="cs-preview__attribution">
+            <span class="cs-preview__name">{t(r.case_attribution, locale)}</span>
+            <span class="cs-preview__role">{t(r.case_role, locale)}</span>
+          </footer>
+        </blockquote>
+      </aside>
+
+      <div class="cs-form-wrap">
+        <h2 class="cs-form__h2">{t(r.case_form_h2, locale)}</h2>
+        <p class="cs-form__sub">{t(r.case_form_sub, locale)}</p>
+
+        <form id="cs-form" class="cs-form" novalidate>
+          <div style="display:none" aria-hidden="true">
+            <label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <label class="cs-form__label">
+            <span>{t(r.case_form_first, locale)} <abbr title={t(r.case_form_required, locale)}>*</abbr></span>
+            <input class="cs-form__input" type="text" name="firstName" required autocomplete="given-name" />
+          </label>
+
+          <label class="cs-form__label">
+            <span>{t(r.case_form_email, locale)} <abbr title={t(r.case_form_required, locale)}>*</abbr></span>
+            <input class="cs-form__input" type="email" name="email" required autocomplete="email" />
+          </label>
+
+          <label class="cs-form__label">
+            <span>{t(r.case_form_org, locale)} <abbr title={t(r.case_form_required, locale)}>*</abbr></span>
+            <input class="cs-form__input" type="text" name="organizationName" required autocomplete="organization" />
+          </label>
+
+          <label class="cs-form__label">
+            <span>{t(r.case_form_role, locale)}</span>
+            <input class="cs-form__input" type="text" name="role" autocomplete="organization-title" placeholder={t(r.case_form_role_placeholder, locale)} />
+          </label>
+
+          <div role="alert" class="cs-form__error" id="cs-form-error" hidden></div>
+
+          <button
+            type="submit"
+            class="cs-form__submit"
+            id="cs-form-submit"
+            data-label-default={t(r.case_form_submit, locale)}
+            data-label-sending={t(r.case_form_sending, locale)}
+          >{t(r.case_form_submit, locale)}</button>
+
+          <p class="cs-form__note">{t(r.case_form_note, locale)}</p>
+        </form>
+
+        <div id="cs-success" class="cs-success" hidden aria-live="polite">
+          <div class="cs-success__check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h3 class="cs-success__h3">{t(r.case_success_h, locale)}</h3>
+          <p class="cs-success__body">{t(r.case_success_sub, locale)}</p>
+          <a href={pdfHref} class="cs-success__download" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            {t(r.case_success_download, locale)}
+          </a>
+          <a href={dbHref} class="cs-success__back">{t(r.case_success_back, locale)}</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <ClosingCta locale={locale} />
+
+  <script is:inline define:vars={{ errorText: t(r.case_form_error, locale) }}>
+    (function () {
+      var CONTACT_API_URL = 'https://vomeorg.com/api/vome-admin/contact-us/';
+      var CASE_STUDY_ID = 'brents-place-migration';
+
+      var form = document.getElementById('cs-form');
+      var successEl = document.getElementById('cs-success');
+      var submitBtn = document.getElementById('cs-form-submit');
+      var errorEl = document.getElementById('cs-form-error');
+
+      if (!form) return;
+
+      var labelDefault = submitBtn.getAttribute('data-label-default') || 'Submit';
+      var labelSending = submitBtn.getAttribute('data-label-sending') || 'Sending…';
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errorEl.hidden = true;
+
+        var honeypot = form.querySelector('[name="_gotcha"]');
+        if (honeypot && honeypot.value) return;
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        var data = new FormData(form);
+        var firstName = (data.get('firstName') || '').trim();
+        var email = (data.get('email') || '').trim();
+        var org = (data.get('organizationName') || '').trim();
+        var role = (data.get('role') || '').trim();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = labelSending;
+
+        var messageBody = 'Case study download request: ' + CASE_STUDY_ID;
+        if (role) messageBody += '\nRole: ' + role;
+
+        fetch(CONTACT_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: firstName,
+            last_name: '',
+            email: email,
+            organization_name: org,
+            user_type: 'case_study_download',
+            message: messageBody,
+          }),
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            form.hidden = true;
+            successEl.hidden = false;
+            successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          })
+          .catch(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = labelDefault;
+            errorEl.textContent = errorText;
+            errorEl.hidden = false;
+          });
+      });
+    })();
+  </script>
+</Layout>

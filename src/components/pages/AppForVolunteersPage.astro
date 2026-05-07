@@ -2,13 +2,12 @@
 /**
  * Module landing page — App for volunteers.
  *
- * Mirrors the canonical /volunteer-communications composition. Copy lives
- * in `strings.module_app`. Hand-built mockups model real screens from
- * `mobile-app/VomeApp/src/screens/`:
+ * Copy lives in `strings.module_app`. Hand-built mockups model real
+ * screens from `mobile-app/VomeApp/src/screens/`:
  *   Hero        AppHomeMock         (volunteer home / dashboard)
  *   Spotlight 1 AppReserveMock      (shift detail + group reservation)
- *   Spotlight 2 AppQrArriveMock     (QR check-in on arrival)
- *   Spotlight 3 AppScheduleMock     (schedule + cancel + add time off)
+ *   Spotlight 2 AppQrArriveMock     (check-in: QR / tap / auto)
+ *   Spotlight 3 AppSequenceMock     (onboarding sequence with typed steps)
  */
 import Layout from "../../layouts/Layout.astro";
 import Partners from "../sections/Partners.astro";
@@ -18,12 +17,10 @@ import ClosingCta from "../sections/ClosingCta.astro";
 import ModuleHero from "../module/ModuleHero.astro";
 import BenefitGrid from "../module/BenefitGrid.astro";
 import FeatureSpotlight from "../module/FeatureSpotlight.astro";
-import InlineCta from "../module/InlineCta.astro";
-import Differentiators from "../module/Differentiators.astro";
 import AppHomeMock from "../module/AppHomeMock.astro";
 import AppReserveMock from "../module/AppReserveMock.astro";
 import AppQrArriveMock from "../module/AppQrArriveMock.astro";
-import AppScheduleMock from "../module/AppScheduleMock.astro";
+import AppSequenceMock from "../module/AppSequenceMock.astro";
 import { strings, t, localeFromPath, type Locale } from "../../i18n";
 import { appUrl } from "../../lib/appUrl";
 
@@ -89,34 +86,10 @@ const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3
 const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
 const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
 
-// ── Differentiators (3) ──
-const differentiators = [
-  {
-    // Price tag (free)
-    iconSvg: '<path d="M20.6 12.6L12 21.2l-9-9V3h9.2z"/><circle cx="7.5" cy="7.5" r="1.6"/>',
-    title: t(r.diff1_title, locale),
-    desc: t(r.diff1_desc, locale),
-  },
-  {
-    // Stack of buildings (multi-org)
-    iconSvg: '<path d="M3 21V8l6-3 6 3v13"/><path d="M15 21V11l6 3v7"/><path d="M3 21h18"/>',
-    title: t(r.diff2_title, locale),
-    desc: t(r.diff2_desc, locale),
-  },
-  {
-    // Key (sign in)
-    iconSvg: '<circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3M14 9l3 3"/>',
-    title: t(r.diff3_title, locale),
-    desc: t(r.diff3_desc, locale),
-  },
-];
-
-// ── Module FAQs (6) ──
+// ── Module FAQs ──
 const faqItems = [
   { q: r.faq1_q, a: r.faq1_a, open: true },
   { q: r.faq2_q, a: r.faq2_a },
-  { q: r.faq3_q, a: r.faq3_a },
-  { q: r.faq4_q, a: r.faq4_a },
   { q: r.faq5_q, a: r.faq5_a },
   { q: r.faq6_q, a: r.faq6_a },
 ];
@@ -182,22 +155,8 @@ const faqItems = [
     bullets={spot3Bullets}
     side="right"
   >
-    <AppScheduleMock slot="mockup" locale={locale} />
+    <AppSequenceMock slot="mockup" locale={locale} />
   </FeatureSpotlight>
-
-  <InlineCta
-    h2={t(r.midcta_h2, locale)}
-    sub={t(r.midcta_sub, locale)}
-    ctaLabel={t(r.midcta_button, locale)}
-    ctaHref={signupHref}
-  />
-
-  <Differentiators
-    locale={locale}
-    h2={t(r.diff_h2, locale)}
-    sub={t(r.diff_sub, locale)}
-    items={differentiators}
-  />
 
   <Faq
     locale={locale}

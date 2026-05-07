@@ -2,6 +2,8 @@
 dist/
 # generated types
 .astro/
+# pre-resize source images, kept locally so scripts/resize-images.cjs can re-run
+.image-originals/
 
 # dependencies
 node_modules/

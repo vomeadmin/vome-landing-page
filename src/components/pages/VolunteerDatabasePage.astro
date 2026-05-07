@@ -18,6 +18,7 @@ import ModuleHero from "../module/ModuleHero.astro";
 import BenefitGrid from "../module/BenefitGrid.astro";
 import FeatureSpotlight from "../module/FeatureSpotlight.astro";
 import InlineCta from "../module/InlineCta.astro";
+import MigrationCaseStudy from "../module/MigrationCaseStudy.astro";
 import Differentiators from "../module/Differentiators.astro";
 import DatabaseTableMock from "../module/DatabaseTableMock.astro";
 import CustomFieldsMock from "../module/CustomFieldsMock.astro";
@@ -35,6 +36,7 @@ const r = strings.module_data;
 const prefix = locale === "fr" ? "/fr" : "";
 const demoHref = `${prefix}/demo`;
 const signupHref = appUrl("/register");
+const caseStudyHref = `${prefix}/case-studies/brents-place-migration`;
 
 // ── Hero meta pills ──
 const heroMeta = [
@@ -58,8 +60,8 @@ const benefits = [
     desc: t(r.ben2_desc, locale),
   },
   {
-    // Tag glyph
-    iconSvg: '<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="8" cy="8" r="1.5"/>',
+    // Lightning bolt (auto-update / automation)
+    iconSvg: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
     title: t(r.ben3_title, locale),
     desc: t(r.ben3_desc, locale),
   },
@@ -70,8 +72,8 @@ const benefits = [
     desc: t(r.ben4_desc, locale),
   },
   {
-    // Two-way sync (refresh arrows)
-    iconSvg: '<path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><path d="M3 21v-5h5"/>',
+    // Check-square (selected rows / bulk action)
+    iconSvg: '<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
     title: t(r.ben5_title, locale),
     desc: t(r.ben5_desc, locale),
   },
@@ -110,12 +112,11 @@ const differentiators = [
   },
 ];
 
-// ── Module FAQs (9) ──
+// ── Module FAQs (8) ──
 const faqItems = [
   { q: r.faq1_q, a: r.faq1_a, open: true },
   { q: r.faq2_q, a: r.faq2_a },
   { q: r.faq3_q, a: r.faq3_a },
-  { q: r.faq4_q, a: r.faq4_a },
   { q: r.faq5_q, a: r.faq5_a },
   { q: r.faq6_q, a: r.faq6_a },
   { q: r.faq7_q, a: r.faq7_a },
@@ -153,6 +154,8 @@ const faqItems = [
     sub={t(r.benefits_sub, locale)}
     items={benefits}
   />
+
+  <MigrationCaseStudy locale={locale} caseStudyHref={caseStudyHref} />
 
   <FeatureSpotlight
     locale={locale}
