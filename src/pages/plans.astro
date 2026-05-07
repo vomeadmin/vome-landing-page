@@ -1,20 +1,5 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import PlansBody from "../components/content/PlansBody.astro";
-import { strings, t, localeFromPath, type Locale } from "../i18n";
-
-interface Props {
-  locale?: Locale;
-}
-
-const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
-const p = strings.plans;
+import PlansPage from "../components/pages/PlansPage.astro";
 ---
 
-<Layout
-  locale={locale}
-  title={t(p.page_title, locale)}
-  description={t(p.page_description, locale)}
->
-  <PlansBody locale={locale} />
-</Layout>
+<PlansPage locale="en" />

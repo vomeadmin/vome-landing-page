@@ -1,0 +1,218 @@
+---
+/**
+ * Module landing page — Volunteer communications.
+ *
+ * Mirrors the canonical /volunteer-application-forms composition.
+ * Copy lives in `strings.module_comms`. Hand-built mockups:
+ *   Hero        InboxComposerMock       (split inbox + email composer)
+ *   Spotlight 1 BulkEmailMock           (segmented bulk email composer)
+ *   Spotlight 2 ChatroomMock            (auto-generated shift chatroom)
+ *   Spotlight 3 MessageAutomationMock   (configured message automation rule)
+ */
+import Layout from "../../layouts/Layout.astro";
+import Partners from "../sections/Partners.astro";
+import Faq from "../sections/Faq.astro";
+import FeatureMatrix from "../sections/FeatureMatrix.astro";
+import ClosingCta from "../sections/ClosingCta.astro";
+import ModuleHero from "../module/ModuleHero.astro";
+import BenefitGrid from "../module/BenefitGrid.astro";
+import FeatureSpotlight from "../module/FeatureSpotlight.astro";
+import InlineCta from "../module/InlineCta.astro";
+import Differentiators from "../module/Differentiators.astro";
+import InboxComposerMock from "../module/InboxComposerMock.astro";
+import BulkEmailMock from "../module/BulkEmailMock.astro";
+import ChatroomMock from "../module/ChatroomMock.astro";
+import MessageAutomationMock from "../module/MessageAutomationMock.astro";
+import { strings, t, localeFromPath, type Locale } from "../../i18n";
+import { appUrl } from "../../lib/appUrl";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const r = strings.module_comms;
+const prefix = locale === "fr" ? "/fr" : "";
+const demoHref = `${prefix}/demo`;
+const signupHref = appUrl("/register");
+
+// ── Hero meta pills (3) ──
+const heroMeta = [
+  { text: t(r.hero_meta_domain, locale) },
+  { text: t(r.hero_meta_native, locale) },
+  { text: t(r.hero_meta_dashboard, locale) },
+];
+
+// ── Benefits grid (6 cards). Icons match the platform-diagram line style. ──
+const benefits = [
+  {
+    // Envelope (bulk + individual email)
+    iconSvg: '<rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/>',
+    title: t(r.ben1_title, locale),
+    desc: t(r.ben1_desc, locale),
+  },
+  {
+    // Globe + at-sign (send from your domain)
+    iconSvg: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    title: t(r.ben2_title, locale),
+    desc: t(r.ben2_desc, locale),
+  },
+  {
+    // Speech bubble (private chat)
+    iconSvg: '<path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"/>',
+    title: t(r.ben3_title, locale),
+    desc: t(r.ben3_desc, locale),
+  },
+  {
+    // Multiple users (group / shift chatrooms)
+    iconSvg: '<circle cx="9" cy="8" r="3.5"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="8" r="2.5"/><path d="M15 20a5 5 0 0 1 7 0"/>',
+    title: t(r.ben4_title, locale),
+    desc: t(r.ben4_desc, locale),
+  },
+  {
+    // Bell + clock (automated reminders)
+    iconSvg: '<path d="M18 16V11a6 6 0 1 0-12 0v5l-2 3h16z"/><path d="M10 21a2 2 0 0 0 4 0"/>',
+    title: t(r.ben5_title, locale),
+    desc: t(r.ben5_desc, locale),
+  },
+  {
+    // Dashboard grid (team-wide message dashboard)
+    iconSvg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+    title: t(r.ben6_title, locale),
+    desc: t(r.ben6_desc, locale),
+  },
+];
+
+// ── Spotlight bullets ──
+const spot1Bullets = [t(r.spot1_b1, locale), t(r.spot1_b2, locale), t(r.spot1_b3, locale), t(r.spot1_b4, locale)];
+const spot2Bullets = [t(r.spot2_b1, locale), t(r.spot2_b2, locale), t(r.spot2_b3, locale), t(r.spot2_b4, locale)];
+const spot3Bullets = [t(r.spot3_b1, locale), t(r.spot3_b2, locale), t(r.spot3_b3, locale), t(r.spot3_b4, locale)];
+
+// ── Differentiators (3) ──
+const differentiators = [
+  {
+    // Linked database / wired in
+    iconSvg: '<ellipse cx="12" cy="5" rx="8" ry="2.5"/><path d="M4 5v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5"/><path d="M4 11v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-6"/>',
+    title: t(r.diff1_title, locale),
+    desc: t(r.diff1_desc, locale),
+  },
+  {
+    // Globe + arrow out (sent from your domain)
+    iconSvg: '<circle cx="11" cy="12" r="8"/><path d="M3 12h16M11 4a12 12 0 0 1 0 16M11 4a12 12 0 0 0 0 16"/><path d="M17 5l4-2-2 4"/>',
+    title: t(r.diff2_title, locale),
+    desc: t(r.diff2_desc, locale),
+  },
+  {
+    // Eye / shared visibility
+    iconSvg: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    title: t(r.diff3_title, locale),
+    desc: t(r.diff3_desc, locale),
+  },
+];
+
+// ── Module FAQs (6) ──
+const faqItems = [
+  { q: r.faq1_q, a: r.faq1_a, open: true },
+  { q: r.faq2_q, a: r.faq2_a },
+  { q: r.faq3_q, a: r.faq3_a },
+  { q: r.faq4_q, a: r.faq4_a },
+  { q: r.faq5_q, a: r.faq5_a },
+  { q: r.faq6_q, a: r.faq6_a },
+];
+---
+
+<Layout
+  locale={locale}
+  title={t(r.page_title, locale)}
+  description={t(r.page_description, locale)}
+>
+  <ModuleHero
+    locale={locale}
+    eyebrow={t(r.hero_eyebrow, locale)}
+    h1Part1={t(r.hero_h1_part1, locale)}
+    h1Accent={t(r.hero_h1_accent, locale)}
+    h1Part2={t(r.hero_h1_part2, locale)}
+    sub={t(r.hero_sub, locale)}
+    ctaPrimaryHref={signupHref}
+    ctaPrimaryLabel={t(strings.nav.signup_free, locale)}
+    ctaSecondaryHref={demoHref}
+    ctaSecondaryLabel={t(strings.nav.book_demo, locale)}
+    meta={heroMeta}
+  >
+    <InboxComposerMock slot="mockup" locale={locale} />
+  </ModuleHero>
+
+  <Partners locale={locale} />
+
+  <BenefitGrid
+    locale={locale}
+    h2={t(r.benefits_h2, locale)}
+    sub={t(r.benefits_sub, locale)}
+    items={benefits}
+  />
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot1_kicker, locale)}
+    title={t(r.spot1_title, locale)}
+    body={t(r.spot1_body, locale)}
+    bullets={spot1Bullets}
+    side="right"
+  >
+    <BulkEmailMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot2_kicker, locale)}
+    title={t(r.spot2_title, locale)}
+    body={t(r.spot2_body, locale)}
+    bullets={spot2Bullets}
+    side="left"
+  >
+    <ChatroomMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <FeatureSpotlight
+    locale={locale}
+    kicker={t(r.spot3_kicker, locale)}
+    title={t(r.spot3_title, locale)}
+    body={t(r.spot3_body, locale)}
+    bullets={spot3Bullets}
+    side="right"
+  >
+    <MessageAutomationMock slot="mockup" locale={locale} />
+  </FeatureSpotlight>
+
+  <InlineCta
+    h2={t(r.midcta_h2, locale)}
+    sub={t(r.midcta_sub, locale)}
+    ctaLabel={t(r.midcta_button, locale)}
+    ctaHref={signupHref}
+  />
+
+  <Differentiators
+    locale={locale}
+    h2={t(r.diff_h2, locale)}
+    sub={t(r.diff_sub, locale)}
+    items={differentiators}
+  />
+
+  <Faq
+    locale={locale}
+    items={faqItems}
+    heading={r.faq_h2}
+    sub={r.faq_sub}
+    ctaText={r.faq_cta_text}
+    ctaLink={r.faq_cta_link}
+  />
+
+  <FeatureMatrix
+    locale={locale}
+    onlySection="comms"
+    heading={r.matrix_h2}
+    showAllToggle
+  />
+
+  <ClosingCta locale={locale} />
+</Layout>

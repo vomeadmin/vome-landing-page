@@ -1,25 +1,5 @@
 ---
-/**
- * Terms and Conditions route at /fr/terms.
- *
- * Renders the English terms body because an authoritative French
- * translation does not exist yet — the vome-react source file `TermsFR.js`
- * is an empty 0-byte file and the React app also falls back to English for
- * the FR locale. When a proper FR translation is produced, create a
- * components/content/TermsBodyFr.astro and swap the import below.
- *
- * Layout's `locale="fr"` still localizes the nav + footer chrome so the
- * surrounding site chrome reads French even though the legal copy is
- * English.
- */
-import Layout from "../../layouts/Layout.astro";
-import TermsBody from "../../components/content/TermsBody.astro";
+import TermsPage from "../../components/pages/TermsPage.astro";
 ---
 
-<Layout
-  locale="fr"
-  title="Terms and Conditions | Vome Volunteer"
-  description="Vome's terms and conditions of use for the vomevolunteer.com website and services — acceptable use, warranties, liability, governing law and related provisions."
->
-  <TermsBody />
-</Layout>
+<TermsPage locale="fr" />

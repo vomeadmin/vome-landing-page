@@ -1,0 +1,232 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HeroMockupFull from "../sections/HeroMockupFull.astro";
+import Button from "../Button.astro";
+import Partners from "../sections/Partners.astro";
+import FeatureTabs from "../sections/FeatureTabs.astro";
+import MobileApp from "../sections/MobileApp.astro";
+import Enterprise from "../sections/Enterprise.astro";
+import Security from "../sections/Security.astro";
+import Testimonials from "../sections/Testimonials.astro";
+import ClosingCta from "../sections/ClosingCta.astro";
+import Faq from "../sections/Faq.astro";
+import { strings, t, localeFromPath, type Locale } from "../../i18n";
+import { appUrl } from "../../lib/appUrl";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const demoHref = locale === "fr" ? "/fr/demo" : "/demo";
+
+const pageTitle = locale === "fr"
+  ? "Vome — Logiciel de gestion des bénévoles que votre équipe utilisera vraiment"
+  : "Vome — Volunteer management software your team will actually use";
+const pageDescription = locale === "fr"
+  ? "Vome automatise le travail manuel derrière le recrutement, l'intégration, la planification, le suivi des heures, la production de rapports et la communication. Bénévoles illimités sur tous les forfaits."
+  : "Vome automates the manual work behind recruitment, onboarding, scheduling, hour tracking, reporting, and communication. Unlimited volunteers on every plan.";
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription}>
+  <section class="hero hero--centered">
+    <div class="hero__copy hero__copy--centered">
+      <div class="hero__eyebrow">{t(strings.hero.eyebrow, locale)}</div>
+
+      <h1 class="hero__h1">
+        {t(strings.hero.headline_part_1, locale)}<br class="h1-break" />{t(strings.hero.headline_accent, locale)} <span class="accent">{t(strings.hero.headline_part_2, locale)}</span>
+      </h1>
+
+      <p class="hero__sub" set:html={t(strings.hero.sub, locale)} />
+
+      <div class="hero__ctas">
+        <Button href={appUrl("/register")} variant="primary" class="btn--hero">{t(strings.hero.cta_primary, locale)}</Button>
+        <Button href={demoHref} variant="ghost" class="btn--hero">{t(strings.hero.cta_secondary, locale)}</Button>
+      </div>
+
+      <div class="hero__meta hero__meta--centered">
+        <span><span class="check">✓</span>{t(strings.hero.meta_free_plan, locale)}</span>
+        <span><span class="check">✓</span>{t(strings.hero.meta_setup, locale)}</span>
+        <span><span class="check">✓</span>{t(strings.hero.meta_compliance, locale)}</span>
+      </div>
+    </div>
+
+    <div class="hero__showcase">
+      <div class="hero__fly hero__fly--volunteer hero__fly--showcase-vol">
+        <span class="avatar">DR</span>
+        <div>
+          <strong>Dylan Randall</strong>
+          <span class="hours">{t(strings.hero.fly_hours, locale)}</span>
+          <div class="party">{t(strings.hero.fly_party, locale)} <span class="party__count">{t(strings.hero.fly_party_count, locale)}</span></div>
+        </div>
+      </div>
+      <div class="hero__fly hero__fly--msg hero__fly--showcase-msg">
+        <span class="msg-ic"></span>
+        <div><strong>{t(strings.hero.fly_new_message, locale)}</strong><small>{t(strings.hero.fly_message_preview, locale)}</small></div>
+      </div>
+      <div class="hero__showcase-clip">
+        <div class="hero__showcase-inner">
+          <HeroMockupFull locale={locale} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Partners locale={locale} />
+  <FeatureTabs locale={locale} />
+  <MobileApp locale={locale} />
+  <Enterprise locale={locale} />
+  <Security locale={locale} />
+  <Testimonials locale={locale} />
+  <ClosingCta locale={locale} />
+  <Faq locale={locale} />
+</Layout>
+
+<style is:global>
+.hero--centered {
+  padding-bottom: 0;
+  overflow: visible;
+}
+
+.hero__copy--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+.hero__copy--centered .hero__h1 {
+  max-width: none;
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 800;
+  line-height: 1.22;
+  text-align: center;
+}
+
+.hero__copy--centered .hero__sub {
+  max-width: 660px;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.h1-break { display: inline; }
+@media (max-width: 640px) { .h1-break { display: none; } }
+
+.hero__copy--centered .hero__ctas {
+  justify-content: center;
+}
+
+.hero__meta--centered {
+  justify-content: center;
+}
+
+.hero__fly--showcase-vol {
+  left:  8%;
+  bottom: -12px;
+  right: auto;
+  top: auto;
+}
+.hero__fly--showcase-msg {
+  right: 4%;
+  top: 20px;
+  left: auto;
+  bottom: auto;
+}
+
+.hero__showcase {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 32px;
+}
+
+.hero__showcase-clip {
+  height: 400px;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 40px -8px rgba(17,17,40,.12), 0 0 0 1px rgba(0,0,0,.05);
+  position: relative;
+}
+
+.hero__showcase-clip::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--surface-1));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero__showcase-inner {
+  width: 100%;
+  height: 500px;
+}
+
+.hero__showcase-inner .app {
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+
+.app--full {
+  grid-template-columns: 168px 1fr !important;
+}
+
+.app--full .app__side {
+  align-items: flex-start !important;
+  padding: 14px 10px !important;
+}
+
+.org-pill--full {
+  display: flex !important;
+}
+
+.app__group--full {
+  display: block !important;
+}
+
+.app__item--full {
+  gap: 8px !important;
+  padding: 4px 6px !important;
+  width: auto !important;
+  height: auto !important;
+  justify-content: flex-start !important;
+  font-size: 10px !important;
+}
+
+.app__item--full .i {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.app__item--full .i svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.app__crumb--full {
+  display: block !important;
+}
+
+.add-btn--full {
+  display: inline-flex !important;
+}
+
+.col__title--full {
+  display: block !important;
+}
+
+.card__play--full {
+  display: inline-flex !important;
+}
+
+.card__step-pill--full {
+  display: inline-block !important;
+}
+</style>

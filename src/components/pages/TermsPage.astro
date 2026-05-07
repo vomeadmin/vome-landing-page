@@ -1,0 +1,17 @@
+---
+/**
+ * Terms and Conditions (EN) — route at /terms.
+ * Body lives in components/content/TermsBody.astro so the FR route can
+ * reuse the same copy without duplication while an authoritative French
+ * translation is pending.
+ */
+import Layout from "../../layouts/Layout.astro";
+import TermsBody from "../content/TermsBody.astro";
+---
+
+<Layout
+  title="Terms and Conditions | Vome Volunteer"
+  description="Vome's terms and conditions of use for the vomevolunteer.com website and services — acceptable use, warranties, liability, governing law and related provisions."
+>
+  <TermsBody />
+</Layout>

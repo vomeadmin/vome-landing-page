@@ -1,0 +1,17 @@
+---
+/**
+ * Privacy Policy (EN) — route at /privacy.
+ * Content lives in components/content/PrivacyBody.astro so the FR route can
+ * reuse the same copy without duplication while an authoritative French
+ * translation is pending.
+ */
+import Layout from "../../layouts/Layout.astro";
+import PrivacyBody from "../content/PrivacyBody.astro";
+---
+
+<Layout
+  title="Privacy Policy | Vome Volunteer"
+  description="How Vome collects, uses, discloses, transfers and stores your personal information — including compliance with PIPEDA, HIPAA, GDPR, CCPA and Québec P-39.1."
+>
+  <PrivacyBody />
+</Layout>

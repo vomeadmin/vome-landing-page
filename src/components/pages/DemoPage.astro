@@ -1,0 +1,184 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Partners from "../sections/Partners.astro";
+import FaqItem from "../FaqItem.astro";
+import { strings, t, localeFromPath, type Locale } from "../../i18n";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = localeFromPath(Astro.url.pathname) } = Astro.props;
+const d = strings.demo_page;
+
+const CALENDLY_URL =
+  "https://calendly.com/vomevolunteer/demo-meeting-1?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=fa935b";
+
+const demoFaqs = [
+  { question: t(d.q_prepare, locale), answer: t(d.a_prepare, locale), open: true },
+  { question: t(d.q_team, locale), answer: t(d.a_team, locale) },
+  { question: t(d.q_no_time, locale), answer: t(d.a_no_time, locale) },
+];
+
+const contactHref = locale === "fr" ? "/fr/contact" : "/contact";
+const confirmedHref = locale === "fr" ? "/fr/demo-confirmed" : "/demo-confirmed";
+---
+
+<Layout
+  locale={locale}
+  title={t(d.page_title, locale)}
+  description={t(d.page_description, locale)}
+>
+  <section class="demo-cal">
+    <div class="demo-cal__inner">
+      <div class="demo-cal__header">
+        <div class="demo-cal__eyebrow">{t(d.eyebrow, locale)}</div>
+        <h1 class="demo-cal__h1">{t(d.h1, locale)}</h1>
+        <p class="demo-cal__sub">{t(d.sub, locale)}</p>
+      </div>
+      <div class="calendly-inline-widget" data-url={CALENDLY_URL}></div>
+    </div>
+  </section>
+  <script is:inline src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script is:inline define:vars={{ confirmedHref }}>
+    window.addEventListener('message', function (e) {
+      if (e.data && e.data.event === 'calendly.event_scheduled') {
+        window.location.href = confirmedHref;
+      }
+    });
+  </script>
+
+  <Partners locale={locale} />
+
+  <section class="faq">
+    <div class="faq__wrap">
+      <div class="faq__intro">
+        <h2 class="faq__h2">{t(d.faq_h2, locale)}</h2>
+        <p class="faq__sub">{t(d.faq_sub, locale)}</p>
+        <p class="faq__sub faq__sub--cta">
+          {t(d.faq_cta, locale)} <a href={contactHref} class="faq__link">{t(d.faq_cta_link, locale)}</a>
+        </p>
+      </div>
+      <div class="faq__list">
+        {demoFaqs.map((item) => (
+          <FaqItem question={item.question} open={item.open}>
+            {item.answer}
+          </FaqItem>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="demo-fallback">
+    <div class="demo-fallback__inner">
+      <p class="demo-fallback__text">
+        {t(d.fallback_part_1, locale)}
+        <a href={contactHref} class="demo-fallback__link">{t(d.fallback_link, locale)}</a>
+        {t(d.fallback_part_2, locale)}
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .demo-cal,
+  .demo-fallback {
+    padding-left: max(5%, calc((100% - 1120px) / 2));
+    padding-right: max(5%, calc((100% - 1120px) / 2));
+  }
+
+  .demo-cal {
+    background: var(--surface-1);
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+
+  .demo-cal__inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .demo-cal__header {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .demo-cal__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: var(--vome-orange);
+    background: var(--vome-peach-50);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  .demo-cal__h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(26px, 2.4vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.4px;
+    color: #000;
+    margin: 0 0 12px;
+    text-wrap: balance;
+  }
+
+  .demo-cal__sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--fg-4);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .calendly-inline-widget {
+    min-width: 320px;
+    height: 700px;
+    width: 100%;
+  }
+
+  .demo-fallback {
+    background: var(--surface-1);
+    border-top: 1px solid var(--border-2);
+    padding-top: 28px;
+    padding-bottom: 28px;
+    text-align: center;
+  }
+
+  .demo-fallback__inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .demo-fallback__text {
+    font-size: 14px;
+    color: var(--fg-5);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .demo-fallback__link {
+    color: var(--vome-orange);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .demo-fallback__link:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .demo-cal {
+      padding-top: 32px;
+      padding-bottom: 40px;
+    }
+    .calendly-inline-widget {
+      height: 900px;
+    }
+  }
+</style>
