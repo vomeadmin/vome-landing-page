@@ -3393,7 +3393,6 @@ export const strings = {
     ent_b6: { en: "Two-Factor Authentication (2FA)", fr: "Authentification à deux facteurs (2FA)" },
     ent_b7: { en: "Advanced group management", fr: "Gestion de groupe avancée" },
     ent_b8: { en: "Recognition module with custom awards", fr: "Module de reconnaissance avec distinctions personnalisées" },
-    ent_b9: { en: "Advanced email customizations", fr: "Personnalisations courriel avancées" },
 
     ult_b1: { en: "API integration & custom webhooks", fr: "Intégration API et webhooks personnalisés" },
     ult_b2: { en: "Automations with Zapier & Power Automate", fr: "Automatisations avec Zapier et Power Automate" },
