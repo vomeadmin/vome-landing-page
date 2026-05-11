@@ -3379,7 +3379,7 @@ export const strings = {
     pro_b1: { en: "Unlimited forms & sequences", fr: "Formulaires et séquences illimités" },
     pro_b2: { en: "Shift management & user reservations", fr: "Gestion des quarts et réservations par les utilisateurs" },
     pro_b3: { en: "Streamline group reservations", fr: "Simplifiez les réservations de groupe" },
-    pro_b4: { en: "Advanced hour tracking via Attendance QR Code & Kiosk", fr: "Suivi des heures avancé via code QR de présence et borne" },
+    pro_b4: { en: "Advanced hour tracking via Attendance QR Code & Kiosk", fr: "Suivi des heures avancé via code QR et borne de pointage" },
     pro_b5: { en: "Unlimited profile tags & database export", fr: "Étiquettes de profil illimitées et exportation de la base de données" },
     pro_b6: { en: "Advanced mass communication tools (email lists, group chats & auto-generated shift chatrooms)", fr: "Outils de communication de masse avancés (listes courriel, conversations de groupe et salons de quart automatiques)" },
     pro_b7: { en: "Mobile app, custom & automated notifications, reminders & updates", fr: "Application mobile, notifications personnalisées et automatiques, rappels et mises à jour" },
