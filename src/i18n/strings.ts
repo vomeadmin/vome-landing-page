@@ -88,8 +88,8 @@ export const strings = {
     // the sentence wherever the emphasis works grammatically. Only edit
     // content here (no user input is ever interpolated), so set:html is safe.
     sub: {
-      en: "From a single coordinator to teams running programs across multiple sites, Vome <strong>automates the manual work</strong> behind onboarding, scheduling, and communication. All in one platform, with unlimited volunteers on every plan.",
-      fr: "Du coordonnateur unique aux équipes gérant des programmes sur plusieurs sites, Vome <strong>automatise le travail manuel</strong> derrière l'intégration, la planification et la communication. Tout sur une seule plateforme, avec un nombre illimité de bénévoles sur tous les forfaits.",
+      en: "From a single coordinator to teams running programs across multiple sites, Vome <strong>automates the manual work</strong> behind onboarding, scheduling, tracking and communication. All in one platform, with unlimited volunteers on every plan.",
+      fr: "Du coordonnateur unique aux équipes gérant des programmes à travers plusieurs sites, Vome <strong>automatise le travail manuel</strong> derrière l'intégration, la planification, le suivi et la communication. Tout sur une seule plateforme, avec un nombre illimité de bénévoles sur tous les forfaits.",
     },
     cta_primary: { en: "Sign up for Free", fr: "S'inscrire gratuitement" },
     cta_secondary: { en: "Book a demo", fr: "Réserver une démo" },
@@ -100,7 +100,7 @@ export const strings = {
     fly_party: { en: "Party size:", fr: "Taille du groupe :" },
     fly_party_count: { en: "3 people", fr: "3 personnes" },
     fly_new_message: { en: "New message", fr: "Nouveau message" },
-    fly_message_preview: { en: "Céline: See you Saturday!", fr: "Céline : À samedi !" },
+    fly_message_preview: { en: "Celine: See you Saturday!", fr: "Céline : À samedi !" },
   },
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -116,7 +116,7 @@ export const strings = {
   //  hours, data & reports, communications)
   // ─────────────────────────────────────────────────────────────────────────
   feature_tabs: {
-    intro_h2_part1: { en: "Everything volunteer managers need.", fr: "Tout ce dont les gestionnaires de bénévoles ont besoin." },
+    intro_h2_part1: { en: "Everything leaders of volunteers need.", fr: "Tout ce dont les responsables de bénévoles ont besoin." },
     intro_h2_accent: { en: "Built to work together.", fr: "Conçu pour fonctionner ensemble." },
     intro_sub: {
       en: "Vome is the complete volunteer management platform. One easy-to-use system that eliminates manual work at every step, from the first application to the final report.",
@@ -132,7 +132,7 @@ export const strings = {
     tab_comms: { en: "Communications", fr: "Communications" },
 
     // ── Panel: Recruitment ──
-    rec_headline: { en: "Build the recruitment process you need.", fr: "Bâtissez le processus de recrutement dont vous avez besoin." },
+    rec_headline: { en: "Build the recruitment process you need.", fr: "Mettez en place le processus de recrutement dont vous avez besoin." },
     rec_f1_title: { en: "Custom application forms", fr: "Formulaires de candidature personnalisés" },
     rec_f1_body: {
       en: "Add questions, request file uploads, collect e-signatures, embed shift calendars — all from one form builder.",
@@ -145,13 +145,13 @@ export const strings = {
     },
     rec_f3_title: { en: "Recruitment automations", fr: "Automatisations de recrutement" },
     rec_f3_body: {
-      en: "Automations move applicants forward on their own and keep your system organized. Triggered by form responses, visibility rules, and eligibility requirements.",
-      fr: "Les automatisations font avancer les candidats par eux-mêmes et gardent votre système organisé. Déclenchées par les réponses aux formulaires, les règles de visibilité et les critères d'admissibilité.",
+      en: "Automations move applicants forward on their own and keep your system organized when knowing it's your turn to perform an admin task. Triggered by form response automations, visibility rules, and eligibility requirements.",
+      fr: "Les automatisations font avancer les dossiers des candidats de manière autonome et permettent de maintenir votre système bien organisé en vous signalant quand c'est à vous d'effectuer une tâche administrative. Elles sont déclenchées par les réponses aux formulaires, les règles de visibilité et les critères d'éligibilité.",
     },
     rec_f4_title: { en: "Automated status updates", fr: "Mises à jour de statut automatisées" },
     rec_f4_body: {
-      en: "Email and app notifications keep volunteers in the loop through every step of the application.",
-      fr: "Les notifications par courriel et dans l'application tiennent les bénévoles informés à chaque étape de la candidature.",
+      en: "Email and app notifications keep volunteers in the loop through every step of the application process, by eliminating redundant back-and-forth, and without any administrative intervention.",
+      fr: "Les notifications par courriel et via l'appli tiennent les bénévoles informés à chaque étape du processus de candidature, en éliminant les échanges redondants, et sans aucune intervention administrative.",
     },
 
     // ── Panel: Onboarding ──
@@ -160,7 +160,7 @@ export const strings = {
     onb_f1_title: { en: "Build any onboarding flow, your way", fr: "Construisez n'importe quel flux d'intégration, à votre façon" },
     onb_f1_body: {
       en: "Combine forms, fillable PDFs, e-signatures, training modules, checklists, and file uploads into a single guided sequence. Organize into folders by program, department, or season.",
-      fr: "Combinez formulaires, PDF interactifs, signatures électroniques, modules de formation, listes de contrôle et téléversements en une seule séquence guidée. Organisez-les en dossiers par programme, département ou saison.",
+      fr: "Combinez des formulaires, PDF interactifs, signatures électroniques, modules de formation, listes de contrôle et téléversements en une seule séquence guidée. Organisez-les en dossiers par programme, département ou saison.",
     },
     onb_f2_title: { en: "Fillable PDFs, built in", fr: "PDF interactifs intégrés" },
     onb_f2_body: {
@@ -169,8 +169,8 @@ export const strings = {
     },
     onb_f3_title: { en: "Control every step", fr: "Contrôlez chaque étape" },
     onb_f3_body: {
-      en: "Due dates, reminders, skip rules, auto-expiration, and visibility settings per step. Choose whether volunteers move themselves forward or admins advance them.",
-      fr: "Dates d'échéance, rappels, règles de saut, expiration automatique et paramètres de visibilité par étape. Choisissez si les bénévoles avancent eux-mêmes ou si les administrateurs les font progresser.",
+      en: "Due dates, reminders, skip rules, auto-expiration, and visibility settings per step. Choose whether volunteers propel themselves to the next step or admins advance them.",
+      fr: "Dates d'échéance, rappels, règles de saut, expiration automatique et paramètres de visibilité par étape. Choisissez si les bénévoles se propulsent eux-mêmes à l'étape suivante ou si les administrateurs les font progresser.",
     },
     onb_f4_title: { en: "Credentialing and compliance, handled", fr: "Accréditation et conformité, gérées" },
     onb_f4_body: {
@@ -181,51 +181,51 @@ export const strings = {
     // ── Panel: Scheduling ──
     sch_headline: { en: "1.25M+ shifts scheduled and counting.", fr: "Plus de 1,25 M de quarts planifiés et ça continue." },
     sch_panel_sub: {
-      en: "Single shifts. Recurring programs. Multi-site calendars. Vome handles them all.",
-      fr: "Quarts uniques. Programmes récurrents. Calendriers multi-sites. Vome gère tout.",
+      en: "One-off events. Recurring tasks. Multi-site calendars. Vome handles it all.",
+      fr: "Événements uniques. Tâches récurrentes. Calendriers multi-sites. Vome gère le tout.",
     },
     sch_f1_title: { en: "Shift management at every scale", fr: "Gestion des quarts à toute échelle" },
     sch_f1_body: {
-      en: "Create single shifts, recurring schedules, or import entire calendars from a spreadsheet. Save shift templates and reuse them across programs. Mass assign, edit, and cancel from one calendar view.",
-      fr: "Créez des quarts uniques, des horaires récurrents, ou importez des calendriers complets depuis un chiffrier. Sauvegardez des modèles de quart et réutilisez-les à travers vos programmes. Affectez, modifiez et annulez en masse depuis une seule vue calendrier.",
+      en: "Create single shifts, recurring schedules, or import entire calendars from a spreadsheet. Use shift templates and apply them across programs for quick and easy setup. Mass assign, edit, and cancel from one calendar view.",
+      fr: "Créez des quarts uniques, des horaires récurrents, ou importez des calendriers complets depuis une feuille de calcul. Utilisez des modèles de quart et appliquez-les à travers vos programmes pour une configuration rapide et facile. Affectez, modifiez et annulez en masse depuis une seule vue calendrier.",
     },
-    sch_f2_title: { en: "Flexible booking, your rules", fr: "Réservation flexible, à vos règles" },
+    sch_f2_title: { en: "Flexible booking, your rules", fr: "Réservation flexible, selon vos règles" },
     sch_f2_body: {
       en: "Choose instant booking or admin approval. Open shifts to everyone, or make them private and visible only to tagged volunteers. Let volunteers propose their own times with flexible scheduling.",
       fr: "Choisissez la réservation instantanée ou l'approbation par un administrateur. Ouvrez les quarts à tous, ou rendez-les privés et visibles uniquement aux bénévoles étiquetés. Permettez aux bénévoles de proposer leurs propres plages avec la planification flexible.",
     },
     sch_f3_title: { en: "Group reservations for corporate and team events", fr: "Réservations de groupe pour événements corporatifs et d'équipe" },
     sch_f3_body: {
-      en: "Volunteers reserve multiple spots in a single action for a team, a family, or a corporate volunteer day. Hours and participation roll up at the group level, ready for reporting.",
-      fr: "Les bénévoles réservent plusieurs places en une seule action pour une équipe, une famille ou une journée de bénévolat corporative. Les heures et la participation sont consolidées au niveau du groupe, prêtes pour les rapports.",
+      en: "Volunteers reserve multiple spots in a single action on behalf of a team, a family, or a corporate group. Hours and participation roll up at the group level, ready for reporting.",
+      fr: "Les bénévoles réservent plusieurs places en une seule action pour une équipe, une famille ou un groupe corporatif. Les heures et la participation sont consolidées au niveau du groupe, prêtes pour les rapports.",
     },
     sch_f4_title: { en: "Reminders, confirmations, and calendar sync", fr: "Rappels, confirmations et synchronisation de calendrier" },
     sch_f4_body: {
       en: "Configurable shift notifications send reminders before, during, and after each shift. Volunteers confirm, join waitlists, and sync shifts to Google, Outlook, or Apple Calendar.",
-      fr: "Des notifications de quart configurables envoient des rappels avant, pendant et après chaque quart. Les bénévoles confirment, rejoignent les listes d'attente et synchronisent leurs quarts avec Google, Outlook ou Apple Calendar.",
+      fr: "Des notifications de quart configurables envoient des rappels avant, pendant et après chaque quart. Les bénévoles confirment, rejoignent les listes d'attente et synchronisent leurs quarts avec les calendriers Google, Outlook ou Apple.",
     },
 
     // ── Panel: Hour tracking ──
     hrs_headline: { en: "So many ways to track volunteer hours. Pick what fits your program.", fr: "Tant de façons de suivre les heures des bénévoles. Choisissez ce qui convient à votre programme." },
-    hrs_f1_title: { en: "Multiple ways to check in", fr: "Plusieurs façons de pointer" },
+    hrs_f1_title: { en: "Multiple ways to track hours", fr: "Plusieurs façons de suivre les heures" },
     hrs_f1_body: {
-      en: "QR scan, tap-to-check-in, on-site kiosk, or fully automatic check-in and check-out. Pick one, or mix different methods across your different volunteer programs.",
-      fr: "Code QR, pointage par tape, borne sur place, ou pointage et sortie entièrement automatiques. Choisissez-en une, ou mélangez les méthodes selon vos différents programmes.",
+      en: "QR scan, tap-to-check-in via the app, on-site kiosk, or fully automate check-in/out. Pick one, or mix different methods across your different volunteer programs.",
+      fr: "Code QR, check-in par tape via l'appli, borne sur place, ou automatisez complètement le check-in/out. Choisissez-en une, ou mélangez les méthodes selon vos différents programmes.",
     },
     hrs_f2_title: { en: "Proximity validation for attendance integrity", fr: "Validation de proximité pour l'intégrité de la présence" },
     hrs_f2_body: {
       en: "Require volunteers to be physically within a defined radius to check in or out. Customizable by program. Prevents remote check-ins and protects program data.",
-      fr: "Exigez que les bénévoles soient physiquement dans un rayon défini pour pointer leur arrivée ou leur départ. Personnalisable par programme. Empêche les pointages à distance et protège les données du programme.",
+      fr: "Exigez que les bénévoles soient physiquement dans un rayon défini pour effectuer leur check-in ou check-out. Personnalisable par programme. Empêche les check-ins à distance et protège les données du programme.",
     },
     hrs_f3_title: { en: "Walk-ins, group reservations, and off-site hours", fr: "Bénévoles spontanés, réservations de groupe et heures hors site" },
     hrs_f3_body: {
       en: "On-site kiosks handle check-in and check-out for everyone on a shift, with an optional \"Join a shift\" mode for walk-ins who want to sign up on the spot. Group reservations roll up at the group level for reporting. Volunteers can also submit hour claims for work they did off-platform.",
-      fr: "Les bornes sur place gèrent le pointage de tous les bénévoles d'un quart, avec un mode optionnel « Joindre un quart » pour les arrivées spontanées qui souhaitent s'inscrire sur place. Les réservations de groupe se consolident au niveau du groupe pour les rapports. Les bénévoles peuvent aussi soumettre des déclarations d'heures pour leur travail hors plateforme.",
+      fr: "Les bornes sur place gèrent le check-in et le check-out de tous les bénévoles d'un quart, avec un mode optionnel « Joindre un quart » pour les arrivées spontanées qui souhaitent s'inscrire sur place. Les réservations de groupe se consolident au niveau du groupe pour les rapports. Les bénévoles peuvent aussi soumettre des déclarations d'heures pour leur travail hors plateforme.",
     },
     hrs_f4_title: { en: "Audit-ready hour reports", fr: "Rapports d'heures prêts pour les audits" },
     hrs_f4_body: {
-      en: "Shifts and hours by volunteer, a full reservations and hours log, and custom database exports. Every hour traced to a person, a shift, and a check-in method.",
-      fr: "Quarts et heures par bénévole, un journal complet des réservations et des heures, et des exportations personnalisées de la base de données. Chaque heure est liée à une personne, un quart et une méthode de pointage.",
+      en: "Shifts and hours by volunteer, a complete reservations and hours log, and custom database exports. Every hour traced to a person, a shift, and a check-in method.",
+      fr: "Quarts et heures par bénévole, un journal complet des réservations et des heures, et des exportations personnalisées de la base de données. Chaque heure est liée à une personne, un quart et une méthode de check-in.",
     },
 
     // ── Panel: Data & reports ──
@@ -233,35 +233,35 @@ export const strings = {
     data_f1_title: { en: "Turnkey data import and migration", fr: "Importation et migration de données clés en main" },
     data_f1_body: {
       en: "Move your volunteer records into Vome in minutes. Bulk import from any other system, map custom fields to match your existing structure, and invite volunteers to claim their profiles. Duplicate handling built in.",
-      fr: "Migrez vos dossiers de bénévoles dans Vome en quelques minutes. Importation en masse depuis tout autre système, association de champs personnalisés à votre structure existante, et invitation aux bénévoles à revendiquer leur profil. Gestion des doublons intégrée.",
+      fr: "Migrez vos dossiers de bénévoles dans Vome en quelques minutes. Importation en masse depuis tout autre système, association de champs personnalisés à votre structure existante, et invitation aux bénévoles à réclamer leur profil. Gestion des doublons intégrée.",
     },
     data_f2_title: { en: "A database that flexes to your program", fr: "Une base de données qui s'adapte à votre programme" },
     data_f2_body: {
-      en: "Segment volunteers by tag, program, or location with unlimited custom fields. Build and save custom views that filter and organize data any way you need. Give each admin access only to the data that belongs to them. Headquarters sees everything. Site managers see their site.",
-      fr: "Segmentez les bénévoles par étiquette, programme ou lieu avec un nombre illimité de champs personnalisés. Créez et sauvegardez des vues personnalisées qui filtrent et organisent les données comme vous le voulez. Donnez à chaque administrateur l'accès uniquement aux données qui le concernent. Le siège voit tout. Les gestionnaires de site ne voient que leur site.",
+      en: "Segment volunteers by tag, program, or location with unlimited custom fields. Build and save custom views that filter and organize data any way you need. Give each admin access only to the data that belongs to them. Super admins see everything. Site managers see their site.",
+      fr: "Segmentez les bénévoles par tag, programme ou lieu avec un nombre illimité de champs personnalisés. Créez et sauvegardez des vues personnalisées qui filtrent et organisent les données comme vous le voulez. Donnez à chaque administrateur l'accès uniquement aux données qui le concernent. Les super administrateurs voient tout. Les gestionnaires de site ne voient que leur site.",
     },
-    data_f3_title: { en: "Ready-made reports for every audience", fr: "Rapports prêts à l'emploi pour tous les publics" },
+    data_f3_title: { en: "Ready-made reports for key stakeholders", fr: "Rapports prêts à l'emploi pour les parties prenantes clés" },
     data_f3_body: {
       en: "Hours by volunteer, attendance logs, sequence completion, form submissions, and check-in history. Every report you need for funders, boards, and audits, ready in seconds.",
       fr: "Heures par bénévole, journaux de présence, complétion de séquences, soumissions de formulaires et historique des pointages. Tous les rapports nécessaires pour vos bailleurs de fonds, conseils d'administration et audits, prêts en quelques secondes.",
     },
     data_f4_title: { en: "Analytics dashboards at a glance", fr: "Tableaux de bord analytiques en un coup d'œil" },
     data_f4_body: {
-      en: "Visualize hours, shifts, onboarding progress, form completion, and custom field trends. See the health of your program without running a single report.",
-      fr: "Visualisez les heures, les quarts, la progression de l'intégration, la complétion des formulaires et les tendances des champs personnalisés. Mesurez la santé de votre programme sans exécuter un seul rapport.",
+      en: "Visualize hours, shifts, onboarding progress, form completion, and custom field trends. Feel the pulse of your program without running a single report.",
+      fr: "Visualisez les heures, les quarts, la progression de l'intégration, la complétion des formulaires et les tendances des champs personnalisés. Ressentez le pouls de votre programme sans exécuter un seul rapport.",
     },
 
     // ── Panel: Communications ──
     com_headline: { en: "Every way you need to communicate, in one place.", fr: "Toutes les façons de communiquer, au même endroit." },
     com_f1_title: { en: "Native instant messaging", fr: "Messagerie instantanée native" },
     com_f1_body: {
-      en: "One-on-one messages, custom group chats, and auto-generated chatrooms for every shift and opportunity. No WhatsApp. No email chains. Volunteers talk to admins and each other right inside the platform.",
-      fr: "Messages en tête-à-tête, conversations de groupe personnalisées et salons générés automatiquement pour chaque quart et opportunité. Pas de WhatsApp. Pas de chaînes de courriels. Les bénévoles communiquent avec les administrateurs et entre eux directement dans la plateforme.",
+      en: "One-on-one instant messaging, custom group chats, and auto-generated chatrooms for every shift and opportunity. No messaging apps. No email chains. Volunteers talk to admins and each other right inside the platform.",
+      fr: "Messages en tête-à-tête, conversations de groupe personnalisées et salons générés automatiquement pour chaque quart et opportunité. Pas d'applications de messagerie. Pas de chaînes de courriels. Les bénévoles communiquent avec les administrateurs et entre eux directement dans la plateforme.",
     },
     com_f2_title: { en: "Bulk email built for campaigns", fr: "Courriels de masse conçus pour les campagnes" },
     com_f2_body: {
       en: "Send personalized emails to volunteers through Vome's server, or connect your own Google or Outlook account to send from your domain. Build reusable email templates with dynamic variables. Target by group, tag, program, or any custom field.",
-      fr: "Envoyez des courriels personnalisés aux bénévoles via le serveur de Vome, ou connectez votre propre compte Google ou Outlook pour envoyer depuis votre domaine. Créez des modèles de courriels réutilisables avec des variables dynamiques. Ciblez par groupe, étiquette, programme ou tout champ personnalisé.",
+      fr: "Envoyez des courriels personnalisés aux bénévoles via le serveur de Vome, ou connectez votre propre compte Google ou Outlook pour envoyer depuis votre domaine. Créez des modèles de courriels réutilisables avec des variables dynamiques. Ciblez par groupe, tag, programme ou tout champ personnalisé.",
     },
     com_f3_title: { en: "Automate the messages you send every week", fr: "Automatisez les messages que vous envoyez chaque semaine" },
     com_f3_body: {
@@ -303,8 +303,8 @@ export const strings = {
     // lands the punch; <strong> on "Flexible"/"Simple" anchors each promise.
     // Rendered with Astro's set:html (no user input is interpolated).
     hero_sub_l1: {
-      en: "<em>Your</em> onboarding flows, <em>your</em> scheduling rules, <em>your</em> check-in methods, <em>your</em> reports.",
-      fr: "<em>Vos</em> flux d'intégration, <em>vos</em> règles de planification, <em>vos</em> méthodes de pointage, <em>vos</em> rapports.",
+      en: "<em>Your</em> onboarding flows, <em>your</em> scheduling rules, <em>your</em> hour tracking methods, <em>your</em> reports.",
+      fr: "<em>Vos</em> flux d'intégration, <em>vos</em> règles de planification, <em>vos</em> méthodes de suivi des heures, <em>vos</em> rapports.",
     },
     hero_sub_l2: {
       en: "<strong>Flexible</strong> enough to match any workflow your organization needs.",
@@ -325,11 +325,11 @@ export const strings = {
     node_recruitment_title: { en: "Recruitment", fr: "Recrutement" },
     node_recruitment_desc: { en: "Applications & automations", fr: "Candidatures et automatisations" },
     node_onboarding_title: { en: "Onboarding", fr: "Intégration" },
-    node_onboarding_desc: { en: "Guided workflows", fr: "Parcours guidés" },
+    node_onboarding_desc: { en: "Guided workflows", fr: "Flux de travail guidés" },
     node_scheduling_title: { en: "Scheduling", fr: "Planification" },
-    node_scheduling_desc: { en: "Shifts & self-scheduling", fr: "Quarts et auto-planification" },
+    node_scheduling_desc: { en: "Shift management & self-scheduling", fr: "Gestion des quarts et auto-planification" },
     node_hours_title: { en: "Hour tracking", fr: "Suivi des heures" },
-    node_hours_desc: { en: "QR, kiosk, tap & auto", fr: "QR, borne, tape et auto" },
+    node_hours_desc: { en: "QR, kiosk, tap & auto check-in/out", fr: "QR, borne, tape et auto pointage" },
     node_comms_title: { en: "Communications", fr: "Communications" },
     node_comms_desc: { en: "Chat, email & automations", fr: "Clavardage, courriel et automatisations" },
     node_data_title: { en: "Data & reports", fr: "Données et rapports" },
@@ -339,7 +339,7 @@ export const strings = {
     node_app_title: { en: "Mobile app", fr: "Application mobile" },
     node_app_desc: { en: "iOS & Android", fr: "iOS et Android" },
     node_integrations_title: { en: "Integrations", fr: "Intégrations" },
-    node_integrations_desc: { en: "Native, API & Zapier", fr: "Natif, API et Zapier" },
+    node_integrations_desc: { en: "Native, API, Zapier & MSFT Power Automate", fr: "Natif, API, Zapier et MSFT Power Automate" },
 
     // ── Modules grid section ────────────────────────────────────────────
     // Eight cards, one per module shown in the platform diagram. Card copy
@@ -358,7 +358,7 @@ export const strings = {
     card_recruitment_title: { en: "Recruitment & applications", fr: "Recrutement et candidatures" },
     card_recruitment_desc: {
       en: "Build modern, custom-branded forms and turn interest into ready-to-go applicants. No manual triage required.",
-      fr: "Bâtissez des formulaires modernes à votre image et transformez l'intérêt en candidats prêts à contribuer. Sans triage manuel.",
+      fr: "Mettez en place des formulaires modernes à votre image et transformez l'intérêt en candidats prêts à contribuer. Sans triage manuel.",
     },
     card_recruitment_f1: { en: "Custom forms with conditional logic, e-signatures & file uploads", fr: "Formulaires personnalisés avec logique conditionnelle, signatures électroniques et téléversements" },
     card_recruitment_f2: { en: "Reusable form templates across opportunities", fr: "Modèles de formulaires réutilisables entre opportunités" },
@@ -370,11 +370,11 @@ export const strings = {
     card_onboarding_title: { en: "Onboarding & screening", fr: "Intégration et vérification" },
     card_onboarding_desc: {
       en: "Build any onboarding flow your program needs (interviews, training, waivers, background checks) in one guided sequence.",
-      fr: "Bâtissez n'importe quel flux d'intégration (entrevues, formations, décharges, vérifications d'antécédents) dans une seule séquence guidée.",
+      fr: "Mettez en place n'importe quel flux d'intégration (entrevues, formations, décharges, vérifications d'antécédents) dans une seule séquence guidée.",
     },
     card_onboarding_f1: { en: "Step-by-step sequences with optional volunteer self-tracking", fr: "Séquences étape par étape avec autosuivi optionnel pour le bénévole" },
     card_onboarding_f2: { en: "Sterling Volunteers background-check integration", fr: "Intégration des vérifications d'antécédents Sterling Volunteers" },
-    card_onboarding_f3: { en: "SCORM Cloud e-learning, fillable PDFs & e-signatures", fr: "Apprentissage en ligne SCORM Cloud, PDF interactifs et signatures électroniques" },
+    card_onboarding_f3: { en: "SCORM Cloud E-learning, fillable PDFs & e-signatures", fr: "Apprentissage en ligne SCORM Cloud, PDF interactifs et signatures électroniques" },
     card_onboarding_f4: { en: "Auto-expiring renewals + audit-ready status tracking", fr: "Renouvellements à expiration automatique et suivi prêt pour les audits" },
     card_onboarding_link: { en: "Learn more about onboarding", fr: "En savoir plus sur l'intégration" },
 
@@ -393,10 +393,10 @@ export const strings = {
     // Card 4 — Hour tracking & check-in
     card_hours_title: { en: "Hour tracking & check-in", fr: "Suivi des heures et pointage" },
     card_hours_desc: {
-      en: "So many ways to track hours. Pick what fits each program: QR codes, kiosks, hour claims, or fully auto check-in & out.",
-      fr: "Tant de façons de suivre les heures. Choisissez ce qui convient à chaque programme : codes QR, bornes, déclarations ou pointage automatique d'entrée et de sortie.",
+      en: "So many ways to track hours. Pick what fits each program: QR codes, kiosks, hour claims, or fully automated check-in & out.",
+      fr: "Tant de façons de suivre les heures. Choisissez ce qui convient à chaque programme : codes QR, bornes, réclamations d'heures ou check-in/check-out automatique.",
     },
-    card_hours_f1: { en: "QR-code or tap-to-check-in attendance tracking via the mobile app", fr: "Suivi de présence par code QR ou pointage par tape via l'application mobile" },
+    card_hours_f1: { en: "QR-code or tap-to-check-in attendance tracking via the mobile app", fr: "Suivi de présence par code QR ou check-in par tape via l'appli" },
     card_hours_f2: { en: "Attendance kiosks to be used on any tablet, computer or phone", fr: "Bornes de présence à utiliser sur toute tablette, ordinateur ou téléphone" },
     card_hours_f3: { en: "Volunteer-submitted hour claims with admin approval", fr: "Déclarations d'heures soumises par les bénévoles avec approbation admin" },
     card_hours_f4: { en: "Bulk hour logging + integrated reservation & hours reports", fr: "Saisie d'heures en lot et rapports intégrés de réservations et d'heures" },
@@ -457,7 +457,7 @@ export const strings = {
       fr: "Connectez Vome aux outils que votre équipe utilise déjà. Intégrations natives pour l'essentiel, accès API et automatisations sans code pour le reste.",
     },
     card_integrations_f1: { en: "Native integrations: Salesforce Lightning app, Sterling Volunteers, Double the Donation, and many more", fr: "Intégrations natives : application Salesforce Lightning, Sterling Volunteers, Double the Donation, et bien d'autres" },
-    card_integrations_f2: { en: "Build custom no-code automations with Zapier and Microsoft Power Automate", fr: "Bâtissez des automatisations sans code avec Zapier et Microsoft Power Automate" },
+    card_integrations_f2: { en: "Implement custom no-code automations with Zapier and Microsoft Power Automate", fr: "Implémentez des automatisations sans code avec Zapier et Microsoft Power Automate" },
     card_integrations_f3: { en: "SAML-based SSO with Microsoft Entra ID, JumpCloud, and other providers", fr: "SSO basé sur SAML avec Microsoft Entra ID, JumpCloud et autres fournisseurs" },
     card_integrations_f4: { en: "REST API, custom webhooks, and a developer dashboard", fr: "API REST, webhooks personnalisés et tableau de bord développeur" },
     card_integrations_link: { en: "Learn more about integrations", fr: "En savoir plus sur les intégrations" },
@@ -480,12 +480,12 @@ export const strings = {
     page_title: { en: "Volunteer application forms & recruitment workflows | Vome", fr: "Formulaires de candidature et flux de recrutement | Vome" },
     page_description: {
       en: "Build modern, custom-branded forms with conditional questions, automations, and recruitment workflows that route applicants automatically.",
-      fr: "Bâtissez des formulaires modernes à votre image avec questions conditionnelles, automatisations et flux de recrutement qui acheminent les candidats automatiquement.",
+      fr: "Mettez en place des formulaires modernes à votre image avec questions conditionnelles, automatisations et flux de recrutement qui acheminent les candidats automatiquement.",
     },
 
     // ── Hero ──
     hero_eyebrow: { en: "Recruitment & application forms", fr: "Recrutement et formulaires de candidature" },
-    hero_h1_part1: { en: "Build the ", fr: "Bâtissez le " },
+    hero_h1_part1: { en: "Build the ", fr: "Mettez en place le " },
     hero_h1_accent: { en: "recruitment process", fr: "processus de recrutement" },
     hero_h1_part2: { en: " your program needs.", fr: " dont votre programme a besoin." },
     hero_sub: {
@@ -572,7 +572,7 @@ export const strings = {
       fr: "Redirigez vos visiteurs depuis votre site web, les réseaux sociaux ou vos infolettres vers des formulaires personnalisés qui guident les candidats à travers votre processus de recrutement et font gagner des heures à votre équipe.",
     },
     ben1_title: { en: "A branded page for every opportunity", fr: "Une page à votre image pour chaque opportunité" },
-    ben1_desc: { en: "Build custom landing pages for events, programs, and positions. Each routes to its own form and recruitment workflow.", fr: "Bâtissez des pages de destination pour vos événements, programmes et postes. Chacune dirige vers son propre formulaire et flux de recrutement." },
+    ben1_desc: { en: "Build custom landing pages for events, programs, and positions. Each routes to its own form and recruitment workflow.", fr: "Mettez en place des pages d'atterrissage pour vos événements, programmes et postes. Chacune dirige vers son propre formulaire et flux de recrutement." },
     ben2_title: { en: "Conditional questions", fr: "Questions conditionnelles" },
     ben2_desc: { en: "Show only what's relevant. Branch on each answer to personalize the volunteer's experience.", fr: "Affichez seulement ce qui compte. Branchez chaque réponse pour personnaliser l'expérience." },
     ben3_title: { en: "Forms tailored to each applicant", fr: "Formulaires adaptés à chaque candidat" },
@@ -585,8 +585,8 @@ export const strings = {
     ben6_desc: { en: "Volunteers fill out forms on the iOS and Android apps, browser, tablet, or computer. Mobile-first by default, accessible everywhere.", fr: "Les bénévoles remplissent les formulaires depuis les apps iOS et Android, un navigateur, une tablette ou un ordinateur. Mobile d'abord, accessible partout." },
 
     // ── Spotlight 1: Form builder ──
-    spot1_kicker: { en: "BUILD", fr: "BÂTIR" },
-    spot1_title: { en: "Build any application form, exactly the way you need it.", fr: "Bâtissez n'importe quel formulaire de candidature, exactement comme vous le voulez." },
+    spot1_kicker: { en: "BUILD", fr: "METTEZ EN PLACE" },
+    spot1_title: { en: "Build any application form, exactly the way you need it.", fr: "Mettez en place n'importe quel formulaire de candidature, exactement comme vous le voulez." },
     spot1_body: {
       en: "Drag, drop, save. Add <strong>conditional questions</strong> that show or hide based on previous answers, request <strong>file uploads</strong>, collect <strong>digital consent through e-signatures</strong>, and embed shift calendars right inside the form.",
       fr: "Glissez, déposez, enregistrez. Ajoutez des <strong>questions conditionnelles</strong> qui s'affichent ou se cachent selon les réponses précédentes, demandez des <strong>téléversements</strong>, recueillez le <strong>consentement par signature électronique</strong>, et intégrez les calendriers de quarts directement dans le formulaire.",
@@ -622,16 +622,16 @@ export const strings = {
 
     // ── Mid-page CTA banner (after the 3 spotlights) ──
     midcta_h2: { en: "See for yourself.", fr: "Voyez par vous-même." },
-    midcta_sub: { en: "Build your first form free, in minutes.", fr: "Bâtissez votre premier formulaire gratuitement, en quelques minutes." },
-    midcta_button: { en: "Build your first form free", fr: "Bâtissez votre premier formulaire gratuitement" },
+    midcta_sub: { en: "Build your first form free, in minutes.", fr: "Mettez en place votre premier formulaire gratuitement, en quelques minutes." },
+    midcta_button: { en: "Build your first form free", fr: "Créer votre premier formulaire gratuitement" },
 
     // ── How it works (4 steps) ──
     how_h2: { en: "How it works", fr: "Comment ça fonctionne" },
     how_sub: {
       en: "Build once. Set the rules. Let Vome do the rest, every time someone applies.",
-      fr: "Bâtissez une fois. Définissez les règles. Laissez Vome s'occuper du reste à chaque candidature.",
+      fr: "Mettez en place une fois. Définissez les règles. Laissez Vome s'occuper du reste à chaque candidature.",
     },
-    step1_title: { en: "Build the form", fr: "Bâtir le formulaire" },
+    step1_title: { en: "Build the form", fr: "Créer le formulaire" },
     step1_desc: { en: "Drag-and-drop fields. Add conditional logic, file uploads, e-signatures, and shift-calendar embeds.", fr: "Glissez-déposez les champs. Ajoutez logique conditionnelle, téléversements, signatures et calendriers." },
     step2_title: { en: "Set the workflow", fr: "Définir le flux" },
     step2_desc: { en: "Configure eligibility, screening questions, and the stages applicants will move through.", fr: "Configurez l'admissibilité, les questions de sélection et les étapes à parcourir." },
@@ -651,7 +651,7 @@ export const strings = {
     diff2_title: { en: "Routing beyond the form", fr: "Acheminement après le formulaire" },
     diff2_desc: { en: "Most form tools stop at conditional fields. Vome layers on conditional automations that move volunteers to the right stage based on how you've designed the workflow. Handle file uploads, background checks, or anything else you need without extra effort.", fr: "La plupart des outils de formulaires s'arrêtent aux champs conditionnels. Vome ajoute des automatisations conditionnelles qui font avancer les bénévoles à la bonne étape selon le flux que vous avez conçu. Gérez téléversements, vérifications d'antécédents ou tout autre besoin sans effort supplémentaire." },
     diff3_title: { en: "All in one platform", fr: "Tout dans une seule plateforme" },
-    diff3_desc: { en: "Forms can feed directly into your database, or be prompted throughout the platform whenever you need them. Require volunteers to resubmit forms before reserving shifts, checking in, or anything else.", fr: "Les formulaires peuvent alimenter directement votre base de données ou apparaître à tout moment sur la plateforme. Exigez une nouvelle soumission avant de réserver un quart, de pointer ou pour tout autre besoin." },
+    diff3_desc: { en: "Forms can feed directly into your database, or be prompted throughout the platform whenever you need them. Require volunteers to resubmit forms before reserving shifts, checking in, or anything else.", fr: "Les formulaires peuvent alimenter directement votre base de données ou apparaître à tout moment sur la plateforme. Exigez une nouvelle soumission avant de réserver un quart, avant d'effectuer leur check-in ou pour tout autre besoin." },
 
     // ── FAQ (module-specific) ──
     faq_h2: { en: "Recruitment FAQs", fr: "FAQ Recrutement" },
@@ -700,7 +700,7 @@ export const strings = {
     page_title: { en: "Volunteer onboarding & screening software | Vome", fr: "Logiciel d'intégration et de sélection des bénévoles | Vome" },
     page_description: {
       en: "Build onboarding sequences with interviews, training, waivers, e-signatures, and Sterling Volunteers background checks. Track status and expirations in one place.",
-      fr: "Bâtissez des séquences d'intégration avec entrevues, formations, décharges, signatures électroniques et vérifications d'antécédents Sterling Volunteers. Suivez le statut et les expirations en un seul endroit.",
+      fr: "Mettez en place des séquences d'intégration avec entrevues, formations, décharges, signatures électroniques et vérifications d'antécédents Sterling Volunteers. Suivez le statut et les expirations en un seul endroit.",
     },
 
     // ── Hero ──
@@ -809,7 +809,7 @@ export const strings = {
       fr: "Réduisez le temps nécessaire pour faire avancer les bénévoles dans l'intégration. Décidez quelles étapes les bénévoles voient et quand ils peuvent y avancer, conçu exactement comme vous le voulez, avec un tableau de bord en direct pour suivre la progression.",
     },
     ben1_title: { en: "Step-by-step sequences", fr: "Séquences étape par étape" },
-    ben1_desc: { en: "Build as many onboarding processes as you need, whether by role or age specification. Volunteers can get auto-assigned the moment their application clears.", fr: "Bâtissez autant de processus d'intégration que nécessaire, par rôle ou par tranche d'âge. Les bénévoles peuvent être affectés automatiquement dès que leur candidature est acceptée." },
+    ben1_desc: { en: "Build as many onboarding processes as you need, whether by role or age specification. Volunteers can get auto-assigned the moment their application clears.", fr: "Mettez en place autant de processus d'intégration que nécessaire, par rôle ou par tranche d'âge. Les bénévoles peuvent être affectés automatiquement dès que leur candidature est acceptée." },
     ben2_title: { en: "Integrated background checks", fr: "Vérifications d'antécédents intégrées" },
     ben2_desc: { en: "Connect the tools you already use, like Sterling Volunteers or Verified First, without leaving Vome. Statuses sync back automatically.", fr: "Connectez les outils que vous utilisez déjà, comme Sterling Volunteers ou Verified First, sans quitter Vome. Les statuts se synchronisent automatiquement." },
     ben3_title: { en: "SCORM e-learning & videos", fr: "Apprentissage SCORM et vidéos" },
@@ -822,13 +822,13 @@ export const strings = {
     ben6_desc: { en: "A dashboard view of who's screened, who's expiring, and who's waiting. Permissions scope each admin to their site or team.", fr: "Une vue tableau de bord de qui est sélectionné, qui expire bientôt et qui attend. Les permissions limitent chaque admin à son site ou à son équipe." },
 
     // ── Spotlight 1: Build sequences ──
-    spot1_kicker: { en: "BUILD", fr: "BÂTIR" },
-    spot1_title: { en: "Build custom step-by-step onboarding sequences and choose who does them.", fr: "Bâtissez des séquences d'intégration étape par étape et choisissez qui les suit." },
+    spot1_kicker: { en: "BUILD", fr: "CRÉER" },
+    spot1_title: { en: "Build custom step-by-step onboarding sequences and choose who gets routed into them and when.", fr: "Mettez en place des séquences d'intégration étape par étape et choisissez qui les suit et quand." },
     spot1_body: {
       en: "Combine <strong>interviews</strong>, <strong>orientations</strong>, <strong>training modules</strong>, <strong>waivers</strong>, document uploads, and <strong>background checks</strong> into guided flows. Mark steps as required or optional, private or visible to volunteers, and so much more.",
       fr: "Combinez <strong>entrevues</strong>, <strong>orientations</strong>, <strong>modules de formation</strong>, <strong>décharges</strong>, téléversements et <strong>vérifications d'antécédents</strong> dans des parcours guidés. Marquez les étapes obligatoires ou facultatives, privées ou visibles aux bénévoles, et bien plus encore.",
     },
-    spot1_b1: { en: "10+ step types to choose from when building each step in your sequence", fr: "Plus de 10 types d'étapes pour bâtir chaque étape de votre séquence" },
+    spot1_b1: { en: "10+ step types to choose from when building each step in your sequence", fr: "Plus de 10 types d'étapes pour créer chaque étape de votre séquence" },
     spot1_b2: { en: "Customizable settings to control what volunteers see, whether they can skip steps, and when each step is due", fr: "Paramètres personnalisables pour décider ce que les bénévoles voient, s'ils peuvent sauter des étapes et quand chaque étape est due" },
     spot1_b3: { en: "Add automations that fire when volunteers finish a sequence or complete a specific step", fr: "Ajoutez des automatisations déclenchées à la fin d'une séquence ou d'une étape précise" },
     spot1_b4: { en: "Duplicate sequences to spin up new onboarding processes with similar configurations", fr: "Dupliquez les séquences pour créer de nouveaux processus d'intégration avec des configurations similaires" },
@@ -838,7 +838,7 @@ export const strings = {
     spot2_title: { en: "See exactly where every volunteer stands across every step.", fr: "Voyez exactement où en est chaque bénévole, à chaque étape." },
     spot2_body: {
       en: "Volunteers can move through steps from their homepage, or admins can manage the process for them. A <strong>live dashboard</strong> shows where each volunteer is in their journey and how long they've been on a step. Build reports in minutes.",
-      fr: "Les bénévoles peuvent avancer dans les étapes depuis leur tableau de bord, ou les admins peuvent gérer le processus pour eux. Un <strong>tableau de bord en direct</strong> montre où chaque bénévole en est et depuis combien de temps il est sur une étape. Bâtissez des rapports en quelques minutes.",
+      fr: "Les bénévoles peuvent avancer dans les étapes depuis leur tableau de bord, ou les admins peuvent gérer le processus pour eux. Un <strong>tableau de bord en direct</strong> montre où chaque bénévole en est et depuis combien de temps il est sur une étape. Construisez des rapports en quelques minutes.",
     },
     spot2_b1: { en: "Volunteers see their sequences on the web and mobile apps", fr: "Les bénévoles voient leurs séquences sur le web et l'app mobile" },
     spot2_b2: { en: "Uploaded files and documents stay on each volunteer's profile for easy access", fr: "Les fichiers et documents téléversés restent sur le profil de chaque bénévole pour un accès facile" },
@@ -859,16 +859,16 @@ export const strings = {
 
     // ── Mid-page CTA banner (after the 3 spotlights) ──
     midcta_h2: { en: "See for yourself.", fr: "Voyez par vous-même." },
-    midcta_sub: { en: "Build your first onboarding sequence free, in minutes.", fr: "Bâtissez votre première séquence d'intégration gratuitement, en quelques minutes." },
-    midcta_button: { en: "Build your first sequence free", fr: "Bâtissez votre première séquence gratuitement" },
+    midcta_sub: { en: "Build your first onboarding sequence free, in minutes.", fr: "Mettez en place votre première séquence d'intégration gratuitement, en quelques minutes." },
+    midcta_button: { en: "Build your first sequence free", fr: "Créez votre première séquence gratuitement" },
 
     // ── How it works (4 steps) ──
     how_h2: { en: "How it works", fr: "Comment ça fonctionne" },
     how_sub: {
       en: "Build the sequence once. Every volunteer who applies gets walked through the right screening for their role.",
-      fr: "Bâtissez la séquence une seule fois. Chaque bénévole qui postule est guidé à travers la bonne sélection pour son rôle.",
+      fr: "Mettez en place la séquence une seule fois. Chaque bénévole qui postule est guidé à travers la bonne sélection pour son rôle.",
     },
-    step1_title: { en: "Build the sequence", fr: "Bâtir la séquence" },
+    step1_title: { en: "Build the sequence", fr: "Créer la séquence" },
     step1_desc: { en: "Add interview, training, waiver, background-check, and document steps in the order your program needs.", fr: "Ajoutez entrevues, formations, décharges, vérifications et documents dans l'ordre voulu." },
     step2_title: { en: "Connect integrations", fr: "Connecter les intégrations" },
     step2_desc: { en: "Sterling Volunteers and SCORM Cloud are native. Activate them once, reuse across every opportunity.", fr: "Sterling Volunteers et SCORM Cloud sont natifs. Activez-les une fois, réutilisez partout." },
@@ -916,7 +916,7 @@ export const strings = {
     faq5_q: { en: "Can I reuse a sequence?", fr: "Puis-je réutiliser une séquence ?" },
     faq5_a: {
       en: "Yes. Build a sequence once and assign it to any number of opportunities, or duplicate a sequence to spin up a variation. Multi-site permissions scope sequences to the right admins so teams only manage what's theirs.",
-      fr: "Oui. Bâtissez une séquence une fois et affectez-la à plusieurs opportunités, ou dupliquez-la pour créer une variation. Les permissions multi-sites limitent les séquences aux bons administrateurs pour que chaque équipe ne gère que ce qui lui appartient.",
+      fr: "Oui. Mettez en place une séquence une fois et affectez-la à plusieurs opportunités, ou dupliquez-la pour créer une variation. Les permissions multi-sites limitent les séquences aux bons administrateurs pour que chaque équipe ne gère que ce qui lui appartient.",
     },
     faq6_q: { en: "Where does the volunteer data go?", fr: "Où vont les données des bénévoles ?" },
     faq6_a: {
@@ -1071,8 +1071,8 @@ export const strings = {
     ben6_desc: { en: "Pull shift activity by site, location, opportunity, or hours completed. Save custom views, filters, and shift tags. Permissions scope each admin to what they manage.", fr: "Extrayez l'activité par site, lieu, opportunité ou heures complétées. Enregistrez des vues, filtres et étiquettes de quart personnalisés. Les permissions limitent chaque admin à ce qu'il gère." },
 
     // ── Spotlight 1: Build / create shifts ──
-    spot1_kicker: { en: "BUILD", fr: "BÂTIR" },
-    spot1_title: { en: "Build and publish your schedule in a few clicks.", fr: "Bâtissez et publiez votre horaire en quelques clics." },
+    spot1_kicker: { en: "BUILD", fr: "CRÉER" },
+    spot1_title: { en: "Build and publish your schedule in a few clicks.", fr: "Créez et publiez votre horaire en quelques clics." },
     spot1_body: {
       en: "Generate <strong>recurring shifts</strong> in bulk, set <strong>capacity</strong> with min and max attendees, turn on <strong>waitlists</strong>, and decide who can see each shift. Restrict by tag, role, age, or site. Vome publishes the dates and keeps every change in sync.",
       fr: "Générez des <strong>quarts récurrents</strong> en lot, définissez la <strong>capacité</strong> avec minimum et maximum, activez les <strong>listes d'attente</strong> et décidez qui voit chaque quart. Restreignez par étiquette, rôle, âge ou site. Vome publie les dates et garde chaque changement synchronisé.",
@@ -1083,11 +1083,11 @@ export const strings = {
     spot1_b4: { en: "Require a form, training, or background check before a volunteer can book, with recruitment and onboarding wired into the schedule", fr: "Exigez un formulaire, une formation ou une vérification d'antécédents avant qu'un bénévole puisse réserver, avec recrutement et intégration intégrés à l'horaire" },
 
     // ── Spotlight 2: Self-scheduling and instant booking ──
-    spot2_kicker: { en: "BOOK", fr: "RÉSERVER" },
-    spot2_title: { en: "Volunteers book the way you want them to.", fr: "Les bénévoles réservent de la façon dont vous le voulez." },
+    spot2_kicker: { en: "RESERVE", fr: "RÉSERVER" },
+    spot2_title: { en: "Volunteers reserve the way you want them to.", fr: "Les bénévoles réservent de la façon dont vous le voulez." },
     spot2_body: {
-      en: "Approved volunteers can <strong>book instantly</strong>, or every reservation can be <strong>routed for admin approval</strong>. Group reservations let one volunteer book for a team or family. Reservation limits and cancellation windows are enforced automatically per scheduling policy.",
-      fr: "Les bénévoles approuvés peuvent <strong>réserver instantanément</strong>, ou chaque réservation peut être <strong>acheminée pour approbation admin</strong>. Les réservations de groupe permettent de réserver pour une équipe ou une famille. Les limites de réservation et fenêtres d'annulation sont appliquées automatiquement par politique.",
+      en: "Approved volunteers can <strong>reserve instantly with auto-confirmation</strong>, or every reservation can be <strong>routed for admin approval</strong>. Group reservations let one volunteer reserve for a team or family. Reservation limits and cancellation windows are enforced automatically per scheduling policy.",
+      fr: "Les bénévoles approuvés peuvent <strong>réserver instantanément avec confirmation automatique</strong>, ou chaque réservation peut être <strong>acheminée pour approbation admin</strong>. Les réservations de groupe permettent de réserver pour une équipe ou une famille. Les limites de réservation et fenêtres d'annulation sont appliquées automatiquement par politique.",
     },
     spot2_b1: { en: "Vome flags reservation conflicts before they happen, with no double-bookings and no overlaps", fr: "Vome détecte les conflits de réservation avant qu'ils n'arrivent, sans doubles réservations ni chevauchements" },
     spot2_b2: { en: "Mass-assign volunteers across many shifts in a single action, straight from the schedule view", fr: "Affectez des bénévoles en lot à plusieurs quarts en une seule action, directement depuis l'horaire" },
@@ -1115,7 +1115,7 @@ export const strings = {
     how_h2: { en: "How it works", fr: "Comment ça fonctionne" },
     how_sub: {
       en: "Build the shifts. Set the policy. Volunteers reserve. Vome handles the rest.",
-      fr: "Bâtissez les quarts. Définissez la politique. Les bénévoles réservent. Vome fait le reste.",
+      fr: "Créez les quarts. Définissez la politique. Les bénévoles réservent. Vome fait le reste.",
     },
     step1_title: { en: "Generate the shifts", fr: "Générer les quarts" },
     step1_desc: { en: "Bulk-create one-time or recurring shifts. Set capacity, dates, and which volunteers can see them.", fr: "Créez en lot des quarts uniques ou récurrents. Définissez capacité, dates et bénévoles autorisés." },
@@ -1533,7 +1533,7 @@ export const strings = {
       fr: "Deux systèmes qui se complètent. Votre équipe peut concevoir des prix personnalisés selon les jalons que vous définissez, et choisir quels bénévoles sont admissibles à les gagner. Vome inclut aussi une échelle d'achievements Bronze à Platine prête à l'emploi qui tourne en arrière-plan pour chaque bénévole.",
     },
     ben1_title: { en: "Custom awards your team designs", fr: "Prix personnalisés conçus par votre équipe" },
-    ben1_desc: { en: "Build your own awards with their own name, icon or uploaded image, and description. Pick an auto rule Vome enforces or a manual award a coordinator can assign as needed, with optional caps on the number of recipients and a choice of whether it repeats on a continuous basis.", fr: "Bâtissez vos propres prix avec leur nom, icône ou image téléversée, et description. Choisissez une règle automatique appliquée par Vome ou un prix manuel qu'un coordonnateur peut attribuer au besoin, avec des plafonds optionnels sur le nombre de bénéficiaires et le choix de le rendre répétable de façon continue." },
+    ben1_desc: { en: "Build your own awards with their own name, icon or uploaded image, and description. Pick an auto rule Vome enforces or a manual award a coordinator can assign as needed, with optional caps on the number of recipients and a choice of whether it repeats on a continuous basis.", fr: "Mettez en place vos propres distinctions avec leur nom, icône ou image téléversée, et description. Choisissez une règle automatique appliquée par Vome ou un prix manuel qu'un coordonnateur peut attribuer au besoin, avec des plafonds optionnels sur le nombre de bénéficiaires et le choix de le rendre répétable de façon continue." },
     ben2_title: { en: "Bronze → Platinum, free for everyone", fr: "Bronze → Platine, gratuit pour tous" },
     ben2_desc: { en: "Vome Achievements ship on every plan: a four-tier badge ladder fueled by Vome Points that volunteers earn by completing platform challenges. Active from a volunteer's first log, no admin setup.", fr: "Les Vome Achievements sont inclus sur tous les forfaits : une échelle de badges à quatre niveaux alimentée par les Vome Points que les bénévoles gagnent en complétant des défis de la plateforme. Actifs dès la première consignation, sans configuration." },
     ben3_title: { en: "Triggers on hours or shifts, any window", fr: "Déclencheurs sur heures ou quarts, toute fenêtre" },
@@ -1767,11 +1767,11 @@ export const strings = {
     ben3_title: { en: "Native private chat", fr: "Clavardage privé natif" },
     ben3_desc: { en: "Message volunteers one-on-one from the web or using the Vome app on the go. Conversations stay tied to their profile and accessible by each of your admins depending on their permissions.", fr: "Écrivez aux bénévoles en privé depuis le web ou avec l'application Vome en déplacement. Les conversations restent liées à leur profil et accessibles à chacun de vos admins selon leurs permissions." },
     ben4_title: { en: "Group and shift chatrooms", fr: "Salons de groupe et de quart" },
-    ben4_desc: { en: "Build custom group chats for ongoing teams. Vome also allows you to auto-generate chatrooms per opportunity and per shift, with admins added automatically.", fr: "Bâtissez des conversations de groupe personnalisées pour les équipes permanentes. Vome vous permet aussi de générer automatiquement des salons par opportunité et par quart, avec ajout automatique des admins." },
+    ben4_desc: { en: "Create custom group chats for ongoing teams. Vome also allows you to auto-generate chatrooms per opportunity and per shift, with admins added automatically.", fr: "Créez des conversations de groupe personnalisées pour les équipes permanentes. Vome vous permet aussi de générer automatiquement des salons par opportunité et par quart, avec ajout automatique des admins." },
     ben5_title: { en: "Reusable notification policies", fr: "Politiques de notification réutilisables" },
-    ben5_desc: { en: "Build notification policies to automate communication about shift reminders and post-shift surveys, birthday wishes, or between admins. You decide the content, where and when it's sent, and Vome automates the rest.", fr: "Bâtissez des politiques de notification pour automatiser la communication sur les rappels et sondages de quart, les vœux d'anniversaire, ou entre admins. Vous décidez du contenu, où et quand l'envoyer, et Vome automatise le reste." },
+    ben5_desc: { en: "Build notification policies to automate communication about shift reminders and post-shift surveys, birthday wishes, or between admins. You decide the content, where and when it's sent, and Vome automates the rest.", fr: "Créez des politiques de notification pour automatiser la communication sur les rappels et sondages de quart, les vœux d'anniversaire, ou entre admins. Vous décidez du contenu, où et quand l'envoyer, et Vome automatise le reste." },
     ben6_title: { en: "Email templates & shared folders", fr: "Modèles de courriel et dossiers partagés" },
-    ben6_desc: { en: "Build a template library and folder it so every coordinator sends with the same voice. Reuse the same templates inside one-off emails, bulk sends, and notification policies.", fr: "Bâtissez une bibliothèque de modèles classée par dossier pour que chaque coordonnateur écrive avec la même voix. Réutilisez les mêmes modèles dans les courriels ponctuels, les envois en masse et les politiques de notification." },
+    ben6_desc: { en: "Build a template library and folder it so every coordinator sends with the same voice. Reuse the same templates inside one-off emails, bulk sends, and notification policies.", fr: "Mettez en place une bibliothèque de modèles classée par dossier pour que chaque coordonnateur écrive avec la même voix. Réutilisez les mêmes modèles dans les courriels ponctuels, les envois en masse et les politiques de notification." },
 
     // ── Spotlight 1: Bulk email with segments ──
     spot1_kicker: { en: "EMAIL", fr: "COURRIEL" },
@@ -1802,7 +1802,7 @@ export const strings = {
     spot3_title: { en: "Design the notifications you want, when you want them to send, throughout the entire platform.", fr: "Concevez les notifications que vous voulez, au moment où vous voulez les envoyer, partout dans la plateforme." },
     spot3_body: {
       en: "Build custom <strong>shift notification policies</strong> for pre-shift reminders, during shifts, or a post-shift survey link, then attach them to the shifts they were designed for. Add automated <strong>birthday notifications</strong> with site-level recipient rules, and <strong>hand-off notifications</strong> that ping coordinators when a profile lands in their site, sequence, opportunity, or shift, manually or via automation.",
-      fr: "Bâtissez des <strong>politiques de notification de quart</strong> personnalisées pour rappels pré-quart, pendant le quart ou lien de sondage post-quart, puis attachez-les aux quarts qu'elles visent. Ajoutez des <strong>notifications d'anniversaire</strong> automatisées avec règles de destinataires par site, et des <strong>notifications de transfert</strong> qui alertent les coordonnateurs quand un profil arrive dans leur site, séquence, opportunité ou quart, manuellement ou par automatisation.",
+      fr: "Mettez en place des <strong>politiques de notification de quart</strong> personnalisées pour rappels pré-quart, pendant le quart ou lien de sondage post-quart, puis attachez-les aux quarts qu'elles visent. Ajoutez des <strong>notifications d'anniversaire</strong> automatisées avec règles de destinataires par site, et des <strong>notifications de transfert</strong> qui alertent les coordonnateurs quand un profil arrive dans leur site, séquence, opportunité ou quart, manuellement ou par automatisation.",
     },
     spot3_b1: { en: "Compose every message with shared templates, dynamic variables, and your default signature", fr: "Composez chaque message avec modèles partagés, variables dynamiques et votre signature par défaut" },
     spot3_b2: { en: "Pick the channel per rule: integrated email domain, in-app, push notification, or all of the above", fr: "Choisissez le canal par règle : domaine courriel intégré, en-app, notification poussée, ou tout cela" },
@@ -1846,17 +1846,17 @@ export const strings = {
     faq2_q: { en: "Can our team share email templates so we all sound the same?", fr: "Pouvons-nous partager des modèles de courriel pour parler d'une seule voix ?" },
     faq2_a: {
       en: "Yes. Build templates and group them into folders that every admin can pull from. The same library powers one-off emails, bulk sends, shift notification policies, and birthday notifications, so the language stays consistent across coordinators and across automations.",
-      fr: "Oui. Bâtissez des modèles et regroupez-les dans des dossiers accessibles à chaque admin. La même bibliothèque alimente les courriels ponctuels, les envois en masse, les politiques de notification de quart et les notifications d'anniversaire, pour une langue cohérente entre coordonnateurs et entre automatisations.",
+      fr: "Oui. Mettez en place des modèles et regroupez-les dans des dossiers accessibles à chaque admin. La même bibliothèque alimente les courriels ponctuels, les envois en masse, les politiques de notification de quart et les notifications d'anniversaire, pour une langue cohérente entre coordonnateurs et entre automatisations.",
     },
     faq3_q: { en: "What is an auto-generated chatroom?", fr: "Qu'est-ce qu'un salon généré automatiquement ?" },
     faq3_a: {
       en: "Vome creates a chatroom for every opportunity and for every shift. Admins are added automatically. Volunteers join when they reserve the shift and leave when they cancel. You can also build custom group chats for ongoing teams, and inside any chat you can send images, documents, voice notes, or assign a shift directly.",
-      fr: "Vome crée un salon pour chaque opportunité et chaque quart. Les admins sont ajoutés automatiquement. Les bénévoles rejoignent à la réservation et sortent à l'annulation. Vous pouvez aussi bâtir des conversations de groupe personnalisées, et dans chaque clavardage envoyer images, documents, notes vocales ou assigner un quart directement.",
+      fr: "Vome crée un salon pour chaque opportunité et chaque quart. Les admins sont ajoutés automatiquement. Les bénévoles rejoignent à la réservation et sortent à l'annulation. Vous pouvez aussi mettre en place des conversations de groupe personnalisées, et dans chaque clavardage envoyer images, documents, notes vocales ou assigner un quart directement.",
     },
     faq4_q: { en: "How do shift notification policies work?", fr: "Comment fonctionnent les politiques de notification de quart ?" },
     faq4_a: {
       en: "A shift notification policy is a saved set of automated messages that fire around the shifts it's attached to: pre-shift reminders, during-shift updates, and post-shift follow-ups (with optional survey links). Build it once, attach it to any shift or shift generator, and every shift that uses the policy inherits the same rules. The full setup walkthrough lives in our help center.",
-      fr: "Une politique de notification de quart est un ensemble enregistré de messages automatisés qui s'envoient autour des quarts auxquels elle est attachée : rappels pré-quart, mises à jour pendant le quart et suivis post-quart (avec liens de sondage facultatifs). Bâtissez-la une fois, attachez-la à un quart ou à un générateur de quarts, et chaque quart qui utilise la politique hérite des mêmes règles. Le guide complet est dans notre centre d'aide.",
+      fr: "Une politique de notification de quart est un ensemble enregistré de messages automatisés qui s'envoient autour des quarts auxquels elle est attachée : rappels pré-quart, mises à jour pendant le quart et suivis post-quart (avec liens de sondage facultatifs). Mettez-la en place une fois, attachez-la à un quart ou à un générateur de quarts, et chaque quart qui utilise la politique hérite des mêmes règles. Le guide complet est dans notre centre d'aide.",
     },
     faq5_q: { en: "Can I control what other admins see in the outbox?", fr: "Puis-je contrôler ce que les autres admins voient dans la boîte d'envoi ?" },
     faq5_a: {
@@ -2429,7 +2429,7 @@ export const strings = {
     hero_h1_part2: { en: " already uses.", fr: " utilise déjà." },
     hero_sub: {
       en: "Vome offers <strong>native integrations</strong> with Salesforce, Sterling Volunteers, Microsoft Entra ID, and more. Build <em>no-code automation flows</em> through Zapier and Power Automate. A full <em>REST API</em> when you need to build something custom.",
-      fr: "Vome offre des <strong>intégrations natives</strong> avec Salesforce, Sterling Volunteers, Microsoft Entra ID et plus encore. Bâtissez des <em>flux d'automatisation sans code</em> via Zapier et Power Automate. Une <em>API REST</em> complète quand il faut bâtir sur mesure.",
+      fr: "Vome offre des <strong>intégrations natives</strong> avec Salesforce, Sterling Volunteers, Microsoft Entra ID et plus encore. Mettez en place des <em>flux d'automatisation sans code</em> via Zapier et Power Automate. Une <em>API REST</em> complète quand il faut bâtir sur mesure.",
     },
     hero_meta_native: { en: "Native integrations", fr: "Intégrations natives" },
     hero_meta_nocode: { en: "No-code via Zapier", fr: "Sans code via Zapier" },
@@ -2714,17 +2714,17 @@ export const strings = {
       en: "Run multiple programs, locations, and teams under one account, with the integrations, compliance, and admin controls your organization requires.",
       fr: "Gérez plusieurs programmes, sites et équipes dans un seul compte, avec les intégrations, la conformité et les contrôles d'administration que votre organisation exige.",
     },
-    card_struct_title: { en: "Split your portal by site, department, or chapter", fr: "Divisez votre portail par site, département ou section" },
+    card_struct_title: { en: "Segment your portal by site, department, or location", fr: "Segmentez votre portail par site, département ou lieu" },
     card_struct_body: {
-      en: "Organize your entire portal around how your organization is actually structured. Each location, department, or chapter can have its own content, admins, and branded experience. Volunteers only see what's relevant to them. Admins only manage what's theirs.",
-      fr: "Organisez l'entièreté de votre portail selon la structure réelle de votre organisation. Chaque emplacement, département ou section peut avoir son propre contenu, ses administrateurs et son image de marque. Les bénévoles ne voient que ce qui les concerne. Les administrateurs ne gèrent que ce qui leur appartient.",
+      en: "Organize your entire portal around how your organization is actually structured. Each location, department, or location can have its own content, admins, and branded experience. Volunteers only see what's relevant to them. Admins only manage what's theirs.",
+      fr: "Organisez l'entièreté de votre portail selon la structure réelle de votre organisation. Chaque emplacement, département ou lieu peut avoir son propre contenu, ses administrateurs et son image de marque. Les bénévoles ne voient que ce qui les concerne. Les administrateurs ne gèrent que ce qui leur appartient.",
     },
     card_roles_title: { en: "Admin roles and permissions, as granular as you need", fr: "Rôles et permissions d'administrateur, aussi granulaires que nécessaire" },
     card_roles_body: {
       en: "Invite your whole team with scoped access. Department leads see their department. Site managers see their site. Configure granular read or edit permissions by folder, module, or content type, so every admin has exactly the access they need.",
       fr: "Invitez toute votre équipe avec un accès délimité. Les responsables de département voient leur département. Les gestionnaires de site voient leur site. Configurez des permissions granulaires de lecture ou de modification par dossier, module ou type de contenu, afin que chaque administrateur ait exactement l'accès dont il a besoin.",
     },
-    card_int_title: { en: "Integrations that fit your stack", fr: "Des intégrations qui s'arriment à votre pile technologique" },
+    card_int_title: { en: "Integrations that fit your tech stack", fr: "Des intégrations qui s'arriment à votre pile technologique" },
     card_int_body: {
       en: "Native Salesforce app with two-way sync, Zapier, Microsoft Power Automate, Sterling Volunteers, SCORM Cloud, Verified First, and Double the Donation. All built in. Or use our REST API and custom webhooks to achieve any workflow.",
       fr: "Application Salesforce native avec synchronisation bidirectionnelle, Zapier, Microsoft Power Automate, Sterling Volunteers, SCORM Cloud, Verified First et Double the Donation. Toutes intégrées. Ou utilisez notre API REST et nos webhooks personnalisés pour réaliser n'importe quel flux de travail.",
@@ -2733,12 +2733,12 @@ export const strings = {
     cta_pricing: { en: "See pricing", fr: "Voir les tarifs" },
     node_org: { en: "Organization", fr: "Organisation" },
     node_downtown: { en: "Downtown site", fr: "Site centre-ville" },
-    node_east: { en: "East chapter", fr: "Section est" },
+    node_east: { en: "East location", fr: "Lieu de l'Est" },
     node_youth: { en: "Youth programs", fr: "Programmes jeunesse" },
     node_volunteers_count: { en: "volunteers", fr: "bénévoles" },
     role_full_access: { en: "Org admin, full access", fr: "Admin de l'organisation, accès complet" },
-    role_site_manager: { en: "Site manager, Downtown", fr: "Gestionnaire de site, centre-ville" },
-    role_scheduler: { en: "Scheduler, read & edit shifts", fr: "Planificateur, lecture et modification des quarts" },
+    role_site_manager: { en: "Site manager, Downtown", fr: "Gestionnaire de site, Centre-ville" },
+    role_scheduler: { en: "Scheduler, read & edit shifts", fr: "Planificateur, lire et modifier des quarts" },
     role_invite: { en: "Invite teammate", fr: "Inviter un coéquipier" },
     role_custom: { en: "Custom role", fr: "Rôle personnalisé" },
     int_more: { en: "+ more", fr: "+ plus" },
@@ -2975,7 +2975,7 @@ export const strings = {
       fr: "Oui. Lorsque vous choisissez la facturation annuelle sur Vome Pro, vous recevez un rabais de 33 % par rapport à 12 paiements mensuels. Nous offrons aussi des économies supplémentaires aux organisations qui ont besoin d'un grand nombre de sièges administratifs, qui ont des structures organisationnelles uniques, ou qui cherchent un partenariat à long terme. Nous n'offrons pas de rabais OBNL généraux puisque tous nos clients sont des organismes à but non lucratif.",
     },
 
-    q_languages: { en: "What languages do you support?", fr: "Quelles langues prenez-vous en charge ?" },
+    q_languages: { en: "What languages do you support?", fr: "Quelles langues supportez-vous ?" },
     a_languages: {
       en: "Vome is a bilingual platform, available in both English and French.",
       fr: "Vome est une plateforme bilingue, disponible en anglais et en français.",
@@ -2986,7 +2986,7 @@ export const strings = {
   //  FOOTER
   // ─────────────────────────────────────────────────────────────────────────
   footer: {
-    tagline: { en: "The complete volunteer management software.", fr: "Le logiciel de gestion des bénévoles complet." },
+    tagline: { en: "The one-stop volunteer management software & mobile app.", fr: "Le logiciel et appli de gestion des bénévoles tout-en-un." },
     col_features: { en: "Features", fr: "Fonctionnalités" },
     col_software: { en: "Software", fr: "Logiciel" },
     col_about: { en: "About Vome", fr: "À propos de Vome" },
@@ -3328,8 +3328,8 @@ export const strings = {
     eyebrow: { en: "Plans & Pricing", fr: "Forfaits et tarifs" },
     hero_h1: { en: "Choosing the right plan is simple.", fr: "Choisir le bon forfait, c'est simple." },
     hero_sub: {
-      en: "Get started with the free plan or upgrade to any of our paid plans for a 30-day free trial!",
-      fr: "Commencez avec le forfait gratuit ou passez à l'un de nos forfaits payants pour un essai gratuit de 30 jours !",
+      en: "Get started with the free plan or upgrade to any of our paid plans for a 30-day free trial",
+      fr: "Commencez avec le forfait gratuit ou passez à l'un de nos forfaits payants pour un essai gratuit de 30 jours",
     },
     pill_flexible: { en: "Flexible pricing", fr: "Tarification flexible" },
     pill_unlimited: { en: "Unlimited volunteers", fr: "Bénévoles illimités" },
@@ -3353,7 +3353,7 @@ export const strings = {
     billed_annual_min5: { en: "Billed annually | Minimum 5 seats", fr: "Facturé annuellement | Minimum 5 sièges" },
     get_started: { en: "Get started", fr: "Commencer" },
 
-    plan_recruit: { en: "Recruit", fr: "Recrutement" },
+    plan_recruit: { en: "Recruit", fr: "Recruter" },
     plan_recruit_sub: { en: "For recruiters that need to collect application forms and manage an onboarding process.", fr: "Pour les recruteurs qui doivent recueillir des candidatures et gérer un processus d'intégration." },
     plan_pro: { en: "Pro", fr: "Pro" },
     plan_pro_sub: { en: "For coordinators that need to manage scheduling, hour tracking and generate reports.", fr: "Pour les coordonnateurs qui doivent gérer la planification, le suivi des heures et produire des rapports." },
@@ -3363,7 +3363,7 @@ export const strings = {
     plan_ult_sub: { en: "For any team that needs more security features & the ability to integrate Vome with other apps.", fr: "Pour toute équipe qui a besoin de plus de fonctionnalités de sécurité et de la possibilité d'intégrer Vome à d'autres applications." },
 
     feat_head: { en: "Features include:", fr: "Fonctionnalités incluses :" },
-    feat_head_pro: { en: "Everything in Recruit, plus:", fr: "Tout ce qui est dans Recrutement, plus :" },
+    feat_head_pro: { en: "Everything in Recruit, plus:", fr: "Tout ce qui est dans Recruter, plus :" },
     feat_head_ent: { en: "Everything in Pro, plus:", fr: "Tout ce qui est dans Pro, plus :" },
     feat_head_ult: { en: "Everything in Enterprise, plus:", fr: "Tout ce qui est dans Entreprise, plus :" },
 
@@ -3389,7 +3389,6 @@ export const strings = {
     ent_b4: { en: "Custom admin roles & permissions", fr: "Rôles et permissions admin personnalisés" },
     ent_b5: { en: "Multi-site segmentation", fr: "Segmentation multi-sites" },
     ent_b6: { en: "Two-Factor Authentication (2FA)", fr: "Authentification à deux facteurs (2FA)" },
-    ent_b7: { en: "Map form fields to database fields", fr: "Associer les champs de formulaire à des champs de base de données" },
     ent_b8: { en: "Advanced email customizations", fr: "Personnalisations courriel avancées" },
     ent_b9: { en: "Recognition module with custom awards", fr: "Module de reconnaissance avec prix personnalisés" },
 
@@ -3442,12 +3441,12 @@ export const strings = {
 
     // Comparison rows — recruitment
     rc_page_n: { en: "Custom-branded recruitment page", fr: "Page de recrutement à votre image" },
-    rc_page_d: { en: "Build a volunteer recruitment page featuring volunteer opportunities and application forms.", fr: "Bâtissez une page de recrutement présentant des opportunités et formulaires de candidature." },
+    rc_page_d: { en: "Promote a volunteer recruitment page featuring volunteer opportunities and application forms.", fr: "Promouvez une page de recrutement présentant des opportunités et formulaires de candidature." },
     rc_opps_n: { en: "Feature volunteer opportunities", fr: "Mettez en avant des opportunités de bénévolat" },
-    rc_opps_d: { en: "Build volunteer opportunities structured by activity, role, or anything you want.", fr: "Construisez des opportunités structurées par activité, rôle ou tout ce que vous voulez." },
+    rc_opps_d: { en: "Build volunteer opportunities structured by activity, role, or anything you want.", fr: "Mettez en place des opportunités structurées par activité, rôle ou tout ce que vous voulez." },
     rc_group_n: { en: "Group opportunities by category", fr: "Regroupez les opportunités par catégorie" },
     rc_group_d: { en: "Group your opportunities by location, program, event, department, or whatever works best for you.", fr: "Regroupez vos opportunités par lieu, programme, événement, département ou ce qui vous convient le mieux." },
-    rc_dash_n: { en: "Access to opportunity dashboards", fr: "Accès aux tableaux de bord d'opportunité" },
+    rc_dash_n: { en: "Access to opportunity dashboards", fr: "Accédez aux tableaux de bord d'opportunité" },
     rc_dash_d: { en: "View everything about your opportunity from a single page — applicants, shift requests, hour claims, analytics and more.", fr: "Voyez tout sur votre opportunité depuis une seule page — candidats, demandes de quart, déclarations d'heures, analyses et plus." },
     rc_appforms_n: { en: "Opportunity-specific application forms", fr: "Formulaires de candidature par opportunité" },
     rc_appforms_d: { en: "Customize application forms for your opportunities and events, including templates to reuse across opportunities.", fr: "Personnalisez les formulaires pour vos opportunités et événements, avec des modèles réutilisables." },
@@ -3461,10 +3460,10 @@ export const strings = {
     rc_notif_d: { en: "Choose which admin users will receive app and/or email notifications when you receive new applicants.", fr: "Choisissez quels administrateurs reçoivent des notifications app et/ou courriel à l'arrivée de nouveaux candidats." },
 
     // Comparison rows — onboarding
-    on_seq_n: { en: "Build onboarding sequences to manage your entire screening process", fr: "Construisez des séquences d'intégration pour gérer tout votre processus de sélection" },
-    on_seq_d: { en: "Build step-by-step onboarding processes for volunteers to complete, with optional visibility for the volunteer.", fr: "Construisez des processus d'intégration étape par étape pour les bénévoles, avec visibilité optionnelle pour le bénévole." },
+    on_seq_n: { en: "Build onboarding sequences to manage your entire screening process", fr: "Mettez en place des séquences d'intégration pour gérer tout votre processus de sélection" },
+    on_seq_d: { en: "Put volunteers through step-by-step onboarding processes to complete, with optional visibility for the volunteer.", fr: "Mettez en place des processus d'intégration étape par étape pour les bénévoles, avec visibilité optionnelle pour le bénévole." },
     on_int_n: { en: "Manage interviews, orientation & training sessions for opportunities", fr: "Gérez entrevues, orientations et sessions de formation pour les opportunités" },
-    on_int_d: { en: "Build a screening checklist to use across your opportunities to stay on track about who completed what.", fr: "Bâtissez une liste de sélection à utiliser à travers vos opportunités pour suivre qui a complété quoi." },
+    on_int_d: { en: "Put together a screening checklist to use across your opportunities to stay on track about who completed what.", fr: "Mettez en place une liste de sélection à utiliser à travers vos opportunités pour suivre qui a complété quoi." },
     on_bg_n: { en: "Sterling Volunteers background check integration", fr: "Intégration des vérifications d'antécédents Sterling Volunteers" },
     on_bg_d: { en: "Integrate background checks directly into volunteer sequences with automatic status updates and ongoing monitoring.", fr: "Intégrez les vérifications d'antécédents directement dans les séquences avec mises à jour automatiques et suivi continu." },
     on_scorm_n: { en: "SCORM Cloud E-Learning integration", fr: "Intégration SCORM Cloud d'apprentissage en ligne" },
@@ -3560,7 +3559,7 @@ export const strings = {
     co_auto_n: { en: "Auto-generated chatrooms", fr: "Salons générés automatiquement" },
     co_auto_d: { en: "Choose to use auto-generated chatrooms for your opportunities or shifts with automatic participant management.", fr: "Choisissez d'utiliser des salons générés automatiquement pour vos opportunités ou quarts avec gestion automatique des participants." },
     co_temp_n: { en: "Email templates & shared template folders", fr: "Modèles de courriel et dossiers partagés" },
-    co_temp_d: { en: "Build a library of reusable email templates and folder them so every coordinator pulls from the same shared library.", fr: "Bâtissez une bibliothèque de modèles de courriel réutilisables et classez-les en dossiers pour que chaque coordonnateur tire de la même bibliothèque partagée." },
+    co_temp_d: { en: "Build a library of reusable email templates and folder them so every coordinator pulls from the same shared library.", fr: "Mettez en place une bibliothèque de modèles de courriel réutilisables et classez-les en dossiers pour que chaque coordonnateur tire de la même bibliothèque partagée." },
     co_dyn_n: { en: "Dynamic variable placeholders", fr: "Variables dynamiques" },
     co_dyn_d: { en: "Personalize email subjects and bodies with dynamic placeholders like first name, role, site, shift name, shift time, and any custom field.", fr: "Personnalisez objets et corps de courriel avec des variables dynamiques comme prénom, rôle, site, nom du quart, heure du quart et tout champ personnalisé." },
     co_attach_n: { en: "Rich media in chats (images, video, audio, docs, links)", fr: "Médias enrichis dans les clavardages (images, vidéo, audio, docs, liens)" },
@@ -3570,7 +3569,7 @@ export const strings = {
     co_outbox_n: { en: "Shared outbox & email sharing policy", fr: "Boîte d'envoi partagée et politique de partage" },
     co_outbox_d: { en: "Audit every email sent from Vome (one-off, bulk, shift-notification, birthday) in a shared outbox; control admin visibility with the email sharing policy.", fr: "Vérifiez chaque courriel envoyé depuis Vome (ponctuel, en masse, notification de quart, anniversaire) dans une boîte d'envoi partagée; contrôlez la visibilité des admins via la politique de partage." },
     co_shiftpol_n: { en: "Shift notification policies", fr: "Politiques de notification de quart" },
-    co_shiftpol_d: { en: "Build reusable policies with pre-shift reminders, change alerts, and post-shift follow-ups (with optional survey link); attach to one shift or to a shift generator.", fr: "Bâtissez des politiques réutilisables avec rappels pré-quart, alertes de changement et suivis post-quart (avec lien de sondage facultatif); attachez à un quart ou à un générateur." },
+    co_shiftpol_d: { en: "Build reusable policies with pre-shift reminders, change alerts, and post-shift follow-ups (with optional survey link); attach to one shift or to a shift generator.", fr: "Mettez en place des politiques réutilisables avec rappels pré-quart, alertes de changement et suivis post-quart (avec lien de sondage facultatif); attachez à un quart ou à un générateur." },
     co_bday_n: { en: "Birthday notifications", fr: "Notifications d'anniversaire" },
     co_bday_d: { en: "Send automatic birthday wishes to volunteers and/or alerts to admins, with site-level recipient rules and template-based content.", fr: "Envoyez des vœux d'anniversaire automatiques aux bénévoles et/ou des alertes aux admins, avec règles de destinataires par site et contenu basé sur des modèles." },
     co_handoff_n: { en: "Hand-off notifications", fr: "Notifications de transfert" },
