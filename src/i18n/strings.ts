@@ -3389,6 +3389,7 @@ export const strings = {
     ent_b4: { en: "Custom admin roles & permissions", fr: "Rôles et permissions admin personnalisés" },
     ent_b5: { en: "Multi-site segmentation", fr: "Segmentation multi-sites" },
     ent_b6: { en: "Two-Factor Authentication (2FA)", fr: "Authentification à deux facteurs (2FA)" },
+    ent_b7: { en: "Map form fields to database fields", fr: "Associer les champs de formulaire à des champs de base de données" },
     ent_b8: { en: "Advanced email customizations", fr: "Personnalisations courriel avancées" },
     ent_b9: { en: "Recognition module with custom awards", fr: "Module de reconnaissance avec prix personnalisés" },
 
