@@ -116,7 +116,7 @@ export const strings = {
   //  hours, data & reports, communications)
   // ─────────────────────────────────────────────────────────────────────────
   feature_tabs: {
-    intro_h2_part1: { en: "Everything leaders of volunteers need.", fr: "Tout ce dont les responsables de bénévoles ont besoin." },
+    intro_h2_part1: { en: "Everything volunteer managers need.", fr: "Tout ce dont les gestionnaires de bénévoles ont besoin." },
     intro_h2_accent: { en: "Built to work together.", fr: "Conçu pour fonctionner ensemble." },
     intro_sub: {
       en: "Vome is the complete volunteer management platform. One easy-to-use system that eliminates manual work at every step, from the first application to the final report.",
@@ -2692,8 +2692,8 @@ export const strings = {
     h2: { en: "The app your volunteers love.", fr: "L'application que vos bénévoles adorent." },
     h2_sub: { en: "Designed for every age, skill, and shift.", fr: "Conçue pour tous les âges, toutes les compétences et tous les quarts." },
     sub: {
-      en: "Volunteers register for opportunities, reserve shifts, check in, and message your team, all from their phone. Admins get the same app to run the whole program from anywhere.",
-      fr: "Les bénévoles s'inscrivent aux opportunités, réservent des quarts, pointent leur présence et communiquent avec votre équipe, le tout depuis leur téléphone. Les administrateurs ont la même application pour gérer tout le programme depuis n'importe où.",
+      en: "Volunteers can register for opportunities, reserve shifts, check in, and message your team, all from their phone. Admins get the same app to run the whole program from anywhere.",
+      fr: "Les bénévoles peuvent s'inscrire aux opportunités, réserver des quarts, pointer leur présence et communiquer avec votre équipe, le tout depuis leur téléphone. Les administrateurs ont la même application pour gérer tout le programme depuis n'importe où.",
     },
     callout_browse: { en: "Browse and sign up\nfor opportunities", fr: "Parcourez et inscrivez-vous\naux opportunités" },
     callout_reserve: { en: "Reserve and manage\nyour shifts", fr: "Réservez et gérez\nvos quarts" },
@@ -2971,8 +2971,8 @@ export const strings = {
 
     q_discounts: { en: "Do you offer any discounts?", fr: "Offrez-vous des rabais ?" },
     a_discounts: {
-      en: "Yes. When you choose the annual billing option on Vome Pro, you receive a 33% discount compared to 12 monthly payments. We also offer additional savings for organizations that require a sizeable number of admin seats, have unique organizational structures, or are looking to partner for longer terms. We do not offer general nonprofit discounts because all of our clients are nonprofits.",
-      fr: "Oui. Lorsque vous choisissez la facturation annuelle sur Vome Pro, vous recevez un rabais de 33 % par rapport à 12 paiements mensuels. Nous offrons aussi des économies supplémentaires aux organisations qui ont besoin d'un grand nombre de sièges administratifs, qui ont des structures organisationnelles uniques, ou qui cherchent un partenariat à long terme. Nous n'offrons pas de rabais OBNL généraux puisque tous nos clients sont des organismes à but non lucratif.",
+      en: "Yes. When you choose the annual billing option on Vome Pro, you receive a 33% discount compared to 12 monthly payments. We also offer additional savings for organizations that require a sizeable number of admin seats, have unique organizational structures, or are looking to partner for longer terms.",
+      fr: "Oui. Lorsque vous choisissez la facturation annuelle sur Vome Pro, vous recevez un rabais de 33 % par rapport à 12 paiements mensuels. Nous offrons aussi des économies supplémentaires aux organisations qui ont besoin d'un grand nombre de sièges administratifs, qui ont des structures organisationnelles uniques, ou qui cherchent un partenariat à long terme.",
     },
 
     q_languages: { en: "What languages do you support?", fr: "Quelles langues supportez-vous ?" },
