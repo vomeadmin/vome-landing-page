@@ -3050,14 +3050,14 @@ export const strings = {
     required: { en: "required", fr: "obligatoire" },
     submit: { en: "Send Message", fr: "Envoyer le message" },
     sending: { en: "Sending…", fr: "Envoi en cours…" },
-    note: { en: "We typically reply within one business day.", fr: "Nous répondons généralement en un jour ouvrable." },
+    note: { en: "We typically reply within 1-2 business days.", fr: "Nous répondons généralement en 1 à 2 jours ouvrables." },
     success_heading: { en: "Message sent", fr: "Message envoyé" },
-    success_body: { en: "We typically reply within one business day.", fr: "Nous répondons généralement en un jour ouvrable." },
-    success_body_named: { en: "Thanks, {name}. We typically reply within one business day.", fr: "Merci, {name}. Nous répondons généralement en un jour ouvrable." },
+    success_body: { en: "We typically reply within 1-2 business days.", fr: "Nous répondons généralement en 1 à 2 jours ouvrables." },
+    success_body_named: { en: "Thanks, {name}. We typically reply within 1-2 business days.", fr: "Merci, {name}. Nous répondons généralement en 1 à 2 jours ouvrables." },
     error: { en: "Something went wrong — please try again, or visit our support portal if the issue continues.", fr: "Une erreur s'est produite — veuillez réessayer ou visiter notre portail de soutien si le problème persiste." },
     fr_docs_note: {
-      en: "Looking for documentation in French? Email us at hello@vomevolunteer.com and we'll send the French version.",
-      fr: "Vous cherchez de la documentation en français ? Écrivez-nous à hello@vomevolunteer.com et nous vous enverrons la version française.",
+      en: "Looking for documentation in French? Email us at admin@vomevolunteer.com and we'll send the French version.",
+      fr: "Vous cherchez de la documentation en français ? Écrivez-nous à admin@vomevolunteer.com et nous vous enverrons la version française.",
     },
   },
 
@@ -3147,7 +3147,7 @@ export const strings = {
     route_faq_cta: { en: "Browse the FAQ →", fr: "Consulter la FAQ →" },
 
     form_h2: { en: "Send us a message", fr: "Envoyez-nous un message" },
-    form_sub: { en: "Fill in the form and we'll get back to you within one business day.", fr: "Remplissez le formulaire et nous vous répondrons en un jour ouvrable." },
+    form_sub: { en: "Fill in the form and we should get back to you within 1-2 business days.", fr: "Remplissez le formulaire et nous devrions vous répondre en 1 à 2 jours ouvrables." },
 
     fld_first: { en: "First name", fr: "Prénom" },
     fld_last: { en: "Last name", fr: "Nom" },
@@ -3168,11 +3168,11 @@ export const strings = {
 
     submit: { en: "Send message", fr: "Envoyer le message" },
     sending: { en: "Sending…", fr: "Envoi en cours…" },
-    note: { en: "We typically reply within one business day.", fr: "Nous répondons généralement en un jour ouvrable." },
+    note: { en: "We typically reply within 1-2 business days.", fr: "Nous répondons généralement en 1 à 2 jours ouvrables." },
 
     success_heading: { en: "Message sent", fr: "Message envoyé" },
-    success_body: { en: "We typically reply within one business day.", fr: "Nous répondons généralement en un jour ouvrable." },
-    success_body_named: { en: "Thanks, {name}. We typically reply within one business day.", fr: "Merci, {name}. Nous répondons généralement en un jour ouvrable." },
+    success_body: { en: "We typically reply within 1-2 business days.", fr: "Nous répondons généralement en 1 à 2 jours ouvrables." },
+    success_body_named: { en: "Thanks, {name}. We typically reply within 1-2 business days.", fr: "Merci, {name}. Nous répondons généralement en 1 à 2 jours ouvrables." },
     success_back: { en: "Back to homepage", fr: "Retour à l'accueil" },
     error: { en: "Something went wrong — please try again, or visit our support portal if the issue continues.", fr: "Une erreur s'est produite — veuillez réessayer ou visiter notre portail de soutien si le problème persiste." },
 
@@ -3187,8 +3187,8 @@ export const strings = {
     cfaq_h2: { en: "Common questions", fr: "Questions fréquentes" },
     cfaq_q1: { en: "How quickly will I hear back?", fr: "À quelle vitesse aurai-je une réponse ?" },
     cfaq_a1: {
-      en: "We typically reply within one business day. If your need is urgent, the fastest path to an answer is our support portal — it usually gets you there faster.",
-      fr: "Nous répondons généralement en un jour ouvrable. Si votre besoin est urgent, le chemin le plus rapide vers une réponse est notre portail de soutien — il vous y mène habituellement plus vite.",
+      en: "We typically reply within 1-2 business days. If your need is urgent, the fastest path to an answer is our support portal — it usually gets you there faster.",
+      fr: "Nous répondons généralement en 1 à 2 jours ouvrables. Si votre besoin est urgent, le chemin le plus rapide vers une réponse est notre portail de soutien — il vous y mène habituellement plus vite.",
     },
     cfaq_q2: { en: "Can I schedule a call instead of sending a message?", fr: "Puis-je planifier un appel au lieu d'envoyer un message ?" },
     cfaq_a2: {
