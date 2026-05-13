@@ -183,7 +183,7 @@ const featuresAllHref = `${featurePrefix}/features`;
        Checkbox-hack approach: the hidden .nav__toggle drives .mainnav__cta
        visibility on narrow screens via a :checked sibling selector in landing.css. -->
   <input type="checkbox" id="nav-toggle" class="nav__toggle" tabindex="-1" />
-  <label for="nav-toggle" class="nav__burger" aria-label="Toggle navigation">
+  <label for="nav-toggle" class="nav__burger" aria-label={t(n.toggle_navigation, locale)}>
     <span></span>
     <span></span>
     <span></span>
@@ -192,5 +192,45 @@ const featuresAllHref = `${featurePrefix}/features`;
   <div class="mainnav__cta">
     <Button href={locale === "fr" ? "/fr/demo" : "/demo"} variant="ghost">{t(n.book_demo, locale)}</Button>
     <Button href={appUrl("/register")} variant="primary">{t(n.signup_free, locale)}</Button>
+  </div>
+
+  <!-- Mobile drawer: shown only on narrow screens when nav__toggle is checked.
+       Surfaces the full set of pages (login, features, plans, about, contact),
+       splits sign-up into volunteer vs organization (the React app's marketing
+       chrome had this same split), and offers a quick EN/FR toggle since the
+       topnav language dropdown is hidden on mobile. -->
+  <div class="mainnav__mobile">
+    <div class="mainnav__mobile-section">
+      <div class="mainnav__mobile-eyebrow">{t(n.menu_section_pages, locale)}</div>
+      <a class="mainnav__mobile-link" href={`${featurePrefix}/features`}>{t(n.features, locale)}</a>
+      <a class="mainnav__mobile-link" href={locale === "fr" ? "/fr/plans" : "/plans"}>{t(n.plans, locale)}</a>
+      <a class="mainnav__mobile-link" href={locale === "fr" ? "/fr/about-us" : "/about-us"}>{t(n.about, locale)}</a>
+      <a class="mainnav__mobile-link" href={locale === "fr" ? "/fr/contact" : "/contact"}>{t(n.contact, locale)}</a>
+      <a class="mainnav__mobile-link" href={appUrl("/login")}>{t(n.login, locale)}</a>
+    </div>
+
+    <div class="mainnav__mobile-section">
+      <div class="mainnav__mobile-eyebrow">{t(n.menu_section_signup, locale)}</div>
+      <Button href={appUrl("/register-volunteer")} variant="primary">{t(n.signup_volunteer, locale)}</Button>
+      <Button href={appUrl("/register")} variant="primary">{t(n.signup_organization, locale)}</Button>
+      <Button href={locale === "fr" ? "/fr/demo" : "/demo"} variant="ghost">{t(n.book_demo, locale)}</Button>
+    </div>
+
+    <div class="mainnav__mobile-section">
+      <div class="mainnav__mobile-eyebrow">{t(n.menu_section_language, locale)}</div>
+      <div class="mainnav__mobile-lang" role="group" aria-label={t(n.menu_section_language, locale)}>
+        {langOptions.map((o) => (
+          <a
+            href={o.href}
+            hreflang={o.code}
+            lang={o.code}
+            aria-current={o.code === locale ? "true" : undefined}
+            class={`mainnav__mobile-lang-btn${o.code === locale ? " is-active" : ""}`}
+          >
+            {o.label}
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 </nav>

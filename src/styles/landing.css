@@ -2430,20 +2430,74 @@ body[data-eyebrow="off"] .hero__eyebrow{display:none}
 .nav__burger span{display:block;width:24px;height:2px;background:var(--fg-2);border-radius:2px}
 .nav__burger span + span{margin-top:5px}
 
+/* Mobile drawer — hidden on desktop. Surfaces the full set of marketing
+   pages, the volunteer-vs-organization signup split, and the EN/FR toggle
+   that the desktop topnav otherwise hides on narrow viewports. */
+.mainnav__mobile{display:none}
+
 @media (max-width:860px){
   .topnav{display:none}
   .mainnav{justify-content:space-between}
   .nav__burger{display:inline-flex;flex-direction:column;justify-content:center}
-  .mainnav__cta{
+  /* The desktop CTA row is replaced on mobile by the richer .mainnav__mobile
+     drawer below — hide the original two-button row entirely on narrow
+     viewports so we don't show signup twice when the drawer is open. */
+  .mainnav__cta{display:none}
+  .mainnav__mobile{
     display:none;
     position:absolute;top:100%;left:0;right:0;
     background:#fff;border-top:1px solid rgba(0,0,0,.05);
     flex-direction:column;align-items:stretch;gap:0;
-    padding:8px 8% 16px;
+    padding:12px 8% 20px;
+    max-height:calc(100vh - 74px);
+    overflow-y:auto;
     box-shadow:0 12px 24px -12px rgba(0,0,0,.15);
   }
-  .mainnav__cta .btn{width:100%;justify-content:center}
-  .nav__toggle:checked ~ .mainnav__cta{display:flex}
+  .nav__toggle:checked ~ .mainnav__mobile{display:flex}
+  .mainnav__mobile-section{
+    display:flex;flex-direction:column;gap:8px;
+    padding:12px 0;
+  }
+  .mainnav__mobile-section + .mainnav__mobile-section{
+    border-top:1px solid rgba(0,0,0,.06);
+  }
+  .mainnav__mobile-eyebrow{
+    text-transform:uppercase;letter-spacing:.06em;
+    font-size:11px;font-weight:600;
+    color:var(--fg-3);opacity:.7;
+    margin-bottom:4px;
+  }
+  .mainnav__mobile-link{
+    display:block;padding:10px 4px;
+    font-size:16px;font-weight:500;
+    color:var(--fg-1);
+    text-decoration:none;
+    border-radius:6px;
+  }
+  .mainnav__mobile-link:hover,
+  .mainnav__mobile-link:focus-visible{color:var(--vome-orange);background:rgba(0,0,0,.03)}
+  .mainnav__mobile-section .btn{width:100%;justify-content:center}
+  .mainnav__mobile-lang{
+    display:flex;gap:8px;
+    background:rgba(0,0,0,.04);
+    border-radius:10px;padding:4px;
+  }
+  .mainnav__mobile-lang-btn{
+    flex:1;
+    text-align:center;
+    padding:10px 12px;
+    border-radius:8px;
+    font-size:14px;font-weight:600;
+    color:var(--fg-2);
+    text-decoration:none;
+    transition:background 120ms var(--ease-standard), color 120ms var(--ease-standard);
+  }
+  .mainnav__mobile-lang-btn.is-active{
+    background:#fff;
+    color:var(--vome-orange);
+    box-shadow:0 1px 2px rgba(0,0,0,.08);
+  }
+  .mainnav__mobile-lang-btn:not(.is-active):hover{color:var(--fg-1)}
 }
 
 /* ============================================================
